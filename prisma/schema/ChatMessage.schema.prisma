@@ -1,0 +1,19 @@
+model ChatMessage {
+  id String @id @default(uuid())
+
+  threadId String
+  thread   ChatThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  senderId String
+  sender   User   @relation(fields: [senderId], references: [id], onDelete: Restrict)
+
+  content String
+
+  sentAt DateTime  @default(now())
+  readAt DateTime?
+
+  @@index([threadId])
+  @@index([senderId])
+  @@index([sentAt])
+  @@index([threadId, sentAt])
+}

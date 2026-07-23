@@ -1,0 +1,27 @@
+model Review {
+  id String @id @default(uuid())
+
+  memberId String
+  member   MemberProfile @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  trainerId String?
+  trainer   TrainerProfile? @relation(fields: [trainerId], references: [id], onDelete: SetNull)
+
+  rating Int
+
+  comment String?
+
+  isRemoved Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([memberId])
+  @@index([businessId])
+  @@index([trainerId])
+  @@index([rating])
+  @@index([isRemoved])
+  @@index([createdAt])
+}

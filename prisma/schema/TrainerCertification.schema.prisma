@@ -1,0 +1,24 @@
+model TrainerCertification {
+  id String @id @default(uuid())
+
+  trainerId String
+  trainer   TrainerProfile @relation(fields: [trainerId], references: [id], onDelete: Cascade)
+
+  title   String
+  fileUrl String
+
+  status CertificationStatus @default(PENDING)
+
+  reviewedByAdminId String?
+  reviewedByAdmin   User?   @relation("AdminReviewer", fields: [reviewedByAdminId], references: [id], onDelete: SetNull)
+
+  rejectionReason String?
+  reviewedAt      DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@index([trainerId])
+  @@index([status])
+  @@index([reviewedByAdminId])
+  @@index([createdAt])
+}

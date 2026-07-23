@@ -1,0 +1,23 @@
+model Attendance {
+  id String @id @default(uuid())
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  qrCodeId String
+  qrCode   AttendanceQrCode @relation(fields: [qrCodeId], references: [id], onDelete: Restrict)
+
+  type AttendanceType
+
+  checkInAt DateTime @default(now())
+
+  @@index([businessId])
+  @@index([userId])
+  @@index([qrCodeId])
+  @@index([type])
+  @@index([checkInAt])
+  @@index([businessId, checkInAt])
+}

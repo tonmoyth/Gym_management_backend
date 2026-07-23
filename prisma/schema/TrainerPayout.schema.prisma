@@ -1,0 +1,26 @@
+model TrainerPayout {
+  id String @id @default(uuid())
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  trainerId String
+  trainer   TrainerProfile @relation(fields: [trainerId], references: [id], onDelete: Cascade)
+
+  month DateTime
+
+  amount Decimal @db.Decimal(10, 2)
+
+  status PayoutStatus @default(PENDING)
+
+  paidAt DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@unique([businessId, trainerId, month])
+  @@index([businessId])
+  @@index([trainerId])
+  @@index([status])
+  @@index([month])
+  @@index([createdAt])
+}

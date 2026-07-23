@@ -1,0 +1,143 @@
+enum Role {
+  SUPER_ADMIN
+  BUSINESS_OWNER
+  TRAINER
+  MEMBER
+}
+
+enum BusinessStatus {
+  PENDING_APPROVAL
+  ACTIVE
+  SUSPENDED
+  REJECTED
+}
+
+enum PlanStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+enum BookingStatus {
+  PENDING_APPROVAL
+  ACTIVE
+  REJECTED
+  CANCELLED
+  EXPIRED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+enum PaymentGateway {
+  BKASH
+  ROCKET
+  NAGAD
+  STRIPE
+}
+
+enum PaymentPurpose {
+  MEMBERSHIP
+  PLATFORM_SUBSCRIPTION
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum CertificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum PayoutStatus {
+  PENDING
+  PAID
+}
+
+enum DisputeStatus {
+  OPEN
+  IN_REVIEW
+  RESOLVED
+  DISMISSED
+}
+
+enum DisputeCategory {
+  BILLING
+  SERVICE
+  CONDUCT
+  OTHER
+}
+
+enum NotificationType {
+  BOOKING
+  CHAT
+  JOB_MATCH
+  ANNOUNCEMENT
+  PAYOUT
+  DISPUTE
+  SYSTEM
+}
+
+enum ChatThreadType {
+  TRAINER_MEMBER
+  SUPPORT_MEMBER
+}
+
+enum ProgressSource {
+  SELF
+  TRAINER
+}
+
+enum ReferralStatus {
+  PENDING
+  CREDITED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+  OVERDUE
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum AnnouncementAudience {
+  MEMBERS
+  TRAINERS
+  BOTH
+}
+
+enum AttendanceType {
+  MEMBER
+  TRAINER
+}
+
+enum StaffPermissionRole {
+  FRONT_DESK
+  FINANCE
+  TRAINER_MANAGER
+  MEMBER_MANAGER
+  FULL
+}
+
+enum EquipmentCondition {
+  GOOD
+  NEEDS_REPAIR
+  OUT_OF_SERVICE
+}
+
+enum ClassBookingStatus {
+  CONFIRMED
+  CANCELLED
+}

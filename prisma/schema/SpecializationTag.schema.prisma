@@ -1,0 +1,14 @@
+model SpecializationTag {
+  id String @id @default(uuid())
+
+  name String @unique
+  slug String @unique
+
+  createdAt DateTime @default(now())
+
+  jobPosts               JobPost[]
+  memberProfiles         MemberProfile[]
+  trainerSpecializations TrainerSpecialization[]
+
+  @@index([createdAt])
+}

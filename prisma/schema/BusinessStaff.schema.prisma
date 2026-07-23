@@ -1,0 +1,17 @@
+model BusinessStaff {
+  id String @id @default(uuid())
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  permissionRole StaffPermissionRole
+
+  createdAt DateTime @default(now())
+
+  @@unique([businessId, userId])
+  @@index([businessId])
+  @@index([permissionRole])
+}

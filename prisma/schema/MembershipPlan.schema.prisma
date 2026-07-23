@@ -1,0 +1,27 @@
+model MembershipPlan {
+  id String @id @default(uuid())
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  name        String
+  description String?
+
+  price        Decimal @db.Decimal(10, 2)
+  durationDays Int
+
+  benefits String[]
+
+  status PlanStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  memberships Membership[]
+
+  // Prevent duplicate active plan names within the same business
+  @@unique([businessId, name])
+  @@index([businessId])
+  @@index([status])
+  @@index([createdAt])
+}

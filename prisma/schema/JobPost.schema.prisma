@@ -1,0 +1,23 @@
+model JobPost {
+  id String @id @default(uuid())
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  title       String
+  description String
+
+  specializationTagId String
+  specializationTag   SpecializationTag @relation(fields: [specializationTagId], references: [id], onDelete: Restrict)
+
+  isOpen Boolean @default(true)
+
+  createdAt DateTime @default(now())
+
+  applications TrainerApplication[]
+
+  @@index([businessId])
+  @@index([specializationTagId])
+  @@index([isOpen])
+  @@index([createdAt])
+}

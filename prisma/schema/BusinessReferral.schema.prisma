@@ -1,0 +1,24 @@
+model BusinessReferral {
+  id String @id @default(uuid())
+
+  referrerOwnerId String
+  referrerOwner   User   @relation("ReferrerOwner", fields: [referrerOwnerId], references: [id], onDelete: Restrict)
+
+  referredBusinessId String   @unique
+  referredBusiness   Business @relation("ReferredBusiness", fields: [referredBusinessId], references: [id], onDelete: Cascade)
+
+  referralCode String
+
+  commissionAmount Decimal @db.Decimal(10, 2)
+
+  status ReferralStatus @default(PENDING)
+
+  creditedAt DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@index([referrerOwnerId])
+  @@index([status])
+  @@index([referralCode])
+  @@index([createdAt])
+}

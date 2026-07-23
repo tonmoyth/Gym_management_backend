@@ -1,0 +1,25 @@
+model ChatThread {
+  id String @id @default(uuid())
+
+  type ChatThreadType
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  memberId String
+  member   MemberProfile @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  trainerId String?
+  trainer   TrainerProfile? @relation(fields: [trainerId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  messages ChatMessage[]
+
+  @@unique([businessId, memberId, trainerId])
+  @@index([businessId])
+  @@index([memberId])
+  @@index([trainerId])
+  @@index([type])
+  @@index([createdAt])
+}

@@ -1,0 +1,20 @@
+model TrainerApplication {
+  id String @id @default(uuid())
+
+  jobPostId String
+  jobPost   JobPost @relation(fields: [jobPostId], references: [id], onDelete: Cascade)
+
+  trainerId String
+  trainer   TrainerProfile @relation(fields: [trainerId], references: [id], onDelete: Cascade)
+
+  status ApplicationStatus @default(PENDING)
+
+  appliedAt  DateTime  @default(now())
+  reviewedAt DateTime?
+
+  @@unique([jobPostId, trainerId])
+  @@index([jobPostId])
+  @@index([trainerId])
+  @@index([status])
+  @@index([appliedAt])
+}

@@ -1,0 +1,20 @@
+model Equipment {
+  id String @id @default(uuid())
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  name     String
+  quantity Int
+
+  condition EquipmentCondition
+
+  lastMaintenanceDate DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([businessId])
+  @@index([condition])
+  @@index([createdAt])
+}

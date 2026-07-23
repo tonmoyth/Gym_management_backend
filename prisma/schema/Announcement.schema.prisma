@@ -1,0 +1,17 @@
+model Announcement {
+  id String @id @default(uuid())
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  title String
+  body  String
+
+  audience AnnouncementAudience
+
+  createdAt DateTime @default(now())
+
+  @@index([businessId])
+  @@index([audience])
+  @@index([createdAt])
+}

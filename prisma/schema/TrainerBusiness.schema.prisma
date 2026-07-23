@@ -1,0 +1,18 @@
+model TrainerBusiness {
+  id String @id @default(uuid())
+
+  trainerId String
+  trainer   TrainerProfile @relation(fields: [trainerId], references: [id], onDelete: Cascade)
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  isActive Boolean @default(true)
+
+  joinedAt DateTime @default(now())
+
+  @@unique([trainerId, businessId])
+  @@index([trainerId])
+  @@index([businessId])
+  @@index([isActive])
+}

@@ -1,0 +1,17 @@
+model MemberReferralSetting {
+  id String @id @default(uuid())
+
+  businessId String   @unique
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  commissionAmount Decimal  @db.Decimal(10, 2)
+  referralDiscount Decimal? @db.Decimal(10, 2)
+
+  isEnabled Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isEnabled])
+  @@index([createdAt])
+}

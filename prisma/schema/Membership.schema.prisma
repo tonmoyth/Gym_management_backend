@@ -1,0 +1,34 @@
+model Membership {
+  id String @id @default(uuid())
+
+  memberId String
+  member   MemberProfile @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  planId String
+  plan   MembershipPlan @relation(fields: [planId], references: [id], onDelete: Restrict)
+
+  status BookingStatus @default(PENDING_APPROVAL)
+
+  startDate DateTime?
+  endDate   DateTime?
+
+  requestedAt     DateTime  @default(now())
+  approvedAt      DateTime?
+  rejectedAt      DateTime?
+  rejectionReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  payments Payment[]
+
+  @@index([memberId])
+  @@index([businessId])
+  @@index([planId])
+  @@index([status])
+  @@index([requestedAt])
+  @@index([endDate])
+}

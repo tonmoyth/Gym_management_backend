@@ -1,0 +1,33 @@
+model TrainerProfile {
+  id String @id @default(uuid())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  bio String?
+
+  gender Gender?
+
+  profileCompletionPercent Int @default(0)
+
+  verifiedBadge Boolean @default(false)
+
+  avgRating Decimal @default(0.0) @db.Decimal(3, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  chatThreads     ChatThread[]
+  classSchedules  ClassSchedule[]
+  dietPlans       DietPlan[]
+  reviews         Review[]
+  applications    TrainerApplication[]
+  businesses      TrainerBusiness[]
+  certifications  TrainerCertification[]
+  payouts         TrainerPayout[]
+  specializations TrainerSpecialization[]
+
+  @@index([verifiedBadge])
+  @@index([gender])
+  @@index([avgRating])
+}

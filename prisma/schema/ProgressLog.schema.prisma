@@ -1,0 +1,24 @@
+model ProgressLog {
+  id String @id @default(uuid())
+
+  memberId String
+  member   MemberProfile @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  source ProgressSource
+
+  loggedByUserId String
+  loggedByUser   User   @relation(fields: [loggedByUserId], references: [id], onDelete: Restrict)
+
+  weight Decimal? @db.Decimal(5, 2)
+  bmi    Decimal? @db.Decimal(4, 2)
+
+  measurements Json?
+  workoutLog   String?
+
+  loggedAt DateTime @default(now())
+
+  @@index([memberId])
+  @@index([loggedByUserId])
+  @@index([source])
+  @@index([loggedAt])
+}

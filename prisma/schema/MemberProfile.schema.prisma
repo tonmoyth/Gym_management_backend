@@ -1,0 +1,23 @@
+model MemberProfile {
+  id String @id @default(uuid())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  fitnessGoalTagId String?
+  fitnessGoalTag   SpecializationTag? @relation(fields: [fitnessGoalTagId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  chatThreads   ChatThread[]
+  classBookings ClassBooking[]
+  dietPlans     DietPlan[]
+  favorites     Favorite[]
+  referralsMade MemberReferral[] @relation("ReferrerMember")
+  memberships   Membership[]
+  progressLogs  ProgressLog[]
+  reviews       Review[]
+
+  @@index([fitnessGoalTagId])
+}

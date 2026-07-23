@@ -1,0 +1,19 @@
+model ClassBooking {
+  id String @id @default(uuid())
+
+  classScheduleId String
+  classSchedule   ClassSchedule @relation(fields: [classScheduleId], references: [id], onDelete: Cascade)
+
+  memberId String
+  member   MemberProfile @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  status ClassBookingStatus @default(CONFIRMED)
+
+  bookedAt DateTime @default(now())
+
+  @@unique([classScheduleId, memberId])
+  @@index([classScheduleId])
+  @@index([memberId])
+  @@index([status])
+  @@index([bookedAt])
+}

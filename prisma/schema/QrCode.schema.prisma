@@ -1,0 +1,14 @@
+model AttendanceQrCode {
+  id String @id @default(uuid())
+
+  businessId String   @unique
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  code String @unique
+
+  createdAt DateTime @default(now())
+
+  attendances Attendance[]
+
+  @@index([createdAt])
+}

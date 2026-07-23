@@ -1,0 +1,28 @@
+model ClassSchedule {
+  id String @id @default(uuid())
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  trainerId String?
+  trainer   TrainerProfile? @relation(fields: [trainerId], references: [id], onDelete: SetNull)
+
+  title String
+
+  startTime DateTime
+  endTime   DateTime
+
+  capacity Int
+
+  bookings ClassBooking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([businessId])
+  @@index([trainerId])
+  @@index([startTime])
+  @@index([endTime])
+  @@index([businessId, startTime])
+  @@index([trainerId, startTime])
+}

@@ -1,0 +1,35 @@
+model Payment {
+  id String @id @default(uuid())
+
+  payerUserId String
+  payer       User   @relation("UserPayments", fields: [payerUserId], references: [id], onDelete: Restrict)
+
+  membershipId String?
+  membership   Membership? @relation(fields: [membershipId], references: [id], onDelete: SetNull)
+
+  subscriptionId String?
+  subscription   PlatformSubscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+
+  amount   Decimal @db.Decimal(10, 2)
+  currency String  @default("BDT")
+
+  gateway              PaymentGateway
+  gatewayTransactionId String?
+
+  status  PaymentStatus  @default(PENDING)
+  purpose PaymentPurpose
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  invoice Invoice?
+
+  @@unique([gateway, gatewayTransactionId])
+  @@index([payerUserId])
+  @@index([membershipId])
+  @@index([subscriptionId])
+  @@index([status])
+  @@index([purpose])
+  @@index([gateway])
+  @@index([createdAt])
+}

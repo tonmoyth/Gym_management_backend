@@ -1,0 +1,29 @@
+model MemberReferral {
+  id String @id @default(uuid())
+
+  referrerMemberId String
+  referrerMember   MemberProfile @relation("ReferrerMember", fields: [referrerMemberId], references: [id], onDelete: Restrict)
+
+  referredUserId String @unique
+  referredUser   User   @relation("ReferredUser", fields: [referredUserId], references: [id], onDelete: Restrict)
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  referralCode String
+
+  commissionAmount Decimal @db.Decimal(10, 2)
+
+  status ReferralStatus @default(PENDING)
+
+  creditedAt DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@index([referrerMemberId])
+  @@index([referredUserId])
+  @@index([businessId])
+  @@index([status])
+  @@index([referralCode])
+  @@index([createdAt])
+}
