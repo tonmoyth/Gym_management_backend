@@ -31,8 +31,16 @@ const updateStaffPermissionValidation = z.object({
     }).strict()
 });
 
+const removeStaffValidation = z.object({
+    params: z.object({
+        businessId: z.string().uuid({ message: 'Invalid Business ID' }),
+        staffId: z.string().uuid({ message: 'Invalid Staff ID' })
+    })
+});
+
 export const StaffValidations = {
     addStaffValidation,
     getStaffListValidation,
-    updateStaffPermissionValidation
+    updateStaffPermissionValidation,
+    removeStaffValidation
 };

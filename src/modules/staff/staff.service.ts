@@ -181,8 +181,41 @@ const updateStaffPermission = async (
     return updatedStaff;
 };
 
+const removeStaff = async (businessId: string, staffId: string, ownerId: string) => {
+    const business = await prisma.business.findUnique({
+        where: { id: businessId }
+    });
+
+    if (!business) {
+        throw new AppError(404, 'Business not found');
+    }
+
+    if (business.ownerId !== ownerId) {
+        throw new AppError(403, 'Forbidden: You do not own this business');
+    }
+
+    const staff = await prisma.businessStaff.findUnique({
+        where: { id: staffId }
+    });
+
+    if (!staff) {
+        throw new AppError(404, 'Staff not found');
+    }
+
+    if (staff.businessId !== businessId) {
+        throw new AppError(403, 'Forbidden: Staff does not belong to this business');
+    }
+
+    await prisma.businessStaff.delete({
+        where: { id: staffId }
+    });
+
+    return null;
+};
+
 export const StaffService = {
     addStaff,
     getStaffList,
-    updateStaffPermission
+    updateStaffPermission,
+    removeStaff
 };

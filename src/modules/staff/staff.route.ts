@@ -31,4 +31,12 @@ router.patch(
     StaffController.updateStaffPermission
 );
 
+router.delete(
+    '/:businessId/staff/:staffId',
+    // @ts-ignore
+    checkAuth(USER_ROLE.BUSINESS_OWNER),
+    validateRequest(StaffValidations.removeStaffValidation),
+    StaffController.removeStaff
+);
+
 export const staffRoutes = router;

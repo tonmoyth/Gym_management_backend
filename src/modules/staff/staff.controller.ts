@@ -45,8 +45,24 @@ const updateStaffPermission = catchAsync(async (req: Request, res: Response) => 
     });
 });
 
+const removeStaff = catchAsync(async (req: Request, res: Response) => {
+    const businessId = req.params.businessId as string;
+    const staffId = req.params.staffId as string;
+    const ownerId = req.user.id;
+
+    await StaffService.removeStaff(businessId, staffId, ownerId);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Staff removed successfully.',
+        data: null
+    });
+});
+
 export const StaffController = {
     addStaff,
     getStaffList,
-    updateStaffPermission
+    updateStaffPermission,
+    removeStaff
 };
