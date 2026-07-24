@@ -6,13 +6,17 @@ model Business {
 
   name        String
   description String?
+  logo        String?
+  email       String?
+  phone       String?
+  whatsapp    String?
 
   address   String
-  latitude  Float
-  longitude Float
+  latitude  Float?
+  longitude Float?
 
   amenities String[]
-  photos    String[]
+  photos    String[] @default([])
 
   status BusinessStatus @default(PENDING_APPROVAL)
 

@@ -41,6 +41,10 @@ export type BusinessMinAggregateOutputType = {
   ownerId: string | null
   name: string | null
   description: string | null
+  logo: string | null
+  email: string | null
+  phone: string | null
+  whatsapp: string | null
   address: string | null
   latitude: number | null
   longitude: number | null
@@ -54,6 +58,10 @@ export type BusinessMaxAggregateOutputType = {
   ownerId: string | null
   name: string | null
   description: string | null
+  logo: string | null
+  email: string | null
+  phone: string | null
+  whatsapp: string | null
   address: string | null
   latitude: number | null
   longitude: number | null
@@ -67,6 +75,10 @@ export type BusinessCountAggregateOutputType = {
   ownerId: number
   name: number
   description: number
+  logo: number
+  email: number
+  phone: number
+  whatsapp: number
   address: number
   latitude: number
   longitude: number
@@ -94,6 +106,10 @@ export type BusinessMinAggregateInputType = {
   ownerId?: true
   name?: true
   description?: true
+  logo?: true
+  email?: true
+  phone?: true
+  whatsapp?: true
   address?: true
   latitude?: true
   longitude?: true
@@ -107,6 +123,10 @@ export type BusinessMaxAggregateInputType = {
   ownerId?: true
   name?: true
   description?: true
+  logo?: true
+  email?: true
+  phone?: true
+  whatsapp?: true
   address?: true
   latitude?: true
   longitude?: true
@@ -120,6 +140,10 @@ export type BusinessCountAggregateInputType = {
   ownerId?: true
   name?: true
   description?: true
+  logo?: true
+  email?: true
+  phone?: true
+  whatsapp?: true
   address?: true
   latitude?: true
   longitude?: true
@@ -222,9 +246,13 @@ export type BusinessGroupByOutputType = {
   ownerId: string
   name: string
   description: string | null
+  logo: string | null
+  email: string | null
+  phone: string | null
+  whatsapp: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude: number | null
+  longitude: number | null
   amenities: string[]
   photos: string[]
   status: $Enums.BusinessStatus
@@ -260,9 +288,13 @@ export type BusinessWhereInput = {
   ownerId?: Prisma.StringFilter<"Business"> | string
   name?: Prisma.StringFilter<"Business"> | string
   description?: Prisma.StringNullableFilter<"Business"> | string | null
+  logo?: Prisma.StringNullableFilter<"Business"> | string | null
+  email?: Prisma.StringNullableFilter<"Business"> | string | null
+  phone?: Prisma.StringNullableFilter<"Business"> | string | null
+  whatsapp?: Prisma.StringNullableFilter<"Business"> | string | null
   address?: Prisma.StringFilter<"Business"> | string
-  latitude?: Prisma.FloatFilter<"Business"> | number
-  longitude?: Prisma.FloatFilter<"Business"> | number
+  latitude?: Prisma.FloatNullableFilter<"Business"> | number | null
+  longitude?: Prisma.FloatNullableFilter<"Business"> | number | null
   amenities?: Prisma.StringNullableListFilter<"Business">
   photos?: Prisma.StringNullableListFilter<"Business">
   status?: Prisma.EnumBusinessStatusFilter<"Business"> | $Enums.BusinessStatus
@@ -295,9 +327,13 @@ export type BusinessOrderByWithRelationInput = {
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  logo?: Prisma.SortOrderInput | Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  whatsapp?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrder
-  latitude?: Prisma.SortOrder
-  longitude?: Prisma.SortOrder
+  latitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   amenities?: Prisma.SortOrder
   photos?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -333,9 +369,13 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.BusinessWhereInput | Prisma.BusinessWhereInput[]
   name?: Prisma.StringFilter<"Business"> | string
   description?: Prisma.StringNullableFilter<"Business"> | string | null
+  logo?: Prisma.StringNullableFilter<"Business"> | string | null
+  email?: Prisma.StringNullableFilter<"Business"> | string | null
+  phone?: Prisma.StringNullableFilter<"Business"> | string | null
+  whatsapp?: Prisma.StringNullableFilter<"Business"> | string | null
   address?: Prisma.StringFilter<"Business"> | string
-  latitude?: Prisma.FloatFilter<"Business"> | number
-  longitude?: Prisma.FloatFilter<"Business"> | number
+  latitude?: Prisma.FloatNullableFilter<"Business"> | number | null
+  longitude?: Prisma.FloatNullableFilter<"Business"> | number | null
   amenities?: Prisma.StringNullableListFilter<"Business">
   photos?: Prisma.StringNullableListFilter<"Business">
   status?: Prisma.EnumBusinessStatusFilter<"Business"> | $Enums.BusinessStatus
@@ -368,9 +408,13 @@ export type BusinessOrderByWithAggregationInput = {
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  logo?: Prisma.SortOrderInput | Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  whatsapp?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrder
-  latitude?: Prisma.SortOrder
-  longitude?: Prisma.SortOrder
+  latitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   amenities?: Prisma.SortOrder
   photos?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -391,9 +435,13 @@ export type BusinessScalarWhereWithAggregatesInput = {
   ownerId?: Prisma.StringWithAggregatesFilter<"Business"> | string
   name?: Prisma.StringWithAggregatesFilter<"Business"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
+  logo?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
+  email?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
+  phone?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
+  whatsapp?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   address?: Prisma.StringWithAggregatesFilter<"Business"> | string
-  latitude?: Prisma.FloatWithAggregatesFilter<"Business"> | number
-  longitude?: Prisma.FloatWithAggregatesFilter<"Business"> | number
+  latitude?: Prisma.FloatNullableWithAggregatesFilter<"Business"> | number | null
+  longitude?: Prisma.FloatNullableWithAggregatesFilter<"Business"> | number | null
   amenities?: Prisma.StringNullableListFilter<"Business">
   photos?: Prisma.StringNullableListFilter<"Business">
   status?: Prisma.EnumBusinessStatusWithAggregatesFilter<"Business"> | $Enums.BusinessStatus
@@ -405,9 +453,13 @@ export type BusinessCreateInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -440,9 +492,13 @@ export type BusinessUncheckedCreateInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -473,9 +529,13 @@ export type BusinessUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -508,9 +568,13 @@ export type BusinessUncheckedUpdateInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -542,9 +606,13 @@ export type BusinessCreateManyInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -556,9 +624,13 @@ export type BusinessUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -571,9 +643,13 @@ export type BusinessUncheckedUpdateManyInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -599,6 +675,10 @@ export type BusinessCountOrderByAggregateInput = {
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  logo?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  whatsapp?: Prisma.SortOrder
   address?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
@@ -619,6 +699,10 @@ export type BusinessMaxOrderByAggregateInput = {
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  logo?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  whatsapp?: Prisma.SortOrder
   address?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
@@ -632,6 +716,10 @@ export type BusinessMinOrderByAggregateInput = {
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  logo?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  whatsapp?: Prisma.SortOrder
   address?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
@@ -695,8 +783,8 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
   increment?: number
   decrement?: number
   multiply?: number
@@ -1001,9 +1089,13 @@ export type BusinessCreateWithoutAnnouncementsInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1035,9 +1127,13 @@ export type BusinessUncheckedCreateWithoutAnnouncementsInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1083,9 +1179,13 @@ export type BusinessUpdateWithoutAnnouncementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -1117,9 +1217,13 @@ export type BusinessUncheckedUpdateWithoutAnnouncementsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -1149,9 +1253,13 @@ export type BusinessCreateWithoutAttendancesInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1183,9 +1291,13 @@ export type BusinessUncheckedCreateWithoutAttendancesInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1231,9 +1343,13 @@ export type BusinessUpdateWithoutAttendancesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -1265,9 +1381,13 @@ export type BusinessUncheckedUpdateWithoutAttendancesInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -1297,9 +1417,13 @@ export type BusinessCreateWithoutBusinessReferralInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1331,9 +1455,13 @@ export type BusinessUncheckedCreateWithoutBusinessReferralInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1379,9 +1507,13 @@ export type BusinessUpdateWithoutBusinessReferralInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -1413,9 +1545,13 @@ export type BusinessUncheckedUpdateWithoutBusinessReferralInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -1445,9 +1581,13 @@ export type BusinessCreateWithoutStaffInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1479,9 +1619,13 @@ export type BusinessUncheckedCreateWithoutStaffInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1527,9 +1671,13 @@ export type BusinessUpdateWithoutStaffInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -1561,9 +1709,13 @@ export type BusinessUncheckedUpdateWithoutStaffInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -1593,9 +1745,13 @@ export type BusinessCreateWithoutChatThreadsInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1627,9 +1783,13 @@ export type BusinessUncheckedCreateWithoutChatThreadsInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1675,9 +1835,13 @@ export type BusinessUpdateWithoutChatThreadsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -1709,9 +1873,13 @@ export type BusinessUncheckedUpdateWithoutChatThreadsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -1741,9 +1909,13 @@ export type BusinessCreateWithoutClassSchedulesInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1775,9 +1947,13 @@ export type BusinessUncheckedCreateWithoutClassSchedulesInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1823,9 +1999,13 @@ export type BusinessUpdateWithoutClassSchedulesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -1857,9 +2037,13 @@ export type BusinessUncheckedUpdateWithoutClassSchedulesInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -1889,9 +2073,13 @@ export type BusinessCreateWithoutDietPlansInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1923,9 +2111,13 @@ export type BusinessUncheckedCreateWithoutDietPlansInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -1971,9 +2163,13 @@ export type BusinessUpdateWithoutDietPlansInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2005,9 +2201,13 @@ export type BusinessUncheckedUpdateWithoutDietPlansInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2037,9 +2237,13 @@ export type BusinessCreateWithoutEquipmentInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2071,9 +2275,13 @@ export type BusinessUncheckedCreateWithoutEquipmentInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2119,9 +2327,13 @@ export type BusinessUpdateWithoutEquipmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2153,9 +2365,13 @@ export type BusinessUncheckedUpdateWithoutEquipmentInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2185,9 +2401,13 @@ export type BusinessCreateWithoutFavoritesInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2219,9 +2439,13 @@ export type BusinessUncheckedCreateWithoutFavoritesInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2267,9 +2491,13 @@ export type BusinessUpdateWithoutFavoritesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2301,9 +2529,13 @@ export type BusinessUncheckedUpdateWithoutFavoritesInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2333,9 +2565,13 @@ export type BusinessCreateWithoutJobPostsInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2367,9 +2603,13 @@ export type BusinessUncheckedCreateWithoutJobPostsInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2415,9 +2655,13 @@ export type BusinessUpdateWithoutJobPostsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2449,9 +2693,13 @@ export type BusinessUncheckedUpdateWithoutJobPostsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2481,9 +2729,13 @@ export type BusinessCreateWithoutMemberReferralsInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2515,9 +2767,13 @@ export type BusinessUncheckedCreateWithoutMemberReferralsInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2563,9 +2819,13 @@ export type BusinessUpdateWithoutMemberReferralsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2597,9 +2857,13 @@ export type BusinessUncheckedUpdateWithoutMemberReferralsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2629,9 +2893,13 @@ export type BusinessCreateWithoutReferralSettingInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2663,9 +2931,13 @@ export type BusinessUncheckedCreateWithoutReferralSettingInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2711,9 +2983,13 @@ export type BusinessUpdateWithoutReferralSettingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2745,9 +3021,13 @@ export type BusinessUncheckedUpdateWithoutReferralSettingInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2777,9 +3057,13 @@ export type BusinessCreateWithoutMembershipsInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2811,9 +3095,13 @@ export type BusinessUncheckedCreateWithoutMembershipsInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2859,9 +3147,13 @@ export type BusinessUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2893,9 +3185,13 @@ export type BusinessUncheckedUpdateWithoutMembershipsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -2925,9 +3221,13 @@ export type BusinessCreateWithoutMembershipPlansInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -2959,9 +3259,13 @@ export type BusinessUncheckedCreateWithoutMembershipPlansInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3007,9 +3311,13 @@ export type BusinessUpdateWithoutMembershipPlansInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3041,9 +3349,13 @@ export type BusinessUncheckedUpdateWithoutMembershipPlansInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3073,9 +3385,13 @@ export type BusinessCreateWithoutSubscriptionInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3107,9 +3423,13 @@ export type BusinessUncheckedCreateWithoutSubscriptionInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3155,9 +3475,13 @@ export type BusinessUpdateWithoutSubscriptionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3189,9 +3513,13 @@ export type BusinessUncheckedUpdateWithoutSubscriptionInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3221,9 +3549,13 @@ export type BusinessCreateWithoutQrCodeInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3255,9 +3587,13 @@ export type BusinessUncheckedCreateWithoutQrCodeInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3303,9 +3639,13 @@ export type BusinessUpdateWithoutQrCodeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3337,9 +3677,13 @@ export type BusinessUncheckedUpdateWithoutQrCodeInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3369,9 +3713,13 @@ export type BusinessCreateWithoutReviewsInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3403,9 +3751,13 @@ export type BusinessUncheckedCreateWithoutReviewsInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3451,9 +3803,13 @@ export type BusinessUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3485,9 +3841,13 @@ export type BusinessUncheckedUpdateWithoutReviewsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3517,9 +3877,13 @@ export type BusinessCreateWithoutTrainersInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3551,9 +3915,13 @@ export type BusinessUncheckedCreateWithoutTrainersInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3599,9 +3967,13 @@ export type BusinessUpdateWithoutTrainersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3633,9 +4005,13 @@ export type BusinessUncheckedUpdateWithoutTrainersInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3665,9 +4041,13 @@ export type BusinessCreateWithoutTrainerPayoutsInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3699,9 +4079,13 @@ export type BusinessUncheckedCreateWithoutTrainerPayoutsInput = {
   ownerId: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3747,9 +4131,13 @@ export type BusinessUpdateWithoutTrainerPayoutsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3781,9 +4169,13 @@ export type BusinessUncheckedUpdateWithoutTrainerPayoutsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3813,9 +4205,13 @@ export type BusinessCreateWithoutOwnerInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3846,9 +4242,13 @@ export type BusinessUncheckedCreateWithoutOwnerInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3909,9 +4309,13 @@ export type BusinessScalarWhereInput = {
   ownerId?: Prisma.StringFilter<"Business"> | string
   name?: Prisma.StringFilter<"Business"> | string
   description?: Prisma.StringNullableFilter<"Business"> | string | null
+  logo?: Prisma.StringNullableFilter<"Business"> | string | null
+  email?: Prisma.StringNullableFilter<"Business"> | string | null
+  phone?: Prisma.StringNullableFilter<"Business"> | string | null
+  whatsapp?: Prisma.StringNullableFilter<"Business"> | string | null
   address?: Prisma.StringFilter<"Business"> | string
-  latitude?: Prisma.FloatFilter<"Business"> | number
-  longitude?: Prisma.FloatFilter<"Business"> | number
+  latitude?: Prisma.FloatNullableFilter<"Business"> | number | null
+  longitude?: Prisma.FloatNullableFilter<"Business"> | number | null
   amenities?: Prisma.StringNullableListFilter<"Business">
   photos?: Prisma.StringNullableListFilter<"Business">
   status?: Prisma.EnumBusinessStatusFilter<"Business"> | $Enums.BusinessStatus
@@ -3923,9 +4327,13 @@ export type BusinessCreateManyOwnerInput = {
   id?: string
   name: string
   description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
   address: string
-  latitude: number
-  longitude: number
+  latitude?: number | null
+  longitude?: number | null
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
@@ -3937,9 +4345,13 @@ export type BusinessUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -3970,9 +4382,13 @@ export type BusinessUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -4003,9 +4419,13 @@ export type BusinessUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
@@ -4175,6 +4595,10 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   ownerId?: boolean
   name?: boolean
   description?: boolean
+  logo?: boolean
+  email?: boolean
+  phone?: boolean
+  whatsapp?: boolean
   address?: boolean
   latitude?: boolean
   longitude?: boolean
@@ -4211,6 +4635,10 @@ export type BusinessSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   ownerId?: boolean
   name?: boolean
   description?: boolean
+  logo?: boolean
+  email?: boolean
+  phone?: boolean
+  whatsapp?: boolean
   address?: boolean
   latitude?: boolean
   longitude?: boolean
@@ -4227,6 +4655,10 @@ export type BusinessSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   ownerId?: boolean
   name?: boolean
   description?: boolean
+  logo?: boolean
+  email?: boolean
+  phone?: boolean
+  whatsapp?: boolean
   address?: boolean
   latitude?: boolean
   longitude?: boolean
@@ -4243,6 +4675,10 @@ export type BusinessSelectScalar = {
   ownerId?: boolean
   name?: boolean
   description?: boolean
+  logo?: boolean
+  email?: boolean
+  phone?: boolean
+  whatsapp?: boolean
   address?: boolean
   latitude?: boolean
   longitude?: boolean
@@ -4253,7 +4689,7 @@ export type BusinessSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "description" | "address" | "latitude" | "longitude" | "amenities" | "photos" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["business"]>
+export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "description" | "logo" | "email" | "phone" | "whatsapp" | "address" | "latitude" | "longitude" | "amenities" | "photos" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["business"]>
 export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   announcements?: boolean | Prisma.Business$announcementsArgs<ExtArgs>
@@ -4313,9 +4749,13 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     ownerId: string
     name: string
     description: string | null
+    logo: string | null
+    email: string | null
+    phone: string | null
+    whatsapp: string | null
     address: string
-    latitude: number
-    longitude: number
+    latitude: number | null
+    longitude: number | null
     amenities: string[]
     photos: string[]
     status: $Enums.BusinessStatus
@@ -4768,6 +5208,10 @@ export interface BusinessFieldRefs {
   readonly ownerId: Prisma.FieldRef<"Business", 'String'>
   readonly name: Prisma.FieldRef<"Business", 'String'>
   readonly description: Prisma.FieldRef<"Business", 'String'>
+  readonly logo: Prisma.FieldRef<"Business", 'String'>
+  readonly email: Prisma.FieldRef<"Business", 'String'>
+  readonly phone: Prisma.FieldRef<"Business", 'String'>
+  readonly whatsapp: Prisma.FieldRef<"Business", 'String'>
   readonly address: Prisma.FieldRef<"Business", 'String'>
   readonly latitude: Prisma.FieldRef<"Business", 'Float'>
   readonly longitude: Prisma.FieldRef<"Business", 'Float'>
