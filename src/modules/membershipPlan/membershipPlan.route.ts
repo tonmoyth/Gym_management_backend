@@ -21,4 +21,26 @@ router.get(
     MembershipPlanController.getMembershipPlans
 );
 
+router.get(
+    '/:businessId/plans/:planId',
+    validateRequest(MembershipPlanValidations.getMembershipPlanValidation),
+    MembershipPlanController.getMembershipPlan
+);
+
+router.patch(
+    '/:businessId/plans/:planId',
+    // @ts-ignore
+    checkAuth(USER_ROLE.BUSINESS_OWNER),
+    validateRequest(MembershipPlanValidations.updateMembershipPlanValidation),
+    MembershipPlanController.updateMembershipPlan
+);
+
+router.patch(
+    '/:businessId/plans/:planId/archive',
+    // @ts-ignore
+    checkAuth(USER_ROLE.BUSINESS_OWNER),
+    validateRequest(MembershipPlanValidations.archiveMembershipPlanValidation),
+    MembershipPlanController.archiveMembershipPlan
+);
+
 export const membershipPlanRoutes = router;

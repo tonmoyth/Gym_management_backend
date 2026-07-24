@@ -29,7 +29,51 @@ const getMembershipPlans = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getMembershipPlan = catchAsync(async (req: Request, res: Response) => {
+    const businessId = req.params.businessId as string;
+    const planId = req.params.planId as string;
+    const result = await MembershipPlanService.getMembershipPlan(businessId, planId);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Membership plan retrieved successfully.',
+        data: result
+    });
+});
+
+const updateMembershipPlan = catchAsync(async (req: Request, res: Response) => {
+    const businessId = req.params.businessId as string;
+    const planId = req.params.planId as string;
+    const ownerId = req.user.id;
+    const result = await MembershipPlanService.updateMembershipPlan(businessId, planId, ownerId, req.body);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Membership plan updated successfully.',
+        data: result
+    });
+});
+
+const archiveMembershipPlan = catchAsync(async (req: Request, res: Response) => {
+    const businessId = req.params.businessId as string;
+    const planId = req.params.planId as string;
+    const ownerId = req.user.id;
+    const result = await MembershipPlanService.archiveMembershipPlan(businessId, planId, ownerId);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Membership plan archived successfully.',
+        data: result
+    });
+});
+
 export const MembershipPlanController = {
     createMembershipPlan,
-    getMembershipPlans
+    getMembershipPlans,
+    getMembershipPlan,
+    updateMembershipPlan,
+    archiveMembershipPlan
 };
