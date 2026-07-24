@@ -23,4 +23,12 @@ router.get(
     StaffController.getStaffList
 );
 
+router.patch(
+    '/:businessId/staff/:staffId',
+    // @ts-ignore
+    checkAuth(USER_ROLE.BUSINESS_OWNER),
+    validateRequest(StaffValidations.updateStaffPermissionValidation),
+    StaffController.updateStaffPermission
+);
+
 export const staffRoutes = router;

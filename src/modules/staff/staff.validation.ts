@@ -17,7 +17,22 @@ const getStaffListValidation = z.object({
     })
 });
 
+const updateStaffPermissionValidation = z.object({
+    params: z.object({
+        businessId: z.string().uuid({ message: 'Invalid Business ID' }),
+        staffId: z.string().uuid({ message: 'Invalid Staff ID' })
+    }),
+    body: z.object({
+        permissionRole: z.nativeEnum(StaffPermissionRole, { error: 'Permission Role is required' }),
+        id: z.any().optional(),
+        businessId: z.any().optional(),
+        userId: z.any().optional(),
+        createdAt: z.any().optional()
+    }).strict()
+});
+
 export const StaffValidations = {
     addStaffValidation,
-    getStaffListValidation
+    getStaffListValidation,
+    updateStaffPermissionValidation
 };

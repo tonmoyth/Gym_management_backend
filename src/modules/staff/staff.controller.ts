@@ -30,7 +30,23 @@ const getStaffList = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const updateStaffPermission = catchAsync(async (req: Request, res: Response) => {
+    const businessId = req.params.businessId as string;
+    const staffId = req.params.staffId as string;
+    const ownerId = req.user.id;
+
+    const result = await StaffService.updateStaffPermission(businessId, staffId, ownerId, req.body);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Staff permission updated successfully.',
+        data: result
+    });
+});
+
 export const StaffController = {
     addStaff,
-    getStaffList
+    getStaffList,
+    updateStaffPermission
 };

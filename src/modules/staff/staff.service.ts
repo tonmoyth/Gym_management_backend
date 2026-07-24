@@ -109,7 +109,80 @@ const getStaffList = async (businessId: string, ownerId: string, queryParams: an
     return await queryBuilder.execute();
 };
 
+const updateStaffPermission = async (
+    businessId: string,
+    staffId: string,
+    ownerId: string,
+    payload: { permissionRole: StaffPermissionRole }
+) => {
+    const business = await prisma.business.findUnique({
+        where: { id: businessId }
+    });
+
+    if (!business) {
+        throw new AppError(404, 'Business not found');
+    }
+
+    if (business.ownerId !== ownerId) {
+        throw new AppError(403, 'Forbidden: You do not own this business');
+    }
+
+    const staff = await prisma.businessStaff.findUnique({
+        where: { id: staffId }
+    });
+
+    if (!staff) {
+        throw new AppError(404, 'Staff not found');
+    }
+
+    if (staff.businessId !== businessId) {
+        throw new AppError(403, 'Forbidden: Staff does not belong to this business');
+    }
+
+    if (staff.permissionRole === payload.permissionRole) {
+        return await prisma.businessStaff.findUnique({
+            where: { id: staffId },
+            select: {
+                id: true,
+                businessId: true,
+                permissionRole: true,
+                createdAt: true,
+                user: {
+                    select: {
+                        id: true,
+                        fullName: true,
+                        email: true
+                    }
+                }
+            }
+        });
+    }
+
+    const updatedStaff = await prisma.businessStaff.update({
+        where: { id: staffId },
+        data: {
+            permissionRole: payload.permissionRole
+        },
+        select: {
+            id: true,
+            businessId: true,
+            permissionRole: true,
+            createdAt: true,
+            user: {
+                select: {
+                    id: true,
+                    fullName: true,
+                    email: true
+                }
+            }
+        }
+    });
+
+    return updatedStaff;
+};
+
 export const StaffService = {
     addStaff,
-    getStaffList
+    getStaffList,
+    updateStaffPermission
 };
