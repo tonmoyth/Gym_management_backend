@@ -16,6 +16,21 @@ const addStaff = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getStaffList = catchAsync(async (req: Request, res: Response) => {
+    const businessId = req.params.businessId as string;
+    const ownerId = req.user.id;
+    const result = await StaffService.getStaffList(businessId, ownerId, req.query);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Business staff retrieved successfully.',
+        meta: result.meta,
+        data: result.data
+    });
+});
+
 export const StaffController = {
-    addStaff
+    addStaff,
+    getStaffList
 };

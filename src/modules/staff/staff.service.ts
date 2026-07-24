@@ -1,6 +1,7 @@
 import AppError from '../../errors/AppError';
 import { prisma } from '../../lib/prisma';
 import { StaffPermissionRole } from '../../generated/prisma/enums';
+import { QueryBuilder } from '../../utils/queryBuilder';
 
 const addStaff = async (
     businessId: string,
@@ -71,6 +72,44 @@ const addStaff = async (
     return newStaff;
 };
 
+const getStaffList = async (businessId: string, ownerId: string, queryParams: any) => {
+    const business = await prisma.business.findUnique({
+        where: { id: businessId }
+    });
+
+    if (!business) {
+        throw new AppError(404, 'Business not found');
+    }
+
+    if (business.ownerId !== ownerId) {
+        throw new AppError(403, 'Forbidden: You do not own this business');
+    }
+
+    const queryBuilder = new QueryBuilder(prisma.businessStaff, queryParams, {
+        searchableFields: ['user.fullName', 'user.email', 'user.phone'],
+        filterableFields: ['permissionRole', 'createdAt']
+    })
+        .where({ businessId })
+        .search()
+        .filter()
+        .sort()
+        .paginate()
+        .include({
+            user: {
+                select: {
+                    id: true,
+                    fullName: true,
+                    email: true,
+                    profileImage: true
+                }
+            }
+        })
+        .fields();
+
+    return await queryBuilder.execute();
+};
+
 export const StaffService = {
-    addStaff
+    addStaff,
+    getStaffList
 };

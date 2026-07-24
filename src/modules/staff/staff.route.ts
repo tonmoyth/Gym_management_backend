@@ -15,4 +15,12 @@ router.post(
     StaffController.addStaff
 );
 
+router.get(
+    '/:businessId/staff',
+    // @ts-ignore
+    checkAuth(USER_ROLE.BUSINESS_OWNER),
+    validateRequest(StaffValidations.getStaffListValidation),
+    StaffController.getStaffList
+);
+
 export const staffRoutes = router;

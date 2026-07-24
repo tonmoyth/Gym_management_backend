@@ -11,6 +11,13 @@ const addStaffValidation = z.object({
     }).strict()
 });
 
+const getStaffListValidation = z.object({
+    params: z.object({
+        businessId: z.string().uuid({ message: 'Invalid Business ID' })
+    })
+});
+
 export const StaffValidations = {
-    addStaffValidation
+    addStaffValidation,
+    getStaffListValidation
 };
