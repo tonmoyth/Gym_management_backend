@@ -181,22 +181,24 @@ const getJobPostApplicants = async (ownerId: string, jobPostId: string, query: a
         trainer: {
             select: {
                 id: true,
-                experience: true,
-                hourlyRate: true,
                 user: {
                     select: {
                         id: true,
-                        name: true,
+                        fullName: true,
                         email: true,
-                        phone: true,
-                        profilePhoto: true,
+                        profileImage: true,
                     },
                 },
                 specializations: {
                     select: {
                         id: true,
-                        name: true,
-                        slug: true,
+                        tag: {
+                            select: {
+                                id: true,
+                                name: true,
+                                slug: true,
+                            },
+                        },
                     },
                 },
             },
@@ -211,7 +213,16 @@ const getJobPostApplicants = async (ownerId: string, jobPostId: string, query: a
         id: app.id,
         applicationStatus: app.status,
         createdAt: app.appliedAt,
-        trainer: app.trainer,
+        trainer: {
+            id: app.trainer.id,
+            user: {
+                id: app.trainer.user.id,
+                name: app.trainer.user.fullName,
+                email: app.trainer.user.email,
+                profilePhoto: app.trainer.user.profileImage,
+            },
+            specializations: app.trainer.specializations.map((ts: any) => ts.tag),
+        },
     }));
 
     return {
@@ -220,8 +231,139 @@ const getJobPostApplicants = async (ownerId: string, jobPostId: string, query: a
     };
 };
 
+const approveTrainerApplication = async (ownerId: string, appId: string) => {
+    // 1. Find Trainer Application with related Job Post and Business
+    const application = await prisma.trainerApplication.findUnique({
+        where: { id: appId },
+        include: {
+            jobPost: {
+                include: {
+                    business: true,
+                },
+            },
+        },
+    });
+
+    if (!application) {
+        throw new AppError(404, 'Trainer application not found.');
+    }
+
+    const { jobPost } = application;
+    const { business } = jobPost;
+
+    // 2. Ownership verification
+    if (business.ownerId !== ownerId) {
+        throw new AppError(403, 'Forbidden. You do not have permission to approve this application.');
+    }
+
+    // 3. Job Post open verification
+    if (!jobPost.isOpen) {
+        throw new AppError(400, 'Job post is already closed.');
+    }
+
+    // 4. Application status verification
+    if (application.status !== 'PENDING') {
+        throw new AppError(400, 'Only pending applications can be approved.');
+    }
+
+    // 5. Existing TrainerBusiness verification
+    const existingRelation = await prisma.trainerBusiness.findUnique({
+        where: {
+            trainerId_businessId: {
+                trainerId: application.trainerId,
+                businessId: business.id,
+            },
+        },
+    });
+
+    if (existingRelation) {
+        throw new AppError(409, 'Trainer already belongs to this business.');
+    }
+
+    // 6. Execute inside Prisma Transaction
+    const result = await prisma.$transaction(async (tx) => {
+        // Step 1: Update current application
+        const approvedApplication = await tx.trainerApplication.update({
+            where: { id: appId },
+            data: {
+                status: 'APPROVED',
+                reviewedAt: new Date(),
+            },
+            select: {
+                id: true,
+                status: true,
+                trainer: {
+                    select: {
+                        id: true,
+                        user: {
+                            select: {
+                                fullName: true,
+                                email: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+
+        // Step 2: Reject every other pending application for the same Job Post
+        await tx.trainerApplication.updateMany({
+            where: {
+                jobPostId: jobPost.id,
+                id: { not: appId },
+                status: 'PENDING',
+            },
+            data: {
+                status: 'REJECTED',
+                reviewedAt: new Date(),
+            },
+        });
+
+        // Step 3: Close Job Post
+        const closedJobPost = await tx.jobPost.update({
+            where: { id: jobPost.id },
+            data: { isOpen: false },
+            select: {
+                id: true,
+                title: true,
+                isOpen: true,
+            },
+        });
+
+        // Step 4: Create TrainerBusiness
+        await tx.trainerBusiness.create({
+            data: {
+                trainerId: application.trainerId,
+                businessId: business.id,
+            },
+        });
+
+        return {
+            applicationId: approvedApplication.id,
+            status: approvedApplication.status,
+            trainer: {
+                id: approvedApplication.trainer.id,
+                name: approvedApplication.trainer.user.fullName,
+                email: approvedApplication.trainer.user.email,
+            },
+            business: {
+                id: business.id,
+                name: business.name,
+            },
+            jobPost: {
+                id: closedJobPost.id,
+                title: closedJobPost.title,
+                isOpen: closedJobPost.isOpen,
+            },
+        };
+    });
+
+    return result;
+};
+
 export const JobPostService = {
     createJobPost,
     closeJobPost,
     getJobPostApplicants,
+    approveTrainerApplication,
 };

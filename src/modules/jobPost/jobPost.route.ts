@@ -31,4 +31,12 @@ router.get(
   JobPostController.getJobPostApplicants,
 );
 
+router.patch(
+  "/applications/:appId/approve",
+  // @ts-ignore
+  checkAuth(USER_ROLE.BUSINESS_OWNER),
+  validateRequest(JobPostValidations.approveTrainerApplicationValidation),
+  JobPostController.approveTrainerApplication,
+);
+
 export const jobPostRoutes = router;
