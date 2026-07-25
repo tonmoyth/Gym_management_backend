@@ -6,6 +6,7 @@ import { businessRoutes } from "../modules/Business/business.route";
 import { staffRoutes } from "../modules/staff/staff.route";
 import { membershipPlanRoutes } from "../modules/membershipPlan/membershipPlan.route";
 import { bookingRoutes } from "../modules/booking/booking.route";
+import { jobPostRoutes } from "../modules/jobPost/jobPost.route";
 
 const router = express.Router();
 
@@ -37,6 +38,10 @@ const moduleRoutes = [
     {
         path: "/businesses",
         route: bookingRoutes,
+    },
+    {
+        path: "/job-posts",
+        route: jobPostRoutes,
     },
 ];
 
