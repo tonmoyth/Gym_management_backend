@@ -59,9 +59,24 @@ const approveTrainerApplication = catchAsync(async (req: Request, res: Response)
   });
 });
 
+const rejectTrainerApplication = catchAsync(async (req: Request, res: Response) => {
+  const ownerId = req.user.id as string;
+  const appId = req.params.appId as string;
+
+  const result = await JobPostService.rejectTrainerApplication(ownerId, appId);
+
+  sendResponse(res, {
+    statusCode: 200, // OK
+    success: true,
+    message: "Trainer application rejected successfully.",
+    data: result,
+  });
+});
+
 export const JobPostController = {
   createJobPost,
   closeJobPost,
   getJobPostApplicants,
   approveTrainerApplication,
+  rejectTrainerApplication,
 };

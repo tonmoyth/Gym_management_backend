@@ -31,9 +31,9 @@ interface IEnvReturnType {
   //   // AWS_REGION: string;
   //   // AWS_S3_BUCKET: string;
 
-  //   REDIS_HOST: string;
-  //   REDIS_PORT: string;
-  //   REDIS_PASSWORD: string;
+  REDIS_HOST: string;
+  REDIS_PORT: string;
+  REDIS_PASSWORD: string;
 }
 
 const envConfig = (): IEnvReturnType => {
@@ -65,9 +65,9 @@ const envConfig = (): IEnvReturnType => {
     // "AWS_REGION",
     // "AWS_S3_BUCKET",
 
-    // "REDIS_HOST",
-    // "REDIS_PORT",
-    // "REDIS_PASSWORD",
+    "REDIS_HOST",
+    "REDIS_PORT",
+    "REDIS_PASSWORD",
   ];
   envName.forEach((element) => {
     if (!process.env[element]) {
@@ -94,6 +94,10 @@ const envConfig = (): IEnvReturnType => {
     EMAIL_USER: process.env.EMAIL_USER!,
     EMAIL_PASS: process.env.EMAIL_PASS!,
     EMAIL_FROM: process.env.EMAIL_FROM!,
+
+    REDIS_HOST: process.env.REDIS_HOST!,
+    REDIS_PORT: process.env.REDIS_PORT!,
+    REDIS_PASSWORD: process.env.REDIS_PASSWORD!,
   };
 };
 

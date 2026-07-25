@@ -37,9 +37,17 @@ const approveTrainerApplicationValidation = z.object({
     }),
 });
 
+const rejectTrainerApplicationValidation = z.object({
+    params: z.object({
+        appId: z.string({ message: 'Application ID is required' })
+            .uuid({ message: 'Application ID must be a valid UUID' }),
+    }),
+});
+
 export const JobPostValidations = {
     createJobPostValidation,
     closeJobPostValidation,
     getJobPostApplicantsValidation,
     approveTrainerApplicationValidation,
+    rejectTrainerApplicationValidation,
 };

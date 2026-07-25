@@ -654,6 +654,13 @@ export type EnumCertificationStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumCertificationStatusFilter<$PrismaModel> | $Enums.CertificationStatus
 }
 
+export type EnumVerificationStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.VerificationStatus | Prisma.EnumVerificationStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.VerificationStatus[] | Prisma.ListEnumVerificationStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.VerificationStatus[] | Prisma.ListEnumVerificationStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumVerificationStatusFilter<$PrismaModel> | $Enums.VerificationStatus
+}
+
 export type EnumCertificationStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.CertificationStatus | Prisma.EnumCertificationStatusFieldRefInput<$PrismaModel>
   in?: $Enums.CertificationStatus[] | Prisma.ListEnumCertificationStatusFieldRefInput<$PrismaModel>
@@ -662,6 +669,16 @@ export type EnumCertificationStatusWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumCertificationStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumCertificationStatusFilter<$PrismaModel>
+}
+
+export type EnumVerificationStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.VerificationStatus | Prisma.EnumVerificationStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.VerificationStatus[] | Prisma.ListEnumVerificationStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.VerificationStatus[] | Prisma.ListEnumVerificationStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumVerificationStatusWithAggregatesFilter<$PrismaModel> | $Enums.VerificationStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumVerificationStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumVerificationStatusFilter<$PrismaModel>
 }
 
 export type EnumPayoutStatusFilter<$PrismaModel = never> = {
@@ -1314,6 +1331,13 @@ export type NestedEnumCertificationStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumCertificationStatusFilter<$PrismaModel> | $Enums.CertificationStatus
 }
 
+export type NestedEnumVerificationStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.VerificationStatus | Prisma.EnumVerificationStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.VerificationStatus[] | Prisma.ListEnumVerificationStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.VerificationStatus[] | Prisma.ListEnumVerificationStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumVerificationStatusFilter<$PrismaModel> | $Enums.VerificationStatus
+}
+
 export type NestedEnumCertificationStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.CertificationStatus | Prisma.EnumCertificationStatusFieldRefInput<$PrismaModel>
   in?: $Enums.CertificationStatus[] | Prisma.ListEnumCertificationStatusFieldRefInput<$PrismaModel>
@@ -1322,6 +1346,16 @@ export type NestedEnumCertificationStatusWithAggregatesFilter<$PrismaModel = nev
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumCertificationStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumCertificationStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumVerificationStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.VerificationStatus | Prisma.EnumVerificationStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.VerificationStatus[] | Prisma.ListEnumVerificationStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.VerificationStatus[] | Prisma.ListEnumVerificationStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumVerificationStatusWithAggregatesFilter<$PrismaModel> | $Enums.VerificationStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumVerificationStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumVerificationStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumPayoutStatusFilter<$PrismaModel = never> = {

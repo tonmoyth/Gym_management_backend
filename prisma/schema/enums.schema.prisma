@@ -83,6 +83,7 @@ enum NotificationType {
   PAYOUT
   DISPUTE
   SYSTEM
+  JOB_APPLICATION
 }
 
 enum ChatThreadType {

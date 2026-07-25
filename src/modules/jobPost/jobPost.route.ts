@@ -39,4 +39,12 @@ router.patch(
   JobPostController.approveTrainerApplication,
 );
 
+router.patch(
+  "/applications/:appId/reject",
+  // @ts-ignore
+  checkAuth(USER_ROLE.BUSINESS_OWNER),
+  validateRequest(JobPostValidations.rejectTrainerApplicationValidation),
+  JobPostController.rejectTrainerApplication,
+);
+
 export const jobPostRoutes = router;

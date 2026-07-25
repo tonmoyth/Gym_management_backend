@@ -129,7 +129,8 @@ export const NotificationType = {
   ANNOUNCEMENT: 'ANNOUNCEMENT',
   PAYOUT: 'PAYOUT',
   DISPUTE: 'DISPUTE',
-  SYSTEM: 'SYSTEM'
+  SYSTEM: 'SYSTEM',
+  JOB_APPLICATION: 'JOB_APPLICATION'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
@@ -220,3 +221,12 @@ export const ClassBookingStatus = {
 } as const
 
 export type ClassBookingStatus = (typeof ClassBookingStatus)[keyof typeof ClassBookingStatus]
+
+
+export const VerificationStatus = {
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type VerificationStatus = (typeof VerificationStatus)[keyof typeof VerificationStatus]

@@ -30,6 +30,14 @@ export type TrainerCertificationMinAggregateOutputType = {
   title: string | null
   fileUrl: string | null
   status: $Enums.CertificationStatus | null
+  issuer: string | null
+  issueDate: Date | null
+  expiryDate: Date | null
+  credentialId: string | null
+  credentialUrl: string | null
+  verificationStatus: $Enums.VerificationStatus | null
+  verifiedAt: Date | null
+  verifiedBy: string | null
   reviewedByAdminId: string | null
   rejectionReason: string | null
   reviewedAt: Date | null
@@ -42,6 +50,14 @@ export type TrainerCertificationMaxAggregateOutputType = {
   title: string | null
   fileUrl: string | null
   status: $Enums.CertificationStatus | null
+  issuer: string | null
+  issueDate: Date | null
+  expiryDate: Date | null
+  credentialId: string | null
+  credentialUrl: string | null
+  verificationStatus: $Enums.VerificationStatus | null
+  verifiedAt: Date | null
+  verifiedBy: string | null
   reviewedByAdminId: string | null
   rejectionReason: string | null
   reviewedAt: Date | null
@@ -54,6 +70,14 @@ export type TrainerCertificationCountAggregateOutputType = {
   title: number
   fileUrl: number
   status: number
+  issuer: number
+  issueDate: number
+  expiryDate: number
+  credentialId: number
+  credentialUrl: number
+  verificationStatus: number
+  verifiedAt: number
+  verifiedBy: number
   reviewedByAdminId: number
   rejectionReason: number
   reviewedAt: number
@@ -68,6 +92,14 @@ export type TrainerCertificationMinAggregateInputType = {
   title?: true
   fileUrl?: true
   status?: true
+  issuer?: true
+  issueDate?: true
+  expiryDate?: true
+  credentialId?: true
+  credentialUrl?: true
+  verificationStatus?: true
+  verifiedAt?: true
+  verifiedBy?: true
   reviewedByAdminId?: true
   rejectionReason?: true
   reviewedAt?: true
@@ -80,6 +112,14 @@ export type TrainerCertificationMaxAggregateInputType = {
   title?: true
   fileUrl?: true
   status?: true
+  issuer?: true
+  issueDate?: true
+  expiryDate?: true
+  credentialId?: true
+  credentialUrl?: true
+  verificationStatus?: true
+  verifiedAt?: true
+  verifiedBy?: true
   reviewedByAdminId?: true
   rejectionReason?: true
   reviewedAt?: true
@@ -92,6 +132,14 @@ export type TrainerCertificationCountAggregateInputType = {
   title?: true
   fileUrl?: true
   status?: true
+  issuer?: true
+  issueDate?: true
+  expiryDate?: true
+  credentialId?: true
+  credentialUrl?: true
+  verificationStatus?: true
+  verifiedAt?: true
+  verifiedBy?: true
   reviewedByAdminId?: true
   rejectionReason?: true
   reviewedAt?: true
@@ -177,6 +225,14 @@ export type TrainerCertificationGroupByOutputType = {
   title: string
   fileUrl: string
   status: $Enums.CertificationStatus
+  issuer: string
+  issueDate: Date
+  expiryDate: Date | null
+  credentialId: string | null
+  credentialUrl: string | null
+  verificationStatus: $Enums.VerificationStatus
+  verifiedAt: Date | null
+  verifiedBy: string | null
   reviewedByAdminId: string | null
   rejectionReason: string | null
   reviewedAt: Date | null
@@ -210,6 +266,14 @@ export type TrainerCertificationWhereInput = {
   title?: Prisma.StringFilter<"TrainerCertification"> | string
   fileUrl?: Prisma.StringFilter<"TrainerCertification"> | string
   status?: Prisma.EnumCertificationStatusFilter<"TrainerCertification"> | $Enums.CertificationStatus
+  issuer?: Prisma.StringFilter<"TrainerCertification"> | string
+  issueDate?: Prisma.DateTimeFilter<"TrainerCertification"> | Date | string
+  expiryDate?: Prisma.DateTimeNullableFilter<"TrainerCertification"> | Date | string | null
+  credentialId?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
+  credentialUrl?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFilter<"TrainerCertification"> | $Enums.VerificationStatus
+  verifiedAt?: Prisma.DateTimeNullableFilter<"TrainerCertification"> | Date | string | null
+  verifiedBy?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
   reviewedByAdminId?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
   rejectionReason?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"TrainerCertification"> | Date | string | null
@@ -224,6 +288,14 @@ export type TrainerCertificationOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   fileUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  issuer?: Prisma.SortOrder
+  issueDate?: Prisma.SortOrder
+  expiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  credentialId?: Prisma.SortOrderInput | Prisma.SortOrder
+  credentialUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  verificationStatus?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  verifiedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedByAdminId?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -241,6 +313,14 @@ export type TrainerCertificationWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"TrainerCertification"> | string
   fileUrl?: Prisma.StringFilter<"TrainerCertification"> | string
   status?: Prisma.EnumCertificationStatusFilter<"TrainerCertification"> | $Enums.CertificationStatus
+  issuer?: Prisma.StringFilter<"TrainerCertification"> | string
+  issueDate?: Prisma.DateTimeFilter<"TrainerCertification"> | Date | string
+  expiryDate?: Prisma.DateTimeNullableFilter<"TrainerCertification"> | Date | string | null
+  credentialId?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
+  credentialUrl?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFilter<"TrainerCertification"> | $Enums.VerificationStatus
+  verifiedAt?: Prisma.DateTimeNullableFilter<"TrainerCertification"> | Date | string | null
+  verifiedBy?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
   reviewedByAdminId?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
   rejectionReason?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"TrainerCertification"> | Date | string | null
@@ -255,6 +335,14 @@ export type TrainerCertificationOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   fileUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  issuer?: Prisma.SortOrder
+  issueDate?: Prisma.SortOrder
+  expiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  credentialId?: Prisma.SortOrderInput | Prisma.SortOrder
+  credentialUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  verificationStatus?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  verifiedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedByAdminId?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -273,6 +361,14 @@ export type TrainerCertificationScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"TrainerCertification"> | string
   fileUrl?: Prisma.StringWithAggregatesFilter<"TrainerCertification"> | string
   status?: Prisma.EnumCertificationStatusWithAggregatesFilter<"TrainerCertification"> | $Enums.CertificationStatus
+  issuer?: Prisma.StringWithAggregatesFilter<"TrainerCertification"> | string
+  issueDate?: Prisma.DateTimeWithAggregatesFilter<"TrainerCertification"> | Date | string
+  expiryDate?: Prisma.DateTimeNullableWithAggregatesFilter<"TrainerCertification"> | Date | string | null
+  credentialId?: Prisma.StringNullableWithAggregatesFilter<"TrainerCertification"> | string | null
+  credentialUrl?: Prisma.StringNullableWithAggregatesFilter<"TrainerCertification"> | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusWithAggregatesFilter<"TrainerCertification"> | $Enums.VerificationStatus
+  verifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TrainerCertification"> | Date | string | null
+  verifiedBy?: Prisma.StringNullableWithAggregatesFilter<"TrainerCertification"> | string | null
   reviewedByAdminId?: Prisma.StringNullableWithAggregatesFilter<"TrainerCertification"> | string | null
   rejectionReason?: Prisma.StringNullableWithAggregatesFilter<"TrainerCertification"> | string | null
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TrainerCertification"> | Date | string | null
@@ -284,6 +380,14 @@ export type TrainerCertificationCreateInput = {
   title: string
   fileUrl: string
   status?: $Enums.CertificationStatus
+  issuer: string
+  issueDate: Date | string
+  expiryDate?: Date | string | null
+  credentialId?: string | null
+  credentialUrl?: string | null
+  verificationStatus?: $Enums.VerificationStatus
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   rejectionReason?: string | null
   reviewedAt?: Date | string | null
   createdAt?: Date | string
@@ -297,6 +401,14 @@ export type TrainerCertificationUncheckedCreateInput = {
   title: string
   fileUrl: string
   status?: $Enums.CertificationStatus
+  issuer: string
+  issueDate: Date | string
+  expiryDate?: Date | string | null
+  credentialId?: string | null
+  credentialUrl?: string | null
+  verificationStatus?: $Enums.VerificationStatus
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   reviewedByAdminId?: string | null
   rejectionReason?: string | null
   reviewedAt?: Date | string | null
@@ -308,6 +420,14 @@ export type TrainerCertificationUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumCertificationStatusFieldUpdateOperationsInput | $Enums.CertificationStatus
+  issuer?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  credentialId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -321,6 +441,14 @@ export type TrainerCertificationUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumCertificationStatusFieldUpdateOperationsInput | $Enums.CertificationStatus
+  issuer?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  credentialId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -333,6 +461,14 @@ export type TrainerCertificationCreateManyInput = {
   title: string
   fileUrl: string
   status?: $Enums.CertificationStatus
+  issuer: string
+  issueDate: Date | string
+  expiryDate?: Date | string | null
+  credentialId?: string | null
+  credentialUrl?: string | null
+  verificationStatus?: $Enums.VerificationStatus
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   reviewedByAdminId?: string | null
   rejectionReason?: string | null
   reviewedAt?: Date | string | null
@@ -344,6 +480,14 @@ export type TrainerCertificationUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumCertificationStatusFieldUpdateOperationsInput | $Enums.CertificationStatus
+  issuer?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  credentialId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -355,6 +499,14 @@ export type TrainerCertificationUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumCertificationStatusFieldUpdateOperationsInput | $Enums.CertificationStatus
+  issuer?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  credentialId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -367,6 +519,14 @@ export type TrainerCertificationCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   fileUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  issuer?: Prisma.SortOrder
+  issueDate?: Prisma.SortOrder
+  expiryDate?: Prisma.SortOrder
+  credentialId?: Prisma.SortOrder
+  credentialUrl?: Prisma.SortOrder
+  verificationStatus?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrder
+  verifiedBy?: Prisma.SortOrder
   reviewedByAdminId?: Prisma.SortOrder
   rejectionReason?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
@@ -379,6 +539,14 @@ export type TrainerCertificationMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   fileUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  issuer?: Prisma.SortOrder
+  issueDate?: Prisma.SortOrder
+  expiryDate?: Prisma.SortOrder
+  credentialId?: Prisma.SortOrder
+  credentialUrl?: Prisma.SortOrder
+  verificationStatus?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrder
+  verifiedBy?: Prisma.SortOrder
   reviewedByAdminId?: Prisma.SortOrder
   rejectionReason?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
@@ -391,6 +559,14 @@ export type TrainerCertificationMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   fileUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  issuer?: Prisma.SortOrder
+  issueDate?: Prisma.SortOrder
+  expiryDate?: Prisma.SortOrder
+  credentialId?: Prisma.SortOrder
+  credentialUrl?: Prisma.SortOrder
+  verificationStatus?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrder
+  verifiedBy?: Prisma.SortOrder
   reviewedByAdminId?: Prisma.SortOrder
   rejectionReason?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
@@ -409,6 +585,10 @@ export type TrainerCertificationOrderByRelationAggregateInput = {
 
 export type EnumCertificationStatusFieldUpdateOperationsInput = {
   set?: $Enums.CertificationStatus
+}
+
+export type EnumVerificationStatusFieldUpdateOperationsInput = {
+  set?: $Enums.VerificationStatus
 }
 
 export type TrainerCertificationCreateNestedManyWithoutTrainerInput = {
@@ -500,6 +680,14 @@ export type TrainerCertificationCreateWithoutTrainerInput = {
   title: string
   fileUrl: string
   status?: $Enums.CertificationStatus
+  issuer: string
+  issueDate: Date | string
+  expiryDate?: Date | string | null
+  credentialId?: string | null
+  credentialUrl?: string | null
+  verificationStatus?: $Enums.VerificationStatus
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   rejectionReason?: string | null
   reviewedAt?: Date | string | null
   createdAt?: Date | string
@@ -511,6 +699,14 @@ export type TrainerCertificationUncheckedCreateWithoutTrainerInput = {
   title: string
   fileUrl: string
   status?: $Enums.CertificationStatus
+  issuer: string
+  issueDate: Date | string
+  expiryDate?: Date | string | null
+  credentialId?: string | null
+  credentialUrl?: string | null
+  verificationStatus?: $Enums.VerificationStatus
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   reviewedByAdminId?: string | null
   rejectionReason?: string | null
   reviewedAt?: Date | string | null
@@ -552,6 +748,14 @@ export type TrainerCertificationScalarWhereInput = {
   title?: Prisma.StringFilter<"TrainerCertification"> | string
   fileUrl?: Prisma.StringFilter<"TrainerCertification"> | string
   status?: Prisma.EnumCertificationStatusFilter<"TrainerCertification"> | $Enums.CertificationStatus
+  issuer?: Prisma.StringFilter<"TrainerCertification"> | string
+  issueDate?: Prisma.DateTimeFilter<"TrainerCertification"> | Date | string
+  expiryDate?: Prisma.DateTimeNullableFilter<"TrainerCertification"> | Date | string | null
+  credentialId?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
+  credentialUrl?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFilter<"TrainerCertification"> | $Enums.VerificationStatus
+  verifiedAt?: Prisma.DateTimeNullableFilter<"TrainerCertification"> | Date | string | null
+  verifiedBy?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
   reviewedByAdminId?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
   rejectionReason?: Prisma.StringNullableFilter<"TrainerCertification"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"TrainerCertification"> | Date | string | null
@@ -563,6 +767,14 @@ export type TrainerCertificationCreateWithoutReviewedByAdminInput = {
   title: string
   fileUrl: string
   status?: $Enums.CertificationStatus
+  issuer: string
+  issueDate: Date | string
+  expiryDate?: Date | string | null
+  credentialId?: string | null
+  credentialUrl?: string | null
+  verificationStatus?: $Enums.VerificationStatus
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   rejectionReason?: string | null
   reviewedAt?: Date | string | null
   createdAt?: Date | string
@@ -575,6 +787,14 @@ export type TrainerCertificationUncheckedCreateWithoutReviewedByAdminInput = {
   title: string
   fileUrl: string
   status?: $Enums.CertificationStatus
+  issuer: string
+  issueDate: Date | string
+  expiryDate?: Date | string | null
+  credentialId?: string | null
+  credentialUrl?: string | null
+  verificationStatus?: $Enums.VerificationStatus
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   rejectionReason?: string | null
   reviewedAt?: Date | string | null
   createdAt?: Date | string
@@ -611,6 +831,14 @@ export type TrainerCertificationCreateManyTrainerInput = {
   title: string
   fileUrl: string
   status?: $Enums.CertificationStatus
+  issuer: string
+  issueDate: Date | string
+  expiryDate?: Date | string | null
+  credentialId?: string | null
+  credentialUrl?: string | null
+  verificationStatus?: $Enums.VerificationStatus
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   reviewedByAdminId?: string | null
   rejectionReason?: string | null
   reviewedAt?: Date | string | null
@@ -622,6 +850,14 @@ export type TrainerCertificationUpdateWithoutTrainerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumCertificationStatusFieldUpdateOperationsInput | $Enums.CertificationStatus
+  issuer?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  credentialId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -633,6 +869,14 @@ export type TrainerCertificationUncheckedUpdateWithoutTrainerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumCertificationStatusFieldUpdateOperationsInput | $Enums.CertificationStatus
+  issuer?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  credentialId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -644,6 +888,14 @@ export type TrainerCertificationUncheckedUpdateManyWithoutTrainerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumCertificationStatusFieldUpdateOperationsInput | $Enums.CertificationStatus
+  issuer?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  credentialId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -656,6 +908,14 @@ export type TrainerCertificationCreateManyReviewedByAdminInput = {
   title: string
   fileUrl: string
   status?: $Enums.CertificationStatus
+  issuer: string
+  issueDate: Date | string
+  expiryDate?: Date | string | null
+  credentialId?: string | null
+  credentialUrl?: string | null
+  verificationStatus?: $Enums.VerificationStatus
+  verifiedAt?: Date | string | null
+  verifiedBy?: string | null
   rejectionReason?: string | null
   reviewedAt?: Date | string | null
   createdAt?: Date | string
@@ -666,6 +926,14 @@ export type TrainerCertificationUpdateWithoutReviewedByAdminInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumCertificationStatusFieldUpdateOperationsInput | $Enums.CertificationStatus
+  issuer?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  credentialId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -678,6 +946,14 @@ export type TrainerCertificationUncheckedUpdateWithoutReviewedByAdminInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumCertificationStatusFieldUpdateOperationsInput | $Enums.CertificationStatus
+  issuer?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  credentialId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -689,6 +965,14 @@ export type TrainerCertificationUncheckedUpdateManyWithoutReviewedByAdminInput =
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumCertificationStatusFieldUpdateOperationsInput | $Enums.CertificationStatus
+  issuer?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  credentialId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifiedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -702,6 +986,14 @@ export type TrainerCertificationSelect<ExtArgs extends runtime.Types.Extensions.
   title?: boolean
   fileUrl?: boolean
   status?: boolean
+  issuer?: boolean
+  issueDate?: boolean
+  expiryDate?: boolean
+  credentialId?: boolean
+  credentialUrl?: boolean
+  verificationStatus?: boolean
+  verifiedAt?: boolean
+  verifiedBy?: boolean
   reviewedByAdminId?: boolean
   rejectionReason?: boolean
   reviewedAt?: boolean
@@ -716,6 +1008,14 @@ export type TrainerCertificationSelectCreateManyAndReturn<ExtArgs extends runtim
   title?: boolean
   fileUrl?: boolean
   status?: boolean
+  issuer?: boolean
+  issueDate?: boolean
+  expiryDate?: boolean
+  credentialId?: boolean
+  credentialUrl?: boolean
+  verificationStatus?: boolean
+  verifiedAt?: boolean
+  verifiedBy?: boolean
   reviewedByAdminId?: boolean
   rejectionReason?: boolean
   reviewedAt?: boolean
@@ -730,6 +1030,14 @@ export type TrainerCertificationSelectUpdateManyAndReturn<ExtArgs extends runtim
   title?: boolean
   fileUrl?: boolean
   status?: boolean
+  issuer?: boolean
+  issueDate?: boolean
+  expiryDate?: boolean
+  credentialId?: boolean
+  credentialUrl?: boolean
+  verificationStatus?: boolean
+  verifiedAt?: boolean
+  verifiedBy?: boolean
   reviewedByAdminId?: boolean
   rejectionReason?: boolean
   reviewedAt?: boolean
@@ -744,13 +1052,21 @@ export type TrainerCertificationSelectScalar = {
   title?: boolean
   fileUrl?: boolean
   status?: boolean
+  issuer?: boolean
+  issueDate?: boolean
+  expiryDate?: boolean
+  credentialId?: boolean
+  credentialUrl?: boolean
+  verificationStatus?: boolean
+  verifiedAt?: boolean
+  verifiedBy?: boolean
   reviewedByAdminId?: boolean
   rejectionReason?: boolean
   reviewedAt?: boolean
   createdAt?: boolean
 }
 
-export type TrainerCertificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "trainerId" | "title" | "fileUrl" | "status" | "reviewedByAdminId" | "rejectionReason" | "reviewedAt" | "createdAt", ExtArgs["result"]["trainerCertification"]>
+export type TrainerCertificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "trainerId" | "title" | "fileUrl" | "status" | "issuer" | "issueDate" | "expiryDate" | "credentialId" | "credentialUrl" | "verificationStatus" | "verifiedAt" | "verifiedBy" | "reviewedByAdminId" | "rejectionReason" | "reviewedAt" | "createdAt", ExtArgs["result"]["trainerCertification"]>
 export type TrainerCertificationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   trainer?: boolean | Prisma.TrainerProfileDefaultArgs<ExtArgs>
   reviewedByAdmin?: boolean | Prisma.TrainerCertification$reviewedByAdminArgs<ExtArgs>
@@ -776,6 +1092,14 @@ export type $TrainerCertificationPayload<ExtArgs extends runtime.Types.Extension
     title: string
     fileUrl: string
     status: $Enums.CertificationStatus
+    issuer: string
+    issueDate: Date
+    expiryDate: Date | null
+    credentialId: string | null
+    credentialUrl: string | null
+    verificationStatus: $Enums.VerificationStatus
+    verifiedAt: Date | null
+    verifiedBy: string | null
     reviewedByAdminId: string | null
     rejectionReason: string | null
     reviewedAt: Date | null
@@ -1210,6 +1534,14 @@ export interface TrainerCertificationFieldRefs {
   readonly title: Prisma.FieldRef<"TrainerCertification", 'String'>
   readonly fileUrl: Prisma.FieldRef<"TrainerCertification", 'String'>
   readonly status: Prisma.FieldRef<"TrainerCertification", 'CertificationStatus'>
+  readonly issuer: Prisma.FieldRef<"TrainerCertification", 'String'>
+  readonly issueDate: Prisma.FieldRef<"TrainerCertification", 'DateTime'>
+  readonly expiryDate: Prisma.FieldRef<"TrainerCertification", 'DateTime'>
+  readonly credentialId: Prisma.FieldRef<"TrainerCertification", 'String'>
+  readonly credentialUrl: Prisma.FieldRef<"TrainerCertification", 'String'>
+  readonly verificationStatus: Prisma.FieldRef<"TrainerCertification", 'VerificationStatus'>
+  readonly verifiedAt: Prisma.FieldRef<"TrainerCertification", 'DateTime'>
+  readonly verifiedBy: Prisma.FieldRef<"TrainerCertification", 'String'>
   readonly reviewedByAdminId: Prisma.FieldRef<"TrainerCertification", 'String'>
   readonly rejectionReason: Prisma.FieldRef<"TrainerCertification", 'String'>
   readonly reviewedAt: Prisma.FieldRef<"TrainerCertification", 'DateTime'>
