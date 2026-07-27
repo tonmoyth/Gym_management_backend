@@ -23,6 +23,37 @@ interface IUpsertTrainerProfilePayload {
   certifications?: ICertification[];
 }
 
+const _calculateAndUpdateProfileCompletion = async (tx: any, trainerProfileId: string) => {
+  let completionPercent = 0;
+
+  const updatedProfile = await tx.trainerProfile.findUnique({
+    where: { id: trainerProfileId },
+    include: {
+      user: { select: { profileImage: true } },
+      specializations: { select: { id: true }, take: 1 },
+      certifications: { select: { id: true }, take: 1 },
+    },
+  });
+
+  if (updatedProfile) {
+    if (updatedProfile.bio && updatedProfile.bio.trim().length > 0)
+      completionPercent += 20;
+    if (updatedProfile.user?.profileImage) completionPercent += 20;
+    if (updatedProfile.gender) completionPercent += 10;
+    if (updatedProfile.specializations.length > 0) completionPercent += 25;
+    if (updatedProfile.certifications.length > 0) completionPercent += 25;
+
+    await tx.trainerProfile.update({
+      where: { id: trainerProfileId },
+      data: { profileCompletionPercent: completionPercent },
+    });
+    
+    return completionPercent;
+  }
+  return 0;
+};
+
+
 const _saveTrainerProfile = async (
   userId: string,
   payload: IUpsertTrainerProfilePayload,
@@ -169,31 +200,7 @@ const _saveTrainerProfile = async (
       }
 
       // Calculate Profile Completion Percentage
-      let completionPercent = 0;
-
-      const updatedProfile = await tx.trainerProfile.findUnique({
-        where: { id: trainerProfile.id },
-        include: {
-          user: { select: { profileImage: true } },
-          specializations: { select: { id: true }, take: 1 },
-          certifications: { select: { id: true }, take: 1 },
-        },
-      });
-
-      if (updatedProfile) {
-        if (updatedProfile.bio && updatedProfile.bio.trim().length > 0)
-          completionPercent += 20;
-        if (updatedProfile.user?.profileImage) completionPercent += 20;
-        if (updatedProfile.gender) completionPercent += 10;
-        if (updatedProfile.specializations.length > 0) completionPercent += 25;
-        if (updatedProfile.certifications.length > 0) completionPercent += 25;
-
-        // Update completion percent
-        await tx.trainerProfile.update({
-          where: { id: trainerProfile.id },
-          data: { profileCompletionPercent: completionPercent },
-        });
-      }
+      await _calculateAndUpdateProfileCompletion(tx, trainerProfile.id);
 
       // Fetch Final Profile to Return
       const finalProfile = await tx.trainerProfile.findUnique({
@@ -620,9 +627,79 @@ const getAllTrainers = async (query: IQueryParams) => {
   };
 };
 
+const setOwnSpecializations = async (userId: string, specializationIds: string[]) => {
+  const trainerProfile = await prisma.trainerProfile.findUnique({
+    where: { userId },
+    select: { id: true },
+  });
+
+  if (!trainerProfile) {
+    throw new AppError(404, "Trainer profile not found.");
+  }
+
+  // Deduplicate UUIDs
+  const uniqueTagIds = Array.from(new Set(specializationIds));
+
+  // Validate all SpecializationTags
+  const existingTags = await prisma.specializationTag.findMany({
+    where: { id: { in: uniqueTagIds } },
+    select: { id: true },
+  });
+
+  if (existingTags.length !== uniqueTagIds.length) {
+    const existingIds = existingTags.map((t) => t.id);
+    const invalidIds = uniqueTagIds.filter((id) => !existingIds.includes(id));
+    throw new AppError(404, `One or more specialization tags not found: ${invalidIds.join(", ")}`);
+  }
+
+  return await prisma.$transaction(async (tx) => {
+    // Delete existing TrainerSpecializations
+    await tx.trainerSpecialization.deleteMany({
+      where: { trainerId: trainerProfile.id },
+    });
+
+    // Create new TrainerSpecializations
+    if (uniqueTagIds.length > 0) {
+      await tx.trainerSpecialization.createMany({
+        data: uniqueTagIds.map((tagId) => ({
+          trainerId: trainerProfile.id,
+          tagId,
+        })),
+      });
+    }
+
+    // Recalculate profile completion
+    const profileCompletionPercent = await _calculateAndUpdateProfileCompletion(tx, trainerProfile.id);
+
+    // Fetch the updated specializations
+    const updatedSpecializations = await tx.trainerSpecialization.findMany({
+      where: { trainerId: trainerProfile.id },
+      select: {
+        tag: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+          },
+        },
+      },
+      orderBy: { tag: { name: "asc" } },
+    });
+
+    return {
+      id: trainerProfile.id,
+      profileCompletionPercent,
+      isProfileComplete: profileCompletionPercent >= 80,
+      specializations: updatedSpecializations.map((s) => s.tag),
+    };
+  });
+};
+
 export const TrainerProfileService = {
   createTrainerProfile,
   getOwnTrainerProfile,
   getPublicTrainerProfile,
   getAllTrainers,
+  setOwnSpecializations,
 };
+

@@ -61,10 +61,23 @@ const getAllTrainers = catchAsync(async (req: Request, res: Response) => {
     data: result.data,
   });
 });
+const setOwnSpecializations = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const { specializationIds } = req.body;
+  const result = await TrainerProfileService.setOwnSpecializations(userId, specializationIds);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Trainer specializations updated successfully.",
+    data: result,
+  });
+});
 
 export const TrainerProfileController = {
   createTrainerProfile,
   getOwnTrainerProfile,
   getPublicTrainerProfile,
   getAllTrainers,
+  setOwnSpecializations,
 };

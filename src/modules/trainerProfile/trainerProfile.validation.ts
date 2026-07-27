@@ -45,8 +45,19 @@ const getPublicTrainerProfileValidation = z.object({
   }),
 });
 
+const setSpecializationsValidation = z.object({
+  body: z.object({
+    specializationIds: z
+      .array(z.string().uuid("Invalid specialization tag UUID"))
+      .min(1, "At least one specialization is required")
+      .max(10, "Cannot have more than 10 specializations"),
+  }).strict(),
+});
+
+
 export const TrainerProfileValidations = {
   createTrainerProfileValidation,
   updateTrainerProfileValidation,
   getPublicTrainerProfileValidation,
+  setSpecializationsValidation,
 };

@@ -29,6 +29,15 @@ router.get(
   TrainerProfileController.getOwnTrainerProfile,
 );
 
+router.put(
+  "/specializations",
+  // @ts-ignore
+  checkAuth(USER_ROLE.TRAINER),
+  validateRequest(TrainerProfileValidations.setSpecializationsValidation),
+  TrainerProfileController.setOwnSpecializations,
+);
+
+
 router.get(
   "/",
   TrainerProfileController.getAllTrainers,
