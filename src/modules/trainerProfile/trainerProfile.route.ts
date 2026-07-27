@@ -18,14 +18,26 @@ router.post(
     { name: "certificationFiles", maxCount: 10 },
   ]),
   parseData,
-  validateRequest(TrainerProfileValidations.upsertTrainerProfileValidation),
-  TrainerProfileController.upsertTrainerProfile,
+  validateRequest(TrainerProfileValidations.createTrainerProfileValidation),
+  TrainerProfileController.createTrainerProfile,
 );
+
 router.get(
   "/me",
   // @ts-ignore
   checkAuth(USER_ROLE.TRAINER),
   TrainerProfileController.getOwnTrainerProfile,
+);
+
+router.get(
+  "/",
+  TrainerProfileController.getAllTrainers,
+);
+
+router.get(
+  "/:id",
+  validateRequest(TrainerProfileValidations.getPublicTrainerProfileValidation),
+  TrainerProfileController.getPublicTrainerProfile,
 );
 
 export const trainerProfileRoutes = router;

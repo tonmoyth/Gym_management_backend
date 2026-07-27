@@ -3,7 +3,7 @@ import { catchAsync } from "../../shared/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { TrainerProfileService } from "./trainerProfile.service";
 
-const upsertTrainerProfile = catchAsync(async (req: Request, res: Response) => {
+const createTrainerProfile = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user.id as string;
   const payload = req.body;
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
@@ -11,12 +11,17 @@ const upsertTrainerProfile = catchAsync(async (req: Request, res: Response) => {
   const profilePhoto = files?.profilePhoto?.[0];
   const certificationFiles = files?.certificationFiles || [];
 
-  const result = await TrainerProfileService.upsertTrainerProfile(userId, payload, profilePhoto, certificationFiles);
+  const result = await TrainerProfileService.createTrainerProfile(
+    userId,
+    payload,
+    profilePhoto,
+    certificationFiles,
+  );
 
   sendResponse(res, {
-    statusCode: 200,
+    statusCode: 201,
     success: true,
-    message: "Trainer profile updated successfully.",
+    message: "Trainer profile created successfully.",
     data: result,
   });
 });
@@ -33,7 +38,33 @@ const getOwnTrainerProfile = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getPublicTrainerProfile = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await TrainerProfileService.getPublicTrainerProfile(id as string);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Trainer profile retrieved successfully.",
+    data: result,
+  });
+});
+
+const getAllTrainers = catchAsync(async (req: Request, res: Response) => {
+  const result = await TrainerProfileService.getAllTrainers(req.query as any);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Verified trainers retrieved successfully.",
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
 export const TrainerProfileController = {
-  upsertTrainerProfile,
+  createTrainerProfile,
   getOwnTrainerProfile,
+  getPublicTrainerProfile,
+  getAllTrainers,
 };
