@@ -486,7 +486,6 @@ export const TrainerCertificationScalarFieldEnum = {
   expiryDate: 'expiryDate',
   credentialId: 'credentialId',
   credentialUrl: 'credentialUrl',
-  verificationStatus: 'verificationStatus',
   verifiedAt: 'verifiedAt',
   verifiedBy: 'verifiedBy',
   reviewedByAdminId: 'reviewedByAdminId',

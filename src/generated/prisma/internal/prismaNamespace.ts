@@ -3531,7 +3531,6 @@ export const TrainerCertificationScalarFieldEnum = {
   expiryDate: 'expiryDate',
   credentialId: 'credentialId',
   credentialUrl: 'credentialUrl',
-  verificationStatus: 'verificationStatus',
   verifiedAt: 'verifiedAt',
   verifiedBy: 'verifiedBy',
   reviewedByAdminId: 'reviewedByAdminId',
@@ -4036,20 +4035,6 @@ export type EnumCertificationStatusFieldRefInput<$PrismaModel> = FieldRefInputTy
  * Reference to a field of type 'CertificationStatus[]'
  */
 export type ListEnumCertificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CertificationStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'VerificationStatus'
- */
-export type EnumVerificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationStatus'>
-    
-
-
-/**
- * Reference to a field of type 'VerificationStatus[]'
- */
-export type ListEnumVerificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationStatus[]'>
     
 
 

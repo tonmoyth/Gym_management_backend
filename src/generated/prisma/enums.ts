@@ -221,12 +221,3 @@ export const ClassBookingStatus = {
 } as const
 
 export type ClassBookingStatus = (typeof ClassBookingStatus)[keyof typeof ClassBookingStatus]
-
-
-export const VerificationStatus = {
-  PENDING: 'PENDING',
-  VERIFIED: 'VERIFIED',
-  REJECTED: 'REJECTED'
-} as const
-
-export type VerificationStatus = (typeof VerificationStatus)[keyof typeof VerificationStatus]

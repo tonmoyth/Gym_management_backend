@@ -218,8 +218,7 @@ const upsertTrainerProfile = async (
             expiryDate: true,
             credentialId: true,
             credentialUrl: true,
-            status: true,
-            verificationStatus: true
+            status: true
           }
         }
       }
@@ -235,11 +234,110 @@ const upsertTrainerProfile = async (
     }
     
     return finalProfile;
+  }, {
+    maxWait: 5000,
+    timeout: 15000,
   });
 
   return result;
 };
 
+const getOwnTrainerProfile = async (userId: string) => {
+  const trainerProfile = await prisma.trainerProfile.findUnique({
+    where: { userId },
+    select: {
+      id: true,
+      bio: true,
+      gender: true,
+      verifiedBadge: true,
+      avgRating: true,
+      profileCompletionPercent: true,
+      createdAt: true,
+      updatedAt: true,
+      user: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+          profileImage: true,
+        },
+      },
+      specializations: {
+        select: {
+          tag: {
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+            },
+          },
+        },
+        orderBy: {
+          tag: {
+            name: "asc",
+          },
+        },
+      },
+      certifications: {
+        select: {
+          id: true,
+          title: true,
+          issuer: true,
+          issueDate: true,
+          expiryDate: true,
+          credentialId: true,
+          credentialUrl: true,
+        },
+        orderBy: {
+          issueDate: "desc",
+        },
+      },
+      businesses: {
+        where: {
+          isActive: true,
+        },
+        select: {
+          id: true,
+          joinedAt: true,
+          business: {
+            select: {
+              id: true,
+              name: true,
+              logo: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!trainerProfile) {
+    throw new AppError(404, "Trainer profile not found.");
+  }
+
+  return {
+    id: trainerProfile.id,
+    bio: trainerProfile.bio,
+    gender: trainerProfile.gender,
+    profilePhoto: trainerProfile.user.profileImage || "",
+    verifiedBadge: trainerProfile.verifiedBadge,
+    avgRating: trainerProfile.avgRating,
+    profileCompletionPercent: trainerProfile.profileCompletionPercent,
+    isProfileComplete: trainerProfile.profileCompletionPercent >= 80,
+    user: {
+      id: trainerProfile.user.id,
+      name: trainerProfile.user.fullName || "",
+      email: trainerProfile.user.email,
+    },
+    specializations: trainerProfile.specializations.map((s) => s.tag),
+    certifications: trainerProfile.certifications,
+    businesses: trainerProfile.businesses,
+    createdAt: trainerProfile.createdAt,
+    updatedAt: trainerProfile.updatedAt,
+  };
+};
+
 export const TrainerProfileService = {
   upsertTrainerProfile,
+  getOwnTrainerProfile,
 };

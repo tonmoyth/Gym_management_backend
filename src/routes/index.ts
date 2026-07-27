@@ -8,6 +8,7 @@ import { membershipPlanRoutes } from "../modules/membershipPlan/membershipPlan.r
 import { bookingRoutes } from "../modules/booking/booking.route";
 import { jobPostRoutes } from "../modules/jobPost/jobPost.route";
 import { trainerProfileRoutes } from "../modules/trainerProfile/trainerProfile.route";
+import { specializationTagRoutes } from "../modules/specializationTag/specializationTag.route";
 
 const router = express.Router();
 
@@ -47,6 +48,10 @@ const moduleRoutes = [
     {
         path: "/trainer-profile",
         route: trainerProfileRoutes,
+    },
+    {
+        path: "/specialization-tags",
+        route: specializationTagRoutes,
     },
 ];
 

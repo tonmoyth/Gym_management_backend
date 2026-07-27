@@ -21,6 +21,19 @@ const upsertTrainerProfile = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getOwnTrainerProfile = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const result = await TrainerProfileService.getOwnTrainerProfile(userId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Trainer profile retrieved successfully.",
+    data: result,
+  });
+});
+
 export const TrainerProfileController = {
   upsertTrainerProfile,
+  getOwnTrainerProfile,
 };

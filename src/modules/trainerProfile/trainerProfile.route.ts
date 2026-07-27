@@ -9,17 +9,23 @@ import { TrainerProfileController } from "./trainerProfile.controller";
 
 const router = express.Router();
 
-router.put(
+router.post(
   "/me",
   // @ts-ignore
   checkAuth(USER_ROLE.TRAINER),
   upload.fields([
     { name: "profilePhoto", maxCount: 1 },
-    { name: "certificationFiles", maxCount: 10 }
+    { name: "certificationFiles", maxCount: 10 },
   ]),
   parseData,
   validateRequest(TrainerProfileValidations.upsertTrainerProfileValidation),
-  TrainerProfileController.upsertTrainerProfile
+  TrainerProfileController.upsertTrainerProfile,
+);
+router.get(
+  "/me",
+  // @ts-ignore
+  checkAuth(USER_ROLE.TRAINER),
+  TrainerProfileController.getOwnTrainerProfile,
 );
 
 export const trainerProfileRoutes = router;
