@@ -73,10 +73,40 @@ const rejectTrainerApplication = catchAsync(async (req: Request, res: Response) 
   });
 });
 
+const getOpenJobPosts = catchAsync(async (req: Request, res: Response) => {
+  const trainerUserId = req.user.id as string;
+  const query = req.query;
+
+  const result = await JobPostService.getOpenJobPosts(trainerUserId, query);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Open job posts retrieved successfully.",
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
+const getJobPostDetail = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await JobPostService.getJobPostDetail(id as string);
+
+  sendResponse(res, {
+    statusCode: 200, // OK
+    success: true,
+    message: "Job post retrieved successfully.",
+    data: result,
+  });
+});
+
 export const JobPostController = {
   createJobPost,
   closeJobPost,
   getJobPostApplicants,
   approveTrainerApplication,
   rejectTrainerApplication,
+  getOpenJobPosts,
+  getJobPostDetail,
 };

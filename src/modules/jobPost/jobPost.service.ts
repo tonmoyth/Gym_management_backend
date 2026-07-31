@@ -492,10 +492,191 @@ const rejectTrainerApplication = async (ownerId: string, appId: string) => {
   };
 };
 
+const getOpenJobPosts = async (trainerUserId: string, query: any) => {
+  // 1. Get TrainerProfile ID for this user
+  const trainerProfile = await prisma.user.findUnique({
+    where: { id: trainerUserId },
+  });
+
+  if (!trainerProfile) {
+    throw new AppError(404, "Trainer profile not found.");
+  }
+
+  // 2. Map query parameters to match database fields and QueryBuilder format
+  const queryParams = { ...query };
+
+  // 3. Set default sort if not provided
+  if (!queryParams.sort) {
+    queryParams.sort = "-createdAt";
+  }
+
+  if (queryParams.sort) {
+    if (queryParams.sort.startsWith("-")) {
+      queryParams.sortBy = queryParams.sort.substring(1);
+      queryParams.sortOrder = "desc";
+    } else {
+      queryParams.sortBy = queryParams.sort;
+      queryParams.sortOrder = "asc";
+    }
+    delete queryParams.sort;
+  }
+
+  // 4. Initialize QueryBuilder
+  const queryBuilder = new QueryBuilder(prisma.jobPost, queryParams, {
+    searchableFields: [
+      "title",
+      "description",
+      "business.name",
+      "specializationTag.name",
+    ],
+    filterableFields: ["specializationTagId", "businessId"],
+  })
+    .search()
+    .filter()
+    .sort()
+    .paginate();
+
+  // 5. Apply forced business rules
+  queryBuilder.where({
+    isOpen: true,
+    business: {
+      status: "ACTIVE",
+    },
+    // Exclude jobs already applied to by the trainer
+    NOT: {
+      applications: {
+        some: {
+          trainerId: trainerProfile.id,
+        },
+      },
+    },
+  });
+
+  // 6. Define Select Fields
+  const qbQuery = queryBuilder.getQuery();
+  delete qbQuery.include;
+  qbQuery.select = {
+    id: true,
+    title: true,
+    description: true,
+    createdAt: true,
+    business: {
+      select: {
+        id: true,
+        name: true,
+        logo: true,
+        address: true,
+      },
+    },
+    specializationTag: {
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+      },
+    },
+  };
+
+  // 7. Execute Query
+  const result = await queryBuilder.execute();
+
+  // 8. Map to match expected response output exactly
+  const mappedData = result.data.map((job: any) => ({
+    id: job.id,
+    title: job.title,
+    description: job.description,
+    business: {
+      id: job.business.id,
+      name: job.business.name,
+      logo: job.business.logo,
+      address: job.business.address,
+    },
+    specialization: {
+      id: job.specializationTag.id,
+      name: job.specializationTag.name,
+      slug: job.specializationTag.slug,
+    },
+    createdAt: job.createdAt,
+  }));
+
+  return {
+    meta: result.meta,
+    data: mappedData,
+  };
+};
+
+const getJobPostDetail = async (jobPostId: string) => {
+  const jobPost = await prisma.jobPost.findUnique({
+    where: {
+      id: jobPostId,
+      isOpen: true,
+      business: {
+        status: "ACTIVE",
+      },
+    },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      isOpen: true,
+      createdAt: true,
+      _count: {
+        select: {
+          applications: true,
+        },
+      },
+      business: {
+        select: {
+          id: true,
+          name: true,
+          logo: true,
+          address: true,
+          latitude: true,
+          longitude: true,
+        },
+      },
+      specializationTag: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        },
+      },
+    },
+  });
+
+  if (!jobPost) {
+    throw new AppError(404, "Job post not found or it is no longer available.");
+  }
+
+  const postedDaysAgo = Math.floor(
+    (Date.now() - jobPost.createdAt.getTime()) / (1000 * 60 * 60 * 24),
+  );
+
+  return {
+    id: jobPost.id,
+    title: jobPost.title,
+    description: jobPost.description,
+    isOpen: jobPost.isOpen,
+    isAcceptingApplications: jobPost.isOpen,
+    postedDaysAgo: postedDaysAgo >= 0 ? postedDaysAgo : 0,
+    applicationCount: jobPost._count.applications,
+    business: jobPost.business,
+    specialization: {
+      id: jobPost.specializationTag.id,
+      name: jobPost.specializationTag.name,
+      slug: jobPost.specializationTag.slug,
+    },
+    createdAt: jobPost.createdAt,
+  };
+};
+
 export const JobPostService = {
   createJobPost,
   closeJobPost,
   getJobPostApplicants,
   approveTrainerApplication,
   rejectTrainerApplication,
+  getOpenJobPosts,
+  getJobPostDetail,
 };

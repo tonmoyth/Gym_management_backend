@@ -23,7 +23,10 @@ interface IUpsertTrainerProfilePayload {
   certifications?: ICertification[];
 }
 
-const _calculateAndUpdateProfileCompletion = async (tx: any, trainerProfileId: string) => {
+const _calculateAndUpdateProfileCompletion = async (
+  tx: any,
+  trainerProfileId: string,
+) => {
   let completionPercent = 0;
 
   const updatedProfile = await tx.trainerProfile.findUnique({
@@ -47,12 +50,11 @@ const _calculateAndUpdateProfileCompletion = async (tx: any, trainerProfileId: s
       where: { id: trainerProfileId },
       data: { profileCompletionPercent: completionPercent },
     });
-    
+
     return completionPercent;
   }
   return 0;
 };
-
 
 const _saveTrainerProfile = async (
   userId: string,
@@ -477,7 +479,9 @@ const getPublicTrainerProfile = async (id: string) => {
       logo: b.business.logo,
     })),
     reviewSummary: {
-      averageRating: reviewsAgg._avg.rating ? Number(reviewsAgg._avg.rating).toFixed(2) : "0.00",
+      averageRating: reviewsAgg._avg.rating
+        ? Number(reviewsAgg._avg.rating).toFixed(2)
+        : "0.00",
       totalReviews: reviewsAgg._count.rating || 0,
     },
     recentReviews: trainerProfile.reviews.map((r) => ({
@@ -587,7 +591,7 @@ const getAllTrainers = async (query: IQueryParams) => {
     },
   };
 
-  // We explicitly override select, so we must execute manually to map correctly 
+  // We explicitly override select, so we must execute manually to map correctly
   // without the queryBuilder modifying select further or we can just run it.
   const [total, data] = await Promise.all([
     queryBuilder.count(),
@@ -615,7 +619,7 @@ const getAllTrainers = async (query: IQueryParams) => {
 
   const page = Number(query.page) || 1;
   const limit = Number(query.limit) || 10;
-  
+
   return {
     meta: {
       page,
@@ -627,7 +631,10 @@ const getAllTrainers = async (query: IQueryParams) => {
   };
 };
 
-const setOwnSpecializations = async (userId: string, specializationIds: string[]) => {
+const setOwnSpecializations = async (
+  userId: string,
+  specializationIds: string[],
+) => {
   const trainerProfile = await prisma.trainerProfile.findUnique({
     where: { userId },
     select: { id: true },
@@ -649,7 +656,10 @@ const setOwnSpecializations = async (userId: string, specializationIds: string[]
   if (existingTags.length !== uniqueTagIds.length) {
     const existingIds = existingTags.map((t) => t.id);
     const invalidIds = uniqueTagIds.filter((id) => !existingIds.includes(id));
-    throw new AppError(404, `One or more specialization tags not found: ${invalidIds.join(", ")}`);
+    throw new AppError(
+      404,
+      `One or more specialization tags not found: ${invalidIds.join(", ")}`,
+    );
   }
 
   return await prisma.$transaction(async (tx) => {
@@ -669,7 +679,10 @@ const setOwnSpecializations = async (userId: string, specializationIds: string[]
     }
 
     // Recalculate profile completion
-    const profileCompletionPercent = await _calculateAndUpdateProfileCompletion(tx, trainerProfile.id);
+    const profileCompletionPercent = await _calculateAndUpdateProfileCompletion(
+      tx,
+      trainerProfile.id,
+    );
 
     // Fetch the updated specializations
     const updatedSpecializations = await tx.trainerSpecialization.findMany({
@@ -695,11 +708,143 @@ const setOwnSpecializations = async (userId: string, specializationIds: string[]
   });
 };
 
+const uploadCertification = async (
+  userId: string,
+  payload: any,
+  file?: Express.Multer.File,
+) => {
+  const trainerProfile = await prisma.trainerProfile.findUnique({
+    where: { userId },
+    select: { id: true },
+  });
+
+  if (!trainerProfile) {
+    if (file && fs.existsSync(file.path)) fs.unlinkSync(file.path);
+    throw new AppError(404, "Trainer profile not found.");
+  }
+
+  if (!file) {
+    throw new AppError(400, "Certification file is required.");
+  }
+
+  if (payload.credentialId) {
+    const existing = await prisma.trainerCertification.findFirst({
+      where: {
+        trainerId: trainerProfile.id,
+        issuer: payload.issuer,
+        credentialId: payload.credentialId,
+      },
+    });
+
+    if (existing) {
+      if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
+      throw new AppError(409, "This certification has already been uploaded.");
+    }
+  }
+
+  let fileUrl = "";
+  try {
+    // TODO: Replace Cloudinary implementation with AWS S3 uploader in future.
+    fileUrl = await uploadToCloudinary(file.path, "trainer-certifications");
+    if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
+  } catch (error) {
+    if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
+    throw new AppError(500, "Failed to upload certification file.");
+  }
+
+  return await prisma.$transaction(async (tx) => {
+    // 1. Create Certification
+    const newCertification = await tx.trainerCertification.create({
+      data: {
+        trainerId: trainerProfile.id,
+        title: payload.title,
+        fileUrl: fileUrl,
+        issuer: payload.issuer,
+        issueDate: new Date(payload.issueDate),
+        expiryDate: payload.expiryDate ? new Date(payload.expiryDate) : null,
+        credentialId: payload.credentialId,
+        credentialUrl: payload.credentialUrl,
+        status: "PENDING", // Always PENDING for new uploads
+      },
+      select: {
+        id: true,
+        title: true,
+        issuer: true,
+        issueDate: true,
+        expiryDate: true,
+        credentialId: true,
+        credentialUrl: true,
+        status: true,
+        createdAt: true,
+      },
+    });
+
+    // 2. Recalculate Profile Completion
+    await _calculateAndUpdateProfileCompletion(tx, trainerProfile.id);
+
+    return newCertification;
+  });
+};
+
+const getOwnCertifications = async (userId: string) => {
+  const trainerProfile = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { trainerProfile: true },
+  });
+
+  if (!trainerProfile) {
+    throw new AppError(404, "Trainer profile not found.");
+  }
+
+  const certifications = await prisma.trainerCertification.findMany({
+    where: { trainerId: trainerProfile.trainerProfile?.id },
+    select: {
+      id: true,
+      title: true,
+      issuer: true,
+      issueDate: true,
+      expiryDate: true,
+      credentialId: true,
+      credentialUrl: true,
+      fileUrl: true,
+      status: true,
+      createdAt: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const currentDate = new Date();
+
+  return certifications.map((cert) => {
+    let isExpired = false;
+    if (cert.expiryDate) {
+      isExpired = new Date(cert.expiryDate) < currentDate;
+    }
+
+    return {
+      id: cert.id,
+      title: cert.title,
+      issuer: cert.issuer,
+      issueDate: cert.issueDate,
+      expiryDate: cert.expiryDate,
+      credentialId: cert.credentialId,
+      credentialUrl: cert.credentialUrl,
+      documentUrl: cert.fileUrl,
+      status: cert.status,
+      isExpired,
+      createdAt: cert.createdAt,
+    };
+  });
+};
+
 export const TrainerProfileService = {
   createTrainerProfile,
   getOwnTrainerProfile,
   getPublicTrainerProfile,
   getAllTrainers,
   setOwnSpecializations,
+  uploadCertification,
+  getOwnCertifications,
 };
-

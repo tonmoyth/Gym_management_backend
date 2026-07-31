@@ -38,17 +38,21 @@ const getOwnTrainerProfile = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getPublicTrainerProfile = catchAsync(async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const result = await TrainerProfileService.getPublicTrainerProfile(id as string);
+const getPublicTrainerProfile = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result = await TrainerProfileService.getPublicTrainerProfile(
+      id as string,
+    );
 
-  sendResponse(res, {
-    statusCode: 200,
-    success: true,
-    message: "Trainer profile retrieved successfully.",
-    data: result,
-  });
-});
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Trainer profile retrieved successfully.",
+      data: result,
+    });
+  },
+);
 
 const getAllTrainers = catchAsync(async (req: Request, res: Response) => {
   const result = await TrainerProfileService.getAllTrainers(req.query as any);
@@ -61,15 +65,53 @@ const getAllTrainers = catchAsync(async (req: Request, res: Response) => {
     data: result.data,
   });
 });
-const setOwnSpecializations = catchAsync(async (req: Request, res: Response) => {
+const setOwnSpecializations = catchAsync(
+  async (req: Request, res: Response) => {
+    const userId = req.user.id as string;
+    const { specializationIds } = req.body;
+    const result = await TrainerProfileService.setOwnSpecializations(
+      userId,
+      specializationIds,
+    );
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Trainer specializations updated successfully.",
+      data: result,
+    });
+  },
+);
+
+const uploadCertification = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user.id as string;
-  const { specializationIds } = req.body;
-  const result = await TrainerProfileService.setOwnSpecializations(userId, specializationIds);
+  const payload = req.body;
+  const file = req.file;
+
+  const result = await TrainerProfileService.uploadCertification(
+    userId,
+    payload,
+    file,
+  );
+
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message:
+      "Certification uploaded successfully. It is now pending admin review.",
+    data: result,
+  });
+});
+
+const getOwnCertifications = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+ 
+  const result = await TrainerProfileService.getOwnCertifications(userId);
 
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: "Trainer specializations updated successfully.",
+    message: "Trainer certifications retrieved successfully.",
     data: result,
   });
 });
@@ -80,4 +122,6 @@ export const TrainerProfileController = {
   getPublicTrainerProfile,
   getAllTrainers,
   setOwnSpecializations,
+  uploadCertification,
+  getOwnCertifications,
 };

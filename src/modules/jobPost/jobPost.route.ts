@@ -7,6 +7,19 @@ import { USER_ROLE } from "../Business/business.constant";
 
 const router = express.Router();
 
+router.get(
+  "/",
+  // @ts-ignore
+  checkAuth(USER_ROLE.TRAINER),
+  JobPostController.getOpenJobPosts,
+);
+
+router.get(
+  "/:id",
+  validateRequest(JobPostValidations.getJobPostDetailValidation),
+  JobPostController.getJobPostDetail,
+);
+
 router.post(
   "/",
   // @ts-ignore

@@ -11,8 +11,8 @@ const createTrainerProfileValidation = z.object({
         title: z.string().min(1, "Title is required"),
         fileUrl: z.string().url("Must be a valid URL").optional().nullable(),
         issuer: z.string().min(1, "Issuer is required"),
-        issueDate: z.string().datetime().or(z.date()),
-        expiryDate: z.string().datetime().or(z.date()).optional().nullable(),
+        issueDate: z.coerce.date(),
+        expiryDate: z.coerce.date().optional().nullable(),
         credentialId: z.string().optional().nullable(),
         credentialUrl: z.string().url().optional().nullable(),
       }).strict()
@@ -30,8 +30,8 @@ const updateTrainerProfileValidation = z.object({
         title: z.string().min(1, "Title is required"),
         fileUrl: z.string().url("Must be a valid URL").optional().nullable(),
         issuer: z.string().min(1, "Issuer is required"),
-        issueDate: z.string().datetime().or(z.date()),
-        expiryDate: z.string().datetime().or(z.date()).optional().nullable(),
+        issueDate: z.coerce.date(),
+        expiryDate: z.coerce.date().optional().nullable(),
         credentialId: z.string().optional().nullable(),
         credentialUrl: z.string().url().optional().nullable(),
       }).strict()
@@ -55,9 +55,30 @@ const setSpecializationsValidation = z.object({
 });
 
 
+const uploadCertificationValidation = z.object({
+  body: z.object({
+    title: z.string().trim().min(3, "Title must be at least 3 characters").max(120, "Title cannot exceed 120 characters"),
+    issuer: z.string().trim().min(1, "Issuer is required").max(120, "Issuer cannot exceed 120 characters"),
+    issueDate: z.coerce.date(),
+    expiryDate: z.coerce.date().optional().nullable(),
+    credentialId: z.string().max(100, "Credential ID cannot exceed 100 characters").optional().nullable(),
+    credentialUrl: z.string().url("Must be a valid URL").optional().nullable(),
+  }).strict()
+    .refine((data) => {
+      if (data.expiryDate && data.issueDate) {
+        return new Date(data.expiryDate) > new Date(data.issueDate);
+      }
+      return true;
+    }, {
+      message: "Expiry date must be greater than issue date",
+      path: ["expiryDate"],
+    }),
+});
+
 export const TrainerProfileValidations = {
   createTrainerProfileValidation,
   updateTrainerProfileValidation,
   getPublicTrainerProfileValidation,
   setSpecializationsValidation,
+  uploadCertificationValidation,
 };

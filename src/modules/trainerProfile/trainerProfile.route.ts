@@ -37,6 +37,24 @@ router.put(
   TrainerProfileController.setOwnSpecializations,
 );
 
+router.post(
+  "/certifications",
+  // @ts-ignore
+  checkAuth(USER_ROLE.TRAINER),
+  upload.single("credentialFile"),
+  parseData,
+  validateRequest(TrainerProfileValidations.uploadCertificationValidation),
+  TrainerProfileController.uploadCertification,
+);
+
+
+router.get(
+  "/certifications/me",
+  // @ts-ignore
+  checkAuth(USER_ROLE.TRAINER),
+  TrainerProfileController.getOwnCertifications,
+);
+
 
 router.get(
   "/",
