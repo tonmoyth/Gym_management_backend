@@ -209,6 +209,7 @@ const getJobPostApplicants = async (
     trainer: {
       select: {
         id: true,
+        experience: true,
         user: {
           select: {
             id: true,
@@ -243,6 +244,8 @@ const getJobPostApplicants = async (
     createdAt: app.appliedAt,
     trainer: {
       id: app.trainer.id,
+      experience: app.trainer.experience,
+      
       user: {
         id: app.trainer.user.id,
         name: app.trainer.user.fullName,
@@ -671,6 +674,256 @@ const getJobPostDetail = async (jobPostId: string) => {
   };
 };
 
+const applyToJobPost = async (trainerUserId: string, jobPostId: string) => {
+  // 1. Find Trainer Profile
+  const trainerProfile = await prisma.trainerProfile.findUnique({
+    where: { userId: trainerUserId },
+    include: { certifications: true },
+  });
+
+  if (!trainerProfile) {
+    throw new AppError(404, "Trainer profile not found.");
+  }
+
+  if (!trainerProfile.verifiedBadge) {
+    throw new AppError(
+      403,
+      "You must have a verified badge to apply for jobs.",
+    );
+  }
+
+  const hasVerifiedCertification = trainerProfile.certifications.some(
+    (cert) => cert.status === "VERIFIED",
+  );
+
+  if (!hasVerifiedCertification) {
+    throw new AppError(
+      403,
+      "You must have at least one verified certification to apply for jobs.",
+    );
+  }
+
+  // 2. Profile Completion Rule
+  if (trainerProfile.profileCompletionPercent < 80) {
+    throw new AppError(
+      403,
+      "Complete at least 80% of your trainer profile before applying for jobs.",
+    );
+  }
+
+  // 3. Find Job Post (must be open and business approved)
+  const jobPost = await prisma.jobPost.findUnique({
+    where: {
+      id: jobPostId,
+      isOpen: true,
+      business: {
+        status: "ACTIVE", // APPROVED status in Prisma enum
+      },
+    },
+    include: {
+      business: true,
+    },
+  });
+
+  if (!jobPost) {
+    throw new AppError(
+      404,
+      "Job post not found, closed, or business is not approved.",
+    );
+  }
+
+  // 4. Check duplicate application
+  const existingApplication = await prisma.trainerApplication.findUnique({
+    where: {
+      jobPostId_trainerId: {
+        jobPostId: jobPost.id,
+        trainerId: trainerProfile.id,
+      },
+    },
+  });
+
+  if (existingApplication) {
+    throw new AppError(409, "You have already applied to this job post.");
+  }
+
+  // 5. Check if Trainer is already attached to this Business
+  const existingTrainerBusiness = await prisma.trainerBusiness.findUnique({
+    where: {
+      trainerId_businessId: {
+        trainerId: trainerProfile.id,
+        businessId: jobPost.businessId,
+      },
+    },
+  });
+
+  if (existingTrainerBusiness) {
+    throw new AppError(
+      409,
+      "You cannot apply to a job post for a business you are already working in.",
+    );
+  }
+
+  // 6. Create Application using Prisma Transaction
+  const application = await prisma.$transaction(async (tx) => {
+    return await tx.trainerApplication.create({
+      data: {
+        jobPostId: jobPost.id,
+        trainerId: trainerProfile.id,
+        status: "PENDING",
+      },
+      select: {
+        id: true,
+        status: true,
+      },
+    });
+  });
+
+  // 7. Publish Redis Event
+  pushJob("job_application_queue", {
+    eventType: "TRAINER_JOB_APPLIED",
+    applicationId: application.id,
+    trainerId: trainerProfile.id,
+    jobPostId: jobPost.id,
+    businessId: jobPost.businessId,
+    // Add additional info for notification payload if needed by the worker
+    trainerUserId: trainerUserId,
+  });
+
+  return {
+    applicationId: application.id,
+    status: application.status,
+  };
+};
+
+const getMyApplications = async (trainerUserId: string, query: any) => {
+  // 1. Get Trainer Profile
+  const trainerProfile = await prisma.trainerProfile.findUnique({
+    where: { userId: trainerUserId },
+  });
+
+  if (!trainerProfile) {
+    throw new AppError(404, "Trainer profile not found.");
+  }
+
+  // 2. Map query parameters to match database fields and QueryBuilder format
+  const queryParams = { ...query };
+
+  if (queryParams.specializationId) {
+    queryParams["jobPost.specializationTagId"] = queryParams.specializationId;
+    delete queryParams.specializationId;
+  }
+
+  if (queryParams.businessId) {
+    queryParams["jobPost.businessId"] = queryParams.businessId;
+    delete queryParams.businessId;
+  }
+
+  // 3. Set default sort if not provided
+  if (!queryParams.sort) {
+    queryParams.sort = "-createdAt";
+  }
+
+  if (queryParams.sort) {
+    if (queryParams.sort.startsWith("-")) {
+      queryParams.sortBy = queryParams.sort.substring(1);
+      queryParams.sortOrder = "desc";
+    } else {
+      queryParams.sortBy = queryParams.sort;
+      queryParams.sortOrder = "asc";
+    }
+    delete queryParams.sort;
+  }
+
+  if (queryParams.sortBy === "createdAt") {
+    queryParams.sortBy = "appliedAt";
+  }
+
+  // 4. Initialize QueryBuilder
+  const queryBuilder = new QueryBuilder(
+    prisma.trainerApplication,
+    queryParams,
+    {
+      searchableFields: [
+        "jobPost.title",
+        "jobPost.business.name",
+        "jobPost.specializationTag.name",
+      ],
+      filterableFields: [
+        "status",
+        "jobPost.specializationTagId",
+        "jobPost.businessId",
+      ],
+    },
+  )
+    .search()
+    .filter()
+    .sort()
+    .paginate();
+
+  // 5. Enforce filter to only this trainer's applications
+  queryBuilder.where({
+    trainerId: trainerProfile.id,
+  });
+
+  // 6. Define Select Fields
+  const qbQuery = queryBuilder.getQuery();
+  delete qbQuery.include;
+  qbQuery.select = {
+    id: true,
+    status: true,
+    appliedAt: true,
+    jobPost: {
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        business: {
+          select: {
+            id: true,
+            name: true,
+            logo: true,
+          },
+        },
+        specializationTag: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    },
+  };
+
+  // 7. Execute Query
+  const result = await queryBuilder.execute();
+
+  // 8. Map to requested format
+  const mappedData = result.data.map((app: any) => ({
+    id: app.id,
+    status: app.status,
+    createdAt: app.appliedAt,
+    jobPost: {
+      id: app.jobPost.id,
+      title: app.jobPost.title,
+      description: app.jobPost.description,
+    },
+    business: {
+      id: app.jobPost.business.id,
+      name: app.jobPost.business.name,
+      logo: app.jobPost.business.logo,
+    },
+    specialization: {
+      id: app.jobPost.specializationTag.id,
+      name: app.jobPost.specializationTag.name,
+    },
+  }));
+
+  return {
+    meta: result.meta,
+    data: mappedData,
+  };
+};
+
 export const JobPostService = {
   createJobPost,
   closeJobPost,
@@ -679,4 +932,6 @@ export const JobPostService = {
   rejectTrainerApplication,
   getOpenJobPosts,
   getJobPostDetail,
+  applyToJobPost,
+  getMyApplications,
 };

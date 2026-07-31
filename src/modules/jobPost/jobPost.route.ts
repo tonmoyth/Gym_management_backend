@@ -15,6 +15,13 @@ router.get(
 );
 
 router.get(
+  "/applications/me",
+  // @ts-ignore
+  checkAuth(USER_ROLE.TRAINER),
+  JobPostController.getMyApplications,
+);
+
+router.get(
   "/:id",
   validateRequest(JobPostValidations.getJobPostDetailValidation),
   JobPostController.getJobPostDetail,
@@ -58,6 +65,14 @@ router.patch(
   checkAuth(USER_ROLE.BUSINESS_OWNER),
   validateRequest(JobPostValidations.rejectTrainerApplicationValidation),
   JobPostController.rejectTrainerApplication,
+);
+
+router.post(
+  "/:id/apply",
+  // @ts-ignore
+  checkAuth(USER_ROLE.TRAINER),
+  validateRequest(JobPostValidations.applyJobPostValidation),
+  JobPostController.applyToJobPost,
 );
 
 export const jobPostRoutes = router;

@@ -27,11 +27,13 @@ export type AggregateTrainerProfile = {
 }
 
 export type TrainerProfileAvgAggregateOutputType = {
+  experience: number | null
   profileCompletionPercent: number | null
   avgRating: runtime.Decimal | null
 }
 
 export type TrainerProfileSumAggregateOutputType = {
+  experience: number | null
   profileCompletionPercent: number | null
   avgRating: runtime.Decimal | null
 }
@@ -41,6 +43,7 @@ export type TrainerProfileMinAggregateOutputType = {
   userId: string | null
   bio: string | null
   gender: $Enums.Gender | null
+  experience: number | null
   profileCompletionPercent: number | null
   verifiedBadge: boolean | null
   avgRating: runtime.Decimal | null
@@ -53,6 +56,7 @@ export type TrainerProfileMaxAggregateOutputType = {
   userId: string | null
   bio: string | null
   gender: $Enums.Gender | null
+  experience: number | null
   profileCompletionPercent: number | null
   verifiedBadge: boolean | null
   avgRating: runtime.Decimal | null
@@ -65,6 +69,7 @@ export type TrainerProfileCountAggregateOutputType = {
   userId: number
   bio: number
   gender: number
+  experience: number
   profileCompletionPercent: number
   verifiedBadge: number
   avgRating: number
@@ -75,11 +80,13 @@ export type TrainerProfileCountAggregateOutputType = {
 
 
 export type TrainerProfileAvgAggregateInputType = {
+  experience?: true
   profileCompletionPercent?: true
   avgRating?: true
 }
 
 export type TrainerProfileSumAggregateInputType = {
+  experience?: true
   profileCompletionPercent?: true
   avgRating?: true
 }
@@ -89,6 +96,7 @@ export type TrainerProfileMinAggregateInputType = {
   userId?: true
   bio?: true
   gender?: true
+  experience?: true
   profileCompletionPercent?: true
   verifiedBadge?: true
   avgRating?: true
@@ -101,6 +109,7 @@ export type TrainerProfileMaxAggregateInputType = {
   userId?: true
   bio?: true
   gender?: true
+  experience?: true
   profileCompletionPercent?: true
   verifiedBadge?: true
   avgRating?: true
@@ -113,6 +122,7 @@ export type TrainerProfileCountAggregateInputType = {
   userId?: true
   bio?: true
   gender?: true
+  experience?: true
   profileCompletionPercent?: true
   verifiedBadge?: true
   avgRating?: true
@@ -212,6 +222,7 @@ export type TrainerProfileGroupByOutputType = {
   userId: string
   bio: string | null
   gender: $Enums.Gender | null
+  experience: number
   profileCompletionPercent: number
   verifiedBadge: boolean
   avgRating: runtime.Decimal
@@ -247,6 +258,7 @@ export type TrainerProfileWhereInput = {
   userId?: Prisma.StringFilter<"TrainerProfile"> | string
   bio?: Prisma.StringNullableFilter<"TrainerProfile"> | string | null
   gender?: Prisma.EnumGenderNullableFilter<"TrainerProfile"> | $Enums.Gender | null
+  experience?: Prisma.IntFilter<"TrainerProfile"> | number
   profileCompletionPercent?: Prisma.IntFilter<"TrainerProfile"> | number
   verifiedBadge?: Prisma.BoolFilter<"TrainerProfile"> | boolean
   avgRating?: Prisma.DecimalFilter<"TrainerProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -269,6 +281,7 @@ export type TrainerProfileOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
+  experience?: Prisma.SortOrder
   profileCompletionPercent?: Prisma.SortOrder
   verifiedBadge?: Prisma.SortOrder
   avgRating?: Prisma.SortOrder
@@ -294,6 +307,7 @@ export type TrainerProfileWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TrainerProfileWhereInput | Prisma.TrainerProfileWhereInput[]
   bio?: Prisma.StringNullableFilter<"TrainerProfile"> | string | null
   gender?: Prisma.EnumGenderNullableFilter<"TrainerProfile"> | $Enums.Gender | null
+  experience?: Prisma.IntFilter<"TrainerProfile"> | number
   profileCompletionPercent?: Prisma.IntFilter<"TrainerProfile"> | number
   verifiedBadge?: Prisma.BoolFilter<"TrainerProfile"> | boolean
   avgRating?: Prisma.DecimalFilter<"TrainerProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -316,6 +330,7 @@ export type TrainerProfileOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
+  experience?: Prisma.SortOrder
   profileCompletionPercent?: Prisma.SortOrder
   verifiedBadge?: Prisma.SortOrder
   avgRating?: Prisma.SortOrder
@@ -336,6 +351,7 @@ export type TrainerProfileScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"TrainerProfile"> | string
   bio?: Prisma.StringNullableWithAggregatesFilter<"TrainerProfile"> | string | null
   gender?: Prisma.EnumGenderNullableWithAggregatesFilter<"TrainerProfile"> | $Enums.Gender | null
+  experience?: Prisma.IntWithAggregatesFilter<"TrainerProfile"> | number
   profileCompletionPercent?: Prisma.IntWithAggregatesFilter<"TrainerProfile"> | number
   verifiedBadge?: Prisma.BoolWithAggregatesFilter<"TrainerProfile"> | boolean
   avgRating?: Prisma.DecimalWithAggregatesFilter<"TrainerProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -347,6 +363,7 @@ export type TrainerProfileCreateInput = {
   id?: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -369,6 +386,7 @@ export type TrainerProfileUncheckedCreateInput = {
   userId: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -389,6 +407,7 @@ export type TrainerProfileUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -411,6 +430,7 @@ export type TrainerProfileUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -432,6 +452,7 @@ export type TrainerProfileCreateManyInput = {
   userId: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -443,6 +464,7 @@ export type TrainerProfileUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -455,6 +477,7 @@ export type TrainerProfileUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -477,6 +500,7 @@ export type TrainerProfileCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   gender?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
   profileCompletionPercent?: Prisma.SortOrder
   verifiedBadge?: Prisma.SortOrder
   avgRating?: Prisma.SortOrder
@@ -485,6 +509,7 @@ export type TrainerProfileCountOrderByAggregateInput = {
 }
 
 export type TrainerProfileAvgOrderByAggregateInput = {
+  experience?: Prisma.SortOrder
   profileCompletionPercent?: Prisma.SortOrder
   avgRating?: Prisma.SortOrder
 }
@@ -494,6 +519,7 @@ export type TrainerProfileMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   gender?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
   profileCompletionPercent?: Prisma.SortOrder
   verifiedBadge?: Prisma.SortOrder
   avgRating?: Prisma.SortOrder
@@ -506,6 +532,7 @@ export type TrainerProfileMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   gender?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
   profileCompletionPercent?: Prisma.SortOrder
   verifiedBadge?: Prisma.SortOrder
   avgRating?: Prisma.SortOrder
@@ -514,6 +541,7 @@ export type TrainerProfileMinOrderByAggregateInput = {
 }
 
 export type TrainerProfileSumOrderByAggregateInput = {
+  experience?: Prisma.SortOrder
   profileCompletionPercent?: Prisma.SortOrder
   avgRating?: Prisma.SortOrder
 }
@@ -690,6 +718,7 @@ export type TrainerProfileCreateWithoutChatThreadsInput = {
   id?: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -711,6 +740,7 @@ export type TrainerProfileUncheckedCreateWithoutChatThreadsInput = {
   userId: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -746,6 +776,7 @@ export type TrainerProfileUpdateWithoutChatThreadsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -767,6 +798,7 @@ export type TrainerProfileUncheckedUpdateWithoutChatThreadsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -786,6 +818,7 @@ export type TrainerProfileCreateWithoutClassSchedulesInput = {
   id?: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -807,6 +840,7 @@ export type TrainerProfileUncheckedCreateWithoutClassSchedulesInput = {
   userId: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -842,6 +876,7 @@ export type TrainerProfileUpdateWithoutClassSchedulesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -863,6 +898,7 @@ export type TrainerProfileUncheckedUpdateWithoutClassSchedulesInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -882,6 +918,7 @@ export type TrainerProfileCreateWithoutDietPlansInput = {
   id?: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -903,6 +940,7 @@ export type TrainerProfileUncheckedCreateWithoutDietPlansInput = {
   userId: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -938,6 +976,7 @@ export type TrainerProfileUpdateWithoutDietPlansInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -959,6 +998,7 @@ export type TrainerProfileUncheckedUpdateWithoutDietPlansInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -978,6 +1018,7 @@ export type TrainerProfileCreateWithoutReviewsInput = {
   id?: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -999,6 +1040,7 @@ export type TrainerProfileUncheckedCreateWithoutReviewsInput = {
   userId: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1034,6 +1076,7 @@ export type TrainerProfileUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1055,6 +1098,7 @@ export type TrainerProfileUncheckedUpdateWithoutReviewsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1074,6 +1118,7 @@ export type TrainerProfileCreateWithoutApplicationsInput = {
   id?: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1095,6 +1140,7 @@ export type TrainerProfileUncheckedCreateWithoutApplicationsInput = {
   userId: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1130,6 +1176,7 @@ export type TrainerProfileUpdateWithoutApplicationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1151,6 +1198,7 @@ export type TrainerProfileUncheckedUpdateWithoutApplicationsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1170,6 +1218,7 @@ export type TrainerProfileCreateWithoutBusinessesInput = {
   id?: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1191,6 +1240,7 @@ export type TrainerProfileUncheckedCreateWithoutBusinessesInput = {
   userId: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1226,6 +1276,7 @@ export type TrainerProfileUpdateWithoutBusinessesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1247,6 +1298,7 @@ export type TrainerProfileUncheckedUpdateWithoutBusinessesInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1266,6 +1318,7 @@ export type TrainerProfileCreateWithoutCertificationsInput = {
   id?: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1287,6 +1340,7 @@ export type TrainerProfileUncheckedCreateWithoutCertificationsInput = {
   userId: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1322,6 +1376,7 @@ export type TrainerProfileUpdateWithoutCertificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1343,6 +1398,7 @@ export type TrainerProfileUncheckedUpdateWithoutCertificationsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1362,6 +1418,7 @@ export type TrainerProfileCreateWithoutPayoutsInput = {
   id?: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1383,6 +1440,7 @@ export type TrainerProfileUncheckedCreateWithoutPayoutsInput = {
   userId: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1418,6 +1476,7 @@ export type TrainerProfileUpdateWithoutPayoutsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1439,6 +1498,7 @@ export type TrainerProfileUncheckedUpdateWithoutPayoutsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1458,6 +1518,7 @@ export type TrainerProfileCreateWithoutSpecializationsInput = {
   id?: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1479,6 +1540,7 @@ export type TrainerProfileUncheckedCreateWithoutSpecializationsInput = {
   userId: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1514,6 +1576,7 @@ export type TrainerProfileUpdateWithoutSpecializationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1535,6 +1598,7 @@ export type TrainerProfileUncheckedUpdateWithoutSpecializationsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1554,6 +1618,7 @@ export type TrainerProfileCreateWithoutUserInput = {
   id?: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1574,6 +1639,7 @@ export type TrainerProfileUncheckedCreateWithoutUserInput = {
   id?: string
   bio?: string | null
   gender?: $Enums.Gender | null
+  experience?: number
   profileCompletionPercent?: number
   verifiedBadge?: boolean
   avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1610,6 +1676,7 @@ export type TrainerProfileUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1630,6 +1697,7 @@ export type TrainerProfileUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
   verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1754,6 +1822,7 @@ export type TrainerProfileSelect<ExtArgs extends runtime.Types.Extensions.Intern
   userId?: boolean
   bio?: boolean
   gender?: boolean
+  experience?: boolean
   profileCompletionPercent?: boolean
   verifiedBadge?: boolean
   avgRating?: boolean
@@ -1777,6 +1846,7 @@ export type TrainerProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   userId?: boolean
   bio?: boolean
   gender?: boolean
+  experience?: boolean
   profileCompletionPercent?: boolean
   verifiedBadge?: boolean
   avgRating?: boolean
@@ -1790,6 +1860,7 @@ export type TrainerProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   userId?: boolean
   bio?: boolean
   gender?: boolean
+  experience?: boolean
   profileCompletionPercent?: boolean
   verifiedBadge?: boolean
   avgRating?: boolean
@@ -1803,6 +1874,7 @@ export type TrainerProfileSelectScalar = {
   userId?: boolean
   bio?: boolean
   gender?: boolean
+  experience?: boolean
   profileCompletionPercent?: boolean
   verifiedBadge?: boolean
   avgRating?: boolean
@@ -1810,7 +1882,7 @@ export type TrainerProfileSelectScalar = {
   updatedAt?: boolean
 }
 
-export type TrainerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "bio" | "gender" | "profileCompletionPercent" | "verifiedBadge" | "avgRating" | "createdAt" | "updatedAt", ExtArgs["result"]["trainerProfile"]>
+export type TrainerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "bio" | "gender" | "experience" | "profileCompletionPercent" | "verifiedBadge" | "avgRating" | "createdAt" | "updatedAt", ExtArgs["result"]["trainerProfile"]>
 export type TrainerProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   chatThreads?: boolean | Prisma.TrainerProfile$chatThreadsArgs<ExtArgs>
@@ -1850,6 +1922,7 @@ export type $TrainerProfilePayload<ExtArgs extends runtime.Types.Extensions.Inte
     userId: string
     bio: string | null
     gender: $Enums.Gender | null
+    experience: number
     profileCompletionPercent: number
     verifiedBadge: boolean
     avgRating: runtime.Decimal
@@ -2292,6 +2365,7 @@ export interface TrainerProfileFieldRefs {
   readonly userId: Prisma.FieldRef<"TrainerProfile", 'String'>
   readonly bio: Prisma.FieldRef<"TrainerProfile", 'String'>
   readonly gender: Prisma.FieldRef<"TrainerProfile", 'Gender'>
+  readonly experience: Prisma.FieldRef<"TrainerProfile", 'Int'>
   readonly profileCompletionPercent: Prisma.FieldRef<"TrainerProfile", 'Int'>
   readonly verifiedBadge: Prisma.FieldRef<"TrainerProfile", 'Boolean'>
   readonly avgRating: Prisma.FieldRef<"TrainerProfile", 'Decimal'>

@@ -8,6 +8,8 @@ model TrainerProfile {
 
   gender Gender?
 
+  experience Int @default(0)
+
   profileCompletionPercent Int @default(0)
 
   verifiedBadge Boolean @default(false)

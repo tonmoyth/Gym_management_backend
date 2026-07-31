@@ -5,6 +5,7 @@ const createTrainerProfileValidation = z.object({
   body: z.object({
     bio: z.string().max(2000, "Bio cannot exceed 2000 characters").optional(),
     gender: z.nativeEnum(Gender).optional(),
+    experience: z.coerce.number().int().min(0, "Experience cannot be negative"),
     specializationIds: z.array(z.string().uuid("Invalid specialization tag UUID")).optional(),
     certifications: z.array(
       z.object({
@@ -24,6 +25,7 @@ const updateTrainerProfileValidation = z.object({
   body: z.object({
     bio: z.string().max(2000, "Bio cannot exceed 2000 characters").optional(),
     gender: z.nativeEnum(Gender).optional(),
+    experience: z.coerce.number().int().min(0, "Experience cannot be negative").optional(),
     specializationIds: z.array(z.string().uuid("Invalid specialization tag UUID")).optional(),
     certifications: z.array(
       z.object({

@@ -19,6 +19,7 @@ interface ICertification {
 interface IUpsertTrainerProfilePayload {
   bio?: string;
   gender?: Gender;
+  experience?: number;
   specializationIds?: string[];
   certifications?: ICertification[];
 }
@@ -125,10 +126,12 @@ const _saveTrainerProfile = async (
           userId,
           bio: payload.bio,
           gender: payload.gender,
+          experience: payload.experience !== undefined ? payload.experience : 0,
         },
         update: {
           bio: payload.bio !== undefined ? payload.bio : undefined,
           gender: payload.gender !== undefined ? payload.gender : undefined,
+          experience: payload.experience !== undefined ? payload.experience : undefined,
         },
         select: { id: true },
       });

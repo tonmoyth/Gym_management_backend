@@ -37,6 +37,13 @@ const getJobPostDetailValidation = z.object({
     }),
 });
 
+const applyJobPostValidation = z.object({
+    params: z.object({
+        id: z.string({ message: 'Job post ID is required' })
+            .uuid({ message: 'Job post ID must be a valid UUID' }),
+    }),
+});
+
 const approveTrainerApplicationValidation = z.object({
     params: z.object({
         appId: z.string({ message: 'Application ID is required' })
@@ -58,4 +65,5 @@ export const JobPostValidations = {
     approveTrainerApplicationValidation,
     rejectTrainerApplicationValidation,
     getJobPostDetailValidation,
+    applyJobPostValidation,
 };

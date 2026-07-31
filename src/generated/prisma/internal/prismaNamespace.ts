@@ -3561,6 +3561,7 @@ export const TrainerProfileScalarFieldEnum = {
   userId: 'userId',
   bio: 'bio',
   gender: 'gender',
+  experience: 'experience',
   profileCompletionPercent: 'profileCompletionPercent',
   verifiedBadge: 'verifiedBadge',
   avgRating: 'avgRating',
