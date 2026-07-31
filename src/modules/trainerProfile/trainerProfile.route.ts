@@ -9,6 +9,14 @@ import { TrainerProfileController } from "./trainerProfile.controller";
 
 const router = express.Router();
 
+router.get(
+    '/:businessId/trainers/me/dashboard',
+    // @ts-ignore
+    checkAuth(USER_ROLE.TRAINER),
+    validateRequest(TrainerProfileValidations.getBusinessTrainerDashboardValidation),
+    TrainerProfileController.getBusinessTrainerDashboard
+);
+
 router.post(
   "/me",
   // @ts-ignore

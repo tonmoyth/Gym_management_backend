@@ -77,10 +77,18 @@ const uploadCertificationValidation = z.object({
     }),
 });
 
+const getBusinessTrainerDashboardValidation = z.object({
+  params: z.object({
+    businessId: z.string().uuid("Invalid business UUID"),
+  }),
+});
+
 export const TrainerProfileValidations = {
   createTrainerProfileValidation,
   updateTrainerProfileValidation,
   getPublicTrainerProfileValidation,
   setSpecializationsValidation,
   uploadCertificationValidation,
+  getBusinessTrainerDashboardValidation,
 };
+

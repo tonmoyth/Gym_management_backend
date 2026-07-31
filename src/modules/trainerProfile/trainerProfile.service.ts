@@ -842,6 +842,309 @@ const getOwnCertifications = async (userId: string) => {
   });
 };
 
+const getBusinessTrainerDashboard = async (
+  userId: string,
+  businessId: string,
+) => {
+  // 1. Get Trainer Profile
+  const trainerProfile = await prisma.trainerProfile.findUnique({
+    where: { userId },
+    include: {
+      user: { select: { fullName: true, profileImage: true } },
+    },
+  });
+
+  if (!trainerProfile) {
+    throw new AppError(404, "Trainer profile not found.");
+  }
+
+  // 2. Verify Business
+  const business = await prisma.business.findUnique({
+    where: { id: businessId },
+    select: { id: true, name: true, logo: true, address: true },
+  });
+
+  if (!business) {
+    throw new AppError(404, "Business not found.");
+  }
+
+  // 3. Verify Trainer belongs to Business
+  const trainerBusiness = await prisma.trainerBusiness.findUnique({
+    where: {
+      trainerId_businessId: {
+        trainerId: trainerProfile.id,
+        businessId: businessId,
+      },
+    },
+  });
+
+  if (!trainerBusiness) {
+    throw new AppError(403, "Trainer is not assigned to this business.");
+  }
+
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+
+  const todayEnd = new Date();
+  todayEnd.setHours(23, 59, 59, 999);
+
+  const monthStart = new Date(todayStart.getFullYear(), todayStart.getMonth(), 1);
+  const monthEnd = new Date(
+    todayStart.getFullYear(),
+    todayStart.getMonth() + 1,
+    0,
+    23,
+    59,
+    59,
+    999,
+  );
+
+  const [
+    todayScheduleRecords,
+    upcomingClassesRecords,
+    monthlyClassesAgg,
+    assignedMemberBookings,
+    todayBookingsCount,
+    todayCheckIns,
+    totalBookingsCount,
+    totalCheckIns,
+    recentActivitiesRecords,
+    reviewsAgg,
+  ] = await Promise.all([
+    // Today's Schedule
+    prisma.classSchedule.findMany({
+      where: {
+        businessId,
+        trainerId: trainerProfile.id,
+        startTime: { gte: todayStart, lte: todayEnd },
+      },
+      select: {
+        id: true,
+        title: true,
+        startTime: true,
+        endTime: true,
+        _count: { select: { bookings: { where: { status: "CONFIRMED" } } } },
+      },
+      orderBy: { startTime: "asc" },
+    }),
+    // Upcoming Classes
+    prisma.classSchedule.findMany({
+      where: {
+        businessId,
+        trainerId: trainerProfile.id,
+        startTime: { gt: new Date() },
+      },
+      select: {
+        id: true,
+        title: true,
+        startTime: true,
+        endTime: true,
+        _count: { select: { bookings: { where: { status: "CONFIRMED" } } } },
+      },
+      orderBy: { startTime: "asc" },
+      take: 5,
+    }),
+    // Monthly Statistics Classes
+    prisma.classSchedule.findMany({
+      where: {
+        businessId,
+        trainerId: trainerProfile.id,
+        startTime: { gte: monthStart, lte: monthEnd },
+      },
+      select: {
+        id: true,
+        endTime: true,
+        _count: { select: { bookings: { where: { status: "CANCELLED" } } } },
+      },
+    }),
+    // Assigned Members
+    prisma.classBooking.findMany({
+      where: {
+        classSchedule: { trainerId: trainerProfile.id, businessId },
+      },
+      select: { memberId: true },
+      distinct: ["memberId"],
+    }),
+    // Today Attendance - Bookings
+    prisma.classBooking.count({
+      where: {
+        classSchedule: {
+          businessId,
+          trainerId: trainerProfile.id,
+          startTime: { gte: todayStart, lte: todayEnd },
+        },
+        status: "CONFIRMED",
+      },
+    }),
+    // Today Attendance - Check Ins
+    prisma.attendance.count({
+      where: {
+        businessId,
+        checkInAt: { gte: todayStart, lte: todayEnd },
+        type: "MEMBER",
+        user: {
+          memberProfile: {
+            classBookings: {
+              some: {
+                classSchedule: {
+                  trainerId: trainerProfile.id,
+                  startTime: { gte: todayStart, lte: todayEnd },
+                },
+              },
+            },
+          },
+        },
+      },
+    }),
+    // Total Bookings for average attendance rate
+    prisma.classBooking.count({
+      where: {
+        classSchedule: { trainerId: trainerProfile.id, businessId },
+        status: "CONFIRMED",
+      },
+    }),
+    // Total Check-Ins for average attendance rate
+    prisma.attendance.count({
+      where: {
+        businessId,
+        type: "MEMBER",
+        user: {
+          memberProfile: {
+            classBookings: {
+              some: { classSchedule: { trainerId: trainerProfile.id } },
+            },
+          },
+        },
+      },
+    }),
+    // Recent Member Activities
+    prisma.attendance.findMany({
+      where: {
+        businessId,
+        type: "MEMBER",
+        user: {
+          memberProfile: {
+            classBookings: {
+              some: { classSchedule: { trainerId: trainerProfile.id } },
+            },
+          },
+        },
+      },
+      select: {
+        checkInAt: true,
+        user: { select: { fullName: true } },
+      },
+      orderBy: { checkInAt: "desc" },
+      take: 5,
+    }),
+    // Quick Stats - Reviews
+    prisma.review.aggregate({
+      where: { trainerId: trainerProfile.id },
+      _avg: { rating: true },
+      _count: { id: true },
+    }),
+  ]);
+
+  const assignedMemberIds = assignedMemberBookings.map((b) => b.memberId);
+  const totalAssignedMembers = assignedMemberIds.length;
+
+  const [activeMembersCount, newMembersCount] = await Promise.all([
+    prisma.membership.count({
+      where: {
+        memberId: { in: assignedMemberIds },
+        businessId,
+        status: "ACTIVE",
+      },
+    }),
+    prisma.memberProfile.count({
+      where: {
+        id: { in: assignedMemberIds },
+        createdAt: { gte: monthStart, lte: monthEnd },
+      },
+    }),
+  ]);
+
+  const inactiveMembers = totalAssignedMembers - activeMembersCount;
+
+  const todaySchedule = todayScheduleRecords.map((c) => ({
+    id: c.id,
+    className: c.title,
+    startTime: c.startTime,
+    endTime: c.endTime,
+    totalBookedMembers: c._count.bookings,
+    status: c.endTime < new Date() ? "COMPLETED" : "UPCOMING",
+  }));
+
+  const upcomingClasses = upcomingClassesRecords.map((c) => ({
+    id: c.id,
+    className: c.title,
+    startTime: c.startTime,
+    endTime: c.endTime,
+    totalBookedMembers: c._count.bookings,
+  }));
+
+  const classesThisMonth = monthlyClassesAgg.length;
+  const completedClasses = monthlyClassesAgg.filter(
+    (c) => c.endTime < new Date(),
+  ).length;
+  const cancelledClasses = monthlyClassesAgg.reduce(
+    (acc, curr) => acc + curr._count.bookings,
+    0,
+  );
+
+  const todayAbsent = Math.max(0, todayBookingsCount - todayCheckIns);
+  const todayAttendanceRate =
+    todayBookingsCount > 0
+      ? Math.round((todayCheckIns / todayBookingsCount) * 100)
+      : 0;
+
+  const averageAttendanceRate =
+    totalBookingsCount > 0
+      ? Math.round((totalCheckIns / totalBookingsCount) * 100)
+      : 0;
+
+  const recentMemberActivities = recentActivitiesRecords.map((a) => ({
+    memberName: a.user.fullName,
+    activity: "Checked In",
+    time: a.checkInAt,
+  }));
+
+  return {
+    business,
+    trainer: {
+      id: trainerProfile.id,
+      name: trainerProfile.user?.fullName || "",
+      profilePhoto: trainerProfile.user?.profileImage || "",
+      verifiedBadge: trainerProfile.verifiedBadge,
+      avgRating: Number(trainerProfile.avgRating),
+    },
+    todaySchedule,
+    assignedMembers: {
+      totalAssignedMembers,
+      activeMembers: activeMembersCount,
+      inactiveMembers,
+    },
+    todayAttendance: {
+      checkedIn: todayCheckIns,
+      absent: todayAbsent,
+      attendanceRate: todayAttendanceRate,
+    },
+    monthlyStatistics: {
+      classesThisMonth,
+      completedClasses,
+      cancelledClasses,
+      newMembersThisMonth: newMembersCount,
+    },
+    upcomingClasses,
+    recentMemberActivities,
+    quickStatistics: {
+      averageAttendanceRate,
+      averageMemberRating: reviewsAgg._avg.rating || 0,
+      totalReviews: reviewsAgg._count.id,
+    },
+  };
+};
+
 export const TrainerProfileService = {
   createTrainerProfile,
   getOwnTrainerProfile,
@@ -850,4 +1153,6 @@ export const TrainerProfileService = {
   setOwnSpecializations,
   uploadCertification,
   getOwnCertifications,
+  getBusinessTrainerDashboard,
 };
+

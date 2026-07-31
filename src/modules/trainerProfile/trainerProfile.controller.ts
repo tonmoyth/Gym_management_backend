@@ -116,6 +116,20 @@ const getOwnCertifications = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getBusinessTrainerDashboard = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const { businessId } = req.params;
+
+  const result = await TrainerProfileService.getBusinessTrainerDashboard(userId, businessId as string);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Business trainer dashboard retrieved successfully.",
+    data: result,
+  });
+});
+
 export const TrainerProfileController = {
   createTrainerProfile,
   getOwnTrainerProfile,
@@ -124,4 +138,6 @@ export const TrainerProfileController = {
   setOwnSpecializations,
   uploadCertification,
   getOwnCertifications,
+  getBusinessTrainerDashboard,
 };
+
