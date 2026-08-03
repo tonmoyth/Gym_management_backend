@@ -121,22 +121,18 @@ export type StringNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringNullableFilter<$PrismaModel> | string | null
 }
 
-export type FloatNullableFilter<$PrismaModel = never> = {
-  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel> | null
-  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
-  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
-  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
+export type EnumBiometricAttendanceTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BiometricAttendanceType | Prisma.EnumBiometricAttendanceTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BiometricAttendanceType[] | Prisma.ListEnumBiometricAttendanceTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BiometricAttendanceType[] | Prisma.ListEnumBiometricAttendanceTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBiometricAttendanceTypeFilter<$PrismaModel> | $Enums.BiometricAttendanceType
 }
 
-export type EnumBusinessStatusFilter<$PrismaModel = never> = {
-  equals?: $Enums.BusinessStatus | Prisma.EnumBusinessStatusFieldRefInput<$PrismaModel>
-  in?: $Enums.BusinessStatus[] | Prisma.ListEnumBusinessStatusFieldRefInput<$PrismaModel>
-  notIn?: $Enums.BusinessStatus[] | Prisma.ListEnumBusinessStatusFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumBusinessStatusFilter<$PrismaModel> | $Enums.BusinessStatus
+export type EnumVerifyMethodFilter<$PrismaModel = never> = {
+  equals?: $Enums.VerifyMethod | Prisma.EnumVerifyMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.VerifyMethod[] | Prisma.ListEnumVerifyMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.VerifyMethod[] | Prisma.ListEnumVerifyMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumVerifyMethodFilter<$PrismaModel> | $Enums.VerifyMethod
 }
 
 export type SortOrderInput = {
@@ -160,6 +156,61 @@ export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedStringNullableFilter<$PrismaModel>
   _max?: Prisma.NestedStringNullableFilter<$PrismaModel>
+}
+
+export type EnumBiometricAttendanceTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BiometricAttendanceType | Prisma.EnumBiometricAttendanceTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BiometricAttendanceType[] | Prisma.ListEnumBiometricAttendanceTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BiometricAttendanceType[] | Prisma.ListEnumBiometricAttendanceTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBiometricAttendanceTypeWithAggregatesFilter<$PrismaModel> | $Enums.BiometricAttendanceType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBiometricAttendanceTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBiometricAttendanceTypeFilter<$PrismaModel>
+}
+
+export type EnumVerifyMethodWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.VerifyMethod | Prisma.EnumVerifyMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.VerifyMethod[] | Prisma.ListEnumVerifyMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.VerifyMethod[] | Prisma.ListEnumVerifyMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumVerifyMethodWithAggregatesFilter<$PrismaModel> | $Enums.VerifyMethod
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumVerifyMethodFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumVerifyMethodFilter<$PrismaModel>
+}
+
+export type EnumDeviceStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DeviceStatus | Prisma.EnumDeviceStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DeviceStatus[] | Prisma.ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DeviceStatus[] | Prisma.ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDeviceStatusFilter<$PrismaModel> | $Enums.DeviceStatus
+}
+
+export type EnumDeviceStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DeviceStatus | Prisma.EnumDeviceStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DeviceStatus[] | Prisma.ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DeviceStatus[] | Prisma.ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDeviceStatusWithAggregatesFilter<$PrismaModel> | $Enums.DeviceStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDeviceStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDeviceStatusFilter<$PrismaModel>
+}
+
+export type FloatNullableFilter<$PrismaModel = never> = {
+  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel> | null
+  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
+  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
+  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
+}
+
+export type EnumBusinessStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.BusinessStatus | Prisma.EnumBusinessStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BusinessStatus[] | Prisma.ListEnumBusinessStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BusinessStatus[] | Prisma.ListEnumBusinessStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBusinessStatusFilter<$PrismaModel> | $Enums.BusinessStatus
 }
 
 export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -830,22 +881,18 @@ export type NestedStringNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringNullableFilter<$PrismaModel> | string | null
 }
 
-export type NestedFloatNullableFilter<$PrismaModel = never> = {
-  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel> | null
-  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
-  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
-  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
+export type NestedEnumBiometricAttendanceTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BiometricAttendanceType | Prisma.EnumBiometricAttendanceTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BiometricAttendanceType[] | Prisma.ListEnumBiometricAttendanceTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BiometricAttendanceType[] | Prisma.ListEnumBiometricAttendanceTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBiometricAttendanceTypeFilter<$PrismaModel> | $Enums.BiometricAttendanceType
 }
 
-export type NestedEnumBusinessStatusFilter<$PrismaModel = never> = {
-  equals?: $Enums.BusinessStatus | Prisma.EnumBusinessStatusFieldRefInput<$PrismaModel>
-  in?: $Enums.BusinessStatus[] | Prisma.ListEnumBusinessStatusFieldRefInput<$PrismaModel>
-  notIn?: $Enums.BusinessStatus[] | Prisma.ListEnumBusinessStatusFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumBusinessStatusFilter<$PrismaModel> | $Enums.BusinessStatus
+export type NestedEnumVerifyMethodFilter<$PrismaModel = never> = {
+  equals?: $Enums.VerifyMethod | Prisma.EnumVerifyMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.VerifyMethod[] | Prisma.ListEnumVerifyMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.VerifyMethod[] | Prisma.ListEnumVerifyMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumVerifyMethodFilter<$PrismaModel> | $Enums.VerifyMethod
 }
 
 export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -874,6 +921,61 @@ export type NestedIntNullableFilter<$PrismaModel = never> = {
   gt?: number | Prisma.IntFieldRefInput<$PrismaModel>
   gte?: number | Prisma.IntFieldRefInput<$PrismaModel>
   not?: Prisma.NestedIntNullableFilter<$PrismaModel> | number | null
+}
+
+export type NestedEnumBiometricAttendanceTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BiometricAttendanceType | Prisma.EnumBiometricAttendanceTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BiometricAttendanceType[] | Prisma.ListEnumBiometricAttendanceTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BiometricAttendanceType[] | Prisma.ListEnumBiometricAttendanceTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBiometricAttendanceTypeWithAggregatesFilter<$PrismaModel> | $Enums.BiometricAttendanceType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBiometricAttendanceTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBiometricAttendanceTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumVerifyMethodWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.VerifyMethod | Prisma.EnumVerifyMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.VerifyMethod[] | Prisma.ListEnumVerifyMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.VerifyMethod[] | Prisma.ListEnumVerifyMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumVerifyMethodWithAggregatesFilter<$PrismaModel> | $Enums.VerifyMethod
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumVerifyMethodFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumVerifyMethodFilter<$PrismaModel>
+}
+
+export type NestedEnumDeviceStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DeviceStatus | Prisma.EnumDeviceStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DeviceStatus[] | Prisma.ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DeviceStatus[] | Prisma.ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDeviceStatusFilter<$PrismaModel> | $Enums.DeviceStatus
+}
+
+export type NestedEnumDeviceStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DeviceStatus | Prisma.EnumDeviceStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DeviceStatus[] | Prisma.ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DeviceStatus[] | Prisma.ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDeviceStatusWithAggregatesFilter<$PrismaModel> | $Enums.DeviceStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDeviceStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDeviceStatusFilter<$PrismaModel>
+}
+
+export type NestedFloatNullableFilter<$PrismaModel = never> = {
+  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel> | null
+  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
+  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
+  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
+}
+
+export type NestedEnumBusinessStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.BusinessStatus | Prisma.EnumBusinessStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.BusinessStatus[] | Prisma.ListEnumBusinessStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BusinessStatus[] | Prisma.ListEnumBusinessStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBusinessStatusFilter<$PrismaModel> | $Enums.BusinessStatus
 }
 
 export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {

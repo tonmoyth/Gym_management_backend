@@ -320,6 +320,9 @@ export type BusinessWhereInput = {
   trainers?: Prisma.TrainerBusinessListRelationFilter
   trainerPayouts?: Prisma.TrainerPayoutListRelationFilter
   businessReferral?: Prisma.XOR<Prisma.BusinessReferralNullableScalarRelationFilter, Prisma.BusinessReferralWhereInput> | null
+  biometricDevices?: Prisma.BiometricDeviceListRelationFilter
+  attendanceLogs?: Prisma.AttendanceLogListRelationFilter
+  memberBiometrics?: Prisma.MemberBiometricListRelationFilter
 }
 
 export type BusinessOrderByWithRelationInput = {
@@ -359,6 +362,9 @@ export type BusinessOrderByWithRelationInput = {
   trainers?: Prisma.TrainerBusinessOrderByRelationAggregateInput
   trainerPayouts?: Prisma.TrainerPayoutOrderByRelationAggregateInput
   businessReferral?: Prisma.BusinessReferralOrderByWithRelationInput
+  biometricDevices?: Prisma.BiometricDeviceOrderByRelationAggregateInput
+  attendanceLogs?: Prisma.AttendanceLogOrderByRelationAggregateInput
+  memberBiometrics?: Prisma.MemberBiometricOrderByRelationAggregateInput
 }
 
 export type BusinessWhereUniqueInput = Prisma.AtLeast<{
@@ -401,6 +407,9 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   trainers?: Prisma.TrainerBusinessListRelationFilter
   trainerPayouts?: Prisma.TrainerPayoutListRelationFilter
   businessReferral?: Prisma.XOR<Prisma.BusinessReferralNullableScalarRelationFilter, Prisma.BusinessReferralWhereInput> | null
+  biometricDevices?: Prisma.BiometricDeviceListRelationFilter
+  attendanceLogs?: Prisma.AttendanceLogListRelationFilter
+  memberBiometrics?: Prisma.MemberBiometricListRelationFilter
 }, "id" | "ownerId">
 
 export type BusinessOrderByWithAggregationInput = {
@@ -485,6 +494,9 @@ export type BusinessCreateInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateInput = {
@@ -523,6 +535,9 @@ export type BusinessUncheckedCreateInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUpdateInput = {
@@ -561,6 +576,9 @@ export type BusinessUpdateInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateInput = {
@@ -599,6 +617,9 @@ export type BusinessUncheckedUpdateInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateManyInput = {
@@ -771,16 +792,40 @@ export type BusinessUpdateOneRequiredWithoutAttendancesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutAttendancesInput, Prisma.BusinessUpdateWithoutAttendancesInput>, Prisma.BusinessUncheckedUpdateWithoutAttendancesInput>
 }
 
+export type BusinessCreateNestedOneWithoutAttendanceLogsInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutAttendanceLogsInput, Prisma.BusinessUncheckedCreateWithoutAttendanceLogsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutAttendanceLogsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutAttendanceLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutAttendanceLogsInput, Prisma.BusinessUncheckedCreateWithoutAttendanceLogsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutAttendanceLogsInput
+  upsert?: Prisma.BusinessUpsertWithoutAttendanceLogsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutAttendanceLogsInput, Prisma.BusinessUpdateWithoutAttendanceLogsInput>, Prisma.BusinessUncheckedUpdateWithoutAttendanceLogsInput>
+}
+
+export type BusinessCreateNestedOneWithoutBiometricDevicesInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutBiometricDevicesInput, Prisma.BusinessUncheckedCreateWithoutBiometricDevicesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutBiometricDevicesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutBiometricDevicesNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutBiometricDevicesInput, Prisma.BusinessUncheckedCreateWithoutBiometricDevicesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutBiometricDevicesInput
+  upsert?: Prisma.BusinessUpsertWithoutBiometricDevicesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutBiometricDevicesInput, Prisma.BusinessUpdateWithoutBiometricDevicesInput>, Prisma.BusinessUncheckedUpdateWithoutBiometricDevicesInput>
+}
+
 export type BusinessCreateamenitiesInput = {
   set: string[]
 }
 
 export type BusinessCreatephotosInput = {
   set: string[]
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type NullableFloatFieldUpdateOperationsInput = {
@@ -915,6 +960,20 @@ export type BusinessUpdateOneRequiredWithoutJobPostsNestedInput = {
   upsert?: Prisma.BusinessUpsertWithoutJobPostsInput
   connect?: Prisma.BusinessWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutJobPostsInput, Prisma.BusinessUpdateWithoutJobPostsInput>, Prisma.BusinessUncheckedUpdateWithoutJobPostsInput>
+}
+
+export type BusinessCreateNestedOneWithoutMemberBiometricsInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutMemberBiometricsInput, Prisma.BusinessUncheckedCreateWithoutMemberBiometricsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutMemberBiometricsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutMemberBiometricsNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutMemberBiometricsInput, Prisma.BusinessUncheckedCreateWithoutMemberBiometricsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutMemberBiometricsInput
+  upsert?: Prisma.BusinessUpsertWithoutMemberBiometricsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutMemberBiometricsInput, Prisma.BusinessUpdateWithoutMemberBiometricsInput>, Prisma.BusinessUncheckedUpdateWithoutMemberBiometricsInput>
 }
 
 export type BusinessCreateNestedOneWithoutMemberReferralsInput = {
@@ -1120,6 +1179,9 @@ export type BusinessCreateWithoutAnnouncementsInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutAnnouncementsInput = {
@@ -1157,6 +1219,9 @@ export type BusinessUncheckedCreateWithoutAnnouncementsInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutAnnouncementsInput = {
@@ -1210,6 +1275,9 @@ export type BusinessUpdateWithoutAnnouncementsInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutAnnouncementsInput = {
@@ -1247,6 +1315,9 @@ export type BusinessUncheckedUpdateWithoutAnnouncementsInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutAttendancesInput = {
@@ -1284,6 +1355,9 @@ export type BusinessCreateWithoutAttendancesInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutAttendancesInput = {
@@ -1321,6 +1395,9 @@ export type BusinessUncheckedCreateWithoutAttendancesInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutAttendancesInput = {
@@ -1374,6 +1451,9 @@ export type BusinessUpdateWithoutAttendancesInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutAttendancesInput = {
@@ -1411,6 +1491,361 @@ export type BusinessUncheckedUpdateWithoutAttendancesInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutAttendanceLogsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  amenities?: Prisma.BusinessCreateamenitiesInput | string[]
+  photos?: Prisma.BusinessCreatephotosInput | string[]
+  status?: $Enums.BusinessStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutBusinessInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutBusinessInput
+  staff?: Prisma.BusinessStaffCreateNestedManyWithoutBusinessInput
+  chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutBusinessInput
+  classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutBusinessInput
+  dietPlans?: Prisma.DietPlanCreateNestedManyWithoutBusinessInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutBusinessInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutBusinessInput
+  jobPosts?: Prisma.JobPostCreateNestedManyWithoutBusinessInput
+  memberReferrals?: Prisma.MemberReferralCreateNestedManyWithoutBusinessInput
+  referralSetting?: Prisma.MemberReferralSettingCreateNestedOneWithoutBusinessInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
+  membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
+  subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
+  trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
+  trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
+  businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutAttendanceLogsInput = {
+  id?: string
+  ownerId: string
+  name: string
+  description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  amenities?: Prisma.BusinessCreateamenitiesInput | string[]
+  photos?: Prisma.BusinessCreatephotosInput | string[]
+  status?: $Enums.BusinessStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutBusinessInput
+  staff?: Prisma.BusinessStaffUncheckedCreateNestedManyWithoutBusinessInput
+  chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutBusinessInput
+  classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutBusinessInput
+  dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutBusinessInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutBusinessInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutBusinessInput
+  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutBusinessInput
+  memberReferrals?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutBusinessInput
+  referralSetting?: Prisma.MemberReferralSettingUncheckedCreateNestedOneWithoutBusinessInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
+  membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
+  subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
+  trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
+  trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
+  businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutAttendanceLogsInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutAttendanceLogsInput, Prisma.BusinessUncheckedCreateWithoutAttendanceLogsInput>
+}
+
+export type BusinessUpsertWithoutAttendanceLogsInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutAttendanceLogsInput, Prisma.BusinessUncheckedUpdateWithoutAttendanceLogsInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutAttendanceLogsInput, Prisma.BusinessUncheckedCreateWithoutAttendanceLogsInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutAttendanceLogsInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutAttendanceLogsInput, Prisma.BusinessUncheckedUpdateWithoutAttendanceLogsInput>
+}
+
+export type BusinessUpdateWithoutAttendanceLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
+  photos?: Prisma.BusinessUpdatephotosInput | string[]
+  status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  announcements?: Prisma.AnnouncementUpdateManyWithoutBusinessNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutBusinessNestedInput
+  staff?: Prisma.BusinessStaffUpdateManyWithoutBusinessNestedInput
+  chatThreads?: Prisma.ChatThreadUpdateManyWithoutBusinessNestedInput
+  classSchedules?: Prisma.ClassScheduleUpdateManyWithoutBusinessNestedInput
+  dietPlans?: Prisma.DietPlanUpdateManyWithoutBusinessNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutBusinessNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutBusinessNestedInput
+  jobPosts?: Prisma.JobPostUpdateManyWithoutBusinessNestedInput
+  memberReferrals?: Prisma.MemberReferralUpdateManyWithoutBusinessNestedInput
+  referralSetting?: Prisma.MemberReferralSettingUpdateOneWithoutBusinessNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
+  membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
+  subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
+  trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
+  trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
+  businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutAttendanceLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
+  photos?: Prisma.BusinessUpdatephotosInput | string[]
+  status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutBusinessNestedInput
+  staff?: Prisma.BusinessStaffUncheckedUpdateManyWithoutBusinessNestedInput
+  chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutBusinessNestedInput
+  classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutBusinessNestedInput
+  dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutBusinessNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutBusinessNestedInput
+  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutBusinessNestedInput
+  memberReferrals?: Prisma.MemberReferralUncheckedUpdateManyWithoutBusinessNestedInput
+  referralSetting?: Prisma.MemberReferralSettingUncheckedUpdateOneWithoutBusinessNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
+  membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
+  trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
+  trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
+  businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutBiometricDevicesInput = {
+  id?: string
+  name: string
+  description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  amenities?: Prisma.BusinessCreateamenitiesInput | string[]
+  photos?: Prisma.BusinessCreatephotosInput | string[]
+  status?: $Enums.BusinessStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutBusinessInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutBusinessInput
+  staff?: Prisma.BusinessStaffCreateNestedManyWithoutBusinessInput
+  chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutBusinessInput
+  classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutBusinessInput
+  dietPlans?: Prisma.DietPlanCreateNestedManyWithoutBusinessInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutBusinessInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutBusinessInput
+  jobPosts?: Prisma.JobPostCreateNestedManyWithoutBusinessInput
+  memberReferrals?: Prisma.MemberReferralCreateNestedManyWithoutBusinessInput
+  referralSetting?: Prisma.MemberReferralSettingCreateNestedOneWithoutBusinessInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
+  membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
+  subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
+  trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
+  trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
+  businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutBiometricDevicesInput = {
+  id?: string
+  ownerId: string
+  name: string
+  description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  amenities?: Prisma.BusinessCreateamenitiesInput | string[]
+  photos?: Prisma.BusinessCreatephotosInput | string[]
+  status?: $Enums.BusinessStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutBusinessInput
+  staff?: Prisma.BusinessStaffUncheckedCreateNestedManyWithoutBusinessInput
+  chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutBusinessInput
+  classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutBusinessInput
+  dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutBusinessInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutBusinessInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutBusinessInput
+  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutBusinessInput
+  memberReferrals?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutBusinessInput
+  referralSetting?: Prisma.MemberReferralSettingUncheckedCreateNestedOneWithoutBusinessInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
+  membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
+  subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
+  trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
+  trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
+  businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutBiometricDevicesInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutBiometricDevicesInput, Prisma.BusinessUncheckedCreateWithoutBiometricDevicesInput>
+}
+
+export type BusinessUpsertWithoutBiometricDevicesInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutBiometricDevicesInput, Prisma.BusinessUncheckedUpdateWithoutBiometricDevicesInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutBiometricDevicesInput, Prisma.BusinessUncheckedCreateWithoutBiometricDevicesInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutBiometricDevicesInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutBiometricDevicesInput, Prisma.BusinessUncheckedUpdateWithoutBiometricDevicesInput>
+}
+
+export type BusinessUpdateWithoutBiometricDevicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
+  photos?: Prisma.BusinessUpdatephotosInput | string[]
+  status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  announcements?: Prisma.AnnouncementUpdateManyWithoutBusinessNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutBusinessNestedInput
+  staff?: Prisma.BusinessStaffUpdateManyWithoutBusinessNestedInput
+  chatThreads?: Prisma.ChatThreadUpdateManyWithoutBusinessNestedInput
+  classSchedules?: Prisma.ClassScheduleUpdateManyWithoutBusinessNestedInput
+  dietPlans?: Prisma.DietPlanUpdateManyWithoutBusinessNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutBusinessNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutBusinessNestedInput
+  jobPosts?: Prisma.JobPostUpdateManyWithoutBusinessNestedInput
+  memberReferrals?: Prisma.MemberReferralUpdateManyWithoutBusinessNestedInput
+  referralSetting?: Prisma.MemberReferralSettingUpdateOneWithoutBusinessNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
+  membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
+  subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
+  trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
+  trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
+  businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutBiometricDevicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
+  photos?: Prisma.BusinessUpdatephotosInput | string[]
+  status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutBusinessNestedInput
+  staff?: Prisma.BusinessStaffUncheckedUpdateManyWithoutBusinessNestedInput
+  chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutBusinessNestedInput
+  classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutBusinessNestedInput
+  dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutBusinessNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutBusinessNestedInput
+  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutBusinessNestedInput
+  memberReferrals?: Prisma.MemberReferralUncheckedUpdateManyWithoutBusinessNestedInput
+  referralSetting?: Prisma.MemberReferralSettingUncheckedUpdateOneWithoutBusinessNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
+  membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
+  trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
+  trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
+  businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutBusinessReferralInput = {
@@ -1448,6 +1883,9 @@ export type BusinessCreateWithoutBusinessReferralInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutBusinessReferralInput = {
@@ -1485,6 +1923,9 @@ export type BusinessUncheckedCreateWithoutBusinessReferralInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutBusinessReferralInput = {
@@ -1538,6 +1979,9 @@ export type BusinessUpdateWithoutBusinessReferralInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutBusinessReferralInput = {
@@ -1575,6 +2019,9 @@ export type BusinessUncheckedUpdateWithoutBusinessReferralInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutStaffInput = {
@@ -1612,6 +2059,9 @@ export type BusinessCreateWithoutStaffInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutStaffInput = {
@@ -1649,6 +2099,9 @@ export type BusinessUncheckedCreateWithoutStaffInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutStaffInput = {
@@ -1702,6 +2155,9 @@ export type BusinessUpdateWithoutStaffInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutStaffInput = {
@@ -1739,6 +2195,9 @@ export type BusinessUncheckedUpdateWithoutStaffInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutChatThreadsInput = {
@@ -1776,6 +2235,9 @@ export type BusinessCreateWithoutChatThreadsInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutChatThreadsInput = {
@@ -1813,6 +2275,9 @@ export type BusinessUncheckedCreateWithoutChatThreadsInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutChatThreadsInput = {
@@ -1866,6 +2331,9 @@ export type BusinessUpdateWithoutChatThreadsInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutChatThreadsInput = {
@@ -1903,6 +2371,9 @@ export type BusinessUncheckedUpdateWithoutChatThreadsInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutClassSchedulesInput = {
@@ -1940,6 +2411,9 @@ export type BusinessCreateWithoutClassSchedulesInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutClassSchedulesInput = {
@@ -1977,6 +2451,9 @@ export type BusinessUncheckedCreateWithoutClassSchedulesInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutClassSchedulesInput = {
@@ -2030,6 +2507,9 @@ export type BusinessUpdateWithoutClassSchedulesInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutClassSchedulesInput = {
@@ -2067,6 +2547,9 @@ export type BusinessUncheckedUpdateWithoutClassSchedulesInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutDietPlansInput = {
@@ -2104,6 +2587,9 @@ export type BusinessCreateWithoutDietPlansInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutDietPlansInput = {
@@ -2141,6 +2627,9 @@ export type BusinessUncheckedCreateWithoutDietPlansInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutDietPlansInput = {
@@ -2194,6 +2683,9 @@ export type BusinessUpdateWithoutDietPlansInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutDietPlansInput = {
@@ -2231,6 +2723,9 @@ export type BusinessUncheckedUpdateWithoutDietPlansInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutEquipmentInput = {
@@ -2268,6 +2763,9 @@ export type BusinessCreateWithoutEquipmentInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutEquipmentInput = {
@@ -2305,6 +2803,9 @@ export type BusinessUncheckedCreateWithoutEquipmentInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutEquipmentInput = {
@@ -2358,6 +2859,9 @@ export type BusinessUpdateWithoutEquipmentInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutEquipmentInput = {
@@ -2395,6 +2899,9 @@ export type BusinessUncheckedUpdateWithoutEquipmentInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutFavoritesInput = {
@@ -2432,6 +2939,9 @@ export type BusinessCreateWithoutFavoritesInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutFavoritesInput = {
@@ -2469,6 +2979,9 @@ export type BusinessUncheckedCreateWithoutFavoritesInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutFavoritesInput = {
@@ -2522,6 +3035,9 @@ export type BusinessUpdateWithoutFavoritesInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutFavoritesInput = {
@@ -2559,6 +3075,9 @@ export type BusinessUncheckedUpdateWithoutFavoritesInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutJobPostsInput = {
@@ -2596,6 +3115,9 @@ export type BusinessCreateWithoutJobPostsInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutJobPostsInput = {
@@ -2633,6 +3155,9 @@ export type BusinessUncheckedCreateWithoutJobPostsInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutJobPostsInput = {
@@ -2686,6 +3211,9 @@ export type BusinessUpdateWithoutJobPostsInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutJobPostsInput = {
@@ -2723,6 +3251,185 @@ export type BusinessUncheckedUpdateWithoutJobPostsInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutMemberBiometricsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  amenities?: Prisma.BusinessCreateamenitiesInput | string[]
+  photos?: Prisma.BusinessCreatephotosInput | string[]
+  status?: $Enums.BusinessStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutBusinessInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutBusinessInput
+  staff?: Prisma.BusinessStaffCreateNestedManyWithoutBusinessInput
+  chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutBusinessInput
+  classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutBusinessInput
+  dietPlans?: Prisma.DietPlanCreateNestedManyWithoutBusinessInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutBusinessInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutBusinessInput
+  jobPosts?: Prisma.JobPostCreateNestedManyWithoutBusinessInput
+  memberReferrals?: Prisma.MemberReferralCreateNestedManyWithoutBusinessInput
+  referralSetting?: Prisma.MemberReferralSettingCreateNestedOneWithoutBusinessInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
+  membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
+  subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
+  trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
+  trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
+  businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutMemberBiometricsInput = {
+  id?: string
+  ownerId: string
+  name: string
+  description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  amenities?: Prisma.BusinessCreateamenitiesInput | string[]
+  photos?: Prisma.BusinessCreatephotosInput | string[]
+  status?: $Enums.BusinessStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutBusinessInput
+  staff?: Prisma.BusinessStaffUncheckedCreateNestedManyWithoutBusinessInput
+  chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutBusinessInput
+  classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutBusinessInput
+  dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutBusinessInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutBusinessInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutBusinessInput
+  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutBusinessInput
+  memberReferrals?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutBusinessInput
+  referralSetting?: Prisma.MemberReferralSettingUncheckedCreateNestedOneWithoutBusinessInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
+  membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
+  subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
+  trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
+  trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
+  businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutMemberBiometricsInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutMemberBiometricsInput, Prisma.BusinessUncheckedCreateWithoutMemberBiometricsInput>
+}
+
+export type BusinessUpsertWithoutMemberBiometricsInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutMemberBiometricsInput, Prisma.BusinessUncheckedUpdateWithoutMemberBiometricsInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutMemberBiometricsInput, Prisma.BusinessUncheckedCreateWithoutMemberBiometricsInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutMemberBiometricsInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutMemberBiometricsInput, Prisma.BusinessUncheckedUpdateWithoutMemberBiometricsInput>
+}
+
+export type BusinessUpdateWithoutMemberBiometricsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
+  photos?: Prisma.BusinessUpdatephotosInput | string[]
+  status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  announcements?: Prisma.AnnouncementUpdateManyWithoutBusinessNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutBusinessNestedInput
+  staff?: Prisma.BusinessStaffUpdateManyWithoutBusinessNestedInput
+  chatThreads?: Prisma.ChatThreadUpdateManyWithoutBusinessNestedInput
+  classSchedules?: Prisma.ClassScheduleUpdateManyWithoutBusinessNestedInput
+  dietPlans?: Prisma.DietPlanUpdateManyWithoutBusinessNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutBusinessNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutBusinessNestedInput
+  jobPosts?: Prisma.JobPostUpdateManyWithoutBusinessNestedInput
+  memberReferrals?: Prisma.MemberReferralUpdateManyWithoutBusinessNestedInput
+  referralSetting?: Prisma.MemberReferralSettingUpdateOneWithoutBusinessNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
+  membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
+  subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
+  trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
+  trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
+  businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutMemberBiometricsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
+  photos?: Prisma.BusinessUpdatephotosInput | string[]
+  status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutBusinessNestedInput
+  staff?: Prisma.BusinessStaffUncheckedUpdateManyWithoutBusinessNestedInput
+  chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutBusinessNestedInput
+  classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutBusinessNestedInput
+  dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutBusinessNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutBusinessNestedInput
+  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutBusinessNestedInput
+  memberReferrals?: Prisma.MemberReferralUncheckedUpdateManyWithoutBusinessNestedInput
+  referralSetting?: Prisma.MemberReferralSettingUncheckedUpdateOneWithoutBusinessNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
+  membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
+  trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
+  trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
+  businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutMemberReferralsInput = {
@@ -2760,6 +3467,9 @@ export type BusinessCreateWithoutMemberReferralsInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutMemberReferralsInput = {
@@ -2797,6 +3507,9 @@ export type BusinessUncheckedCreateWithoutMemberReferralsInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutMemberReferralsInput = {
@@ -2850,6 +3563,9 @@ export type BusinessUpdateWithoutMemberReferralsInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutMemberReferralsInput = {
@@ -2887,6 +3603,9 @@ export type BusinessUncheckedUpdateWithoutMemberReferralsInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutReferralSettingInput = {
@@ -2924,6 +3643,9 @@ export type BusinessCreateWithoutReferralSettingInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutReferralSettingInput = {
@@ -2961,6 +3683,9 @@ export type BusinessUncheckedCreateWithoutReferralSettingInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutReferralSettingInput = {
@@ -3014,6 +3739,9 @@ export type BusinessUpdateWithoutReferralSettingInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutReferralSettingInput = {
@@ -3051,6 +3779,9 @@ export type BusinessUncheckedUpdateWithoutReferralSettingInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutMembershipsInput = {
@@ -3088,6 +3819,9 @@ export type BusinessCreateWithoutMembershipsInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutMembershipsInput = {
@@ -3125,6 +3859,9 @@ export type BusinessUncheckedCreateWithoutMembershipsInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutMembershipsInput = {
@@ -3178,6 +3915,9 @@ export type BusinessUpdateWithoutMembershipsInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutMembershipsInput = {
@@ -3215,6 +3955,9 @@ export type BusinessUncheckedUpdateWithoutMembershipsInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutMembershipPlansInput = {
@@ -3252,6 +3995,9 @@ export type BusinessCreateWithoutMembershipPlansInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutMembershipPlansInput = {
@@ -3289,6 +4035,9 @@ export type BusinessUncheckedCreateWithoutMembershipPlansInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutMembershipPlansInput = {
@@ -3342,6 +4091,9 @@ export type BusinessUpdateWithoutMembershipPlansInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutMembershipPlansInput = {
@@ -3379,6 +4131,9 @@ export type BusinessUncheckedUpdateWithoutMembershipPlansInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutSubscriptionInput = {
@@ -3416,6 +4171,9 @@ export type BusinessCreateWithoutSubscriptionInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutSubscriptionInput = {
@@ -3453,6 +4211,9 @@ export type BusinessUncheckedCreateWithoutSubscriptionInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutSubscriptionInput = {
@@ -3506,6 +4267,9 @@ export type BusinessUpdateWithoutSubscriptionInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutSubscriptionInput = {
@@ -3543,6 +4307,9 @@ export type BusinessUncheckedUpdateWithoutSubscriptionInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutQrCodeInput = {
@@ -3580,6 +4347,9 @@ export type BusinessCreateWithoutQrCodeInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutQrCodeInput = {
@@ -3617,6 +4387,9 @@ export type BusinessUncheckedCreateWithoutQrCodeInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutQrCodeInput = {
@@ -3670,6 +4443,9 @@ export type BusinessUpdateWithoutQrCodeInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutQrCodeInput = {
@@ -3707,6 +4483,9 @@ export type BusinessUncheckedUpdateWithoutQrCodeInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutReviewsInput = {
@@ -3744,6 +4523,9 @@ export type BusinessCreateWithoutReviewsInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutReviewsInput = {
@@ -3781,6 +4563,9 @@ export type BusinessUncheckedCreateWithoutReviewsInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutReviewsInput = {
@@ -3834,6 +4619,9 @@ export type BusinessUpdateWithoutReviewsInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutReviewsInput = {
@@ -3871,6 +4659,9 @@ export type BusinessUncheckedUpdateWithoutReviewsInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutTrainersInput = {
@@ -3908,6 +4699,9 @@ export type BusinessCreateWithoutTrainersInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutTrainersInput = {
@@ -3945,6 +4739,9 @@ export type BusinessUncheckedCreateWithoutTrainersInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutTrainersInput = {
@@ -3998,6 +4795,9 @@ export type BusinessUpdateWithoutTrainersInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutTrainersInput = {
@@ -4035,6 +4835,9 @@ export type BusinessUncheckedUpdateWithoutTrainersInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutTrainerPayoutsInput = {
@@ -4072,6 +4875,9 @@ export type BusinessCreateWithoutTrainerPayoutsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutTrainerPayoutsInput = {
@@ -4109,6 +4915,9 @@ export type BusinessUncheckedCreateWithoutTrainerPayoutsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutTrainerPayoutsInput = {
@@ -4162,6 +4971,9 @@ export type BusinessUpdateWithoutTrainerPayoutsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutTrainerPayoutsInput = {
@@ -4199,6 +5011,9 @@ export type BusinessUncheckedUpdateWithoutTrainerPayoutsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutOwnerInput = {
@@ -4236,6 +5051,9 @@ export type BusinessCreateWithoutOwnerInput = {
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutOwnerInput = {
@@ -4273,6 +5091,9 @@ export type BusinessUncheckedCreateWithoutOwnerInput = {
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
   businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutOwnerInput = {
@@ -4376,6 +5197,9 @@ export type BusinessUpdateWithoutOwnerInput = {
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutOwnerInput = {
@@ -4413,6 +5237,9 @@ export type BusinessUncheckedUpdateWithoutOwnerInput = {
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateManyWithoutOwnerInput = {
@@ -4454,6 +5281,9 @@ export type BusinessCountOutputType = {
   reviews: number
   trainers: number
   trainerPayouts: number
+  biometricDevices: number
+  attendanceLogs: number
+  memberBiometrics: number
 }
 
 export type BusinessCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4472,6 +5302,9 @@ export type BusinessCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   reviews?: boolean | BusinessCountOutputTypeCountReviewsArgs
   trainers?: boolean | BusinessCountOutputTypeCountTrainersArgs
   trainerPayouts?: boolean | BusinessCountOutputTypeCountTrainerPayoutsArgs
+  biometricDevices?: boolean | BusinessCountOutputTypeCountBiometricDevicesArgs
+  attendanceLogs?: boolean | BusinessCountOutputTypeCountAttendanceLogsArgs
+  memberBiometrics?: boolean | BusinessCountOutputTypeCountMemberBiometricsArgs
 }
 
 /**
@@ -4589,6 +5422,27 @@ export type BusinessCountOutputTypeCountTrainerPayoutsArgs<ExtArgs extends runti
   where?: Prisma.TrainerPayoutWhereInput
 }
 
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountBiometricDevicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BiometricDeviceWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountAttendanceLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AttendanceLogWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountMemberBiometricsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MemberBiometricWhereInput
+}
+
 
 export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4627,6 +5481,9 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   trainers?: boolean | Prisma.Business$trainersArgs<ExtArgs>
   trainerPayouts?: boolean | Prisma.Business$trainerPayoutsArgs<ExtArgs>
   businessReferral?: boolean | Prisma.Business$businessReferralArgs<ExtArgs>
+  biometricDevices?: boolean | Prisma.Business$biometricDevicesArgs<ExtArgs>
+  attendanceLogs?: boolean | Prisma.Business$attendanceLogsArgs<ExtArgs>
+  memberBiometrics?: boolean | Prisma.Business$memberBiometricsArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["business"]>
 
@@ -4711,6 +5568,9 @@ export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   trainers?: boolean | Prisma.Business$trainersArgs<ExtArgs>
   trainerPayouts?: boolean | Prisma.Business$trainerPayoutsArgs<ExtArgs>
   businessReferral?: boolean | Prisma.Business$businessReferralArgs<ExtArgs>
+  biometricDevices?: boolean | Prisma.Business$biometricDevicesArgs<ExtArgs>
+  attendanceLogs?: boolean | Prisma.Business$attendanceLogsArgs<ExtArgs>
+  memberBiometrics?: boolean | Prisma.Business$memberBiometricsArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BusinessIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4743,6 +5603,9 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     trainers: Prisma.$TrainerBusinessPayload<ExtArgs>[]
     trainerPayouts: Prisma.$TrainerPayoutPayload<ExtArgs>[]
     businessReferral: Prisma.$BusinessReferralPayload<ExtArgs> | null
+    biometricDevices: Prisma.$BiometricDevicePayload<ExtArgs>[]
+    attendanceLogs: Prisma.$AttendanceLogPayload<ExtArgs>[]
+    memberBiometrics: Prisma.$MemberBiometricPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -5175,6 +6038,9 @@ export interface Prisma__BusinessClient<T, Null = never, ExtArgs extends runtime
   trainers<T extends Prisma.Business$trainersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$trainersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainerBusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   trainerPayouts<T extends Prisma.Business$trainerPayoutsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$trainerPayoutsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainerPayoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   businessReferral<T extends Prisma.Business$businessReferralArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$businessReferralArgs<ExtArgs>>): Prisma.Prisma__BusinessReferralClient<runtime.Types.Result.GetResult<Prisma.$BusinessReferralPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  biometricDevices<T extends Prisma.Business$biometricDevicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$biometricDevicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BiometricDevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attendanceLogs<T extends Prisma.Business$attendanceLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$attendanceLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendanceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  memberBiometrics<T extends Prisma.Business$memberBiometricsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$memberBiometricsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MemberBiometricPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6049,6 +6915,78 @@ export type Business$businessReferralArgs<ExtArgs extends runtime.Types.Extensio
    */
   include?: Prisma.BusinessReferralInclude<ExtArgs> | null
   where?: Prisma.BusinessReferralWhereInput
+}
+
+/**
+ * Business.biometricDevices
+ */
+export type Business$biometricDevicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BiometricDevice
+   */
+  select?: Prisma.BiometricDeviceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BiometricDevice
+   */
+  omit?: Prisma.BiometricDeviceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BiometricDeviceInclude<ExtArgs> | null
+  where?: Prisma.BiometricDeviceWhereInput
+  orderBy?: Prisma.BiometricDeviceOrderByWithRelationInput | Prisma.BiometricDeviceOrderByWithRelationInput[]
+  cursor?: Prisma.BiometricDeviceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BiometricDeviceScalarFieldEnum | Prisma.BiometricDeviceScalarFieldEnum[]
+}
+
+/**
+ * Business.attendanceLogs
+ */
+export type Business$attendanceLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AttendanceLog
+   */
+  select?: Prisma.AttendanceLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AttendanceLog
+   */
+  omit?: Prisma.AttendanceLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttendanceLogInclude<ExtArgs> | null
+  where?: Prisma.AttendanceLogWhereInput
+  orderBy?: Prisma.AttendanceLogOrderByWithRelationInput | Prisma.AttendanceLogOrderByWithRelationInput[]
+  cursor?: Prisma.AttendanceLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AttendanceLogScalarFieldEnum | Prisma.AttendanceLogScalarFieldEnum[]
+}
+
+/**
+ * Business.memberBiometrics
+ */
+export type Business$memberBiometricsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MemberBiometric
+   */
+  select?: Prisma.MemberBiometricSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MemberBiometric
+   */
+  omit?: Prisma.MemberBiometricOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MemberBiometricInclude<ExtArgs> | null
+  where?: Prisma.MemberBiometricWhereInput
+  orderBy?: Prisma.MemberBiometricOrderByWithRelationInput | Prisma.MemberBiometricOrderByWithRelationInput[]
+  cursor?: Prisma.MemberBiometricWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MemberBiometricScalarFieldEnum | Prisma.MemberBiometricScalarFieldEnum[]
 }
 
 /**

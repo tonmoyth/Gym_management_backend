@@ -392,6 +392,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Announcement: 'Announcement',
   Attendance: 'Attendance',
+  AttendanceLog: 'AttendanceLog',
+  BiometricDevice: 'BiometricDevice',
   Business: 'Business',
   BusinessReferral: 'BusinessReferral',
   BusinessStaff: 'BusinessStaff',
@@ -404,6 +406,7 @@ export const ModelName = {
   Favorite: 'Favorite',
   Invoice: 'Invoice',
   JobPost: 'JobPost',
+  MemberBiometric: 'MemberBiometric',
   MemberProfile: 'MemberProfile',
   MemberReferral: 'MemberReferral',
   MemberReferralSetting: 'MemberReferralSetting',
@@ -441,7 +444,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "announcement" | "attendance" | "business" | "businessReferral" | "businessStaff" | "chatMessage" | "chatThread" | "classBooking" | "classSchedule" | "dietPlan" | "equipment" | "favorite" | "invoice" | "jobPost" | "memberProfile" | "memberReferral" | "memberReferralSetting" | "membership" | "membershipPlan" | "notification" | "payment" | "platformSubscription" | "progressLog" | "attendanceQrCode" | "review" | "specializationTag" | "trainerApplication" | "trainerBusiness" | "trainerCertification" | "trainerPayout" | "trainerProfile" | "trainerSpecialization" | "user" | "session" | "account" | "verification"
+    modelProps: "announcement" | "attendance" | "attendanceLog" | "biometricDevice" | "business" | "businessReferral" | "businessStaff" | "chatMessage" | "chatThread" | "classBooking" | "classSchedule" | "dietPlan" | "equipment" | "favorite" | "invoice" | "jobPost" | "memberBiometric" | "memberProfile" | "memberReferral" | "memberReferralSetting" | "membership" | "membershipPlan" | "notification" | "payment" | "platformSubscription" | "progressLog" | "attendanceQrCode" | "review" | "specializationTag" | "trainerApplication" | "trainerBusiness" | "trainerCertification" | "trainerPayout" | "trainerProfile" | "trainerSpecialization" | "user" | "session" | "account" | "verification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -590,6 +593,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.AttendanceCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AttendanceCountAggregateOutputType> | number
+        }
+      }
+    }
+    AttendanceLog: {
+      payload: Prisma.$AttendanceLogPayload<ExtArgs>
+      fields: Prisma.AttendanceLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AttendanceLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AttendanceLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceLogPayload>
+        }
+        findFirst: {
+          args: Prisma.AttendanceLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AttendanceLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceLogPayload>
+        }
+        findMany: {
+          args: Prisma.AttendanceLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceLogPayload>[]
+        }
+        create: {
+          args: Prisma.AttendanceLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceLogPayload>
+        }
+        createMany: {
+          args: Prisma.AttendanceLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AttendanceLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceLogPayload>[]
+        }
+        delete: {
+          args: Prisma.AttendanceLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceLogPayload>
+        }
+        update: {
+          args: Prisma.AttendanceLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.AttendanceLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AttendanceLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AttendanceLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.AttendanceLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceLogPayload>
+        }
+        aggregate: {
+          args: Prisma.AttendanceLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAttendanceLog>
+        }
+        groupBy: {
+          args: Prisma.AttendanceLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AttendanceLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AttendanceLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AttendanceLogCountAggregateOutputType> | number
+        }
+      }
+    }
+    BiometricDevice: {
+      payload: Prisma.$BiometricDevicePayload<ExtArgs>
+      fields: Prisma.BiometricDeviceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BiometricDeviceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BiometricDevicePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BiometricDeviceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BiometricDevicePayload>
+        }
+        findFirst: {
+          args: Prisma.BiometricDeviceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BiometricDevicePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BiometricDeviceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BiometricDevicePayload>
+        }
+        findMany: {
+          args: Prisma.BiometricDeviceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BiometricDevicePayload>[]
+        }
+        create: {
+          args: Prisma.BiometricDeviceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BiometricDevicePayload>
+        }
+        createMany: {
+          args: Prisma.BiometricDeviceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BiometricDeviceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BiometricDevicePayload>[]
+        }
+        delete: {
+          args: Prisma.BiometricDeviceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BiometricDevicePayload>
+        }
+        update: {
+          args: Prisma.BiometricDeviceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BiometricDevicePayload>
+        }
+        deleteMany: {
+          args: Prisma.BiometricDeviceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BiometricDeviceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BiometricDeviceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BiometricDevicePayload>[]
+        }
+        upsert: {
+          args: Prisma.BiometricDeviceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BiometricDevicePayload>
+        }
+        aggregate: {
+          args: Prisma.BiometricDeviceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBiometricDevice>
+        }
+        groupBy: {
+          args: Prisma.BiometricDeviceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BiometricDeviceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BiometricDeviceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BiometricDeviceCountAggregateOutputType> | number
         }
       }
     }
@@ -1478,6 +1629,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.JobPostCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.JobPostCountAggregateOutputType> | number
+        }
+      }
+    }
+    MemberBiometric: {
+      payload: Prisma.$MemberBiometricPayload<ExtArgs>
+      fields: Prisma.MemberBiometricFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MemberBiometricFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberBiometricPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MemberBiometricFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberBiometricPayload>
+        }
+        findFirst: {
+          args: Prisma.MemberBiometricFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberBiometricPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MemberBiometricFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberBiometricPayload>
+        }
+        findMany: {
+          args: Prisma.MemberBiometricFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberBiometricPayload>[]
+        }
+        create: {
+          args: Prisma.MemberBiometricCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberBiometricPayload>
+        }
+        createMany: {
+          args: Prisma.MemberBiometricCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MemberBiometricCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberBiometricPayload>[]
+        }
+        delete: {
+          args: Prisma.MemberBiometricDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberBiometricPayload>
+        }
+        update: {
+          args: Prisma.MemberBiometricUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberBiometricPayload>
+        }
+        deleteMany: {
+          args: Prisma.MemberBiometricDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MemberBiometricUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MemberBiometricUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberBiometricPayload>[]
+        }
+        upsert: {
+          args: Prisma.MemberBiometricUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberBiometricPayload>
+        }
+        aggregate: {
+          args: Prisma.MemberBiometricAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMemberBiometric>
+        }
+        groupBy: {
+          args: Prisma.MemberBiometricGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MemberBiometricGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MemberBiometricCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MemberBiometricCountAggregateOutputType> | number
         }
       }
     }
@@ -3172,6 +3397,36 @@ export const AttendanceScalarFieldEnum = {
 export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
 
 
+export const AttendanceLogScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  memberId: 'memberId',
+  deviceId: 'deviceId',
+  attendanceType: 'attendanceType',
+  verifyMethod: 'verifyMethod',
+  attendanceTime: 'attendanceTime',
+  rawPayload: 'rawPayload',
+  createdAt: 'createdAt'
+} as const
+
+export type AttendanceLogScalarFieldEnum = (typeof AttendanceLogScalarFieldEnum)[keyof typeof AttendanceLogScalarFieldEnum]
+
+
+export const BiometricDeviceScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  serialNumber: 'serialNumber',
+  name: 'name',
+  brand: 'brand',
+  status: 'status',
+  lastHeartbeat: 'lastHeartbeat',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BiometricDeviceScalarFieldEnum = (typeof BiometricDeviceScalarFieldEnum)[keyof typeof BiometricDeviceScalarFieldEnum]
+
+
 export const BusinessScalarFieldEnum = {
   id: 'id',
   ownerId: 'ownerId',
@@ -3328,6 +3583,18 @@ export const JobPostScalarFieldEnum = {
 } as const
 
 export type JobPostScalarFieldEnum = (typeof JobPostScalarFieldEnum)[keyof typeof JobPostScalarFieldEnum]
+
+
+export const MemberBiometricScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  memberId: 'memberId',
+  biometricId: 'biometricId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MemberBiometricScalarFieldEnum = (typeof MemberBiometricScalarFieldEnum)[keyof typeof MemberBiometricScalarFieldEnum]
 
 
 export const MemberProfileScalarFieldEnum = {
@@ -3753,6 +4020,48 @@ export type ListEnumAttendanceTypeFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'BiometricAttendanceType'
+ */
+export type EnumBiometricAttendanceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BiometricAttendanceType'>
+    
+
+
+/**
+ * Reference to a field of type 'BiometricAttendanceType[]'
+ */
+export type ListEnumBiometricAttendanceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BiometricAttendanceType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'VerifyMethod'
+ */
+export type EnumVerifyMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerifyMethod'>
+    
+
+
+/**
+ * Reference to a field of type 'VerifyMethod[]'
+ */
+export type ListEnumVerifyMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerifyMethod[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DeviceStatus'
+ */
+export type EnumDeviceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeviceStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'DeviceStatus[]'
+ */
+export type ListEnumDeviceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeviceStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -4169,6 +4478,8 @@ export interface PrismaClientOptions {
 export type GlobalOmitConfig = {
   announcement?: Prisma.AnnouncementOmit
   attendance?: Prisma.AttendanceOmit
+  attendanceLog?: Prisma.AttendanceLogOmit
+  biometricDevice?: Prisma.BiometricDeviceOmit
   business?: Prisma.BusinessOmit
   businessReferral?: Prisma.BusinessReferralOmit
   businessStaff?: Prisma.BusinessStaffOmit
@@ -4181,6 +4492,7 @@ export type GlobalOmitConfig = {
   favorite?: Prisma.FavoriteOmit
   invoice?: Prisma.InvoiceOmit
   jobPost?: Prisma.JobPostOmit
+  memberBiometric?: Prisma.MemberBiometricOmit
   memberProfile?: Prisma.MemberProfileOmit
   memberReferral?: Prisma.MemberReferralOmit
   memberReferralSetting?: Prisma.MemberReferralSettingOmit

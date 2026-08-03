@@ -43,6 +43,10 @@ model Business {
   trainerPayouts   TrainerPayout[]
   businessReferral BusinessReferral?      @relation("ReferredBusiness")
 
+  biometricDevices BiometricDevice[]
+  attendanceLogs   AttendanceLog[]
+  memberBiometrics MemberBiometric[]
+
   @@index([status])
   @@index([createdAt])
   @@index([latitude, longitude])

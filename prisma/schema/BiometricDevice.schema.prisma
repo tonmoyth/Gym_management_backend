@@ -1,0 +1,21 @@
+model BiometricDevice {
+  id String @id @default(uuid())
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  serialNumber String @unique
+  name         String
+  brand        String
+
+  status DeviceStatus @default(ONLINE)
+
+  lastHeartbeat DateTime @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  attendanceLogs AttendanceLog[]
+
+  @@index([businessId])
+}

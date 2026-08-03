@@ -192,6 +192,8 @@ export type MemberProfileWhereInput = {
   memberships?: Prisma.MembershipListRelationFilter
   progressLogs?: Prisma.ProgressLogListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
+  attendanceLogs?: Prisma.AttendanceLogListRelationFilter
+  memberBiometrics?: Prisma.MemberBiometricListRelationFilter
 }
 
 export type MemberProfileOrderByWithRelationInput = {
@@ -210,6 +212,8 @@ export type MemberProfileOrderByWithRelationInput = {
   memberships?: Prisma.MembershipOrderByRelationAggregateInput
   progressLogs?: Prisma.ProgressLogOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
+  attendanceLogs?: Prisma.AttendanceLogOrderByRelationAggregateInput
+  memberBiometrics?: Prisma.MemberBiometricOrderByRelationAggregateInput
 }
 
 export type MemberProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -231,6 +235,8 @@ export type MemberProfileWhereUniqueInput = Prisma.AtLeast<{
   memberships?: Prisma.MembershipListRelationFilter
   progressLogs?: Prisma.ProgressLogListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
+  attendanceLogs?: Prisma.AttendanceLogListRelationFilter
+  memberBiometrics?: Prisma.MemberBiometricListRelationFilter
 }, "id" | "userId">
 
 export type MemberProfileOrderByWithAggregationInput = {
@@ -269,6 +275,8 @@ export type MemberProfileCreateInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileUncheckedCreateInput = {
@@ -285,6 +293,8 @@ export type MemberProfileUncheckedCreateInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileUpdateInput = {
@@ -301,6 +311,8 @@ export type MemberProfileUpdateInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileUncheckedUpdateInput = {
@@ -317,6 +329,8 @@ export type MemberProfileUncheckedUpdateInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileCreateManyInput = {
@@ -385,6 +399,20 @@ export type MemberProfileNullableScalarRelationFilter = {
   isNot?: Prisma.MemberProfileWhereInput | null
 }
 
+export type MemberProfileCreateNestedOneWithoutAttendanceLogsInput = {
+  create?: Prisma.XOR<Prisma.MemberProfileCreateWithoutAttendanceLogsInput, Prisma.MemberProfileUncheckedCreateWithoutAttendanceLogsInput>
+  connectOrCreate?: Prisma.MemberProfileCreateOrConnectWithoutAttendanceLogsInput
+  connect?: Prisma.MemberProfileWhereUniqueInput
+}
+
+export type MemberProfileUpdateOneRequiredWithoutAttendanceLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.MemberProfileCreateWithoutAttendanceLogsInput, Prisma.MemberProfileUncheckedCreateWithoutAttendanceLogsInput>
+  connectOrCreate?: Prisma.MemberProfileCreateOrConnectWithoutAttendanceLogsInput
+  upsert?: Prisma.MemberProfileUpsertWithoutAttendanceLogsInput
+  connect?: Prisma.MemberProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MemberProfileUpdateToOneWithWhereWithoutAttendanceLogsInput, Prisma.MemberProfileUpdateWithoutAttendanceLogsInput>, Prisma.MemberProfileUncheckedUpdateWithoutAttendanceLogsInput>
+}
+
 export type MemberProfileCreateNestedOneWithoutChatThreadsInput = {
   create?: Prisma.XOR<Prisma.MemberProfileCreateWithoutChatThreadsInput, Prisma.MemberProfileUncheckedCreateWithoutChatThreadsInput>
   connectOrCreate?: Prisma.MemberProfileCreateOrConnectWithoutChatThreadsInput
@@ -439,6 +467,20 @@ export type MemberProfileUpdateOneRequiredWithoutFavoritesNestedInput = {
   upsert?: Prisma.MemberProfileUpsertWithoutFavoritesInput
   connect?: Prisma.MemberProfileWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.MemberProfileUpdateToOneWithWhereWithoutFavoritesInput, Prisma.MemberProfileUpdateWithoutFavoritesInput>, Prisma.MemberProfileUncheckedUpdateWithoutFavoritesInput>
+}
+
+export type MemberProfileCreateNestedOneWithoutMemberBiometricsInput = {
+  create?: Prisma.XOR<Prisma.MemberProfileCreateWithoutMemberBiometricsInput, Prisma.MemberProfileUncheckedCreateWithoutMemberBiometricsInput>
+  connectOrCreate?: Prisma.MemberProfileCreateOrConnectWithoutMemberBiometricsInput
+  connect?: Prisma.MemberProfileWhereUniqueInput
+}
+
+export type MemberProfileUpdateOneRequiredWithoutMemberBiometricsNestedInput = {
+  create?: Prisma.XOR<Prisma.MemberProfileCreateWithoutMemberBiometricsInput, Prisma.MemberProfileUncheckedCreateWithoutMemberBiometricsInput>
+  connectOrCreate?: Prisma.MemberProfileCreateOrConnectWithoutMemberBiometricsInput
+  upsert?: Prisma.MemberProfileUpsertWithoutMemberBiometricsInput
+  connect?: Prisma.MemberProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MemberProfileUpdateToOneWithWhereWithoutMemberBiometricsInput, Prisma.MemberProfileUpdateWithoutMemberBiometricsInput>, Prisma.MemberProfileUncheckedUpdateWithoutMemberBiometricsInput>
 }
 
 export type MemberProfileCreateNestedOneWithoutReferralsMadeInput = {
@@ -571,6 +613,90 @@ export type MemberProfileUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MemberProfileUpdateToOneWithWhereWithoutUserInput, Prisma.MemberProfileUpdateWithoutUserInput>, Prisma.MemberProfileUncheckedUpdateWithoutUserInput>
 }
 
+export type MemberProfileCreateWithoutAttendanceLogsInput = {
+  id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
+  fitnessGoalTag?: Prisma.SpecializationTagCreateNestedOneWithoutMemberProfilesInput
+  chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutMemberInput
+  classBookings?: Prisma.ClassBookingCreateNestedManyWithoutMemberInput
+  dietPlans?: Prisma.DietPlanCreateNestedManyWithoutMemberInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutMemberInput
+  referralsMade?: Prisma.MemberReferralCreateNestedManyWithoutReferrerMemberInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutMemberInput
+  progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutMemberInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutMemberInput
+}
+
+export type MemberProfileUncheckedCreateWithoutAttendanceLogsInput = {
+  id?: string
+  userId: string
+  fitnessGoalTagId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
+  classBookings?: Prisma.ClassBookingUncheckedCreateNestedManyWithoutMemberInput
+  dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutMemberInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutMemberInput
+  referralsMade?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferrerMemberInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutMemberInput
+  progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutMemberInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutMemberInput
+}
+
+export type MemberProfileCreateOrConnectWithoutAttendanceLogsInput = {
+  where: Prisma.MemberProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.MemberProfileCreateWithoutAttendanceLogsInput, Prisma.MemberProfileUncheckedCreateWithoutAttendanceLogsInput>
+}
+
+export type MemberProfileUpsertWithoutAttendanceLogsInput = {
+  update: Prisma.XOR<Prisma.MemberProfileUpdateWithoutAttendanceLogsInput, Prisma.MemberProfileUncheckedUpdateWithoutAttendanceLogsInput>
+  create: Prisma.XOR<Prisma.MemberProfileCreateWithoutAttendanceLogsInput, Prisma.MemberProfileUncheckedCreateWithoutAttendanceLogsInput>
+  where?: Prisma.MemberProfileWhereInput
+}
+
+export type MemberProfileUpdateToOneWithWhereWithoutAttendanceLogsInput = {
+  where?: Prisma.MemberProfileWhereInput
+  data: Prisma.XOR<Prisma.MemberProfileUpdateWithoutAttendanceLogsInput, Prisma.MemberProfileUncheckedUpdateWithoutAttendanceLogsInput>
+}
+
+export type MemberProfileUpdateWithoutAttendanceLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
+  fitnessGoalTag?: Prisma.SpecializationTagUpdateOneWithoutMemberProfilesNestedInput
+  chatThreads?: Prisma.ChatThreadUpdateManyWithoutMemberNestedInput
+  classBookings?: Prisma.ClassBookingUpdateManyWithoutMemberNestedInput
+  dietPlans?: Prisma.DietPlanUpdateManyWithoutMemberNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutMemberNestedInput
+  referralsMade?: Prisma.MemberReferralUpdateManyWithoutReferrerMemberNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutMemberNestedInput
+  progressLogs?: Prisma.ProgressLogUpdateManyWithoutMemberNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutMemberNestedInput
+}
+
+export type MemberProfileUncheckedUpdateWithoutAttendanceLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
+  classBookings?: Prisma.ClassBookingUncheckedUpdateManyWithoutMemberNestedInput
+  dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutMemberNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutMemberNestedInput
+  referralsMade?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferrerMemberNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutMemberNestedInput
+  progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutMemberNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutMemberNestedInput
+}
+
 export type MemberProfileCreateWithoutChatThreadsInput = {
   id?: string
   createdAt?: Date | string
@@ -584,6 +710,8 @@ export type MemberProfileCreateWithoutChatThreadsInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileUncheckedCreateWithoutChatThreadsInput = {
@@ -599,6 +727,8 @@ export type MemberProfileUncheckedCreateWithoutChatThreadsInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileCreateOrConnectWithoutChatThreadsInput = {
@@ -630,6 +760,8 @@ export type MemberProfileUpdateWithoutChatThreadsInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileUncheckedUpdateWithoutChatThreadsInput = {
@@ -645,6 +777,8 @@ export type MemberProfileUncheckedUpdateWithoutChatThreadsInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileCreateWithoutClassBookingsInput = {
@@ -660,6 +794,8 @@ export type MemberProfileCreateWithoutClassBookingsInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileUncheckedCreateWithoutClassBookingsInput = {
@@ -675,6 +811,8 @@ export type MemberProfileUncheckedCreateWithoutClassBookingsInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileCreateOrConnectWithoutClassBookingsInput = {
@@ -706,6 +844,8 @@ export type MemberProfileUpdateWithoutClassBookingsInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileUncheckedUpdateWithoutClassBookingsInput = {
@@ -721,6 +861,8 @@ export type MemberProfileUncheckedUpdateWithoutClassBookingsInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileCreateWithoutDietPlansInput = {
@@ -736,6 +878,8 @@ export type MemberProfileCreateWithoutDietPlansInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileUncheckedCreateWithoutDietPlansInput = {
@@ -751,6 +895,8 @@ export type MemberProfileUncheckedCreateWithoutDietPlansInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileCreateOrConnectWithoutDietPlansInput = {
@@ -782,6 +928,8 @@ export type MemberProfileUpdateWithoutDietPlansInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileUncheckedUpdateWithoutDietPlansInput = {
@@ -797,6 +945,8 @@ export type MemberProfileUncheckedUpdateWithoutDietPlansInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileCreateWithoutFavoritesInput = {
@@ -812,6 +962,8 @@ export type MemberProfileCreateWithoutFavoritesInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileUncheckedCreateWithoutFavoritesInput = {
@@ -827,6 +979,8 @@ export type MemberProfileUncheckedCreateWithoutFavoritesInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileCreateOrConnectWithoutFavoritesInput = {
@@ -858,6 +1012,8 @@ export type MemberProfileUpdateWithoutFavoritesInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileUncheckedUpdateWithoutFavoritesInput = {
@@ -873,6 +1029,92 @@ export type MemberProfileUncheckedUpdateWithoutFavoritesInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutMemberNestedInput
+}
+
+export type MemberProfileCreateWithoutMemberBiometricsInput = {
+  id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
+  fitnessGoalTag?: Prisma.SpecializationTagCreateNestedOneWithoutMemberProfilesInput
+  chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutMemberInput
+  classBookings?: Prisma.ClassBookingCreateNestedManyWithoutMemberInput
+  dietPlans?: Prisma.DietPlanCreateNestedManyWithoutMemberInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutMemberInput
+  referralsMade?: Prisma.MemberReferralCreateNestedManyWithoutReferrerMemberInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutMemberInput
+  progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutMemberInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutMemberInput
+}
+
+export type MemberProfileUncheckedCreateWithoutMemberBiometricsInput = {
+  id?: string
+  userId: string
+  fitnessGoalTagId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
+  classBookings?: Prisma.ClassBookingUncheckedCreateNestedManyWithoutMemberInput
+  dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutMemberInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutMemberInput
+  referralsMade?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferrerMemberInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutMemberInput
+  progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutMemberInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+}
+
+export type MemberProfileCreateOrConnectWithoutMemberBiometricsInput = {
+  where: Prisma.MemberProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.MemberProfileCreateWithoutMemberBiometricsInput, Prisma.MemberProfileUncheckedCreateWithoutMemberBiometricsInput>
+}
+
+export type MemberProfileUpsertWithoutMemberBiometricsInput = {
+  update: Prisma.XOR<Prisma.MemberProfileUpdateWithoutMemberBiometricsInput, Prisma.MemberProfileUncheckedUpdateWithoutMemberBiometricsInput>
+  create: Prisma.XOR<Prisma.MemberProfileCreateWithoutMemberBiometricsInput, Prisma.MemberProfileUncheckedCreateWithoutMemberBiometricsInput>
+  where?: Prisma.MemberProfileWhereInput
+}
+
+export type MemberProfileUpdateToOneWithWhereWithoutMemberBiometricsInput = {
+  where?: Prisma.MemberProfileWhereInput
+  data: Prisma.XOR<Prisma.MemberProfileUpdateWithoutMemberBiometricsInput, Prisma.MemberProfileUncheckedUpdateWithoutMemberBiometricsInput>
+}
+
+export type MemberProfileUpdateWithoutMemberBiometricsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
+  fitnessGoalTag?: Prisma.SpecializationTagUpdateOneWithoutMemberProfilesNestedInput
+  chatThreads?: Prisma.ChatThreadUpdateManyWithoutMemberNestedInput
+  classBookings?: Prisma.ClassBookingUpdateManyWithoutMemberNestedInput
+  dietPlans?: Prisma.DietPlanUpdateManyWithoutMemberNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutMemberNestedInput
+  referralsMade?: Prisma.MemberReferralUpdateManyWithoutReferrerMemberNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutMemberNestedInput
+  progressLogs?: Prisma.ProgressLogUpdateManyWithoutMemberNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutMemberNestedInput
+}
+
+export type MemberProfileUncheckedUpdateWithoutMemberBiometricsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
+  classBookings?: Prisma.ClassBookingUncheckedUpdateManyWithoutMemberNestedInput
+  dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutMemberNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutMemberNestedInput
+  referralsMade?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferrerMemberNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutMemberNestedInput
+  progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutMemberNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileCreateWithoutReferralsMadeInput = {
@@ -888,6 +1130,8 @@ export type MemberProfileCreateWithoutReferralsMadeInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileUncheckedCreateWithoutReferralsMadeInput = {
@@ -903,6 +1147,8 @@ export type MemberProfileUncheckedCreateWithoutReferralsMadeInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileCreateOrConnectWithoutReferralsMadeInput = {
@@ -934,6 +1180,8 @@ export type MemberProfileUpdateWithoutReferralsMadeInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileUncheckedUpdateWithoutReferralsMadeInput = {
@@ -949,6 +1197,8 @@ export type MemberProfileUncheckedUpdateWithoutReferralsMadeInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileCreateWithoutMembershipsInput = {
@@ -964,6 +1214,8 @@ export type MemberProfileCreateWithoutMembershipsInput = {
   referralsMade?: Prisma.MemberReferralCreateNestedManyWithoutReferrerMemberInput
   progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileUncheckedCreateWithoutMembershipsInput = {
@@ -979,6 +1231,8 @@ export type MemberProfileUncheckedCreateWithoutMembershipsInput = {
   referralsMade?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferrerMemberInput
   progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileCreateOrConnectWithoutMembershipsInput = {
@@ -1010,6 +1264,8 @@ export type MemberProfileUpdateWithoutMembershipsInput = {
   referralsMade?: Prisma.MemberReferralUpdateManyWithoutReferrerMemberNestedInput
   progressLogs?: Prisma.ProgressLogUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileUncheckedUpdateWithoutMembershipsInput = {
@@ -1025,6 +1281,8 @@ export type MemberProfileUncheckedUpdateWithoutMembershipsInput = {
   referralsMade?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferrerMemberNestedInput
   progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileCreateWithoutProgressLogsInput = {
@@ -1040,6 +1298,8 @@ export type MemberProfileCreateWithoutProgressLogsInput = {
   referralsMade?: Prisma.MemberReferralCreateNestedManyWithoutReferrerMemberInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileUncheckedCreateWithoutProgressLogsInput = {
@@ -1055,6 +1315,8 @@ export type MemberProfileUncheckedCreateWithoutProgressLogsInput = {
   referralsMade?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferrerMemberInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileCreateOrConnectWithoutProgressLogsInput = {
@@ -1086,6 +1348,8 @@ export type MemberProfileUpdateWithoutProgressLogsInput = {
   referralsMade?: Prisma.MemberReferralUpdateManyWithoutReferrerMemberNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileUncheckedUpdateWithoutProgressLogsInput = {
@@ -1101,6 +1365,8 @@ export type MemberProfileUncheckedUpdateWithoutProgressLogsInput = {
   referralsMade?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferrerMemberNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileCreateWithoutReviewsInput = {
@@ -1116,6 +1382,8 @@ export type MemberProfileCreateWithoutReviewsInput = {
   referralsMade?: Prisma.MemberReferralCreateNestedManyWithoutReferrerMemberInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileUncheckedCreateWithoutReviewsInput = {
@@ -1131,6 +1399,8 @@ export type MemberProfileUncheckedCreateWithoutReviewsInput = {
   referralsMade?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferrerMemberInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileCreateOrConnectWithoutReviewsInput = {
@@ -1162,6 +1432,8 @@ export type MemberProfileUpdateWithoutReviewsInput = {
   referralsMade?: Prisma.MemberReferralUpdateManyWithoutReferrerMemberNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileUncheckedUpdateWithoutReviewsInput = {
@@ -1177,6 +1449,8 @@ export type MemberProfileUncheckedUpdateWithoutReviewsInput = {
   referralsMade?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferrerMemberNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileCreateWithoutFitnessGoalTagInput = {
@@ -1192,6 +1466,8 @@ export type MemberProfileCreateWithoutFitnessGoalTagInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileUncheckedCreateWithoutFitnessGoalTagInput = {
@@ -1207,6 +1483,8 @@ export type MemberProfileUncheckedCreateWithoutFitnessGoalTagInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileCreateOrConnectWithoutFitnessGoalTagInput = {
@@ -1259,6 +1537,8 @@ export type MemberProfileCreateWithoutUserInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileUncheckedCreateWithoutUserInput = {
@@ -1274,6 +1554,8 @@ export type MemberProfileUncheckedCreateWithoutUserInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutMemberInput
   progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutMemberInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMemberInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberProfileCreateOrConnectWithoutUserInput = {
@@ -1305,6 +1587,8 @@ export type MemberProfileUpdateWithoutUserInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileUncheckedUpdateWithoutUserInput = {
@@ -1320,6 +1604,8 @@ export type MemberProfileUncheckedUpdateWithoutUserInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileCreateManyFitnessGoalTagInput = {
@@ -1342,6 +1628,8 @@ export type MemberProfileUpdateWithoutFitnessGoalTagInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileUncheckedUpdateWithoutFitnessGoalTagInput = {
@@ -1357,6 +1645,8 @@ export type MemberProfileUncheckedUpdateWithoutFitnessGoalTagInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutMemberNestedInput
   progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutMemberNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMemberNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberProfileUncheckedUpdateManyWithoutFitnessGoalTagInput = {
@@ -1380,6 +1670,8 @@ export type MemberProfileCountOutputType = {
   memberships: number
   progressLogs: number
   reviews: number
+  attendanceLogs: number
+  memberBiometrics: number
 }
 
 export type MemberProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1391,6 +1683,8 @@ export type MemberProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Ext
   memberships?: boolean | MemberProfileCountOutputTypeCountMembershipsArgs
   progressLogs?: boolean | MemberProfileCountOutputTypeCountProgressLogsArgs
   reviews?: boolean | MemberProfileCountOutputTypeCountReviewsArgs
+  attendanceLogs?: boolean | MemberProfileCountOutputTypeCountAttendanceLogsArgs
+  memberBiometrics?: boolean | MemberProfileCountOutputTypeCountMemberBiometricsArgs
 }
 
 /**
@@ -1459,6 +1753,20 @@ export type MemberProfileCountOutputTypeCountReviewsArgs<ExtArgs extends runtime
   where?: Prisma.ReviewWhereInput
 }
 
+/**
+ * MemberProfileCountOutputType without action
+ */
+export type MemberProfileCountOutputTypeCountAttendanceLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AttendanceLogWhereInput
+}
+
+/**
+ * MemberProfileCountOutputType without action
+ */
+export type MemberProfileCountOutputTypeCountMemberBiometricsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MemberBiometricWhereInput
+}
+
 
 export type MemberProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1476,6 +1784,8 @@ export type MemberProfileSelect<ExtArgs extends runtime.Types.Extensions.Interna
   memberships?: boolean | Prisma.MemberProfile$membershipsArgs<ExtArgs>
   progressLogs?: boolean | Prisma.MemberProfile$progressLogsArgs<ExtArgs>
   reviews?: boolean | Prisma.MemberProfile$reviewsArgs<ExtArgs>
+  attendanceLogs?: boolean | Prisma.MemberProfile$attendanceLogsArgs<ExtArgs>
+  memberBiometrics?: boolean | Prisma.MemberProfile$memberBiometricsArgs<ExtArgs>
   _count?: boolean | Prisma.MemberProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["memberProfile"]>
 
@@ -1519,6 +1829,8 @@ export type MemberProfileInclude<ExtArgs extends runtime.Types.Extensions.Intern
   memberships?: boolean | Prisma.MemberProfile$membershipsArgs<ExtArgs>
   progressLogs?: boolean | Prisma.MemberProfile$progressLogsArgs<ExtArgs>
   reviews?: boolean | Prisma.MemberProfile$reviewsArgs<ExtArgs>
+  attendanceLogs?: boolean | Prisma.MemberProfile$attendanceLogsArgs<ExtArgs>
+  memberBiometrics?: boolean | Prisma.MemberProfile$memberBiometricsArgs<ExtArgs>
   _count?: boolean | Prisma.MemberProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MemberProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1543,6 +1855,8 @@ export type $MemberProfilePayload<ExtArgs extends runtime.Types.Extensions.Inter
     memberships: Prisma.$MembershipPayload<ExtArgs>[]
     progressLogs: Prisma.$ProgressLogPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
+    attendanceLogs: Prisma.$AttendanceLogPayload<ExtArgs>[]
+    memberBiometrics: Prisma.$MemberBiometricPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1954,6 +2268,8 @@ export interface Prisma__MemberProfileClient<T, Null = never, ExtArgs extends ru
   memberships<T extends Prisma.MemberProfile$membershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MemberProfile$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   progressLogs<T extends Prisma.MemberProfile$progressLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MemberProfile$progressLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProgressLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.MemberProfile$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MemberProfile$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attendanceLogs<T extends Prisma.MemberProfile$attendanceLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MemberProfile$attendanceLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendanceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  memberBiometrics<T extends Prisma.MemberProfile$memberBiometricsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MemberProfile$memberBiometricsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MemberBiometricPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2592,6 +2908,54 @@ export type MemberProfile$reviewsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
+ * MemberProfile.attendanceLogs
+ */
+export type MemberProfile$attendanceLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AttendanceLog
+   */
+  select?: Prisma.AttendanceLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AttendanceLog
+   */
+  omit?: Prisma.AttendanceLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttendanceLogInclude<ExtArgs> | null
+  where?: Prisma.AttendanceLogWhereInput
+  orderBy?: Prisma.AttendanceLogOrderByWithRelationInput | Prisma.AttendanceLogOrderByWithRelationInput[]
+  cursor?: Prisma.AttendanceLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AttendanceLogScalarFieldEnum | Prisma.AttendanceLogScalarFieldEnum[]
+}
+
+/**
+ * MemberProfile.memberBiometrics
+ */
+export type MemberProfile$memberBiometricsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MemberBiometric
+   */
+  select?: Prisma.MemberBiometricSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MemberBiometric
+   */
+  omit?: Prisma.MemberBiometricOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MemberBiometricInclude<ExtArgs> | null
+  where?: Prisma.MemberBiometricWhereInput
+  orderBy?: Prisma.MemberBiometricOrderByWithRelationInput | Prisma.MemberBiometricOrderByWithRelationInput[]
+  cursor?: Prisma.MemberBiometricWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MemberBiometricScalarFieldEnum | Prisma.MemberBiometricScalarFieldEnum[]
 }
 
 /**

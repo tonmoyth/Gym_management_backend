@@ -222,3 +222,30 @@ export const ClassBookingStatus = {
 } as const
 
 export type ClassBookingStatus = (typeof ClassBookingStatus)[keyof typeof ClassBookingStatus]
+
+
+export const DeviceStatus = {
+  ONLINE: 'ONLINE',
+  OFFLINE: 'OFFLINE',
+  ERROR: 'ERROR'
+} as const
+
+export type DeviceStatus = (typeof DeviceStatus)[keyof typeof DeviceStatus]
+
+
+export const VerifyMethod = {
+  FINGERPRINT: 'FINGERPRINT',
+  FACE: 'FACE',
+  RFID: 'RFID',
+  PASSWORD: 'PASSWORD'
+} as const
+
+export type VerifyMethod = (typeof VerifyMethod)[keyof typeof VerifyMethod]
+
+
+export const BiometricAttendanceType = {
+  CHECK_IN: 'CHECK_IN',
+  CHECK_OUT: 'CHECK_OUT'
+} as const
+
+export type BiometricAttendanceType = (typeof BiometricAttendanceType)[keyof typeof BiometricAttendanceType]

@@ -143,3 +143,21 @@ enum ClassBookingStatus {
   CONFIRMED
   CANCELLED
 }
+
+enum DeviceStatus {
+  ONLINE
+  OFFLINE
+  ERROR
+}
+
+enum VerifyMethod {
+  FINGERPRINT
+  FACE
+  RFID
+  PASSWORD
+}
+
+enum BiometricAttendanceType {
+  CHECK_IN
+  CHECK_OUT
+}

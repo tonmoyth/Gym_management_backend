@@ -28,6 +28,16 @@ export type Announcement = Prisma.AnnouncementModel
  */
 export type Attendance = Prisma.AttendanceModel
 /**
+ * Model AttendanceLog
+ * 
+ */
+export type AttendanceLog = Prisma.AttendanceLogModel
+/**
+ * Model BiometricDevice
+ * 
+ */
+export type BiometricDevice = Prisma.BiometricDeviceModel
+/**
  * Model Business
  * 
  */
@@ -87,6 +97,11 @@ export type Invoice = Prisma.InvoiceModel
  * 
  */
 export type JobPost = Prisma.JobPostModel
+/**
+ * Model MemberBiometric
+ * 
+ */
+export type MemberBiometric = Prisma.MemberBiometricModel
 /**
  * Model MemberProfile
  * 

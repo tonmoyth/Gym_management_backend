@@ -51,6 +51,8 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 export const ModelName = {
   Announcement: 'Announcement',
   Attendance: 'Attendance',
+  AttendanceLog: 'AttendanceLog',
+  BiometricDevice: 'BiometricDevice',
   Business: 'Business',
   BusinessReferral: 'BusinessReferral',
   BusinessStaff: 'BusinessStaff',
@@ -63,6 +65,7 @@ export const ModelName = {
   Favorite: 'Favorite',
   Invoice: 'Invoice',
   JobPost: 'JobPost',
+  MemberBiometric: 'MemberBiometric',
   MemberProfile: 'MemberProfile',
   MemberReferral: 'MemberReferral',
   MemberReferralSetting: 'MemberReferralSetting',
@@ -125,6 +128,36 @@ export const AttendanceScalarFieldEnum = {
 } as const
 
 export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
+
+
+export const AttendanceLogScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  memberId: 'memberId',
+  deviceId: 'deviceId',
+  attendanceType: 'attendanceType',
+  verifyMethod: 'verifyMethod',
+  attendanceTime: 'attendanceTime',
+  rawPayload: 'rawPayload',
+  createdAt: 'createdAt'
+} as const
+
+export type AttendanceLogScalarFieldEnum = (typeof AttendanceLogScalarFieldEnum)[keyof typeof AttendanceLogScalarFieldEnum]
+
+
+export const BiometricDeviceScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  serialNumber: 'serialNumber',
+  name: 'name',
+  brand: 'brand',
+  status: 'status',
+  lastHeartbeat: 'lastHeartbeat',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BiometricDeviceScalarFieldEnum = (typeof BiometricDeviceScalarFieldEnum)[keyof typeof BiometricDeviceScalarFieldEnum]
 
 
 export const BusinessScalarFieldEnum = {
@@ -283,6 +316,18 @@ export const JobPostScalarFieldEnum = {
 } as const
 
 export type JobPostScalarFieldEnum = (typeof JobPostScalarFieldEnum)[keyof typeof JobPostScalarFieldEnum]
+
+
+export const MemberBiometricScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  memberId: 'memberId',
+  biometricId: 'biometricId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MemberBiometricScalarFieldEnum = (typeof MemberBiometricScalarFieldEnum)[keyof typeof MemberBiometricScalarFieldEnum]
 
 
 export const MemberProfileScalarFieldEnum = {

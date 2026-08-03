@@ -19,5 +19,8 @@ model MemberProfile {
   progressLogs  ProgressLog[]
   reviews       Review[]
 
+  attendanceLogs   AttendanceLog[]
+  memberBiometrics MemberBiometric[]
+
   @@index([fitnessGoalTagId])
 }
