@@ -9,6 +9,8 @@ import { bookingRoutes } from "../modules/booking/booking.route";
 import { jobPostRoutes } from "../modules/jobPost/jobPost.route";
 import { trainerProfileRoutes } from "../modules/trainerProfile/trainerProfile.route";
 import { specializationTagRoutes } from "../modules/specializationTag/specializationTag.route";
+import { dietPlanRoutes } from "../modules/dietPlan/dietPlan.route";
+import { memberProfileRoutes } from "../modules/memberProfile/memberProfile.route";
 
 const router = express.Router();
 
@@ -52,6 +54,14 @@ const moduleRoutes = [
     {
         path: "/specialization-tags",
         route: specializationTagRoutes,
+    },
+    {
+        path: "/diet-plans",
+        route: dietPlanRoutes,
+    },
+    {
+        path: "/members",
+        route: memberProfileRoutes,
     },
 ];
 

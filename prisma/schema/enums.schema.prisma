@@ -84,6 +84,7 @@ enum NotificationType {
   DISPUTE
   SYSTEM
   JOB_APPLICATION
+  DIET_PLAN
 }
 
 enum ChatThreadType {

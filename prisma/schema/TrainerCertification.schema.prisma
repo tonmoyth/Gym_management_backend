@@ -9,13 +9,13 @@ model TrainerCertification {
 
   status CertificationStatus @default(PENDING)
 
-  issuer             String
-  issueDate          DateTime
-  expiryDate         DateTime?
-  credentialId       String?
-  credentialUrl      String?
-  verifiedAt         DateTime?
-  verifiedBy         String?
+  issuer        String
+  issueDate     DateTime
+  expiryDate    DateTime?
+  credentialId  String?
+  credentialUrl String?
+  verifiedAt    DateTime?
+  verifiedBy    String?
 
   reviewedByAdminId String?
   reviewedByAdmin   User?   @relation("AdminReviewer", fields: [reviewedByAdminId], references: [id], onDelete: SetNull)

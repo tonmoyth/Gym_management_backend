@@ -130,7 +130,8 @@ export const NotificationType = {
   PAYOUT: 'PAYOUT',
   DISPUTE: 'DISPUTE',
   SYSTEM: 'SYSTEM',
-  JOB_APPLICATION: 'JOB_APPLICATION'
+  JOB_APPLICATION: 'JOB_APPLICATION',
+  DIET_PLAN: 'DIET_PLAN'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
