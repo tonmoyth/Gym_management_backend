@@ -75,4 +75,20 @@ router.get(
   TrainerProfileController.getPublicTrainerProfile,
 );
 
+router.get(
+  "/businesses/:businessId/trainers",
+  // @ts-ignore
+  checkAuth(USER_ROLE.BUSINESS_OWNER),
+  validateRequest(TrainerProfileValidations.getBusinessTrainersValidation),
+  TrainerProfileController.getBusinessTrainers,
+);
+
+router.delete(
+  "/businesses/:businessId/trainers/:trainerId",
+  // @ts-ignore
+  checkAuth(USER_ROLE.BUSINESS_OWNER),
+  validateRequest(TrainerProfileValidations.removeBusinessTrainerValidation),
+  TrainerProfileController.removeBusinessTrainer,
+);
+
 export const trainerProfileRoutes = router;

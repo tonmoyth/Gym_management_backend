@@ -1,5 +1,6 @@
 import { prisma } from "../../lib/prisma";
 import AppError from "../../errors/AppError";
+import httpStatus from "http-status";
 import { Gender } from "../../generated/prisma/client";
 import { uploadToCloudinary } from "../../utils/cloudinary";
 import fs from "fs";
@@ -1145,6 +1146,163 @@ const getBusinessTrainerDashboard = async (
   };
 };
 
+const getBusinessTrainers = async (userId: string, businessId: string, queryParams: any) => {
+  const business = await prisma.business.findUnique({
+    where: { id: businessId },
+    select: { ownerId: true },
+  });
+
+  if (!business) {
+    throw new AppError(httpStatus.NOT_FOUND, "Business not found");
+  }
+
+  if (business.ownerId !== userId) {
+    throw new AppError(httpStatus.FORBIDDEN, "You do not own this business");
+  }
+
+  const params = { ...queryParams };
+  
+  if (params.specializationId) {
+    params["specializations.tagId"] = params.specializationId;
+    delete params.specializationId;
+  }
+  if (params.minRating) {
+    params["avgRating[gte]"] = params.minRating;
+    delete params.minRating;
+  }
+
+  const trainerConfig = {
+    searchableFields: ["user.fullName", "user.email", "specializations.tag.name", "bio"],
+    filterableFields: ["gender", "verifiedBadge", "avgRating", "specializations.tagId"],
+  };
+
+  const trainerQuery = new QueryBuilder(
+    prisma.trainerProfile,
+    { ...params, sortBy: params.sortBy || "createdAt", sortOrder: params.sortOrder || "desc" },
+    trainerConfig
+  )
+    .search()
+    .filter()
+    .sort()
+    .paginate()
+    .where({
+      businesses: {
+        some: {
+          businessId,
+          isActive: true,
+        },
+      },
+    });
+
+  const args = trainerQuery.getQuery();
+  delete args.include;
+  args.select = {
+    id: true,
+    user: { select: { fullName: true, email: true, profileImage: true } },
+    bio: true,
+    verifiedBadge: true,
+    avgRating: true,
+    profileCompletionPercent: true,
+    gender: true,
+    specializations: {
+      select: { tag: { select: { id: true, name: true, slug: true } } },
+    },
+    businesses: {
+      where: { businessId },
+      select: { joinedAt: true },
+    },
+  };
+
+  const [total, data] = await Promise.all([
+    trainerQuery.count(),
+    prisma.trainerProfile.findMany(args as any),
+  ]);
+
+  const formattedData = data.map((t: any) => ({
+    id: t.id,
+    name: t.user?.fullName,
+    email: t.user?.email,
+    profilePhoto: t.user?.profileImage,
+    bio: t.bio,
+    verifiedBadge: t.verifiedBadge,
+    avgRating: Number(t.avgRating || 0),
+    profileCompletionPercent: t.profileCompletionPercent,
+    gender: t.gender,
+    specializations: t.specializations.map((s: any) => ({
+      id: s.tag.id,
+      name: s.tag.name,
+      slug: s.tag.slug,
+    })),
+    joinedAt: t.businesses[0]?.joinedAt,
+  }));
+
+  return {
+    meta: {
+      page: Number(params.page) || 1,
+      limit: Number(params.limit) || 10,
+      total,
+      totalPages: Math.ceil(total / (Number(params.limit) || 10)),
+    },
+    data: formattedData,
+  };
+};
+
+const removeBusinessTrainer = async (userId: string, businessId: string, trainerId: string) => {
+  const business = await prisma.business.findUnique({
+    where: { id: businessId },
+    select: { ownerId: true, name: true },
+  });
+
+  if (!business) {
+    throw new AppError(httpStatus.NOT_FOUND, "Business not found");
+  }
+
+  if (business.ownerId !== userId) {
+    throw new AppError(httpStatus.FORBIDDEN, "You do not own this business");
+  }
+
+  const trainer = await prisma.trainerProfile.findUnique({
+    where: { id: trainerId },
+    select: { user: { select: { id: true, fullName: true, email: true } } },
+  });
+
+  if (!trainer) {
+    throw new AppError(httpStatus.NOT_FOUND, "Trainer not found");
+  }
+
+  const trainerBusiness = await prisma.trainerBusiness.findUnique({
+    where: {
+      trainerId_businessId: { trainerId, businessId },
+    },
+  });
+
+  if (!trainerBusiness) {
+    throw new AppError(httpStatus.NOT_FOUND, "Trainer not assigned to this business");
+  }
+
+  await prisma.$transaction([
+    prisma.trainerBusiness.delete({
+      where: {
+        trainerId_businessId: { trainerId, businessId },
+      },
+    }),
+  ]);
+
+  const { pushJob } = require("../../utils/redisQueue");
+
+  pushJob("job_application_queue", {
+    eventType: "TRAINER_REMOVED_FROM_BUSINESS",
+    trainerId,
+    trainerUserId: trainer.user.id,
+    businessId,
+    businessName: business.name,
+    trainerName: trainer.user.fullName,
+    trainerEmail: trainer.user.email,
+  });
+
+  return null;
+};
+
 export const TrainerProfileService = {
   createTrainerProfile,
   getOwnTrainerProfile,
@@ -1154,5 +1312,7 @@ export const TrainerProfileService = {
   uploadCertification,
   getOwnCertifications,
   getBusinessTrainerDashboard,
+  getBusinessTrainers,
+  removeBusinessTrainer,
 };
 

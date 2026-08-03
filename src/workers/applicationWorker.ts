@@ -40,6 +40,8 @@ const handleJobWithRetry = async (jobData: any, attempt: number = 1) => {
     try {
         if (jobData.eventType === 'REJECTED') {
             await processApplicationRejected(jobData);
+        } else if (jobData.eventType === 'TRAINER_REMOVED_FROM_BUSINESS') {
+            await processTrainerRemoved(jobData);
         } else {
             // Default to approved for backward compatibility
             await processApplicationApproved(jobData);
@@ -174,4 +176,42 @@ const processApplicationRejected = async (data: any) => {
     }
 
     console.log(`✅ Successfully processed background tasks for rejected application ${applicationId}`);
+};
+
+const processTrainerRemoved = async (data: any) => {
+    const {
+        trainerId,
+        trainerUserId,
+        businessId,
+        businessName,
+        trainerName,
+        trainerEmail,
+    } = data;
+
+    // 1. Create Notification
+    try {
+        await NotificationService.createNotification(
+            trainerUserId,
+            'Removed From Business',
+            'You have been removed from a business by the business owner.',
+            NotificationType.SYSTEM,
+            { businessId, trainerId }
+        );
+    } catch (error: any) {
+        console.error('❌ Notification failed for trainer removal:', error.message);
+    }
+
+    // 2. Send Email
+    try {
+        await MailService.sendTrainerRemovedEmail(
+            trainerName,
+            businessName,
+            trainerEmail
+        );
+    } catch (error: any) {
+        console.error('❌ Email failed for trainer removal:', error.message);
+        throw error;
+    }
+
+    console.log(`✅ Successfully processed background tasks for trainer removal from business ${businessId}`);
 };

@@ -98,7 +98,44 @@ const sendApplicationRejectedEmail = async (
     }
 };
 
+const sendTrainerRemovedEmail = async (
+    trainerName: string,
+    businessName: string,
+    trainerEmail: string
+) => {
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: #2c3e50; text-align: center;">Business Access Removed</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${trainerName},</p>
+            <p style="font-size: 16px; color: #333;">
+                You have been removed from the business <strong>${businessName}</strong> by the business owner.
+            </p>
+            <p style="font-size: 16px; color: #333;">
+                You can no longer manage members, schedules, attendance, or other business resources associated with it.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management System. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"${envVeriables.EMAIL_FROM}" <${envVeriables.EMAIL_USER}>`,
+            to: trainerEmail,
+            subject: 'Business Access Removed',
+            html: htmlContent,
+        });
+        console.log(`o. Removal email sent to ${trainerEmail}`);
+    } catch (error: any) {
+        console.error('?O Failed to send removal email:', error.message);
+        throw error;
+    }
+};
+
 export const MailService = {
     sendApplicationApprovedEmail,
     sendApplicationRejectedEmail,
+    sendTrainerRemovedEmail,
 };

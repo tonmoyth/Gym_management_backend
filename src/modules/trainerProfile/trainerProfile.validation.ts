@@ -83,6 +83,19 @@ const getBusinessTrainerDashboardValidation = z.object({
   }),
 });
 
+const getBusinessTrainersValidation = z.object({
+  params: z.object({
+    businessId: z.string().uuid("Invalid businessId UUID"),
+  }),
+});
+
+const removeBusinessTrainerValidation = z.object({
+  params: z.object({
+    businessId: z.string().uuid("Invalid businessId UUID"),
+    trainerId: z.string().uuid("Invalid trainerId UUID"),
+  }),
+});
+
 export const TrainerProfileValidations = {
   createTrainerProfileValidation,
   updateTrainerProfileValidation,
@@ -90,5 +103,6 @@ export const TrainerProfileValidations = {
   setSpecializationsValidation,
   uploadCertificationValidation,
   getBusinessTrainerDashboardValidation,
+  getBusinessTrainersValidation,
+  removeBusinessTrainerValidation,
 };
-

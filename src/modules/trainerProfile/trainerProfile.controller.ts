@@ -130,6 +130,34 @@ const getBusinessTrainerDashboard = catchAsync(async (req: Request, res: Respons
   });
 });
 
+const getBusinessTrainers = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const businessId = req.params.businessId as string;
+  const result = await TrainerProfileService.getBusinessTrainers(userId, businessId, req.query);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Business trainers retrieved successfully.",
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
+const removeBusinessTrainer = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const businessId = req.params.businessId as string;
+  const trainerId = req.params.trainerId as string;
+  const result = await TrainerProfileService.removeBusinessTrainer(userId, businessId, trainerId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Trainer removed from business successfully.",
+    data: result,
+  });
+});
+
 export const TrainerProfileController = {
   createTrainerProfile,
   getOwnTrainerProfile,
@@ -139,5 +167,7 @@ export const TrainerProfileController = {
   uploadCertification,
   getOwnCertifications,
   getBusinessTrainerDashboard,
+  getBusinessTrainers,
+  removeBusinessTrainer,
 };
 
