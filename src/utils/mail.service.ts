@@ -134,8 +134,53 @@ const sendTrainerRemovedEmail = async (
     }
 };
 
+const sendBulkAnnouncementEmail = async (
+    emails: string[],
+    businessName: string,
+    announcementTitle: string,
+    announcementContent: string
+) => {
+    if (!emails.length) return;
+
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: #2c3e50; text-align: center;">${businessName} Announcement</h2>
+            <h3 style="font-size: 18px; color: #333;">${announcementTitle}</h3>
+            <p style="font-size: 16px; color: #333;">
+                ${announcementContent}
+            </p>
+            <p style="font-size: 14px; color: #7f8c8d; margin-top: 20px;">
+                Published on: ${new Date().toLocaleDateString()}
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="${envVeriables.FRONTEND_URL}/dashboard" style="background-color: #3498db; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                    Go to Dashboard
+                </a>
+            </div>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management System. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"${businessName}" <${envVeriables.EMAIL_USER}>`,
+            bcc: emails, // Use BCC for bulk email
+            subject: announcementTitle,
+            html: htmlContent,
+        });
+        console.log(`✅ Bulk announcement email sent to ${emails.length} recipients`);
+    } catch (error: any) {
+        console.error('❌ Failed to send bulk announcement email:', error.message);
+        throw error;
+    }
+};
+
 export const MailService = {
     sendApplicationApprovedEmail,
     sendApplicationRejectedEmail,
     sendTrainerRemovedEmail,
+    sendBulkAnnouncementEmail,
 };

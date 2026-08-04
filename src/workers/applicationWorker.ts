@@ -13,12 +13,14 @@ export const startApplicationWorker = () => {
     processQueue();
 };
 
+const workerRedis = redis.duplicate();
+
 const processQueue = async () => {
     while (true) {
         try {
             // brpop blocks until an item is available in the queue. 
             // The 0 means it will wait indefinitely.
-            const result = await redis.brpop(QUEUE_NAME, 0);
+            const result = await workerRedis.brpop(QUEUE_NAME, 0);
             
             if (result) {
                 const [_, jobDataStr] = result;

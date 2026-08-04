@@ -25,6 +25,33 @@ const createNotification = async (
     }
 };
 
+const createBulkNotifications = async (
+    userIds: string[],
+    title: string,
+    body: string,
+    type: NotificationType,
+    metadata?: any
+) => {
+    if (!userIds.length) return;
+    try {
+        const data = userIds.map((userId) => ({
+            userId,
+            title,
+            body,
+            type,
+            metadata: metadata ? metadata : undefined,
+        }));
+        await prisma.notification.createMany({
+            data,
+            skipDuplicates: true,
+        });
+    } catch (error: any) {
+        console.error('❌ Failed to create bulk notifications:', error.message);
+        throw error;
+    }
+};
+
 export const NotificationService = {
     createNotification,
+    createBulkNotifications,
 };

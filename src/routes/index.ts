@@ -14,6 +14,7 @@ import { memberProfileRoutes } from "../modules/memberProfile/memberProfile.rout
 import { attendanceRoutes } from "../modules/attendance/attendance.route";
 import { reportRoutes } from "../modules/report/report.route";
 import { trainerPayoutRoutes } from "../modules/trainerPayout/trainerPayout.route";
+import { announcementRoutes } from "../modules/announcement/announcement.route";
 
 const router = express.Router();
 
@@ -49,6 +50,10 @@ const moduleRoutes = [
     {
         path: "/businesses",
         route: trainerPayoutRoutes,
+    },
+    {
+        path: "/businesses",
+        route: announcementRoutes,
     },
     {
         path: "/businesses",
