@@ -12,10 +12,15 @@ import { specializationTagRoutes } from "../modules/specializationTag/specializa
 import { dietPlanRoutes } from "../modules/dietPlan/dietPlan.route";
 import { memberProfileRoutes } from "../modules/memberProfile/memberProfile.route";
 import { attendanceRoutes } from "../modules/attendance/attendance.route";
+import { reportRoutes } from "../modules/report/report.route";
 
 const router = express.Router();
 
 const moduleRoutes = [
+    {
+        path: "/",
+        route: reportRoutes,
+    },
     {
         path: "/",
         route: attendanceRoutes,
