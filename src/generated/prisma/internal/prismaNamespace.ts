@@ -3817,6 +3817,8 @@ export const TrainerPayoutScalarFieldEnum = {
   amount: 'amount',
   status: 'status',
   paidAt: 'paidAt',
+  note: 'note',
+  transactionReference: 'transactionReference',
   createdAt: 'createdAt'
 } as const
 

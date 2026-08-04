@@ -13,6 +13,7 @@ import { dietPlanRoutes } from "../modules/dietPlan/dietPlan.route";
 import { memberProfileRoutes } from "../modules/memberProfile/memberProfile.route";
 import { attendanceRoutes } from "../modules/attendance/attendance.route";
 import { reportRoutes } from "../modules/report/report.route";
+import { trainerPayoutRoutes } from "../modules/trainerPayout/trainerPayout.route";
 
 const router = express.Router();
 
@@ -44,6 +45,10 @@ const moduleRoutes = [
     {
         path: "/businesses",
         route: staffRoutes,
+    },
+    {
+        path: "/businesses",
+        route: trainerPayoutRoutes,
     },
     {
         path: "/businesses",

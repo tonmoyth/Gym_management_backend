@@ -42,6 +42,8 @@ export type TrainerPayoutMinAggregateOutputType = {
   amount: runtime.Decimal | null
   status: $Enums.PayoutStatus | null
   paidAt: Date | null
+  note: string | null
+  transactionReference: string | null
   createdAt: Date | null
 }
 
@@ -53,6 +55,8 @@ export type TrainerPayoutMaxAggregateOutputType = {
   amount: runtime.Decimal | null
   status: $Enums.PayoutStatus | null
   paidAt: Date | null
+  note: string | null
+  transactionReference: string | null
   createdAt: Date | null
 }
 
@@ -64,6 +68,8 @@ export type TrainerPayoutCountAggregateOutputType = {
   amount: number
   status: number
   paidAt: number
+  note: number
+  transactionReference: number
   createdAt: number
   _all: number
 }
@@ -85,6 +91,8 @@ export type TrainerPayoutMinAggregateInputType = {
   amount?: true
   status?: true
   paidAt?: true
+  note?: true
+  transactionReference?: true
   createdAt?: true
 }
 
@@ -96,6 +104,8 @@ export type TrainerPayoutMaxAggregateInputType = {
   amount?: true
   status?: true
   paidAt?: true
+  note?: true
+  transactionReference?: true
   createdAt?: true
 }
 
@@ -107,6 +117,8 @@ export type TrainerPayoutCountAggregateInputType = {
   amount?: true
   status?: true
   paidAt?: true
+  note?: true
+  transactionReference?: true
   createdAt?: true
   _all?: true
 }
@@ -205,6 +217,8 @@ export type TrainerPayoutGroupByOutputType = {
   amount: runtime.Decimal
   status: $Enums.PayoutStatus
   paidAt: Date | null
+  note: string | null
+  transactionReference: string | null
   createdAt: Date
   _count: TrainerPayoutCountAggregateOutputType | null
   _avg: TrainerPayoutAvgAggregateOutputType | null
@@ -239,6 +253,8 @@ export type TrainerPayoutWhereInput = {
   amount?: Prisma.DecimalFilter<"TrainerPayout"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFilter<"TrainerPayout"> | $Enums.PayoutStatus
   paidAt?: Prisma.DateTimeNullableFilter<"TrainerPayout"> | Date | string | null
+  note?: Prisma.StringNullableFilter<"TrainerPayout"> | string | null
+  transactionReference?: Prisma.StringNullableFilter<"TrainerPayout"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TrainerPayout"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   trainer?: Prisma.XOR<Prisma.TrainerProfileScalarRelationFilter, Prisma.TrainerProfileWhereInput>
@@ -252,6 +268,8 @@ export type TrainerPayoutOrderByWithRelationInput = {
   amount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  note?: Prisma.SortOrderInput | Prisma.SortOrder
+  transactionReference?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
   trainer?: Prisma.TrainerProfileOrderByWithRelationInput
@@ -269,6 +287,8 @@ export type TrainerPayoutWhereUniqueInput = Prisma.AtLeast<{
   amount?: Prisma.DecimalFilter<"TrainerPayout"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFilter<"TrainerPayout"> | $Enums.PayoutStatus
   paidAt?: Prisma.DateTimeNullableFilter<"TrainerPayout"> | Date | string | null
+  note?: Prisma.StringNullableFilter<"TrainerPayout"> | string | null
+  transactionReference?: Prisma.StringNullableFilter<"TrainerPayout"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TrainerPayout"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   trainer?: Prisma.XOR<Prisma.TrainerProfileScalarRelationFilter, Prisma.TrainerProfileWhereInput>
@@ -282,6 +302,8 @@ export type TrainerPayoutOrderByWithAggregationInput = {
   amount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  note?: Prisma.SortOrderInput | Prisma.SortOrder
+  transactionReference?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.TrainerPayoutCountOrderByAggregateInput
   _avg?: Prisma.TrainerPayoutAvgOrderByAggregateInput
@@ -301,6 +323,8 @@ export type TrainerPayoutScalarWhereWithAggregatesInput = {
   amount?: Prisma.DecimalWithAggregatesFilter<"TrainerPayout"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusWithAggregatesFilter<"TrainerPayout"> | $Enums.PayoutStatus
   paidAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TrainerPayout"> | Date | string | null
+  note?: Prisma.StringNullableWithAggregatesFilter<"TrainerPayout"> | string | null
+  transactionReference?: Prisma.StringNullableWithAggregatesFilter<"TrainerPayout"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TrainerPayout"> | Date | string
 }
 
@@ -310,6 +334,8 @@ export type TrainerPayoutCreateInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.PayoutStatus
   paidAt?: Date | string | null
+  note?: string | null
+  transactionReference?: string | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutTrainerPayoutsInput
   trainer: Prisma.TrainerProfileCreateNestedOneWithoutPayoutsInput
@@ -323,6 +349,8 @@ export type TrainerPayoutUncheckedCreateInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.PayoutStatus
   paidAt?: Date | string | null
+  note?: string | null
+  transactionReference?: string | null
   createdAt?: Date | string
 }
 
@@ -332,6 +360,8 @@ export type TrainerPayoutUpdateInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transactionReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutTrainerPayoutsNestedInput
   trainer?: Prisma.TrainerProfileUpdateOneRequiredWithoutPayoutsNestedInput
@@ -345,6 +375,8 @@ export type TrainerPayoutUncheckedUpdateInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transactionReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -356,6 +388,8 @@ export type TrainerPayoutCreateManyInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.PayoutStatus
   paidAt?: Date | string | null
+  note?: string | null
+  transactionReference?: string | null
   createdAt?: Date | string
 }
 
@@ -365,6 +399,8 @@ export type TrainerPayoutUpdateManyMutationInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transactionReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -376,6 +412,8 @@ export type TrainerPayoutUncheckedUpdateManyInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transactionReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -403,6 +441,8 @@ export type TrainerPayoutCountOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paidAt?: Prisma.SortOrder
+  note?: Prisma.SortOrder
+  transactionReference?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -418,6 +458,8 @@ export type TrainerPayoutMaxOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paidAt?: Prisma.SortOrder
+  note?: Prisma.SortOrder
+  transactionReference?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -429,6 +471,8 @@ export type TrainerPayoutMinOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paidAt?: Prisma.SortOrder
+  note?: Prisma.SortOrder
+  transactionReference?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -530,6 +574,8 @@ export type TrainerPayoutCreateWithoutBusinessInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.PayoutStatus
   paidAt?: Date | string | null
+  note?: string | null
+  transactionReference?: string | null
   createdAt?: Date | string
   trainer: Prisma.TrainerProfileCreateNestedOneWithoutPayoutsInput
 }
@@ -541,6 +587,8 @@ export type TrainerPayoutUncheckedCreateWithoutBusinessInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.PayoutStatus
   paidAt?: Date | string | null
+  note?: string | null
+  transactionReference?: string | null
   createdAt?: Date | string
 }
 
@@ -581,6 +629,8 @@ export type TrainerPayoutScalarWhereInput = {
   amount?: Prisma.DecimalFilter<"TrainerPayout"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFilter<"TrainerPayout"> | $Enums.PayoutStatus
   paidAt?: Prisma.DateTimeNullableFilter<"TrainerPayout"> | Date | string | null
+  note?: Prisma.StringNullableFilter<"TrainerPayout"> | string | null
+  transactionReference?: Prisma.StringNullableFilter<"TrainerPayout"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TrainerPayout"> | Date | string
 }
 
@@ -590,6 +640,8 @@ export type TrainerPayoutCreateWithoutTrainerInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.PayoutStatus
   paidAt?: Date | string | null
+  note?: string | null
+  transactionReference?: string | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutTrainerPayoutsInput
 }
@@ -601,6 +653,8 @@ export type TrainerPayoutUncheckedCreateWithoutTrainerInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.PayoutStatus
   paidAt?: Date | string | null
+  note?: string | null
+  transactionReference?: string | null
   createdAt?: Date | string
 }
 
@@ -637,6 +691,8 @@ export type TrainerPayoutCreateManyBusinessInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.PayoutStatus
   paidAt?: Date | string | null
+  note?: string | null
+  transactionReference?: string | null
   createdAt?: Date | string
 }
 
@@ -646,6 +702,8 @@ export type TrainerPayoutUpdateWithoutBusinessInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transactionReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trainer?: Prisma.TrainerProfileUpdateOneRequiredWithoutPayoutsNestedInput
 }
@@ -657,6 +715,8 @@ export type TrainerPayoutUncheckedUpdateWithoutBusinessInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transactionReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -667,6 +727,8 @@ export type TrainerPayoutUncheckedUpdateManyWithoutBusinessInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transactionReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -677,6 +739,8 @@ export type TrainerPayoutCreateManyTrainerInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.PayoutStatus
   paidAt?: Date | string | null
+  note?: string | null
+  transactionReference?: string | null
   createdAt?: Date | string
 }
 
@@ -686,6 +750,8 @@ export type TrainerPayoutUpdateWithoutTrainerInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transactionReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutTrainerPayoutsNestedInput
 }
@@ -697,6 +763,8 @@ export type TrainerPayoutUncheckedUpdateWithoutTrainerInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transactionReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -707,6 +775,8 @@ export type TrainerPayoutUncheckedUpdateManyWithoutTrainerInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transactionReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -720,6 +790,8 @@ export type TrainerPayoutSelect<ExtArgs extends runtime.Types.Extensions.Interna
   amount?: boolean
   status?: boolean
   paidAt?: boolean
+  note?: boolean
+  transactionReference?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   trainer?: boolean | Prisma.TrainerProfileDefaultArgs<ExtArgs>
@@ -733,6 +805,8 @@ export type TrainerPayoutSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   amount?: boolean
   status?: boolean
   paidAt?: boolean
+  note?: boolean
+  transactionReference?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   trainer?: boolean | Prisma.TrainerProfileDefaultArgs<ExtArgs>
@@ -746,6 +820,8 @@ export type TrainerPayoutSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   amount?: boolean
   status?: boolean
   paidAt?: boolean
+  note?: boolean
+  transactionReference?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   trainer?: boolean | Prisma.TrainerProfileDefaultArgs<ExtArgs>
@@ -759,10 +835,12 @@ export type TrainerPayoutSelectScalar = {
   amount?: boolean
   status?: boolean
   paidAt?: boolean
+  note?: boolean
+  transactionReference?: boolean
   createdAt?: boolean
 }
 
-export type TrainerPayoutOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "trainerId" | "month" | "amount" | "status" | "paidAt" | "createdAt", ExtArgs["result"]["trainerPayout"]>
+export type TrainerPayoutOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "trainerId" | "month" | "amount" | "status" | "paidAt" | "note" | "transactionReference" | "createdAt", ExtArgs["result"]["trainerPayout"]>
 export type TrainerPayoutInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   trainer?: boolean | Prisma.TrainerProfileDefaultArgs<ExtArgs>
@@ -790,6 +868,8 @@ export type $TrainerPayoutPayload<ExtArgs extends runtime.Types.Extensions.Inter
     amount: runtime.Decimal
     status: $Enums.PayoutStatus
     paidAt: Date | null
+    note: string | null
+    transactionReference: string | null
     createdAt: Date
   }, ExtArgs["result"]["trainerPayout"]>
   composites: {}
@@ -1223,6 +1303,8 @@ export interface TrainerPayoutFieldRefs {
   readonly amount: Prisma.FieldRef<"TrainerPayout", 'Decimal'>
   readonly status: Prisma.FieldRef<"TrainerPayout", 'PayoutStatus'>
   readonly paidAt: Prisma.FieldRef<"TrainerPayout", 'DateTime'>
+  readonly note: Prisma.FieldRef<"TrainerPayout", 'String'>
+  readonly transactionReference: Prisma.FieldRef<"TrainerPayout", 'String'>
   readonly createdAt: Prisma.FieldRef<"TrainerPayout", 'DateTime'>
 }
     

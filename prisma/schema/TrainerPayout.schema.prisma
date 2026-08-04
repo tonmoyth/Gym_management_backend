@@ -15,6 +15,10 @@ model TrainerPayout {
 
   paidAt DateTime?
 
+  // Added based on requirements
+  note                 String?
+  transactionReference String?
+
   createdAt DateTime @default(now())
 
   @@unique([businessId, trainerId, month])
