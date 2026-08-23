@@ -19,6 +19,7 @@ import { classScheduleRoutes } from "../modules/classSchedule/classSchedule.rout
 import { equipmentRoutes } from "../modules/equipment/equipment.route";
 import { memberReferralSettingRoutes } from "../modules/memberReferralSetting/memberReferralSetting.route";
 import { subscriptionRoutes } from "../modules/subscription/subscription.route";
+import { progressRoutes } from "../modules/progress/progress.route";
 
 const router = express.Router();
 
@@ -102,6 +103,10 @@ const moduleRoutes = [
     {
         path: "/subscription",
         route: subscriptionRoutes,
+    },
+    {
+        path: "/progress",
+        route: progressRoutes,
     },
 ];
 
