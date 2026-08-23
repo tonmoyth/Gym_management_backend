@@ -18,6 +18,7 @@ import { announcementRoutes } from "../modules/announcement/announcement.route";
 import { classScheduleRoutes } from "../modules/classSchedule/classSchedule.route";
 import { equipmentRoutes } from "../modules/equipment/equipment.route";
 import { memberReferralSettingRoutes } from "../modules/memberReferralSetting/memberReferralSetting.route";
+import { subscriptionRoutes } from "../modules/subscription/subscription.route";
 
 const router = express.Router();
 
@@ -97,6 +98,10 @@ const moduleRoutes = [
     {
         path: "/members",
         route: memberProfileRoutes,
+    },
+    {
+        path: "/subscription",
+        route: subscriptionRoutes,
     },
 ];
 
