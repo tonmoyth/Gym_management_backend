@@ -20,6 +20,7 @@ import { equipmentRoutes } from "../modules/equipment/equipment.route";
 import { memberReferralSettingRoutes } from "../modules/memberReferralSetting/memberReferralSetting.route";
 import { subscriptionRoutes } from "../modules/subscription/subscription.route";
 import { progressRoutes } from "../modules/progress/progress.route";
+import { reviewRoutes } from "../modules/review/review.route";
 
 const router = express.Router();
 
@@ -107,6 +108,10 @@ const moduleRoutes = [
     {
         path: "/progress",
         route: progressRoutes,
+    },
+    {
+        path: "/reviews",
+        route: reviewRoutes,
     },
 ];
 
