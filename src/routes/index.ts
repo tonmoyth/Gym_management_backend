@@ -21,6 +21,7 @@ import { memberReferralSettingRoutes } from "../modules/memberReferralSetting/me
 import { subscriptionRoutes } from "../modules/subscription/subscription.route";
 import { progressRoutes } from "../modules/progress/progress.route";
 import { reviewRoutes } from "../modules/review/review.route";
+import { notificationRoutes } from "../modules/notification/notification.route";
 
 const router = express.Router();
 
@@ -112,6 +113,10 @@ const moduleRoutes = [
     {
         path: "/reviews",
         route: reviewRoutes,
+    },
+    {
+        path: "/notifications",
+        route: notificationRoutes,
     },
 ];
 

@@ -23,7 +23,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "D:\\Tonmoy backend\\project_setup_tamplate\\src\\generated\\prisma",
+      "value": "E:\\own_product\\Gym_management_backend\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -37,7 +37,7 @@ const config: runtime.GetPrismaClientConfig = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\Tonmoy backend\\project_setup_tamplate\\prisma\\schema\\schema.prisma",
+    "sourceFilePath": "E:\\own_product\\Gym_management_backend\\prisma\\schema\\schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../../prisma/schema",
@@ -47,6 +47,7 @@ const config: runtime.GetPrismaClientConfig = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
