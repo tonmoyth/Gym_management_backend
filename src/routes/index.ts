@@ -23,6 +23,7 @@ import { progressRoutes } from "../modules/progress/progress.route";
 import { reviewRoutes } from "../modules/review/review.route";
 import { notificationRoutes } from "../modules/notification/notification.route";
 import { disputeRoutes } from "../modules/dispute/dispute.route";
+import { payoutRoutes } from "../modules/payout/payout.route";
 
 const router = express.Router();
 
@@ -122,6 +123,10 @@ const moduleRoutes = [
     {
         path: "/disputes",
         route: disputeRoutes,
+    },
+    {
+        path: "/payouts",
+        route: payoutRoutes,
     },
 ];
 
