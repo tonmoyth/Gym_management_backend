@@ -78,6 +78,11 @@ export type ClassSchedule = Prisma.ClassScheduleModel
  */
 export type DietPlan = Prisma.DietPlanModel
 /**
+ * Model Dispute
+ * 
+ */
+export type Dispute = Prisma.DisputeModel
+/**
  * Model Equipment
  * 
  */

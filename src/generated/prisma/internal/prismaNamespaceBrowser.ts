@@ -61,6 +61,7 @@ export const ModelName = {
   ClassBooking: 'ClassBooking',
   ClassSchedule: 'ClassSchedule',
   DietPlan: 'DietPlan',
+  Dispute: 'Dispute',
   Equipment: 'Equipment',
   Favorite: 'Favorite',
   Invoice: 'Invoice',
@@ -268,6 +269,22 @@ export const DietPlanScalarFieldEnum = {
 } as const
 
 export type DietPlanScalarFieldEnum = (typeof DietPlanScalarFieldEnum)[keyof typeof DietPlanScalarFieldEnum]
+
+
+export const DisputeScalarFieldEnum = {
+  id: 'id',
+  subject: 'subject',
+  description: 'description',
+  status: 'status',
+  category: 'category',
+  userId: 'userId',
+  trainerId: 'trainerId',
+  businessId: 'businessId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DisputeScalarFieldEnum = (typeof DisputeScalarFieldEnum)[keyof typeof DisputeScalarFieldEnum]
 
 
 export const EquipmentScalarFieldEnum = {

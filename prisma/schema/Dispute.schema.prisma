@@ -1,0 +1,26 @@
+model Dispute {
+  id String @id @default(uuid())
+
+  subject     String
+  description String
+  status      DisputeStatus   @default(OPEN)
+  category    DisputeCategory
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  trainerId String?
+  trainer   TrainerProfile? @relation(fields: [trainerId], references: [id], onDelete: Cascade)
+
+  businessId String?
+  business   Business? @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([trainerId])
+  @@index([businessId])
+  @@index([status])
+  @@index([category])
+}

@@ -402,6 +402,7 @@ export const ModelName = {
   ClassBooking: 'ClassBooking',
   ClassSchedule: 'ClassSchedule',
   DietPlan: 'DietPlan',
+  Dispute: 'Dispute',
   Equipment: 'Equipment',
   Favorite: 'Favorite',
   Invoice: 'Invoice',
@@ -444,7 +445,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "announcement" | "attendance" | "attendanceLog" | "biometricDevice" | "business" | "businessReferral" | "businessStaff" | "chatMessage" | "chatThread" | "classBooking" | "classSchedule" | "dietPlan" | "equipment" | "favorite" | "invoice" | "jobPost" | "memberBiometric" | "memberProfile" | "memberReferral" | "memberReferralSetting" | "membership" | "membershipPlan" | "notification" | "payment" | "platformSubscription" | "progressLog" | "attendanceQrCode" | "review" | "specializationTag" | "trainerApplication" | "trainerBusiness" | "trainerCertification" | "trainerPayout" | "trainerProfile" | "trainerSpecialization" | "user" | "session" | "account" | "verification"
+    modelProps: "announcement" | "attendance" | "attendanceLog" | "biometricDevice" | "business" | "businessReferral" | "businessStaff" | "chatMessage" | "chatThread" | "classBooking" | "classSchedule" | "dietPlan" | "dispute" | "equipment" | "favorite" | "invoice" | "jobPost" | "memberBiometric" | "memberProfile" | "memberReferral" | "memberReferralSetting" | "membership" | "membershipPlan" | "notification" | "payment" | "platformSubscription" | "progressLog" | "attendanceQrCode" | "review" | "specializationTag" | "trainerApplication" | "trainerBusiness" | "trainerCertification" | "trainerPayout" | "trainerProfile" | "trainerSpecialization" | "user" | "session" | "account" | "verification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1333,6 +1334,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.DietPlanCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.DietPlanCountAggregateOutputType> | number
+        }
+      }
+    }
+    Dispute: {
+      payload: Prisma.$DisputePayload<ExtArgs>
+      fields: Prisma.DisputeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DisputeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DisputeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputePayload>
+        }
+        findFirst: {
+          args: Prisma.DisputeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DisputeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputePayload>
+        }
+        findMany: {
+          args: Prisma.DisputeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputePayload>[]
+        }
+        create: {
+          args: Prisma.DisputeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputePayload>
+        }
+        createMany: {
+          args: Prisma.DisputeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DisputeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputePayload>[]
+        }
+        delete: {
+          args: Prisma.DisputeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputePayload>
+        }
+        update: {
+          args: Prisma.DisputeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputePayload>
+        }
+        deleteMany: {
+          args: Prisma.DisputeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DisputeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DisputeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputePayload>[]
+        }
+        upsert: {
+          args: Prisma.DisputeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputePayload>
+        }
+        aggregate: {
+          args: Prisma.DisputeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDispute>
+        }
+        groupBy: {
+          args: Prisma.DisputeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DisputeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DisputeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DisputeCountAggregateOutputType> | number
         }
       }
     }
@@ -3537,6 +3612,22 @@ export const DietPlanScalarFieldEnum = {
 export type DietPlanScalarFieldEnum = (typeof DietPlanScalarFieldEnum)[keyof typeof DietPlanScalarFieldEnum]
 
 
+export const DisputeScalarFieldEnum = {
+  id: 'id',
+  subject: 'subject',
+  description: 'description',
+  status: 'status',
+  category: 'category',
+  userId: 'userId',
+  trainerId: 'trainerId',
+  businessId: 'businessId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DisputeScalarFieldEnum = (typeof DisputeScalarFieldEnum)[keyof typeof DisputeScalarFieldEnum]
+
+
 export const EquipmentScalarFieldEnum = {
   id: 'id',
   businessId: 'businessId',
@@ -4190,6 +4281,34 @@ export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
 
 
 /**
+ * Reference to a field of type 'DisputeStatus'
+ */
+export type EnumDisputeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DisputeStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'DisputeStatus[]'
+ */
+export type ListEnumDisputeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DisputeStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DisputeCategory'
+ */
+export type EnumDisputeCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DisputeCategory'>
+    
+
+
+/**
+ * Reference to a field of type 'DisputeCategory[]'
+ */
+export type ListEnumDisputeCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DisputeCategory[]'>
+    
+
+
+/**
  * Reference to a field of type 'EquipmentCondition'
  */
 export type EnumEquipmentConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EquipmentCondition'>
@@ -4490,6 +4609,7 @@ export type GlobalOmitConfig = {
   classBooking?: Prisma.ClassBookingOmit
   classSchedule?: Prisma.ClassScheduleOmit
   dietPlan?: Prisma.DietPlanOmit
+  dispute?: Prisma.DisputeOmit
   equipment?: Prisma.EquipmentOmit
   favorite?: Prisma.FavoriteOmit
   invoice?: Prisma.InvoiceOmit

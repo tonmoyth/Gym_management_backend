@@ -28,6 +28,7 @@ model TrainerProfile {
   certifications  TrainerCertification[]
   payouts         TrainerPayout[]
   specializations TrainerSpecialization[]
+  disputes        Dispute[]
 
   @@index([verifiedBadge])
   @@index([gender])

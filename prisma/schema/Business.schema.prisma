@@ -46,6 +46,7 @@ model Business {
   biometricDevices BiometricDevice[]
   attendanceLogs   AttendanceLog[]
   memberBiometrics MemberBiometric[]
+  disputes         Dispute[]
 
   @@index([status])
   @@index([createdAt])

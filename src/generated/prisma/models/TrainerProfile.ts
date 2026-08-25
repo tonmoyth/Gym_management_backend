@@ -274,6 +274,7 @@ export type TrainerProfileWhereInput = {
   certifications?: Prisma.TrainerCertificationListRelationFilter
   payouts?: Prisma.TrainerPayoutListRelationFilter
   specializations?: Prisma.TrainerSpecializationListRelationFilter
+  disputes?: Prisma.DisputeListRelationFilter
 }
 
 export type TrainerProfileOrderByWithRelationInput = {
@@ -297,6 +298,7 @@ export type TrainerProfileOrderByWithRelationInput = {
   certifications?: Prisma.TrainerCertificationOrderByRelationAggregateInput
   payouts?: Prisma.TrainerPayoutOrderByRelationAggregateInput
   specializations?: Prisma.TrainerSpecializationOrderByRelationAggregateInput
+  disputes?: Prisma.DisputeOrderByRelationAggregateInput
 }
 
 export type TrainerProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -323,6 +325,7 @@ export type TrainerProfileWhereUniqueInput = Prisma.AtLeast<{
   certifications?: Prisma.TrainerCertificationListRelationFilter
   payouts?: Prisma.TrainerPayoutListRelationFilter
   specializations?: Prisma.TrainerSpecializationListRelationFilter
+  disputes?: Prisma.DisputeListRelationFilter
 }, "id" | "userId">
 
 export type TrainerProfileOrderByWithAggregationInput = {
@@ -379,6 +382,7 @@ export type TrainerProfileCreateInput = {
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateInput = {
@@ -401,6 +405,7 @@ export type TrainerProfileUncheckedCreateInput = {
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUpdateInput = {
@@ -423,6 +428,7 @@ export type TrainerProfileUpdateInput = {
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateInput = {
@@ -445,6 +451,7 @@ export type TrainerProfileUncheckedUpdateInput = {
   certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateManyInput = {
@@ -592,6 +599,22 @@ export type TrainerProfileUpdateOneRequiredWithoutDietPlansNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TrainerProfileUpdateToOneWithWhereWithoutDietPlansInput, Prisma.TrainerProfileUpdateWithoutDietPlansInput>, Prisma.TrainerProfileUncheckedUpdateWithoutDietPlansInput>
 }
 
+export type TrainerProfileCreateNestedOneWithoutDisputesInput = {
+  create?: Prisma.XOR<Prisma.TrainerProfileCreateWithoutDisputesInput, Prisma.TrainerProfileUncheckedCreateWithoutDisputesInput>
+  connectOrCreate?: Prisma.TrainerProfileCreateOrConnectWithoutDisputesInput
+  connect?: Prisma.TrainerProfileWhereUniqueInput
+}
+
+export type TrainerProfileUpdateOneWithoutDisputesNestedInput = {
+  create?: Prisma.XOR<Prisma.TrainerProfileCreateWithoutDisputesInput, Prisma.TrainerProfileUncheckedCreateWithoutDisputesInput>
+  connectOrCreate?: Prisma.TrainerProfileCreateOrConnectWithoutDisputesInput
+  upsert?: Prisma.TrainerProfileUpsertWithoutDisputesInput
+  disconnect?: Prisma.TrainerProfileWhereInput | boolean
+  delete?: Prisma.TrainerProfileWhereInput | boolean
+  connect?: Prisma.TrainerProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrainerProfileUpdateToOneWithWhereWithoutDisputesInput, Prisma.TrainerProfileUpdateWithoutDisputesInput>, Prisma.TrainerProfileUncheckedUpdateWithoutDisputesInput>
+}
+
 export type TrainerProfileCreateNestedOneWithoutReviewsInput = {
   create?: Prisma.XOR<Prisma.TrainerProfileCreateWithoutReviewsInput, Prisma.TrainerProfileUncheckedCreateWithoutReviewsInput>
   connectOrCreate?: Prisma.TrainerProfileCreateOrConnectWithoutReviewsInput
@@ -733,6 +756,7 @@ export type TrainerProfileCreateWithoutChatThreadsInput = {
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutChatThreadsInput = {
@@ -754,6 +778,7 @@ export type TrainerProfileUncheckedCreateWithoutChatThreadsInput = {
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutChatThreadsInput = {
@@ -791,6 +816,7 @@ export type TrainerProfileUpdateWithoutChatThreadsInput = {
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutChatThreadsInput = {
@@ -812,6 +838,7 @@ export type TrainerProfileUncheckedUpdateWithoutChatThreadsInput = {
   certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutClassSchedulesInput = {
@@ -833,6 +860,7 @@ export type TrainerProfileCreateWithoutClassSchedulesInput = {
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutClassSchedulesInput = {
@@ -854,6 +882,7 @@ export type TrainerProfileUncheckedCreateWithoutClassSchedulesInput = {
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutClassSchedulesInput = {
@@ -891,6 +920,7 @@ export type TrainerProfileUpdateWithoutClassSchedulesInput = {
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutClassSchedulesInput = {
@@ -912,6 +942,7 @@ export type TrainerProfileUncheckedUpdateWithoutClassSchedulesInput = {
   certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutDietPlansInput = {
@@ -933,6 +964,7 @@ export type TrainerProfileCreateWithoutDietPlansInput = {
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutDietPlansInput = {
@@ -954,6 +986,7 @@ export type TrainerProfileUncheckedCreateWithoutDietPlansInput = {
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutDietPlansInput = {
@@ -991,6 +1024,7 @@ export type TrainerProfileUpdateWithoutDietPlansInput = {
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutDietPlansInput = {
@@ -1006,6 +1040,111 @@ export type TrainerProfileUncheckedUpdateWithoutDietPlansInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
+  applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
+  businesses?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutTrainerNestedInput
+  certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
+  payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
+  specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+}
+
+export type TrainerProfileCreateWithoutDisputesInput = {
+  id?: string
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  experience?: number
+  profileCompletionPercent?: number
+  verifiedBadge?: boolean
+  avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
+  chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
+  classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
+  applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
+  businesses?: Prisma.TrainerBusinessCreateNestedManyWithoutTrainerInput
+  certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
+  payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
+  specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+}
+
+export type TrainerProfileUncheckedCreateWithoutDisputesInput = {
+  id?: string
+  userId: string
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  experience?: number
+  profileCompletionPercent?: number
+  verifiedBadge?: boolean
+  avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
+  classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
+  applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
+  businesses?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutTrainerInput
+  certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
+  payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
+  specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+}
+
+export type TrainerProfileCreateOrConnectWithoutDisputesInput = {
+  where: Prisma.TrainerProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrainerProfileCreateWithoutDisputesInput, Prisma.TrainerProfileUncheckedCreateWithoutDisputesInput>
+}
+
+export type TrainerProfileUpsertWithoutDisputesInput = {
+  update: Prisma.XOR<Prisma.TrainerProfileUpdateWithoutDisputesInput, Prisma.TrainerProfileUncheckedUpdateWithoutDisputesInput>
+  create: Prisma.XOR<Prisma.TrainerProfileCreateWithoutDisputesInput, Prisma.TrainerProfileUncheckedCreateWithoutDisputesInput>
+  where?: Prisma.TrainerProfileWhereInput
+}
+
+export type TrainerProfileUpdateToOneWithWhereWithoutDisputesInput = {
+  where?: Prisma.TrainerProfileWhereInput
+  data: Prisma.XOR<Prisma.TrainerProfileUpdateWithoutDisputesInput, Prisma.TrainerProfileUncheckedUpdateWithoutDisputesInput>
+}
+
+export type TrainerProfileUpdateWithoutDisputesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
+  chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
+  classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
+  applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
+  businesses?: Prisma.TrainerBusinessUpdateManyWithoutTrainerNestedInput
+  certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
+  payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
+  specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+}
+
+export type TrainerProfileUncheckedUpdateWithoutDisputesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
+  classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
   businesses?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutTrainerNestedInput
@@ -1033,6 +1172,7 @@ export type TrainerProfileCreateWithoutReviewsInput = {
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutReviewsInput = {
@@ -1054,6 +1194,7 @@ export type TrainerProfileUncheckedCreateWithoutReviewsInput = {
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutReviewsInput = {
@@ -1091,6 +1232,7 @@ export type TrainerProfileUpdateWithoutReviewsInput = {
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutReviewsInput = {
@@ -1112,6 +1254,7 @@ export type TrainerProfileUncheckedUpdateWithoutReviewsInput = {
   certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutApplicationsInput = {
@@ -1133,6 +1276,7 @@ export type TrainerProfileCreateWithoutApplicationsInput = {
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutApplicationsInput = {
@@ -1154,6 +1298,7 @@ export type TrainerProfileUncheckedCreateWithoutApplicationsInput = {
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutApplicationsInput = {
@@ -1191,6 +1336,7 @@ export type TrainerProfileUpdateWithoutApplicationsInput = {
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutApplicationsInput = {
@@ -1212,6 +1358,7 @@ export type TrainerProfileUncheckedUpdateWithoutApplicationsInput = {
   certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutBusinessesInput = {
@@ -1233,6 +1380,7 @@ export type TrainerProfileCreateWithoutBusinessesInput = {
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutBusinessesInput = {
@@ -1254,6 +1402,7 @@ export type TrainerProfileUncheckedCreateWithoutBusinessesInput = {
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutBusinessesInput = {
@@ -1291,6 +1440,7 @@ export type TrainerProfileUpdateWithoutBusinessesInput = {
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutBusinessesInput = {
@@ -1312,6 +1462,7 @@ export type TrainerProfileUncheckedUpdateWithoutBusinessesInput = {
   certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutCertificationsInput = {
@@ -1333,6 +1484,7 @@ export type TrainerProfileCreateWithoutCertificationsInput = {
   businesses?: Prisma.TrainerBusinessCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutCertificationsInput = {
@@ -1354,6 +1506,7 @@ export type TrainerProfileUncheckedCreateWithoutCertificationsInput = {
   businesses?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutCertificationsInput = {
@@ -1391,6 +1544,7 @@ export type TrainerProfileUpdateWithoutCertificationsInput = {
   businesses?: Prisma.TrainerBusinessUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutCertificationsInput = {
@@ -1412,6 +1566,7 @@ export type TrainerProfileUncheckedUpdateWithoutCertificationsInput = {
   businesses?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutPayoutsInput = {
@@ -1433,6 +1588,7 @@ export type TrainerProfileCreateWithoutPayoutsInput = {
   businesses?: Prisma.TrainerBusinessCreateNestedManyWithoutTrainerInput
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutPayoutsInput = {
@@ -1454,6 +1610,7 @@ export type TrainerProfileUncheckedCreateWithoutPayoutsInput = {
   businesses?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutTrainerInput
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutPayoutsInput = {
@@ -1491,6 +1648,7 @@ export type TrainerProfileUpdateWithoutPayoutsInput = {
   businesses?: Prisma.TrainerBusinessUpdateManyWithoutTrainerNestedInput
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutPayoutsInput = {
@@ -1512,6 +1670,7 @@ export type TrainerProfileUncheckedUpdateWithoutPayoutsInput = {
   businesses?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutTrainerNestedInput
   certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutSpecializationsInput = {
@@ -1533,6 +1692,7 @@ export type TrainerProfileCreateWithoutSpecializationsInput = {
   businesses?: Prisma.TrainerBusinessCreateNestedManyWithoutTrainerInput
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutSpecializationsInput = {
@@ -1554,6 +1714,7 @@ export type TrainerProfileUncheckedCreateWithoutSpecializationsInput = {
   businesses?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutTrainerInput
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutSpecializationsInput = {
@@ -1591,6 +1752,7 @@ export type TrainerProfileUpdateWithoutSpecializationsInput = {
   businesses?: Prisma.TrainerBusinessUpdateManyWithoutTrainerNestedInput
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutSpecializationsInput = {
@@ -1612,6 +1774,7 @@ export type TrainerProfileUncheckedUpdateWithoutSpecializationsInput = {
   businesses?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutTrainerNestedInput
   certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutUserInput = {
@@ -1633,6 +1796,7 @@ export type TrainerProfileCreateWithoutUserInput = {
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutUserInput = {
@@ -1654,6 +1818,7 @@ export type TrainerProfileUncheckedCreateWithoutUserInput = {
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutUserInput = {
@@ -1691,6 +1856,7 @@ export type TrainerProfileUpdateWithoutUserInput = {
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutUserInput = {
@@ -1712,6 +1878,7 @@ export type TrainerProfileUncheckedUpdateWithoutUserInput = {
   certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 
@@ -1729,6 +1896,7 @@ export type TrainerProfileCountOutputType = {
   certifications: number
   payouts: number
   specializations: number
+  disputes: number
 }
 
 export type TrainerProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1741,6 +1909,7 @@ export type TrainerProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Ex
   certifications?: boolean | TrainerProfileCountOutputTypeCountCertificationsArgs
   payouts?: boolean | TrainerProfileCountOutputTypeCountPayoutsArgs
   specializations?: boolean | TrainerProfileCountOutputTypeCountSpecializationsArgs
+  disputes?: boolean | TrainerProfileCountOutputTypeCountDisputesArgs
 }
 
 /**
@@ -1816,6 +1985,13 @@ export type TrainerProfileCountOutputTypeCountSpecializationsArgs<ExtArgs extend
   where?: Prisma.TrainerSpecializationWhereInput
 }
 
+/**
+ * TrainerProfileCountOutputType without action
+ */
+export type TrainerProfileCountOutputTypeCountDisputesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DisputeWhereInput
+}
+
 
 export type TrainerProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1838,6 +2014,7 @@ export type TrainerProfileSelect<ExtArgs extends runtime.Types.Extensions.Intern
   certifications?: boolean | Prisma.TrainerProfile$certificationsArgs<ExtArgs>
   payouts?: boolean | Prisma.TrainerProfile$payoutsArgs<ExtArgs>
   specializations?: boolean | Prisma.TrainerProfile$specializationsArgs<ExtArgs>
+  disputes?: boolean | Prisma.TrainerProfile$disputesArgs<ExtArgs>
   _count?: boolean | Prisma.TrainerProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trainerProfile"]>
 
@@ -1894,6 +2071,7 @@ export type TrainerProfileInclude<ExtArgs extends runtime.Types.Extensions.Inter
   certifications?: boolean | Prisma.TrainerProfile$certificationsArgs<ExtArgs>
   payouts?: boolean | Prisma.TrainerProfile$payoutsArgs<ExtArgs>
   specializations?: boolean | Prisma.TrainerProfile$specializationsArgs<ExtArgs>
+  disputes?: boolean | Prisma.TrainerProfile$disputesArgs<ExtArgs>
   _count?: boolean | Prisma.TrainerProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TrainerProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1916,6 +2094,7 @@ export type $TrainerProfilePayload<ExtArgs extends runtime.Types.Extensions.Inte
     certifications: Prisma.$TrainerCertificationPayload<ExtArgs>[]
     payouts: Prisma.$TrainerPayoutPayload<ExtArgs>[]
     specializations: Prisma.$TrainerSpecializationPayload<ExtArgs>[]
+    disputes: Prisma.$DisputePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2332,6 +2511,7 @@ export interface Prisma__TrainerProfileClient<T, Null = never, ExtArgs extends r
   certifications<T extends Prisma.TrainerProfile$certificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$certificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainerCertificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payouts<T extends Prisma.TrainerProfile$payoutsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$payoutsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainerPayoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   specializations<T extends Prisma.TrainerProfile$specializationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$specializationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainerSpecializationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  disputes<T extends Prisma.TrainerProfile$disputesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$disputesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2980,6 +3160,30 @@ export type TrainerProfile$specializationsArgs<ExtArgs extends runtime.Types.Ext
   take?: number
   skip?: number
   distinct?: Prisma.TrainerSpecializationScalarFieldEnum | Prisma.TrainerSpecializationScalarFieldEnum[]
+}
+
+/**
+ * TrainerProfile.disputes
+ */
+export type TrainerProfile$disputesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Dispute
+   */
+  select?: Prisma.DisputeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Dispute
+   */
+  omit?: Prisma.DisputeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DisputeInclude<ExtArgs> | null
+  where?: Prisma.DisputeWhereInput
+  orderBy?: Prisma.DisputeOrderByWithRelationInput | Prisma.DisputeOrderByWithRelationInput[]
+  cursor?: Prisma.DisputeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DisputeScalarFieldEnum | Prisma.DisputeScalarFieldEnum[]
 }
 
 /**

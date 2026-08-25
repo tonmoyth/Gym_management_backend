@@ -437,6 +437,40 @@ export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
   _max?: Prisma.NestedJsonFilter<$PrismaModel>
 }
 
+export type EnumDisputeStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DisputeStatus | Prisma.EnumDisputeStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DisputeStatus[] | Prisma.ListEnumDisputeStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DisputeStatus[] | Prisma.ListEnumDisputeStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDisputeStatusFilter<$PrismaModel> | $Enums.DisputeStatus
+}
+
+export type EnumDisputeCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.DisputeCategory | Prisma.EnumDisputeCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.DisputeCategory[] | Prisma.ListEnumDisputeCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DisputeCategory[] | Prisma.ListEnumDisputeCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDisputeCategoryFilter<$PrismaModel> | $Enums.DisputeCategory
+}
+
+export type EnumDisputeStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DisputeStatus | Prisma.EnumDisputeStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DisputeStatus[] | Prisma.ListEnumDisputeStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DisputeStatus[] | Prisma.ListEnumDisputeStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDisputeStatusWithAggregatesFilter<$PrismaModel> | $Enums.DisputeStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDisputeStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDisputeStatusFilter<$PrismaModel>
+}
+
+export type EnumDisputeCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DisputeCategory | Prisma.EnumDisputeCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.DisputeCategory[] | Prisma.ListEnumDisputeCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DisputeCategory[] | Prisma.ListEnumDisputeCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDisputeCategoryWithAggregatesFilter<$PrismaModel> | $Enums.DisputeCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDisputeCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDisputeCategoryFilter<$PrismaModel>
+}
+
 export type EnumEquipmentConditionFilter<$PrismaModel = never> = {
   equals?: $Enums.EquipmentCondition | Prisma.EnumEquipmentConditionFieldRefInput<$PrismaModel>
   in?: $Enums.EquipmentCondition[] | Prisma.ListEnumEquipmentConditionFieldRefInput<$PrismaModel>
@@ -1173,6 +1207,40 @@ export type NestedJsonFilterBase<$PrismaModel = never> = {
   gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
+}
+
+export type NestedEnumDisputeStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DisputeStatus | Prisma.EnumDisputeStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DisputeStatus[] | Prisma.ListEnumDisputeStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DisputeStatus[] | Prisma.ListEnumDisputeStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDisputeStatusFilter<$PrismaModel> | $Enums.DisputeStatus
+}
+
+export type NestedEnumDisputeCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.DisputeCategory | Prisma.EnumDisputeCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.DisputeCategory[] | Prisma.ListEnumDisputeCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DisputeCategory[] | Prisma.ListEnumDisputeCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDisputeCategoryFilter<$PrismaModel> | $Enums.DisputeCategory
+}
+
+export type NestedEnumDisputeStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DisputeStatus | Prisma.EnumDisputeStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DisputeStatus[] | Prisma.ListEnumDisputeStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DisputeStatus[] | Prisma.ListEnumDisputeStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDisputeStatusWithAggregatesFilter<$PrismaModel> | $Enums.DisputeStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDisputeStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDisputeStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumDisputeCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DisputeCategory | Prisma.EnumDisputeCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.DisputeCategory[] | Prisma.ListEnumDisputeCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DisputeCategory[] | Prisma.ListEnumDisputeCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDisputeCategoryWithAggregatesFilter<$PrismaModel> | $Enums.DisputeCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDisputeCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDisputeCategoryFilter<$PrismaModel>
 }
 
 export type NestedEnumEquipmentConditionFilter<$PrismaModel = never> = {

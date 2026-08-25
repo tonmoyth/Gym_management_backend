@@ -116,6 +116,7 @@ export const DisputeCategory = {
   BILLING: 'BILLING',
   SERVICE: 'SERVICE',
   CONDUCT: 'CONDUCT',
+  PAYOUT: 'PAYOUT',
   OTHER: 'OTHER'
 } as const
 
