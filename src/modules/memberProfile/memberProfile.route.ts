@@ -29,4 +29,11 @@ router.get(
   memberProfileController.getRecommendations
 );
 
+router.get(
+  "/me/dashboard",
+  // @ts-ignore
+  checkAuth(USER_ROLE.MEMBER),
+  memberProfileController.getDashboard
+);
+
 export const memberProfileRoutes = router;

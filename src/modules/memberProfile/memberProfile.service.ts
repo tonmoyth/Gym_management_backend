@@ -265,8 +265,183 @@ const getRecommendations = async (userId: string, queryParams: any) => {
   };
 };
 
+const getDashboard = async (userId: string) => {
+  const memberProfile = await prisma.memberProfile.findUnique({
+    where: { userId },
+    select: {
+      id: true,
+      user: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+          profileImage: true,
+        },
+      },
+    },
+  });
+
+  if (!memberProfile) {
+    throw new AppError(httpStatus.NOT_FOUND, "Member Profile not found");
+  }
+
+  const memberId = memberProfile.id;
+
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+  const todayEnd = new Date();
+  todayEnd.setHours(23, 59, 59, 999);
+
+  const startOfMonth = new Date();
+  startOfMonth.setDate(1);
+  startOfMonth.setHours(0, 0, 0, 0);
+
+  const [
+    memberships,
+    totalAttendanceCount,
+    thisMonthAttendanceCount,
+    todayAttendance,
+    recentAttendance,
+    upcomingClasses
+  ] = await Promise.all([
+    // Membership
+    prisma.membership.findMany({
+      where: { memberId, status: "ACTIVE" },
+      orderBy: { endDate: "desc" },
+      take: 1,
+      include: {
+        business: { select: { id: true, name: true } },
+        plan: { select: { id: true, name: true, price: true, durationDays: true } },
+      }
+    }),
+
+    // Attendance stats
+    prisma.attendanceLog.count({ where: { memberId, attendanceType: "CHECK_IN" } }),
+    prisma.attendanceLog.count({ 
+      where: { 
+        memberId, 
+        attendanceTime: { gte: startOfMonth },
+        attendanceType: "CHECK_IN"
+      } 
+    }),
+
+    // Today's attendance
+    prisma.attendanceLog.findMany({
+      where: { memberId, attendanceTime: { gte: todayStart, lte: todayEnd } },
+      orderBy: { attendanceTime: "asc" }
+    }),
+
+    // Recent attendance
+    prisma.attendanceLog.findMany({
+      where: { memberId },
+      orderBy: { attendanceTime: "desc" },
+      take: 5
+    }),
+
+    // Upcoming classes
+    prisma.classBooking.findMany({
+      where: {
+        memberId,
+        status: "CONFIRMED",
+        classSchedule: {
+          startTime: { gte: new Date() }
+        }
+      },
+      include: {
+        classSchedule: {
+          include: {
+            trainer: { include: { user: { select: { fullName: true } } } },
+            business: { select: { id: true, name: true } }
+          }
+        }
+      },
+      orderBy: {
+        classSchedule: { startTime: "asc" }
+      },
+      take: 5
+    })
+  ]);
+
+  const activeMembership = memberships[0];
+  let membershipData = null;
+
+  if (activeMembership) {
+    let daysRemaining = 0;
+    if (activeMembership.endDate) {
+      daysRemaining = Math.ceil((new Date(activeMembership.endDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+    }
+    
+    membershipData = {
+      id: activeMembership.id,
+      status: activeMembership.status,
+      business: activeMembership.business,
+      plan: {
+        id: activeMembership.plan.id,
+        name: activeMembership.plan.name,
+        price: Number(activeMembership.plan.price),
+        durationDays: activeMembership.plan.durationDays
+      },
+      startDate: activeMembership.startDate,
+      renewalDate: activeMembership.endDate,
+      daysRemaining: daysRemaining > 0 ? daysRemaining : 0
+    };
+  }
+
+  let checkedIn = false;
+  let checkInTime = null;
+  let checkOutTime = null;
+
+  for (const log of todayAttendance) {
+    if (log.attendanceType === "CHECK_IN" && !checkInTime) {
+      checkedIn = true;
+      checkInTime = log.attendanceTime;
+    }
+    if (log.attendanceType === "CHECK_OUT") {
+      checkOutTime = log.attendanceTime;
+    }
+  }
+
+  return {
+    member: {
+      id: memberProfile.id,
+      userId: memberProfile.user?.id,
+      name: memberProfile.user?.fullName,
+      email: memberProfile.user?.email,
+      profileImage: memberProfile.user?.profileImage,
+    },
+    membership: membershipData,
+    attendance: {
+      total: totalAttendanceCount,
+      thisMonth: thisMonthAttendanceCount,
+      today: {
+        checkedIn,
+        checkInTime,
+        checkOutTime,
+      },
+      recent: recentAttendance.map((log: any) => ({
+        date: log.attendanceTime,
+        type: log.attendanceType,
+        method: log.verifyMethod,
+        timestamp: log.attendanceTime,
+      })),
+    },
+    upcomingClasses: upcomingClasses.map((booking: any) => ({
+      id: booking.classSchedule.id,
+      title: booking.classSchedule.title,
+      startTime: booking.classSchedule.startTime,
+      endTime: booking.classSchedule.endTime,
+      trainer: booking.classSchedule.trainer ? {
+        id: booking.classSchedule.trainer.id,
+        name: booking.classSchedule.trainer.user?.fullName,
+      } : null,
+      business: booking.classSchedule.business,
+    })),
+  };
+};
+
 export const memberProfileService = {
   setFitnessGoal,
   getProfile,
   getRecommendations,
+  getDashboard,
 };

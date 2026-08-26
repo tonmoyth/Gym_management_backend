@@ -42,8 +42,21 @@ const getRecommendations = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getDashboard = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id;
+  const result = await memberProfileService.getDashboard(userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Member dashboard retrieved successfully.",
+    data: result,
+  });
+});
+
 export const memberProfileController = {
   setFitnessGoal,
   getProfile,
   getRecommendations,
+  getDashboard,
 };
