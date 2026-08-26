@@ -3733,6 +3733,8 @@ export const MembershipScalarFieldEnum = {
   businessId: 'businessId',
   planId: 'planId',
   status: 'status',
+  scheduledPlanId: 'scheduledPlanId',
+  scheduledPlanDate: 'scheduledPlanDate',
   startDate: 'startDate',
   endDate: 'endDate',
   requestedAt: 'requestedAt',

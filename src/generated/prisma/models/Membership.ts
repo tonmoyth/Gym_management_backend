@@ -30,6 +30,8 @@ export type MembershipMinAggregateOutputType = {
   businessId: string | null
   planId: string | null
   status: $Enums.BookingStatus | null
+  scheduledPlanId: string | null
+  scheduledPlanDate: Date | null
   startDate: Date | null
   endDate: Date | null
   requestedAt: Date | null
@@ -46,6 +48,8 @@ export type MembershipMaxAggregateOutputType = {
   businessId: string | null
   planId: string | null
   status: $Enums.BookingStatus | null
+  scheduledPlanId: string | null
+  scheduledPlanDate: Date | null
   startDate: Date | null
   endDate: Date | null
   requestedAt: Date | null
@@ -62,6 +66,8 @@ export type MembershipCountAggregateOutputType = {
   businessId: number
   planId: number
   status: number
+  scheduledPlanId: number
+  scheduledPlanDate: number
   startDate: number
   endDate: number
   requestedAt: number
@@ -80,6 +86,8 @@ export type MembershipMinAggregateInputType = {
   businessId?: true
   planId?: true
   status?: true
+  scheduledPlanId?: true
+  scheduledPlanDate?: true
   startDate?: true
   endDate?: true
   requestedAt?: true
@@ -96,6 +104,8 @@ export type MembershipMaxAggregateInputType = {
   businessId?: true
   planId?: true
   status?: true
+  scheduledPlanId?: true
+  scheduledPlanDate?: true
   startDate?: true
   endDate?: true
   requestedAt?: true
@@ -112,6 +122,8 @@ export type MembershipCountAggregateInputType = {
   businessId?: true
   planId?: true
   status?: true
+  scheduledPlanId?: true
+  scheduledPlanDate?: true
   startDate?: true
   endDate?: true
   requestedAt?: true
@@ -201,6 +213,8 @@ export type MembershipGroupByOutputType = {
   businessId: string
   planId: string
   status: $Enums.BookingStatus
+  scheduledPlanId: string | null
+  scheduledPlanDate: Date | null
   startDate: Date | null
   endDate: Date | null
   requestedAt: Date
@@ -238,6 +252,8 @@ export type MembershipWhereInput = {
   businessId?: Prisma.StringFilter<"Membership"> | string
   planId?: Prisma.StringFilter<"Membership"> | string
   status?: Prisma.EnumBookingStatusFilter<"Membership"> | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.StringNullableFilter<"Membership"> | string | null
+  scheduledPlanDate?: Prisma.DateTimeNullableFilter<"Membership"> | Date | string | null
   startDate?: Prisma.DateTimeNullableFilter<"Membership"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Membership"> | Date | string | null
   requestedAt?: Prisma.DateTimeFilter<"Membership"> | Date | string
@@ -258,6 +274,8 @@ export type MembershipOrderByWithRelationInput = {
   businessId?: Prisma.SortOrder
   planId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  scheduledPlanId?: Prisma.SortOrderInput | Prisma.SortOrder
+  scheduledPlanDate?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrderInput | Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   requestedAt?: Prisma.SortOrder
@@ -281,6 +299,8 @@ export type MembershipWhereUniqueInput = Prisma.AtLeast<{
   businessId?: Prisma.StringFilter<"Membership"> | string
   planId?: Prisma.StringFilter<"Membership"> | string
   status?: Prisma.EnumBookingStatusFilter<"Membership"> | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.StringNullableFilter<"Membership"> | string | null
+  scheduledPlanDate?: Prisma.DateTimeNullableFilter<"Membership"> | Date | string | null
   startDate?: Prisma.DateTimeNullableFilter<"Membership"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Membership"> | Date | string | null
   requestedAt?: Prisma.DateTimeFilter<"Membership"> | Date | string
@@ -301,6 +321,8 @@ export type MembershipOrderByWithAggregationInput = {
   businessId?: Prisma.SortOrder
   planId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  scheduledPlanId?: Prisma.SortOrderInput | Prisma.SortOrder
+  scheduledPlanDate?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrderInput | Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   requestedAt?: Prisma.SortOrder
@@ -323,6 +345,8 @@ export type MembershipScalarWhereWithAggregatesInput = {
   businessId?: Prisma.StringWithAggregatesFilter<"Membership"> | string
   planId?: Prisma.StringWithAggregatesFilter<"Membership"> | string
   status?: Prisma.EnumBookingStatusWithAggregatesFilter<"Membership"> | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.StringNullableWithAggregatesFilter<"Membership"> | string | null
+  scheduledPlanDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Membership"> | Date | string | null
   startDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Membership"> | Date | string | null
   endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Membership"> | Date | string | null
   requestedAt?: Prisma.DateTimeWithAggregatesFilter<"Membership"> | Date | string
@@ -336,6 +360,8 @@ export type MembershipScalarWhereWithAggregatesInput = {
 export type MembershipCreateInput = {
   id?: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -356,6 +382,8 @@ export type MembershipUncheckedCreateInput = {
   businessId: string
   planId: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -370,6 +398,8 @@ export type MembershipUncheckedCreateInput = {
 export type MembershipUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -390,6 +420,8 @@ export type MembershipUncheckedUpdateInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   planId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -407,6 +439,8 @@ export type MembershipCreateManyInput = {
   businessId: string
   planId: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -420,6 +454,8 @@ export type MembershipCreateManyInput = {
 export type MembershipUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -436,6 +472,8 @@ export type MembershipUncheckedUpdateManyInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   planId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -462,6 +500,8 @@ export type MembershipCountOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   planId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  scheduledPlanId?: Prisma.SortOrder
+  scheduledPlanDate?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   requestedAt?: Prisma.SortOrder
@@ -478,6 +518,8 @@ export type MembershipMaxOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   planId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  scheduledPlanId?: Prisma.SortOrder
+  scheduledPlanDate?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   requestedAt?: Prisma.SortOrder
@@ -494,6 +536,8 @@ export type MembershipMinOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   planId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  scheduledPlanId?: Prisma.SortOrder
+  scheduledPlanDate?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   requestedAt?: Prisma.SortOrder
@@ -658,6 +702,8 @@ export type MembershipUpdateOneWithoutPaymentsNestedInput = {
 export type MembershipCreateWithoutBusinessInput = {
   id?: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -676,6 +722,8 @@ export type MembershipUncheckedCreateWithoutBusinessInput = {
   memberId: string
   planId: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -722,6 +770,8 @@ export type MembershipScalarWhereInput = {
   businessId?: Prisma.StringFilter<"Membership"> | string
   planId?: Prisma.StringFilter<"Membership"> | string
   status?: Prisma.EnumBookingStatusFilter<"Membership"> | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.StringNullableFilter<"Membership"> | string | null
+  scheduledPlanDate?: Prisma.DateTimeNullableFilter<"Membership"> | Date | string | null
   startDate?: Prisma.DateTimeNullableFilter<"Membership"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Membership"> | Date | string | null
   requestedAt?: Prisma.DateTimeFilter<"Membership"> | Date | string
@@ -735,6 +785,8 @@ export type MembershipScalarWhereInput = {
 export type MembershipCreateWithoutMemberInput = {
   id?: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -753,6 +805,8 @@ export type MembershipUncheckedCreateWithoutMemberInput = {
   businessId: string
   planId: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -793,6 +847,8 @@ export type MembershipUpdateManyWithWhereWithoutMemberInput = {
 export type MembershipCreateWithoutPlanInput = {
   id?: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -811,6 +867,8 @@ export type MembershipUncheckedCreateWithoutPlanInput = {
   memberId: string
   businessId: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -851,6 +909,8 @@ export type MembershipUpdateManyWithWhereWithoutPlanInput = {
 export type MembershipCreateWithoutPaymentsInput = {
   id?: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -870,6 +930,8 @@ export type MembershipUncheckedCreateWithoutPaymentsInput = {
   businessId: string
   planId: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -899,6 +961,8 @@ export type MembershipUpdateToOneWithWhereWithoutPaymentsInput = {
 export type MembershipUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -918,6 +982,8 @@ export type MembershipUncheckedUpdateWithoutPaymentsInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   planId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -933,6 +999,8 @@ export type MembershipCreateManyBusinessInput = {
   memberId: string
   planId: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -946,6 +1014,8 @@ export type MembershipCreateManyBusinessInput = {
 export type MembershipUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -964,6 +1034,8 @@ export type MembershipUncheckedUpdateWithoutBusinessInput = {
   memberId?: Prisma.StringFieldUpdateOperationsInput | string
   planId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -980,6 +1052,8 @@ export type MembershipUncheckedUpdateManyWithoutBusinessInput = {
   memberId?: Prisma.StringFieldUpdateOperationsInput | string
   planId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -995,6 +1069,8 @@ export type MembershipCreateManyMemberInput = {
   businessId: string
   planId: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -1008,6 +1084,8 @@ export type MembershipCreateManyMemberInput = {
 export type MembershipUpdateWithoutMemberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1026,6 +1104,8 @@ export type MembershipUncheckedUpdateWithoutMemberInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   planId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1042,6 +1122,8 @@ export type MembershipUncheckedUpdateManyWithoutMemberInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   planId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1057,6 +1139,8 @@ export type MembershipCreateManyPlanInput = {
   memberId: string
   businessId: string
   status?: $Enums.BookingStatus
+  scheduledPlanId?: string | null
+  scheduledPlanDate?: Date | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   requestedAt?: Date | string
@@ -1070,6 +1154,8 @@ export type MembershipCreateManyPlanInput = {
 export type MembershipUpdateWithoutPlanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1088,6 +1174,8 @@ export type MembershipUncheckedUpdateWithoutPlanInput = {
   memberId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1104,6 +1192,8 @@ export type MembershipUncheckedUpdateManyWithoutPlanInput = {
   memberId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  scheduledPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledPlanDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1151,6 +1241,8 @@ export type MembershipSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   businessId?: boolean
   planId?: boolean
   status?: boolean
+  scheduledPlanId?: boolean
+  scheduledPlanDate?: boolean
   startDate?: boolean
   endDate?: boolean
   requestedAt?: boolean
@@ -1172,6 +1264,8 @@ export type MembershipSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   businessId?: boolean
   planId?: boolean
   status?: boolean
+  scheduledPlanId?: boolean
+  scheduledPlanDate?: boolean
   startDate?: boolean
   endDate?: boolean
   requestedAt?: boolean
@@ -1191,6 +1285,8 @@ export type MembershipSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   businessId?: boolean
   planId?: boolean
   status?: boolean
+  scheduledPlanId?: boolean
+  scheduledPlanDate?: boolean
   startDate?: boolean
   endDate?: boolean
   requestedAt?: boolean
@@ -1210,6 +1306,8 @@ export type MembershipSelectScalar = {
   businessId?: boolean
   planId?: boolean
   status?: boolean
+  scheduledPlanId?: boolean
+  scheduledPlanDate?: boolean
   startDate?: boolean
   endDate?: boolean
   requestedAt?: boolean
@@ -1220,7 +1318,7 @@ export type MembershipSelectScalar = {
   updatedAt?: boolean
 }
 
-export type MembershipOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "memberId" | "businessId" | "planId" | "status" | "startDate" | "endDate" | "requestedAt" | "approvedAt" | "rejectedAt" | "rejectionReason" | "createdAt" | "updatedAt", ExtArgs["result"]["membership"]>
+export type MembershipOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "memberId" | "businessId" | "planId" | "status" | "scheduledPlanId" | "scheduledPlanDate" | "startDate" | "endDate" | "requestedAt" | "approvedAt" | "rejectedAt" | "rejectionReason" | "createdAt" | "updatedAt", ExtArgs["result"]["membership"]>
 export type MembershipInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   member?: boolean | Prisma.MemberProfileDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -1253,6 +1351,8 @@ export type $MembershipPayload<ExtArgs extends runtime.Types.Extensions.Internal
     businessId: string
     planId: string
     status: $Enums.BookingStatus
+    scheduledPlanId: string | null
+    scheduledPlanDate: Date | null
     startDate: Date | null
     endDate: Date | null
     requestedAt: Date
@@ -1693,6 +1793,8 @@ export interface MembershipFieldRefs {
   readonly businessId: Prisma.FieldRef<"Membership", 'String'>
   readonly planId: Prisma.FieldRef<"Membership", 'String'>
   readonly status: Prisma.FieldRef<"Membership", 'BookingStatus'>
+  readonly scheduledPlanId: Prisma.FieldRef<"Membership", 'String'>
+  readonly scheduledPlanDate: Prisma.FieldRef<"Membership", 'DateTime'>
   readonly startDate: Prisma.FieldRef<"Membership", 'DateTime'>
   readonly endDate: Prisma.FieldRef<"Membership", 'DateTime'>
   readonly requestedAt: Prisma.FieldRef<"Membership", 'DateTime'>

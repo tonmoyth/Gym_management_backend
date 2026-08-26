@@ -4,17 +4,22 @@ import { auth } from "./lib/auth";
 import { toNodeHandler } from "better-auth/node";
 import cookieParser from "cookie-parser";
 import router from "./routes";
+import { paymentController } from "./modules/Payment/payment.controller";
 // import { paymentController } from './modules/payment/payment.controller';
 
 const app: Application = express();
 
 app.all("/api/auth/*splat", toNodeHandler(auth));
 
-// app.post(
-//   "/webhook",
-//   express.raw({ type: "application/json" }),
-//   paymentController.handlerStripeWebhookEvent,
-// );
+
+
+
+app.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  paymentController.handleWebhook
+);
+
 
 app.use(express.json());
 

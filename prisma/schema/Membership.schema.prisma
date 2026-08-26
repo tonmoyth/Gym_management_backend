@@ -12,6 +12,9 @@ model Membership {
 
   status BookingStatus @default(PENDING_APPROVAL)
 
+  scheduledPlanId   String?
+  scheduledPlanDate DateTime?
+
   startDate DateTime?
   endDate   DateTime?
 

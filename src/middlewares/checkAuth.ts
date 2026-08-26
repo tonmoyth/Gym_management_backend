@@ -13,7 +13,9 @@ declare global {
     }
 }
 
-export const checkAuth = () => {
+import { Role } from '../generated/prisma/enums';
+
+export const checkAuth = (...roles: Role[]) => {
     return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
         // ─── OLD SESSION-BASED AUTH (commented out) ───────────────────────────
@@ -76,6 +78,10 @@ export const checkAuth = () => {
 
         if (!user) {
             throw new AppError(401, 'User not found');
+        }
+
+        if (roles.length > 0 && !roles.includes(user.role as Role)) {
+            throw new AppError(403, 'Forbidden. You do not have the required permissions.');
         }
 
         // Attach user to request object

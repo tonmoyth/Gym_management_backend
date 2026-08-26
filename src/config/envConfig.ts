@@ -23,8 +23,8 @@ interface IEnvReturnType {
   EMAIL_PASS: string;
   EMAIL_FROM: string;
 
-  //   STRIPE_SECRET_KEY: string;
-  //   STRIPE_WEBHOOK_SECRET: string;
+  STRIPE_SECRET_KEY: string;
+  STRIPE_WEBHOOK_SECRET: string;
 
   //   // AWS_ACCESS_KEY_ID: string;
   //   // AWS_SECRET_ACCESS_KEY: string;
@@ -57,8 +57,8 @@ const envConfig = (): IEnvReturnType => {
     "EMAIL_PASS",
     "EMAIL_FROM",
 
-    // "STRIPE_SECRET_KEY",
-    // "STRIPE_WEBHOOK_SECRET",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET",
 
     // "AWS_ACCESS_KEY_ID",
     // "AWS_SECRET_ACCESS_KEY",
@@ -94,6 +94,9 @@ const envConfig = (): IEnvReturnType => {
     EMAIL_USER: process.env.EMAIL_USER!,
     EMAIL_PASS: process.env.EMAIL_PASS!,
     EMAIL_FROM: process.env.EMAIL_FROM!,
+
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY!,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET!,
 
     REDIS_HOST: process.env.REDIS_HOST!,
     REDIS_PORT: process.env.REDIS_PORT!,

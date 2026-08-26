@@ -1,26 +1,28 @@
 import express from "express";
-// import { checkAuth } from "../../middlewares/checkAuth";
-// import { paymentController } from "./payment.controller";
+import { checkAuth } from "../../middlewares/checkAuth";
+import validateRequest from "../../middlewares/validateRequest";
+import { paymentController } from "./payment.controller";
+import { paymentValidation } from "./payment.validation";
 
 const router = express.Router();
 
-// router.post(
-//   "/created-payment",
-//   checkAuth(),
-//   paymentController.createCheckoutSession
-// );
+router.post(
+  "/initiate",
+  checkAuth(),
+  validateRequest(paymentValidation.initiatePaymentSchema),
+  paymentController.initiatePayment
+);
 
-// // router.post(
-// //   "/webhook",
-// //   express.raw({ type: "application/json" }),
-// //   paymentController.handlerStripeWebhookEvent
-// // );
+router.get(
+  "/me",
+  checkAuth(),
+  paymentController.getMyPayments
+);
 
-// router.get(
-//   "/my-subscription",
-//   checkAuth(),
-//   paymentController.getMySubscription
-// );
+router.get(
+  "/:id/invoice",
+  checkAuth(),
+  paymentController.getInvoice
+);
 
 export const paymentRoutes = router;
-

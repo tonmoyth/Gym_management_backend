@@ -36,6 +36,10 @@ const handleJobWithRetry = async (jobData: any, attempt: number = 1) => {
     try {
         if (jobData.eventType === 'BUSINESS_ANNOUNCEMENT_CREATED') {
             await processAnnouncement(jobData);
+        } else if (jobData.eventType === 'MEMBERSHIP_APPROVED') {
+            await processMembershipApproved(jobData);
+        } else if (jobData.eventType === 'MEMBERSHIP_REJECTED') {
+            await processMembershipRejected(jobData);
         } else {
             // Unhandled event type, just log it for now
             console.log(`ℹ️ Notification Worker received unhandled event type: ${jobData.eventType}`);
@@ -135,4 +139,90 @@ const processAnnouncement = async (data: any) => {
     }
     
     console.log(`✅ Successfully processed announcement ${announcementId}`);
+};
+
+const processMembershipApproved = async (data: any) => {
+    const {
+        userId,
+        userEmail,
+        userName,
+        membershipId,
+        businessId,
+        businessName,
+        planName,
+        startDate,
+        endDate
+    } = data;
+
+    const idempotencyKey = `processed:membership_approved:${membershipId}`;
+    const alreadyProcessed = await redis.setnx(idempotencyKey, '1');
+    if (alreadyProcessed === 0) {
+        console.log(`⏭️ Membership approval ${membershipId} already processed. Skipping.`);
+        return;
+    }
+    
+    await redis.expire(idempotencyKey, 30 * 24 * 60 * 60);
+
+    // In-app Notification
+    await NotificationService.createNotification(
+        userId,
+        'Membership Approved',
+        `Your ${planName} membership booking at ${businessName} has been approved.`,
+        NotificationType.BOOKING,
+        { membershipId, businessId, planId: planName, status: 'ACTIVE' }
+    );
+
+    // Email
+    if (userEmail) {
+        await MailService.sendMembershipApprovedEmail(
+            userName,
+            userEmail,
+            businessName,
+            planName,
+            startDate,
+            endDate
+        );
+    }
+};
+
+const processMembershipRejected = async (data: any) => {
+    const {
+        userId,
+        userEmail,
+        userName,
+        membershipId,
+        businessId,
+        businessName,
+        planName,
+        refundStatus
+    } = data;
+
+    const idempotencyKey = `processed:membership_rejected:${membershipId}`;
+    const alreadyProcessed = await redis.setnx(idempotencyKey, '1');
+    if (alreadyProcessed === 0) {
+        console.log(`⏭️ Membership rejection ${membershipId} already processed. Skipping.`);
+        return;
+    }
+    
+    await redis.expire(idempotencyKey, 30 * 24 * 60 * 60);
+
+    // In-app Notification
+    await NotificationService.createNotification(
+        userId,
+        'Membership Booking Rejected',
+        `Your ${planName} membership booking at ${businessName} has been rejected by the business.`,
+        NotificationType.BOOKING,
+        { membershipId, businessId, planId: planName, status: 'REJECTED', refundStatus }
+    );
+
+    // Email
+    if (userEmail) {
+        await MailService.sendMembershipRejectedEmail(
+            userName,
+            userEmail,
+            businessName,
+            planName,
+            refundStatus
+        );
+    }
 };

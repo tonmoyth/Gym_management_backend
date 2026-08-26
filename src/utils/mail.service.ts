@@ -178,9 +178,108 @@ const sendBulkAnnouncementEmail = async (
     }
 };
 
+const sendMembershipApprovedEmail = async (
+    memberName: string,
+    memberEmail: string,
+    businessName: string,
+    planName: string,
+    startDate: string,
+    endDate: string
+) => {
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: #2c3e50; text-align: center;">Membership Approved 🎉</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${memberName},</p>
+            <p style="font-size: 16px; color: #333;">
+                Your <strong>${planName}</strong> membership booking at <strong>${businessName}</strong> has been approved!
+            </p>
+            <p style="font-size: 16px; color: #333;">
+                Your membership is valid from <strong>${new Date(startDate).toLocaleDateString()}</strong> to <strong>${new Date(endDate).toLocaleDateString()}</strong>.
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="${envVeriables.FRONTEND_URL}/dashboard" style="background-color: #3498db; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                    Go to Dashboard
+                </a>
+            </div>
+            <p style="font-size: 14px; color: #7f8c8d;">
+                If you have any questions, feel free to contact the gym directly.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management System. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"${businessName}" <${envVeriables.EMAIL_USER}>`,
+            to: memberEmail,
+            subject: 'Your Membership Booking is Approved! 🎉',
+            html: htmlContent,
+        });
+        console.log(`✅ Membership approval email sent to ${memberEmail}`);
+    } catch (error: any) {
+        console.error('❌ Failed to send membership approval email:', error.message);
+        throw error;
+    }
+};
+
+const sendMembershipRejectedEmail = async (
+    memberName: string,
+    memberEmail: string,
+    businessName: string,
+    planName: string,
+    refundStatus: string
+) => {
+    let refundMessage = '';
+    if (refundStatus === 'REFUNDED') {
+        refundMessage = 'Your payment has been refunded.';
+    } else if (refundStatus === 'REFUND_PENDING') {
+        refundMessage = 'Your refund is being processed.';
+    } else if (refundStatus === 'REFUND_FAILED') {
+        refundMessage = 'We attempted to refund your payment but it failed. Please contact support.';
+    }
+
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: #2c3e50; text-align: center;">Membership Booking Update</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${memberName},</p>
+            <p style="font-size: 16px; color: #333;">
+                Your <strong>${planName}</strong> membership booking at <strong>${businessName}</strong> has been rejected by the business owner.
+            </p>
+            <p style="font-size: 16px; color: #333; font-weight: bold;">
+                ${refundMessage}
+            </p>
+            <p style="font-size: 14px; color: #7f8c8d;">
+                If you have any questions, feel free to contact the gym directly or our support team.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management System. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"${businessName}" <${envVeriables.EMAIL_USER}>`,
+            to: memberEmail,
+            subject: 'Update on Your Membership Booking',
+            html: htmlContent,
+        });
+        console.log(`✅ Membership rejection email sent to ${memberEmail}`);
+    } catch (error: any) {
+        console.error('❌ Failed to send membership rejection email:', error.message);
+        throw error;
+    }
+};
+
 export const MailService = {
     sendApplicationApprovedEmail,
     sendApplicationRejectedEmail,
     sendTrainerRemovedEmail,
     sendBulkAnnouncementEmail,
+    sendMembershipApprovedEmail,
+    sendMembershipRejectedEmail,
 };
