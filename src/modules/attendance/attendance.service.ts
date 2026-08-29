@@ -485,6 +485,80 @@ const memberCheckIn = async (userId: string, businessId: string) => {
   return log;
 };
 
+const memberCheckOut = async (userId: string, businessId: string) => {
+  const member = await prisma.memberProfile.findUnique({
+    where: { userId },
+  });
+
+  if (!member) {
+    throw new AppError(httpStatus.NOT_FOUND, "Member profile not found");
+  }
+
+  const membership = await prisma.membership.findFirst({
+    where: {
+      memberId: member.id,
+      businessId,
+      status: "ACTIVE",
+      OR: [
+        { endDate: null },
+        { endDate: { gte: new Date() } }
+      ]
+    },
+  });
+
+  if (!membership) {
+    throw new AppError(httpStatus.BAD_REQUEST, "You do not have an active membership for this business.");
+  }
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  // Use transaction for check and create
+  const log = await prisma.$transaction(async (tx) => {
+    const recentLog = await tx.attendanceLog.findFirst({
+      where: {
+        memberId: member.id,
+        businessId,
+        attendanceTime: {
+          gte: today,
+          lt: tomorrow,
+        }
+      },
+      orderBy: { attendanceTime: 'desc' },
+    });
+
+    if (!recentLog || recentLog.attendanceType === BiometricAttendanceType.CHECK_OUT) {
+      throw new AppError(httpStatus.CONFLICT, "Member is not currently checked in.");
+    }
+
+    return await tx.attendanceLog.create({
+      data: {
+        businessId,
+        memberId: member.id,
+        attendanceType: BiometricAttendanceType.CHECK_OUT,
+        verifyMethod: VerifyMethod.MANUAL,
+        attendanceTime: new Date(),
+        rawPayload: "Manual Check-out via App",
+      },
+    });
+  });
+
+  // Push Redis Event
+  pushJob("attendance_queue", {
+    eventType: "ATTENDANCE_CREATED",
+    attendanceId: log.id,
+    businessId: log.businessId,
+    memberId: log.memberId,
+    type: log.attendanceType,
+    time: log.attendanceTime,
+  });
+
+  return log;
+};
+
 const getMyAttendance = async (userId: string, queryParams: any) => {
   const member = await prisma.memberProfile.findUnique({
     where: { userId },
@@ -644,5 +718,6 @@ export const AttendanceService = {
   getTodayAttendanceSummary,
   getMemberAttendanceHistory,
   memberCheckIn,
+  memberCheckOut,
   getMyAttendance,
 };

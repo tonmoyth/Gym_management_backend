@@ -210,6 +210,20 @@ const getMyAttendance = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const memberCheckOut = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const { businessId } = req.body;
+
+  const result = await AttendanceService.memberCheckOut(userId, businessId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Attendance checked out successfully.",
+    data: result,
+  });
+});
+
 export const AttendanceController = {
   registerDevice,
   getDevices,
@@ -221,5 +235,6 @@ export const AttendanceController = {
   getTodayAttendanceSummary,
   getMemberAttendanceHistory,
   memberCheckIn,
+  memberCheckOut,
   getMyAttendance,
 };

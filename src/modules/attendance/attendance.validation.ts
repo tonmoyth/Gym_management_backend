@@ -71,6 +71,12 @@ const getMyAttendanceValidation = z.object({
   }).passthrough(),
 });
 
+const memberCheckOutValidation = z.object({
+  body: z.object({
+    businessId: z.string().uuid("Invalid businessId UUID"),
+  }),
+});
+
 export const AttendanceValidations = {
   registerDeviceValidation,
   getDevicesValidation,
@@ -81,4 +87,5 @@ export const AttendanceValidations = {
   testDeviceAttendanceValidation,
   memberCheckInValidation,
   getMyAttendanceValidation,
+  memberCheckOutValidation,
 };

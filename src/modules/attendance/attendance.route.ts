@@ -101,6 +101,14 @@ router.post(
   AttendanceController.memberCheckIn
 );
 
+router.post(
+  "/check-out",
+  // @ts-ignore
+  checkAuth(Role.MEMBER),
+  validateRequest(AttendanceValidations.memberCheckOutValidation),
+  AttendanceController.memberCheckOut
+);
+
 router.get(
   "/me",
   // @ts-ignore
