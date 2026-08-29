@@ -42,6 +42,26 @@ const getClassSchedules = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getClassScheduleDetails = catchAsync(async (req: Request, res: Response) => {
+  const { businessId, id } = req.params;
+  const userId = req.user.id;
+  const role = req.user.role;
+
+  const result = await ClassScheduleService.getClassScheduleDetails(
+    userId,
+    role,
+    businessId as string,
+    id as string
+  );
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Class schedule details retrieved successfully.",
+    data: result,
+  });
+});
+
 const updateClassSchedule = catchAsync(async (req: Request, res: Response) => {
   const { businessId, id } = req.params;
   const ownerId = req.user.id;
@@ -82,6 +102,7 @@ const cancelClassSchedule = catchAsync(async (req: Request, res: Response) => {
 export const ClassScheduleController = {
   createClassSchedule,
   getClassSchedules,
+  getClassScheduleDetails,
   updateClassSchedule,
   cancelClassSchedule,
 };

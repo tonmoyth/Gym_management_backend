@@ -58,6 +58,19 @@ const testDeviceAttendanceValidation = z.object({
   }),
 });
 
+const memberCheckInValidation = z.object({
+  body: z.object({
+    businessId: z.string().uuid("Invalid businessId UUID"),
+  }),
+});
+
+const getMyAttendanceValidation = z.object({
+  query: z.object({
+    dateFrom: z.string().datetime().optional(),
+    dateTo: z.string().datetime().optional(),
+  }).passthrough(),
+});
+
 export const AttendanceValidations = {
   registerDeviceValidation,
   getDevicesValidation,
@@ -66,4 +79,6 @@ export const AttendanceValidations = {
   getSummaryValidation,
   getMemberHistoryValidation,
   testDeviceAttendanceValidation,
+  memberCheckInValidation,
+  getMyAttendanceValidation,
 };

@@ -156,6 +156,7 @@ enum VerifyMethod {
   FACE
   RFID
   PASSWORD
+  MANUAL
 }
 
 enum BiometricAttendanceType {

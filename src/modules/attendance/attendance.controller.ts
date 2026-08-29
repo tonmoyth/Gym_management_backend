@@ -182,6 +182,34 @@ const getMemberAttendanceHistory = catchAsync(
   },
 );
 
+const memberCheckIn = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const { businessId } = req.body;
+
+  const result = await AttendanceService.memberCheckIn(userId, businessId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Attendance checked in successfully.",
+    data: result,
+  });
+});
+
+const getMyAttendance = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+
+  const result = await AttendanceService.getMyAttendance(userId, req.query);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Attendance retrieved successfully.",
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
 export const AttendanceController = {
   registerDevice,
   getDevices,
@@ -192,4 +220,6 @@ export const AttendanceController = {
   getAttendanceReport,
   getTodayAttendanceSummary,
   getMemberAttendanceHistory,
+  memberCheckIn,
+  getMyAttendance,
 };

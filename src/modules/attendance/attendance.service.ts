@@ -4,7 +4,7 @@ import httpStatus from "http-status";
 import { QueryBuilder } from "../../utils/queryBuilder";
 import { pushJob } from "../../utils/redisQueue";
 import { AttendanceEvent } from "./attendance.parser";
-import { DeviceStatus } from "../../generated/prisma/client";
+import { DeviceStatus, BiometricAttendanceType, VerifyMethod } from "../../generated/prisma/client";
 
 // ==========================================
 // Device Management
@@ -411,6 +411,229 @@ const getMemberAttendanceHistory = async (userId: string, businessId: string, me
   };
 };
 
+const memberCheckIn = async (userId: string, businessId: string) => {
+  const member = await prisma.memberProfile.findUnique({
+    where: { userId },
+  });
+
+  if (!member) {
+    throw new AppError(httpStatus.NOT_FOUND, "Member profile not found");
+  }
+
+  const membership = await prisma.membership.findFirst({
+    where: {
+      memberId: member.id,
+      businessId,
+      status: "ACTIVE",
+      OR: [
+        { endDate: null },
+        { endDate: { gte: new Date() } }
+      ]
+    },
+  });
+
+  if (!membership) {
+    throw new AppError(httpStatus.BAD_REQUEST, "You do not have an active membership for this business.");
+  }
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  // Use transaction for check and create
+  const log = await prisma.$transaction(async (tx) => {
+    const recentLog = await tx.attendanceLog.findFirst({
+      where: {
+        memberId: member.id,
+        businessId,
+        attendanceTime: {
+          gte: today,
+          lt: tomorrow,
+        }
+      },
+      orderBy: { attendanceTime: 'desc' },
+    });
+
+    if (recentLog && recentLog.attendanceType === BiometricAttendanceType.CHECK_IN) {
+      throw new AppError(httpStatus.CONFLICT, "Member is already checked in.");
+    }
+
+    return await tx.attendanceLog.create({
+      data: {
+        businessId,
+        memberId: member.id,
+        attendanceType: BiometricAttendanceType.CHECK_IN,
+        verifyMethod: VerifyMethod.MANUAL,
+        attendanceTime: new Date(),
+        rawPayload: "Manual Check-in via App",
+      },
+    });
+  });
+
+  // Push Redis Event
+  pushJob("attendance_queue", {
+    eventType: "ATTENDANCE_CREATED",
+    attendanceId: log.id,
+    businessId: log.businessId,
+    memberId: log.memberId,
+    type: log.attendanceType,
+    time: log.attendanceTime,
+  });
+
+  return log;
+};
+
+const getMyAttendance = async (userId: string, queryParams: any) => {
+  const member = await prisma.memberProfile.findUnique({
+    where: { userId },
+  });
+
+  if (!member) {
+    throw new AppError(httpStatus.NOT_FOUND, "Member profile not found");
+  }
+
+  const params = { ...queryParams };
+  const whereConditions: any = { memberId: member.id };
+  
+  if (params.dateFrom || params.dateTo) {
+    whereConditions.attendanceTime = {};
+    if (params.dateFrom) whereConditions.attendanceTime.gte = new Date(params.dateFrom);
+    if (params.dateTo) whereConditions.attendanceTime.lte = new Date(params.dateTo);
+  }
+
+  const historyQuery = new QueryBuilder(
+    prisma.attendanceLog,
+    { ...params, sortBy: params.sortBy || "attendanceTime", sortOrder: params.sortOrder || "desc" },
+    { searchableFields: [], filterableFields: [] }
+  )
+    .sort()
+    .paginate()
+    .where(whereConditions);
+
+  const args = historyQuery.getQuery();
+  delete args.include;
+  args.select = {
+    id: true,
+    attendanceType: true,
+    verifyMethod: true,
+    attendanceTime: true,
+    business: {
+      select: { name: true }
+    }
+  };
+
+  const [total, data] = await Promise.all([
+    historyQuery.count(),
+    prisma.attendanceLog.findMany(args as any),
+  ]);
+
+  // Calculate Streak
+  const allLogs = await prisma.attendanceLog.findMany({
+    where: { memberId: member.id },
+    select: { attendanceTime: true },
+    orderBy: { attendanceTime: 'desc' },
+  });
+
+  const attendedDates = new Set<string>();
+  allLogs.forEach(log => {
+    const dateStr = log.attendanceTime.toISOString().split('T')[0];
+    attendedDates.add(dateStr);
+  });
+
+  const uniqueDates = Array.from(attendedDates).sort((a, b) => (a < b ? 1 : -1));
+
+  let currentStreak = 0;
+  let longestStreak = 0;
+
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+  let checkDate = new Date();
+  if (attendedDates.has(todayStr) || attendedDates.has(yesterdayStr)) {
+    if (!attendedDates.has(todayStr)) {
+      checkDate = yesterday;
+    }
+    
+    while (true) {
+      const dateStr = checkDate.toISOString().split('T')[0];
+      if (attendedDates.has(dateStr)) {
+        currentStreak++;
+        checkDate.setDate(checkDate.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+  }
+
+  if (uniqueDates.length > 0) {
+    let currentLongest = 1;
+    longestStreak = 1;
+    for (let i = 0; i < uniqueDates.length - 1; i++) {
+      const curr = new Date(uniqueDates[i]);
+      const prev = new Date(uniqueDates[i + 1]);
+      
+      const diffTime = Math.abs(curr.getTime() - prev.getTime());
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (diffDays === 1) {
+        currentLongest++;
+        if (currentLongest > longestStreak) {
+          longestStreak = currentLongest;
+        }
+      } else {
+        currentLongest = 1;
+      }
+    }
+  }
+
+  const historyMap = new Map<string, any>();
+  for (const log of data) {
+    const date = log.attendanceTime.toISOString().split('T')[0];
+    if (!historyMap.has(date)) {
+      historyMap.set(date, {
+        id: log.id,
+        date,
+        checkIn: null,
+        checkOut: null,
+        method: log.verifyMethod,
+        business: (log as any).business?.name,
+      });
+    }
+    const dayData = historyMap.get(date);
+    if (log.attendanceType === BiometricAttendanceType.CHECK_IN) {
+      if (!dayData.checkIn || log.attendanceTime < dayData.checkIn) {
+        dayData.checkIn = log.attendanceTime;
+      }
+    } else {
+      if (!dayData.checkOut || log.attendanceTime > dayData.checkOut) {
+        dayData.checkOut = log.attendanceTime;
+      }
+    }
+  }
+
+  return {
+    meta: {
+      page: Number(params.page) || 1,
+      limit: Number(params.limit) || 10,
+      total,
+      totalPages: Math.ceil(total / (Number(params.limit) || 10)),
+    },
+    data: {
+      summary: {
+        totalDays: uniqueDates.length,
+        currentStreak,
+        longestStreak,
+      },
+      history: Array.from(historyMap.values()),
+    },
+  };
+};
+
 export const AttendanceService = {
   registerDevice,
   getDevices,
@@ -420,4 +643,6 @@ export const AttendanceService = {
   getAttendanceReport,
   getTodayAttendanceSummary,
   getMemberAttendanceHistory,
+  memberCheckIn,
+  getMyAttendance,
 };

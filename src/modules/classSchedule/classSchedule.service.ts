@@ -126,6 +126,54 @@ const getClassSchedules = async (userId: string, role: string, businessId: strin
   };
 };
 
+const getClassScheduleDetails = async (userId: string, role: string, businessId: string, id: string) => {
+  if (role === "MEMBER") {
+    const activeMembership = await prisma.membership.findFirst({
+      where: { member: { userId }, businessId, status: "ACTIVE" },
+    });
+    if (!activeMembership) throw new AppError(403, "Forbidden. You do not have an active membership in this business.");
+  } else if (role === "TRAINER") {
+    const assignedTrainer = await prisma.trainerBusiness.findFirst({
+      where: { trainer: { userId }, businessId, isActive: true },
+    });
+    if (!assignedTrainer) throw new AppError(403, "Forbidden. You are not assigned to this business.");
+  } else if (role === "BUSINESS_OWNER") {
+    const business = await prisma.business.findUnique({ where: { id: businessId } });
+    if (!business || business.ownerId !== userId) {
+      throw new AppError(403, "Forbidden. You do not own this business.");
+    }
+  } else {
+    throw new AppError(403, "Forbidden. Invalid role for accessing class schedules.");
+  }
+
+  const classSchedule = await prisma.classSchedule.findUnique({
+    where: { id, businessId },
+    include: {
+      trainer: { select: { id: true, user: { select: { fullName: true } } } },
+      _count: {
+        select: {
+          bookings: { where: { status: "CONFIRMED" } }
+        }
+      }
+    }
+  });
+
+  if (!classSchedule) throw new AppError(404, "Class schedule not found.");
+
+  return {
+    id: classSchedule.id,
+    title: classSchedule.title,
+    trainer: classSchedule.trainer ? {
+      id: classSchedule.trainer.id,
+      name: classSchedule.trainer.user?.fullName || "",
+    } : null,
+    startTime: classSchedule.startTime,
+    endTime: classSchedule.endTime,
+    capacity: classSchedule.capacity,
+    bookedSlotCount: classSchedule._count.bookings,
+  };
+};
+
 const updateClassSchedule = async (ownerId: string, businessId: string, id: string, payload: any) => {
   const business = await prisma.business.findUnique({ where: { id: businessId } });
   if (!business) throw new AppError(404, "Business not found.");
@@ -231,6 +279,7 @@ const cancelClassSchedule = async (ownerId: string, businessId: string, id: stri
 export const ClassScheduleService = {
   createClassSchedule,
   getClassSchedules,
+  getClassScheduleDetails,
   updateClassSchedule,
   cancelClassSchedule,
 };

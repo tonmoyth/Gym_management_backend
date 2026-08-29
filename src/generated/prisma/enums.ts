@@ -238,7 +238,8 @@ export const VerifyMethod = {
   FINGERPRINT: 'FINGERPRINT',
   FACE: 'FACE',
   RFID: 'RFID',
-  PASSWORD: 'PASSWORD'
+  PASSWORD: 'PASSWORD',
+  MANUAL: 'MANUAL'
 } as const
 
 export type VerifyMethod = (typeof VerifyMethod)[keyof typeof VerifyMethod]

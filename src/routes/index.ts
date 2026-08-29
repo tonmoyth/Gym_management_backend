@@ -25,6 +25,7 @@ import { notificationRoutes } from "../modules/notification/notification.route";
 import { disputeRoutes } from "../modules/dispute/dispute.route";
 import { payoutRoutes } from "../modules/payout/payout.route";
 import { membershipRoutes } from "../modules/membership/membership.route";
+import { classBookingRoutes } from "../modules/classSchedule/classBooking.route";
 
 const router = express.Router();
 
@@ -132,6 +133,10 @@ const moduleRoutes = [
     {
         path: "/memberships",
         route: membershipRoutes,
+    },
+    {
+        path: "/classes",
+        route: classBookingRoutes,
     },
 ];
 

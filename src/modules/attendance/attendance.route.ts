@@ -89,4 +89,24 @@ router.get(
   AttendanceController.getMemberAttendanceHistory
 );
 
+// ==========================================
+// Member Endpoints
+// ==========================================
+
+router.post(
+  "/check-in",
+  // @ts-ignore
+  checkAuth(Role.MEMBER),
+  validateRequest(AttendanceValidations.memberCheckInValidation),
+  AttendanceController.memberCheckIn
+);
+
+router.get(
+  "/me",
+  // @ts-ignore
+  checkAuth(Role.MEMBER),
+  validateRequest(AttendanceValidations.getMyAttendanceValidation),
+  AttendanceController.getMyAttendance
+);
+
 export const attendanceRoutes = router;

@@ -61,6 +61,12 @@ const updateClassScheduleValidation = z.object({
 const deleteClassScheduleValidation = z.object({
   params: z.object({
     businessId: z.string({ message: "Business ID is required." }).uuid({ message: "Business ID must be a valid UUID." }),
+  }),
+});
+
+const getClassScheduleDetailsValidation = z.object({
+  params: z.object({
+    businessId: z.string({ message: "Business ID is required." }).uuid({ message: "Business ID must be a valid UUID." }),
     id: z.string({ message: "Class ID is required." }).uuid({ message: "Class ID must be a valid UUID." }),
   }),
 });
@@ -68,6 +74,7 @@ const deleteClassScheduleValidation = z.object({
 export const ClassScheduleValidations = {
   createClassScheduleValidation,
   getClassSchedulesValidation,
+  getClassScheduleDetailsValidation,
   updateClassScheduleValidation,
   deleteClassScheduleValidation,
 };

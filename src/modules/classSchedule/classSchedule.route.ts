@@ -10,7 +10,7 @@ const router = express.Router();
 router.post(
   "/:businessId/classes",
   // @ts-ignore
-  checkAuth(USER_ROLE.BUSINESS_OWNER),
+  checkAuth(USER_ROLE.BUSINESS_OWNER, USER_ROLE.MEMBER),
   validateRequest(ClassScheduleValidations.createClassScheduleValidation),
   ClassScheduleController.createClassSchedule
 );
@@ -21,6 +21,14 @@ router.get(
   checkAuth(USER_ROLE.BUSINESS_OWNER, USER_ROLE.MEMBER, USER_ROLE.TRAINER),
   validateRequest(ClassScheduleValidations.getClassSchedulesValidation),
   ClassScheduleController.getClassSchedules
+);
+
+router.get(
+  "/:businessId/classes/:id",
+  // @ts-ignore
+  checkAuth(USER_ROLE.BUSINESS_OWNER, USER_ROLE.MEMBER, USER_ROLE.TRAINER),
+  validateRequest(ClassScheduleValidations.getClassScheduleDetailsValidation),
+  ClassScheduleController.getClassScheduleDetails
 );
 
 router.patch(
