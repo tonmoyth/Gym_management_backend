@@ -302,8 +302,58 @@ const getMemberDietPlan = async (trainerUserId: string, memberId: string) => {
   };
 };
 
+const getMyDietPlan = async (userId: string) => {
+  const memberProfile = await prisma.memberProfile.findUnique({
+    where: { userId },
+  });
+
+  if (!memberProfile) {
+    throw new AppError(404, "Member not found.");
+  }
+
+  const dietPlan = await prisma.dietPlan.findFirst({
+    where: {
+      memberId: memberProfile.id,
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
+    include: {
+      trainer: { include: { user: { select: { fullName: true } } } },
+      member: { include: { user: { select: { fullName: true } } } },
+    },
+  });
+
+  if (!dietPlan) {
+    return null;
+  }
+
+  const content = dietPlan.content as any;
+
+  return {
+    id: dietPlan.id,
+    title: content.title || "",
+    goal: content.goal || "",
+    dailyCalories: content.dailyCalories || 0,
+    startDate: content.startDate || "",
+    endDate: content.endDate || "",
+    notes: content.notes || "",
+    meals: content.meals || [],
+    trainer: {
+      id: dietPlan.trainerId,
+      name: dietPlan.trainer.user?.fullName || "",
+    },
+    member: {
+      id: dietPlan.memberId,
+      name: dietPlan.member.user?.fullName || "",
+    },
+    updatedAt: dietPlan.updatedAt,
+  };
+};
+
 export const DietPlanService = {
   createDietPlan,
   updateDietPlan,
   getMemberDietPlan,
+  getMyDietPlan,
 };

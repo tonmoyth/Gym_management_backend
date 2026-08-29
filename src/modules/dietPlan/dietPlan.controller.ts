@@ -47,8 +47,22 @@ const getMemberDietPlan = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getMyDietPlan = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+
+  const result = await DietPlanService.getMyDietPlan(userId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: result ? "Diet plan retrieved successfully." : "No diet plan assigned.",
+    data: result,
+  });
+});
+
 export const DietPlanController = {
   createDietPlan,
   updateDietPlan,
   getMemberDietPlan,
+  getMyDietPlan,
 };

@@ -4,6 +4,7 @@ import validateRequest from '../../middlewares/validateRequest';
 import { DietPlanValidations } from './dietPlan.validation';
 import { checkAuth } from '../../middlewares/checkAuth';
 import { USER_ROLE } from '../Business/business.constant';
+import { Role } from '../../generated/prisma/client';
 
 const router = express.Router();
 
@@ -29,6 +30,13 @@ router.get(
     checkAuth(USER_ROLE.TRAINER),
     validateRequest(DietPlanValidations.getDietPlanValidation),
     DietPlanController.getMemberDietPlan
+);
+
+router.get(
+    '/me',
+    // @ts-ignore
+    checkAuth(Role.MEMBER),
+    DietPlanController.getMyDietPlan
 );
 
 export const dietPlanRoutes = router;

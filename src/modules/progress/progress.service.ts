@@ -84,7 +84,55 @@ const getMemberProgressHistory = async (trainerUserId: string, memberId: string,
   return result;
 };
 
+const createSelfProgress = async (userId: string, payload: ICreateProgressPayload) => {
+  const memberProfile = await prisma.memberProfile.findUnique({
+    where: { userId },
+  });
+
+  if (!memberProfile) {
+    throw new AppError(404, "Member not found.");
+  }
+
+  const progressEntry = await prisma.progressLog.create({
+    data: {
+      memberId: memberProfile.id,
+      source: ProgressSource.SELF,
+      loggedByUserId: userId,
+      weight: payload.weight,
+      bmi: payload.bmi,
+      measurements: payload.measurements,
+      workoutLog: payload.workoutLog,
+      loggedAt: payload.loggedAt || new Date(),
+    },
+  });
+
+  return progressEntry;
+};
+
+const getMyProgress = async (userId: string, query: Record<string, unknown>) => {
+  const memberProfile = await prisma.memberProfile.findUnique({
+    where: { userId },
+  });
+
+  if (!memberProfile) {
+    throw new AppError(404, "Member not found.");
+  }
+
+  const queryBuilder = new QueryBuilder(prisma.progressLog as any, { ...(query as Record<string, string>), sortBy: (query.sortBy as string) || 'loggedAt', sortOrder: (query.sortOrder as "asc" | "desc") || 'desc' })
+    .where({ memberId: memberProfile.id })
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await queryBuilder.execute();
+
+  return result;
+};
+
 export const ProgressService = {
   createProgressEntry,
   getMemberProgressHistory,
+  createSelfProgress,
+  getMyProgress,
 };
