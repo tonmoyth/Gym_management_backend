@@ -10,7 +10,7 @@ const router = express.Router();
 router.get(
   '/',
   // @ts-ignore
-  checkAuth(USER_ROLE.TRAINER),
+  checkAuth(USER_ROLE.TRAINER, USER_ROLE.MEMBER),
   validateRequest(NotificationValidations.getMyNotificationsValidation),
   NotificationController.getMyNotifications
 );
@@ -18,7 +18,7 @@ router.get(
 router.patch(
   '/:id/read',
   // @ts-ignore
-  checkAuth(USER_ROLE.TRAINER),
+  checkAuth(USER_ROLE.TRAINER, USER_ROLE.MEMBER),
   validateRequest(NotificationValidations.markNotificationAsReadValidation),
   NotificationController.markNotificationAsRead
 );
