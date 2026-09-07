@@ -28,6 +28,7 @@ export type MemberProfileMinAggregateOutputType = {
   id: string | null
   userId: string | null
   fitnessGoalTagId: string | null
+  referralCode: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -36,6 +37,7 @@ export type MemberProfileMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   fitnessGoalTagId: string | null
+  referralCode: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +46,7 @@ export type MemberProfileCountAggregateOutputType = {
   id: number
   userId: number
   fitnessGoalTagId: number
+  referralCode: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -54,6 +57,7 @@ export type MemberProfileMinAggregateInputType = {
   id?: true
   userId?: true
   fitnessGoalTagId?: true
+  referralCode?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -62,6 +66,7 @@ export type MemberProfileMaxAggregateInputType = {
   id?: true
   userId?: true
   fitnessGoalTagId?: true
+  referralCode?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -70,6 +75,7 @@ export type MemberProfileCountAggregateInputType = {
   id?: true
   userId?: true
   fitnessGoalTagId?: true
+  referralCode?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -151,6 +157,7 @@ export type MemberProfileGroupByOutputType = {
   id: string
   userId: string
   fitnessGoalTagId: string | null
+  referralCode: string | null
   createdAt: Date
   updatedAt: Date
   _count: MemberProfileCountAggregateOutputType | null
@@ -180,6 +187,7 @@ export type MemberProfileWhereInput = {
   id?: Prisma.StringFilter<"MemberProfile"> | string
   userId?: Prisma.StringFilter<"MemberProfile"> | string
   fitnessGoalTagId?: Prisma.StringNullableFilter<"MemberProfile"> | string | null
+  referralCode?: Prisma.StringNullableFilter<"MemberProfile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"MemberProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MemberProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -200,6 +208,7 @@ export type MemberProfileOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fitnessGoalTagId?: Prisma.SortOrderInput | Prisma.SortOrder
+  referralCode?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -219,6 +228,7 @@ export type MemberProfileOrderByWithRelationInput = {
 export type MemberProfileWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   userId?: string
+  referralCode?: string
   AND?: Prisma.MemberProfileWhereInput | Prisma.MemberProfileWhereInput[]
   OR?: Prisma.MemberProfileWhereInput[]
   NOT?: Prisma.MemberProfileWhereInput | Prisma.MemberProfileWhereInput[]
@@ -237,12 +247,13 @@ export type MemberProfileWhereUniqueInput = Prisma.AtLeast<{
   reviews?: Prisma.ReviewListRelationFilter
   attendanceLogs?: Prisma.AttendanceLogListRelationFilter
   memberBiometrics?: Prisma.MemberBiometricListRelationFilter
-}, "id" | "userId">
+}, "id" | "userId" | "referralCode">
 
 export type MemberProfileOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fitnessGoalTagId?: Prisma.SortOrderInput | Prisma.SortOrder
+  referralCode?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MemberProfileCountOrderByAggregateInput
@@ -257,12 +268,14 @@ export type MemberProfileScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"MemberProfile"> | string
   userId?: Prisma.StringWithAggregatesFilter<"MemberProfile"> | string
   fitnessGoalTagId?: Prisma.StringNullableWithAggregatesFilter<"MemberProfile"> | string | null
+  referralCode?: Prisma.StringNullableWithAggregatesFilter<"MemberProfile"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MemberProfile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"MemberProfile"> | Date | string
 }
 
 export type MemberProfileCreateInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
@@ -283,6 +296,7 @@ export type MemberProfileUncheckedCreateInput = {
   id?: string
   userId: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
@@ -299,6 +313,7 @@ export type MemberProfileUncheckedCreateInput = {
 
 export type MemberProfileUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
@@ -319,6 +334,7 @@ export type MemberProfileUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
@@ -337,12 +353,14 @@ export type MemberProfileCreateManyInput = {
   id?: string
   userId: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type MemberProfileUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -351,6 +369,7 @@ export type MemberProfileUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -364,6 +383,7 @@ export type MemberProfileCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fitnessGoalTagId?: Prisma.SortOrder
+  referralCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -372,6 +392,7 @@ export type MemberProfileMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fitnessGoalTagId?: Prisma.SortOrder
+  referralCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -380,6 +401,7 @@ export type MemberProfileMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fitnessGoalTagId?: Prisma.SortOrder
+  referralCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -615,6 +637,7 @@ export type MemberProfileUncheckedUpdateOneWithoutUserNestedInput = {
 
 export type MemberProfileCreateWithoutAttendanceLogsInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
@@ -634,6 +657,7 @@ export type MemberProfileUncheckedCreateWithoutAttendanceLogsInput = {
   id?: string
   userId: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
@@ -665,6 +689,7 @@ export type MemberProfileUpdateToOneWithWhereWithoutAttendanceLogsInput = {
 
 export type MemberProfileUpdateWithoutAttendanceLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
@@ -684,6 +709,7 @@ export type MemberProfileUncheckedUpdateWithoutAttendanceLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
@@ -699,6 +725,7 @@ export type MemberProfileUncheckedUpdateWithoutAttendanceLogsInput = {
 
 export type MemberProfileCreateWithoutChatThreadsInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
@@ -718,6 +745,7 @@ export type MemberProfileUncheckedCreateWithoutChatThreadsInput = {
   id?: string
   userId: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   classBookings?: Prisma.ClassBookingUncheckedCreateNestedManyWithoutMemberInput
@@ -749,6 +777,7 @@ export type MemberProfileUpdateToOneWithWhereWithoutChatThreadsInput = {
 
 export type MemberProfileUpdateWithoutChatThreadsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
@@ -768,6 +797,7 @@ export type MemberProfileUncheckedUpdateWithoutChatThreadsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classBookings?: Prisma.ClassBookingUncheckedUpdateManyWithoutMemberNestedInput
@@ -783,6 +813,7 @@ export type MemberProfileUncheckedUpdateWithoutChatThreadsInput = {
 
 export type MemberProfileCreateWithoutClassBookingsInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
@@ -802,6 +833,7 @@ export type MemberProfileUncheckedCreateWithoutClassBookingsInput = {
   id?: string
   userId: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
@@ -833,6 +865,7 @@ export type MemberProfileUpdateToOneWithWhereWithoutClassBookingsInput = {
 
 export type MemberProfileUpdateWithoutClassBookingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
@@ -852,6 +885,7 @@ export type MemberProfileUncheckedUpdateWithoutClassBookingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
@@ -867,6 +901,7 @@ export type MemberProfileUncheckedUpdateWithoutClassBookingsInput = {
 
 export type MemberProfileCreateWithoutDietPlansInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
@@ -886,6 +921,7 @@ export type MemberProfileUncheckedCreateWithoutDietPlansInput = {
   id?: string
   userId: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
@@ -917,6 +953,7 @@ export type MemberProfileUpdateToOneWithWhereWithoutDietPlansInput = {
 
 export type MemberProfileUpdateWithoutDietPlansInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
@@ -936,6 +973,7 @@ export type MemberProfileUncheckedUpdateWithoutDietPlansInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
@@ -951,6 +989,7 @@ export type MemberProfileUncheckedUpdateWithoutDietPlansInput = {
 
 export type MemberProfileCreateWithoutFavoritesInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
@@ -970,6 +1009,7 @@ export type MemberProfileUncheckedCreateWithoutFavoritesInput = {
   id?: string
   userId: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
@@ -1001,6 +1041,7 @@ export type MemberProfileUpdateToOneWithWhereWithoutFavoritesInput = {
 
 export type MemberProfileUpdateWithoutFavoritesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
@@ -1020,6 +1061,7 @@ export type MemberProfileUncheckedUpdateWithoutFavoritesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
@@ -1035,6 +1077,7 @@ export type MemberProfileUncheckedUpdateWithoutFavoritesInput = {
 
 export type MemberProfileCreateWithoutMemberBiometricsInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
@@ -1054,6 +1097,7 @@ export type MemberProfileUncheckedCreateWithoutMemberBiometricsInput = {
   id?: string
   userId: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
@@ -1085,6 +1129,7 @@ export type MemberProfileUpdateToOneWithWhereWithoutMemberBiometricsInput = {
 
 export type MemberProfileUpdateWithoutMemberBiometricsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
@@ -1104,6 +1149,7 @@ export type MemberProfileUncheckedUpdateWithoutMemberBiometricsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
@@ -1119,6 +1165,7 @@ export type MemberProfileUncheckedUpdateWithoutMemberBiometricsInput = {
 
 export type MemberProfileCreateWithoutReferralsMadeInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
@@ -1138,6 +1185,7 @@ export type MemberProfileUncheckedCreateWithoutReferralsMadeInput = {
   id?: string
   userId: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
@@ -1169,6 +1217,7 @@ export type MemberProfileUpdateToOneWithWhereWithoutReferralsMadeInput = {
 
 export type MemberProfileUpdateWithoutReferralsMadeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
@@ -1188,6 +1237,7 @@ export type MemberProfileUncheckedUpdateWithoutReferralsMadeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
@@ -1203,6 +1253,7 @@ export type MemberProfileUncheckedUpdateWithoutReferralsMadeInput = {
 
 export type MemberProfileCreateWithoutMembershipsInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
@@ -1222,6 +1273,7 @@ export type MemberProfileUncheckedCreateWithoutMembershipsInput = {
   id?: string
   userId: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
@@ -1253,6 +1305,7 @@ export type MemberProfileUpdateToOneWithWhereWithoutMembershipsInput = {
 
 export type MemberProfileUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
@@ -1272,6 +1325,7 @@ export type MemberProfileUncheckedUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
@@ -1287,6 +1341,7 @@ export type MemberProfileUncheckedUpdateWithoutMembershipsInput = {
 
 export type MemberProfileCreateWithoutProgressLogsInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
@@ -1306,6 +1361,7 @@ export type MemberProfileUncheckedCreateWithoutProgressLogsInput = {
   id?: string
   userId: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
@@ -1337,6 +1393,7 @@ export type MemberProfileUpdateToOneWithWhereWithoutProgressLogsInput = {
 
 export type MemberProfileUpdateWithoutProgressLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
@@ -1356,6 +1413,7 @@ export type MemberProfileUncheckedUpdateWithoutProgressLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
@@ -1371,6 +1429,7 @@ export type MemberProfileUncheckedUpdateWithoutProgressLogsInput = {
 
 export type MemberProfileCreateWithoutReviewsInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
@@ -1390,6 +1449,7 @@ export type MemberProfileUncheckedCreateWithoutReviewsInput = {
   id?: string
   userId: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
@@ -1421,6 +1481,7 @@ export type MemberProfileUpdateToOneWithWhereWithoutReviewsInput = {
 
 export type MemberProfileUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
@@ -1440,6 +1501,7 @@ export type MemberProfileUncheckedUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
@@ -1455,6 +1517,7 @@ export type MemberProfileUncheckedUpdateWithoutReviewsInput = {
 
 export type MemberProfileCreateWithoutFitnessGoalTagInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMemberProfileInput
@@ -1473,6 +1536,7 @@ export type MemberProfileCreateWithoutFitnessGoalTagInput = {
 export type MemberProfileUncheckedCreateWithoutFitnessGoalTagInput = {
   id?: string
   userId: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
@@ -1520,12 +1584,14 @@ export type MemberProfileScalarWhereInput = {
   id?: Prisma.StringFilter<"MemberProfile"> | string
   userId?: Prisma.StringFilter<"MemberProfile"> | string
   fitnessGoalTagId?: Prisma.StringNullableFilter<"MemberProfile"> | string | null
+  referralCode?: Prisma.StringNullableFilter<"MemberProfile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"MemberProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MemberProfile"> | Date | string
 }
 
 export type MemberProfileCreateWithoutUserInput = {
   id?: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   fitnessGoalTag?: Prisma.SpecializationTagCreateNestedOneWithoutMemberProfilesInput
@@ -1544,6 +1610,7 @@ export type MemberProfileCreateWithoutUserInput = {
 export type MemberProfileUncheckedCreateWithoutUserInput = {
   id?: string
   fitnessGoalTagId?: string | null
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutMemberInput
@@ -1576,6 +1643,7 @@ export type MemberProfileUpdateToOneWithWhereWithoutUserInput = {
 
 export type MemberProfileUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fitnessGoalTag?: Prisma.SpecializationTagUpdateOneWithoutMemberProfilesNestedInput
@@ -1594,6 +1662,7 @@ export type MemberProfileUpdateWithoutUserInput = {
 export type MemberProfileUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fitnessGoalTagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
@@ -1611,12 +1680,14 @@ export type MemberProfileUncheckedUpdateWithoutUserInput = {
 export type MemberProfileCreateManyFitnessGoalTagInput = {
   id?: string
   userId: string
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type MemberProfileUpdateWithoutFitnessGoalTagInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMemberProfileNestedInput
@@ -1635,6 +1706,7 @@ export type MemberProfileUpdateWithoutFitnessGoalTagInput = {
 export type MemberProfileUncheckedUpdateWithoutFitnessGoalTagInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutMemberNestedInput
@@ -1652,6 +1724,7 @@ export type MemberProfileUncheckedUpdateWithoutFitnessGoalTagInput = {
 export type MemberProfileUncheckedUpdateManyWithoutFitnessGoalTagInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1772,6 +1845,7 @@ export type MemberProfileSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   userId?: boolean
   fitnessGoalTagId?: boolean
+  referralCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1793,6 +1867,7 @@ export type MemberProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   userId?: boolean
   fitnessGoalTagId?: boolean
+  referralCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1803,6 +1878,7 @@ export type MemberProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   userId?: boolean
   fitnessGoalTagId?: boolean
+  referralCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1813,11 +1889,12 @@ export type MemberProfileSelectScalar = {
   id?: boolean
   userId?: boolean
   fitnessGoalTagId?: boolean
+  referralCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MemberProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "fitnessGoalTagId" | "createdAt" | "updatedAt", ExtArgs["result"]["memberProfile"]>
+export type MemberProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "fitnessGoalTagId" | "referralCode" | "createdAt" | "updatedAt", ExtArgs["result"]["memberProfile"]>
 export type MemberProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   fitnessGoalTag?: boolean | Prisma.MemberProfile$fitnessGoalTagArgs<ExtArgs>
@@ -1862,6 +1939,7 @@ export type $MemberProfilePayload<ExtArgs extends runtime.Types.Extensions.Inter
     id: string
     userId: string
     fitnessGoalTagId: string | null
+    referralCode: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["memberProfile"]>
@@ -2302,6 +2380,7 @@ export interface MemberProfileFieldRefs {
   readonly id: Prisma.FieldRef<"MemberProfile", 'String'>
   readonly userId: Prisma.FieldRef<"MemberProfile", 'String'>
   readonly fitnessGoalTagId: Prisma.FieldRef<"MemberProfile", 'String'>
+  readonly referralCode: Prisma.FieldRef<"MemberProfile", 'String'>
   readonly createdAt: Prisma.FieldRef<"MemberProfile", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"MemberProfile", 'DateTime'>
 }

@@ -3692,6 +3692,7 @@ export const MemberProfileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   fitnessGoalTagId: 'fitnessGoalTagId',
+  referralCode: 'referralCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

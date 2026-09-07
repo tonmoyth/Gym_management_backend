@@ -7,6 +7,8 @@ model MemberProfile {
   fitnessGoalTagId String?
   fitnessGoalTag   SpecializationTag? @relation(fields: [fitnessGoalTagId], references: [id], onDelete: SetNull)
 
+  referralCode String? @unique
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
