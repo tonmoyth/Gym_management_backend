@@ -30,7 +30,7 @@ const bookClass = async (userId: string, classScheduleId: string) => {
 
   const activeMembership = await prisma.membership.findFirst({
     where: {
-      id: memberProfile.id,
+      memberId: memberProfile.id,
       businessId: classSchedule.businessId,
       status: "ACTIVE",
       AND: [

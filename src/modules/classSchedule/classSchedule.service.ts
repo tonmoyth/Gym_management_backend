@@ -72,7 +72,7 @@ const getClassSchedules = async (userId: string, role: string, businessId: strin
   const additionalFilters: any = { businessId };
 
   if (query.trainerId) additionalFilters.trainerId = query.trainerId;
-  
+
   if (query.date) {
     const startOfDay = new Date(query.date);
     startOfDay.setUTCHours(0, 0, 0, 0);
@@ -211,7 +211,7 @@ const updateClassSchedule = async (ownerId: string, businessId: string, id: stri
           endTime: { gt: newStartTime }
         }
       });
-  
+
       if (overlappingClass) {
         throw new AppError(409, "Trainer schedule conflict. The trainer already has a class scheduled during this time.");
       }
@@ -238,7 +238,7 @@ const cancelClassSchedule = async (ownerId: string, businessId: string, id: stri
   if (!business) throw new AppError(404, "Business not found.");
   if (business.ownerId !== ownerId) throw new AppError(403, "Forbidden. You do not own this business.");
 
-  const classSchedule = await prisma.classSchedule.findUnique({ 
+  const classSchedule = await prisma.classSchedule.findUnique({
     where: { id },
     include: { bookings: { include: { member: { include: { user: true } } } } }
   });

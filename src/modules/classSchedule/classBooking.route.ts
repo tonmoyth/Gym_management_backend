@@ -2,8 +2,8 @@ import express from "express";
 import { checkAuth } from "../../middlewares/checkAuth";
 import { USER_ROLE } from "../Business/business.constant";
 import validateRequest from "../../middlewares/validateRequest";
-import { ClassBookingController } from "./classBooking.controller";
 import { z } from "zod";
+import { ClassBookingController } from "./classBooking.controller";
 
 const router = express.Router();
 
