@@ -4,7 +4,31 @@ import AppError from '../../errors/AppError';
 import { QueryBuilder } from '../../utils/queryBuilder';
 import httpStatus from 'http-status';
 
-const createDispute = async (userId: string, payload: any) => {
+const createDispute = async (userId: string, role: string, payload: any) => {
+  if (role === 'MEMBER') {
+    // Member dispute creation
+    const dispute = await prisma.dispute.create({
+      data: {
+        userId,
+        subject: payload.subject,
+        description: payload.description,
+        category: payload.category || 'OTHER',
+        status: 'OPEN',
+      },
+      select: {
+        id: true,
+        subject: true,
+        description: true,
+        category: true,
+        status: true,
+        createdAt: true,
+        adminReply: true,
+        resolvedAt: true,
+      },
+    });
+    return dispute;
+  }
+
   // Check if trainer profile exists for this user
   const trainerProfile = await prisma.trainerProfile.findUnique({
     where: { userId },
@@ -39,7 +63,7 @@ const createDispute = async (userId: string, payload: any) => {
       businessId: payload.businessId,
       subject: payload.subject,
       description: payload.description,
-      category: payload.category,
+      category: payload.category || 'OTHER',
       status: 'OPEN',
     },
     select: {
@@ -50,6 +74,8 @@ const createDispute = async (userId: string, payload: any) => {
       status: true,
       createdAt: true,
       businessId: true,
+      adminReply: true,
+      resolvedAt: true,
     }
   });
 

@@ -3621,6 +3621,8 @@ export const DisputeScalarFieldEnum = {
   userId: 'userId',
   trainerId: 'trainerId',
   businessId: 'businessId',
+  adminReply: 'adminReply',
+  resolvedAt: 'resolvedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

@@ -6,7 +6,8 @@ import httpStatus from 'http-status';
 
 const createDispute = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user?.id as string;
-  const result = await DisputeService.createDispute(userId, req.body);
+  const role = req.user?.role as string;
+  const result = await DisputeService.createDispute(userId, role, req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
