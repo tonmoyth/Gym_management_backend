@@ -42,6 +42,14 @@ const loginUser = async (payload: IUserLogin) => {
     throw new AppError(httpStatus.UNAUTHORIZED, "Invalid email or password");
   }
 
+  const dbUser = await prisma.user.findUnique({
+    where: { email: payload.email.toLowerCase() },
+  });
+
+  if (dbUser && !dbUser.isActive) {
+    throw new AppError(httpStatus.FORBIDDEN, "Your account has been suspended. Please contact support.");
+  }
+
   return userResponse;
 };
 

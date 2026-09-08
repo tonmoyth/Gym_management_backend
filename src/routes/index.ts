@@ -30,6 +30,7 @@ import { favoriteRoutes } from "../modules/favorite/favorite.route";
 import { referralRoutes } from "../modules/referral/referral.route";
 import { dashboardRoutes } from "../modules/super_admin/dashboard/dashboard.route";
 import { businessManagementRoutes } from "../modules/super_admin/bussiness_management/businessManagement.route";
+import { trainerMemberOversightRoutes } from "../modules/super_admin/trainer_member_oversight/trainerMemberOversight.route";
 
 const router = express.Router();
 
@@ -157,6 +158,10 @@ const moduleRoutes = [
     {
         path: "/admin/businesses",
         route: businessManagementRoutes,
+    },
+    {
+        path: "/admin/users",
+        route: trainerMemberOversightRoutes,
     },
 ];
 

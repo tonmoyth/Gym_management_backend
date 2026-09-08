@@ -2,6 +2,7 @@ import { prisma } from '../../../lib/prisma';
 import AppError from '../../../errors/AppError';
 import { QueryBuilder } from '../../../utils/queryBuilder';
 import { BusinessStatus } from '../../../generated/prisma/enums';
+import { pushJob } from '../../../utils/redisQueue';
 import {
   businessSearchableFields,
   businessFilterableFields,
@@ -45,6 +46,7 @@ const getPendingBusinesses = async (query: Record<string, unknown>) => {
 const approveBusiness = async (id: string, adminId: string) => {
   const business = await prisma.business.findUnique({
     where: { id },
+    include: { owner: true },
   });
 
   if (!business) {
@@ -63,16 +65,26 @@ const approveBusiness = async (id: string, adminId: string) => {
     data: {
       status: BusinessStatus.ACTIVE,
     },
+    include: { owner: true },
   });
 
-  // Depending on whether audit tracking exists, we might insert an audit log here.
-  // Since there's no generic audit table, we just return the updated business.
+  // Enqueue notification and email send via Redis worker
+  await pushJob('notification_queue', {
+    eventType: 'BUSINESS_APPROVED',
+    businessId: updatedBusiness.id,
+    businessName: updatedBusiness.name,
+    ownerId: updatedBusiness.ownerId,
+    ownerEmail: updatedBusiness.owner?.email,
+    ownerName: updatedBusiness.owner?.fullName || 'Business Owner',
+  });
+
   return updatedBusiness;
 };
 
-const rejectBusiness = async (id: string, adminId: string) => {
+const rejectBusiness = async (id: string, adminId: string, reason?: string) => {
   const business = await prisma.business.findUnique({
     where: { id },
+    include: { owner: true },
   });
 
   if (!business) {
@@ -91,14 +103,27 @@ const rejectBusiness = async (id: string, adminId: string) => {
     data: {
       status: BusinessStatus.REJECTED,
     },
+    include: { owner: true },
+  });
+
+  // Enqueue notification and email send via Redis worker
+  await pushJob('notification_queue', {
+    eventType: 'BUSINESS_REJECTED',
+    businessId: updatedBusiness.id,
+    businessName: updatedBusiness.name,
+    ownerId: updatedBusiness.ownerId,
+    ownerEmail: updatedBusiness.owner?.email,
+    ownerName: updatedBusiness.owner?.fullName || 'Business Owner',
+    reason,
   });
 
   return updatedBusiness;
 };
 
-const suspendBusiness = async (id: string, adminId: string) => {
+const suspendBusiness = async (id: string, adminId: string, reason?: string) => {
   const business = await prisma.business.findUnique({
     where: { id },
+    include: { owner: true },
   });
 
   if (!business) {
@@ -117,6 +142,18 @@ const suspendBusiness = async (id: string, adminId: string) => {
     data: {
       status: BusinessStatus.SUSPENDED,
     },
+    include: { owner: true },
+  });
+
+  // Enqueue notification and email send via Redis worker
+  await pushJob('notification_queue', {
+    eventType: 'BUSINESS_SUSPENDED',
+    businessId: updatedBusiness.id,
+    businessName: updatedBusiness.name,
+    ownerId: updatedBusiness.ownerId,
+    ownerEmail: updatedBusiness.owner?.email,
+    ownerName: updatedBusiness.owner?.fullName || 'Business Owner',
+    reason,
   });
 
   return updatedBusiness;

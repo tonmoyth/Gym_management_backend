@@ -34,8 +34,13 @@ const approveBusiness = catchAsync(async (req: Request, res: Response) => {
 const rejectBusiness = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const adminId = req.user?.id; // from checkAuth
+  const reason = req.body?.reason;
 
-  const result = await BusinessManagementService.rejectBusiness(id as string, adminId as string);
+  const result = await BusinessManagementService.rejectBusiness(
+    id as string,
+    adminId as string,
+    reason
+  );
 
   sendResponse(res, {
     statusCode: 200,
@@ -48,8 +53,13 @@ const rejectBusiness = catchAsync(async (req: Request, res: Response) => {
 const suspendBusiness = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const adminId = req.user?.id; // from checkAuth
+  const reason = req.body?.reason;
 
-  const result = await BusinessManagementService.suspendBusiness(id as string, adminId as string);
+  const result = await BusinessManagementService.suspendBusiness(
+    id as string,
+    adminId as string,
+    reason
+  );
 
   sendResponse(res, {
     statusCode: 200,

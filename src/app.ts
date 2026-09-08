@@ -33,4 +33,16 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Gym Management Backend is running");
 });
 
+// Global error handling middleware
+app.use((err: any, req: Request, res: Response, next: any) => {
+  const statusCode = err.statusCode || (err.name === "ZodError" || err.issues ? 400 : 500);
+  const message = err.issues?.[0]?.message || err.message || "Internal Server Error";
+
+  res.status(statusCode).json({
+    success: false,
+    message,
+    error: err.issues || err,
+  });
+});
+
 export default app;

@@ -80,6 +80,10 @@ export const checkAuth = (...roles: Role[]) => {
             throw new AppError(401, 'User not found');
         }
 
+        if (!user.isActive) {
+            throw new AppError(403, 'Your account has been suspended. Please contact support.');
+        }
+
         if (roles.length > 0 && !roles.includes(user.role as Role)) {
             throw new AppError(403, 'Forbidden. You do not have the required permissions.');
         }

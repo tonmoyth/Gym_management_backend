@@ -34,7 +34,7 @@ export class QueryBuilder<
         };
     }
     search(): this {
-        const { searchTerm } = this.queryParams;
+        const searchTerm = this.queryParams.searchTerm || (this.queryParams as any).search;
         const { searchableFields } = this.config;
         // doctorSearchableFields = ['user.name', 'user.email', 'specialties.specialty.title' , 'specialties.specialty.description']
         if (searchTerm && searchableFields && searchableFields.length > 0) {
@@ -49,6 +49,7 @@ export class QueryBuilder<
 
                             const stringFilter: PrismaStringFilter = {
                                 contains: searchTerm,
+                                mode: "insensitive",
                             };
 
                             return {
@@ -61,6 +62,7 @@ export class QueryBuilder<
 
                             const stringFilter: PrismaStringFilter = {
                                 contains: searchTerm,
+                                mode: "insensitive",
                             };
 
                             return {
@@ -77,6 +79,7 @@ export class QueryBuilder<
                     // direct field
                     const stringFilter: PrismaStringFilter = {
                         contains: searchTerm,
+                        mode: "insensitive",
                     };
 
                     return {

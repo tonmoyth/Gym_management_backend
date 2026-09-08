@@ -275,6 +275,206 @@ const sendMembershipRejectedEmail = async (
     }
 };
 
+const sendBusinessApprovedEmail = async (
+    ownerName: string,
+    ownerEmail: string,
+    businessName: string
+) => {
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: #27ae60; text-align: center;">Business Approved 🎉</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${ownerName || 'Business Owner'},</p>
+            <p style="font-size: 16px; color: #333;">
+                Congratulations! Your business <strong>${businessName}</strong> has been approved by the platform administrator.
+            </p>
+            <p style="font-size: 16px; color: #333;">
+                Your business is now active on our platform. You can log in to your dashboard to manage memberships, staff, trainers, and schedules.
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="${envVeriables.FRONTEND_URL}/dashboard" style="background-color: #27ae60; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                    Go to Business Dashboard
+                </a>
+            </div>
+            <p style="font-size: 14px; color: #7f8c8d;">
+                If you have any questions, please contact our support team.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management System. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"Gym Management Platform" <${envVeriables.EMAIL_USER}>`,
+            to: ownerEmail,
+            subject: `Your Business "${businessName}" has been Approved! 🎉`,
+            html: htmlContent,
+        });
+        console.log(`✅ Business approval email sent to ${ownerEmail}`);
+    } catch (error: any) {
+        console.error('❌ Failed to send business approval email:', error.message);
+        throw error;
+    }
+};
+
+const sendBusinessRejectedEmail = async (
+    ownerName: string,
+    ownerEmail: string,
+    businessName: string,
+    reason?: string
+) => {
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: #e74c3c; text-align: center;">Business Application Rejected</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${ownerName || 'Business Owner'},</p>
+            <p style="font-size: 16px; color: #333;">
+                We regret to inform you that your registration for <strong>${businessName}</strong> was not approved at this time.
+            </p>
+            ${reason ? `<p style="font-size: 16px; color: #e74c3c;"><strong>Reason:</strong> ${reason}</p>` : ''}
+            <p style="font-size: 14px; color: #7f8c8d;">
+                If you believe this decision was made in error or would like to provide updated documentation, please contact our support team.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management System. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"Gym Management Platform" <${envVeriables.EMAIL_USER}>`,
+            to: ownerEmail,
+            subject: `Update regarding your business application for "${businessName}"`,
+            html: htmlContent,
+        });
+        console.log(`✅ Business rejection email sent to ${ownerEmail}`);
+    } catch (error: any) {
+        console.error('❌ Failed to send business rejection email:', error.message);
+        throw error;
+    }
+};
+
+const sendBusinessSuspendedEmail = async (
+    ownerName: string,
+    ownerEmail: string,
+    businessName: string,
+    reason?: string
+) => {
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: #e67e22; text-align: center;">Business Suspended ⚠️</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${ownerName || 'Business Owner'},</p>
+            <p style="font-size: 16px; color: #333;">
+                Please be advised that your business <strong>${businessName}</strong> has been suspended by the platform administrator.
+            </p>
+            ${reason ? `<p style="font-size: 16px; color: #e67e22;"><strong>Reason:</strong> ${reason}</p>` : ''}
+            <p style="font-size: 14px; color: #7f8c8d;">
+                During suspension, public access to your gym and booking services are temporarily disabled. Please contact support immediately to resolve this matter.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management System. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"Gym Management Platform" <${envVeriables.EMAIL_USER}>`,
+            to: ownerEmail,
+            subject: `Important: Your Business "${businessName}" has been Suspended`,
+            html: htmlContent,
+        });
+        console.log(`✅ Business suspension email sent to ${ownerEmail}`);
+    } catch (error: any) {
+        console.error('❌ Failed to send business suspension email:', error.message);
+        throw error;
+    }
+};
+
+const sendAccountSuspendedEmail = async (
+    userName: string,
+    userEmail: string,
+    role: string
+) => {
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: #e74c3c; text-align: center;">Account Suspended ⚠️</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${userName || 'User'},</p>
+            <p style="font-size: 16px; color: #333;">
+                Your <strong>${role ? role.toLowerCase() : ''}</strong> account on Gym Management SaaS has been suspended by the platform administrator.
+            </p>
+            <p style="font-size: 16px; color: #333;">
+                While your account is suspended, all access to protected services, bookings, and schedules has been blocked.
+            </p>
+            <p style="font-size: 14px; color: #7f8c8d;">
+                If you believe this is an error or would like to request account reinstatement, please contact support.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management System. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"Gym Management Platform" <${envVeriables.EMAIL_USER}>`,
+            to: userEmail,
+            subject: 'Important Notice: Your Account has been Suspended',
+            html: htmlContent,
+        });
+        console.log(`✅ Account suspension email sent to ${userEmail}`);
+    } catch (error: any) {
+        console.error('❌ Failed to send account suspension email:', error.message);
+        throw error;
+    }
+};
+
+const sendAccountActivatedEmail = async (
+    userName: string,
+    userEmail: string,
+    role: string
+) => {
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: #27ae60; text-align: center;">Account Activated 🎉</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${userName || 'User'},</p>
+            <p style="font-size: 16px; color: #333;">
+                Your <strong>${role ? role.toLowerCase() : ''}</strong> account on Gym Management SaaS has been activated!
+            </p>
+            <p style="font-size: 16px; color: #333;">
+                You now have full access to log in and use all platform features.
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="${envVeriables.FRONTEND_URL}/login" style="background-color: #27ae60; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                    Log In to Your Account
+                </a>
+            </div>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management System. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"Gym Management Platform" <${envVeriables.EMAIL_USER}>`,
+            to: userEmail,
+            subject: 'Your Account has been Activated! 🎉',
+            html: htmlContent,
+        });
+        console.log(`✅ Account activation email sent to ${userEmail}`);
+    } catch (error: any) {
+        console.error('❌ Failed to send account activation email:', error.message);
+        throw error;
+    }
+};
+
 export const MailService = {
     sendApplicationApprovedEmail,
     sendApplicationRejectedEmail,
@@ -282,4 +482,9 @@ export const MailService = {
     sendBulkAnnouncementEmail,
     sendMembershipApprovedEmail,
     sendMembershipRejectedEmail,
+    sendBusinessApprovedEmail,
+    sendBusinessRejectedEmail,
+    sendBusinessSuspendedEmail,
+    sendAccountSuspendedEmail,
+    sendAccountActivatedEmail,
 };

@@ -40,6 +40,16 @@ const handleJobWithRetry = async (jobData: any, attempt: number = 1) => {
             await processMembershipApproved(jobData);
         } else if (jobData.eventType === 'MEMBERSHIP_REJECTED') {
             await processMembershipRejected(jobData);
+        } else if (jobData.eventType === 'BUSINESS_APPROVED') {
+            await processBusinessApproved(jobData);
+        } else if (jobData.eventType === 'BUSINESS_REJECTED') {
+            await processBusinessRejected(jobData);
+        } else if (jobData.eventType === 'BUSINESS_SUSPENDED') {
+            await processBusinessSuspended(jobData);
+        } else if (jobData.eventType === 'ACCOUNT_SUSPENDED') {
+            await processAccountSuspended(jobData);
+        } else if (jobData.eventType === 'ACCOUNT_ACTIVATED') {
+            await processAccountActivated(jobData);
         } else {
             // Unhandled event type, just log it for now
             console.log(`ℹ️ Notification Worker received unhandled event type: ${jobData.eventType}`);
@@ -224,5 +234,150 @@ const processMembershipRejected = async (data: any) => {
             planName,
             refundStatus
         );
+    }
+};
+
+const processBusinessApproved = async (data: any) => {
+    const { ownerId, ownerEmail, ownerName, businessId, businessName } = data;
+
+    // In-app Notification
+    if (ownerId) {
+        try {
+            await NotificationService.createNotification(
+                ownerId,
+                'Business Approved 🎉',
+                `Congratulations! Your business "${businessName}" has been approved by the platform administrator.`,
+                NotificationType.SYSTEM,
+                { businessId, status: 'ACTIVE' }
+            );
+            console.log(`✅ In-app notification created for business approval: ${businessId}`);
+        } catch (error: any) {
+            console.error('❌ Failed to create in-app notification for business approval:', error.message);
+        }
+    }
+
+    // Email
+    if (ownerEmail) {
+        try {
+            await MailService.sendBusinessApprovedEmail(ownerName, ownerEmail, businessName);
+        } catch (error: any) {
+            console.error('❌ Failed to send business approval email:', error.message);
+        }
+    }
+};
+
+const processBusinessRejected = async (data: any) => {
+    const { ownerId, ownerEmail, ownerName, businessId, businessName, reason } = data;
+
+    // In-app Notification
+    if (ownerId) {
+        try {
+            await NotificationService.createNotification(
+                ownerId,
+                'Business Application Rejected',
+                `Your registration for "${businessName}" was not approved.${reason ? ` Reason: ${reason}` : ''}`,
+                NotificationType.SYSTEM,
+                { businessId, status: 'REJECTED', reason }
+            );
+            console.log(`✅ In-app notification created for business rejection: ${businessId}`);
+        } catch (error: any) {
+            console.error('❌ Failed to create in-app notification for business rejection:', error.message);
+        }
+    }
+
+    // Email
+    if (ownerEmail) {
+        try {
+            await MailService.sendBusinessRejectedEmail(ownerName, ownerEmail, businessName, reason);
+        } catch (error: any) {
+            console.error('❌ Failed to send business rejection email:', error.message);
+        }
+    }
+};
+
+const processBusinessSuspended = async (data: any) => {
+    const { ownerId, ownerEmail, ownerName, businessId, businessName, reason } = data;
+
+    // In-app Notification
+    if (ownerId) {
+        try {
+            await NotificationService.createNotification(
+                ownerId,
+                'Business Suspended ⚠️',
+                `Your business "${businessName}" has been suspended by the platform administrator.${reason ? ` Reason: ${reason}` : ''}`,
+                NotificationType.SYSTEM,
+                { businessId, status: 'SUSPENDED', reason }
+            );
+            console.log(`✅ In-app notification created for business suspension: ${businessId}`);
+        } catch (error: any) {
+            console.error('❌ Failed to create in-app notification for business suspension:', error.message);
+        }
+    }
+
+    // Email
+    if (ownerEmail) {
+        try {
+            await MailService.sendBusinessSuspendedEmail(ownerName, ownerEmail, businessName, reason);
+        } catch (error: any) {
+            console.error('❌ Failed to send business suspension email:', error.message);
+        }
+    }
+};
+
+const processAccountSuspended = async (data: any) => {
+    const { userId, userEmail, userName, role } = data;
+
+    // In-app Notification
+    if (userId) {
+        try {
+            await NotificationService.createNotification(
+                userId,
+                'Account Suspended ⚠️',
+                `Your ${role ? role.toLowerCase() : ''} account has been suspended by the platform administrator. Access to protected features is blocked.`,
+                NotificationType.SYSTEM,
+                { userId, role, status: 'SUSPENDED' }
+            );
+            console.log(`✅ In-app notification created for account suspension: ${userId}`);
+        } catch (error: any) {
+            console.error('❌ Failed to create in-app notification for account suspension:', error.message);
+        }
+    }
+
+    // Email
+    if (userEmail) {
+        try {
+            await MailService.sendAccountSuspendedEmail(userName, userEmail, role);
+        } catch (error: any) {
+            console.error('❌ Failed to send account suspension email:', error.message);
+        }
+    }
+};
+
+const processAccountActivated = async (data: any) => {
+    const { userId, userEmail, userName, role } = data;
+
+    // In-app Notification
+    if (userId) {
+        try {
+            await NotificationService.createNotification(
+                userId,
+                'Account Activated 🎉',
+                `Your ${role ? role.toLowerCase() : ''} account has been activated! You now have full access to all platform features.`,
+                NotificationType.SYSTEM,
+                { userId, role, status: 'ACTIVE' }
+            );
+            console.log(`✅ In-app notification created for account activation: ${userId}`);
+        } catch (error: any) {
+            console.error('❌ Failed to create in-app notification for account activation:', error.message);
+        }
+    }
+
+    // Email
+    if (userEmail) {
+        try {
+            await MailService.sendAccountActivatedEmail(userName, userEmail, role);
+        } catch (error: any) {
+            console.error('❌ Failed to send account activation email:', error.message);
+        }
     }
 };
