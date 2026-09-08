@@ -554,6 +554,81 @@ const sendCertificationRejectedEmail = async (
     }
 };
 
+const sendSubscriptionStatusUpdatedEmail = async (
+    ownerName: string,
+    ownerEmail: string,
+    businessName: string,
+    status: string,
+    nextBillingDate?: Date | string | null
+) => {
+    const isOverdue = status === 'OVERDUE';
+    const isActive = status === 'ACTIVE';
+    const badgeColor = isActive ? '#27ae60' : isOverdue ? '#e67e22' : '#e74c3c';
+    const statusTitle = isActive
+        ? 'Subscription Active 🎉'
+        : isOverdue
+        ? 'Subscription Payment Overdue ⚠️'
+        : 'Subscription Inactive';
+
+    const statusMessage = isActive
+        ? `Your gym subscription for <strong>${businessName}</strong> is now active. You have full access to all platform features.`
+        : isOverdue
+        ? `The subscription payment for <strong>${businessName}</strong> is currently overdue. Please settle the outstanding balance to maintain uninterrupted access to platform services.`
+        : `Your gym subscription for <strong>${businessName}</strong> has been marked inactive by the platform administrator. Access to premium platform services has been suspended.`;
+
+    const formattedBillingDate = nextBillingDate
+        ? new Date(nextBillingDate).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+          })
+        : null;
+
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: ${badgeColor}; text-align: center;">${statusTitle}</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${ownerName || 'Business Owner'},</p>
+            <p style="font-size: 16px; color: #333;">
+                ${statusMessage}
+            </p>
+            <div style="background-color: #f8f9fa; border-radius: 6px; padding: 15px; margin: 20px 0;">
+                <p style="margin: 5px 0; font-size: 14px; color: #555;"><strong>Business:</strong> ${businessName}</p>
+                <p style="margin: 5px 0; font-size: 14px; color: #555;"><strong>Subscription Status:</strong> <span style="display: inline-block; padding: 2px 8px; border-radius: 4px; background-color: ${badgeColor}; color: #ffffff; font-weight: bold; font-size: 12px;">${status}</span></p>
+                ${formattedBillingDate ? `<p style="margin: 5px 0; font-size: 14px; color: #555;"><strong>Next Billing Date:</strong> ${formattedBillingDate}</p>` : ''}
+            </div>
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="${envVeriables.FRONTEND_URL}/dashboard" style="background-color: #3498db; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                    Go to Dashboard
+                </a>
+            </div>
+            <p style="font-size: 14px; color: #7f8c8d;">
+                If you have any questions regarding your subscription or billing, please reply to this email or reach out to platform support.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management System. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"Gym Management Platform" <${envVeriables.EMAIL_USER}>`,
+            to: ownerEmail,
+            subject: isActive
+                ? `Your Subscription for ${businessName} is Active`
+                : isOverdue
+                ? `Action Required: Subscription Payment Overdue for ${businessName}`
+                : `Update: Subscription Inactive for ${businessName}`,
+            html: htmlContent,
+        });
+        console.log(`✅ Subscription status email (${status}) sent to ${ownerEmail}`);
+    } catch (error: any) {
+        console.error('❌ Failed to send subscription status email:', error.message);
+        throw error;
+    }
+};
+
 export const MailService = {
     sendApplicationApprovedEmail,
     sendApplicationRejectedEmail,
@@ -568,4 +643,5 @@ export const MailService = {
     sendAccountActivatedEmail,
     sendCertificationVerifiedEmail,
     sendCertificationRejectedEmail,
+    sendSubscriptionStatusUpdatedEmail,
 };

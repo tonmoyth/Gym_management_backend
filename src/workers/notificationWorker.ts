@@ -54,6 +54,8 @@ const handleJobWithRetry = async (jobData: any, attempt: number = 1) => {
             await processCertificationVerified(jobData);
         } else if (jobData.eventType === 'CERTIFICATION_REJECTED') {
             await processCertificationRejected(jobData);
+        } else if (jobData.eventType === 'SUBSCRIPTION_STATUS_UPDATED') {
+            await processSubscriptionStatusUpdated(jobData);
         } else {
             // Unhandled event type, just log it for now
             console.log(`ℹ️ Notification Worker received unhandled event type: ${jobData.eventType}`);
@@ -440,6 +442,64 @@ const processCertificationRejected = async (data: any) => {
             await MailService.sendCertificationRejectedEmail(trainerName, trainerEmail, certificationTitle, reason);
         } catch (error: any) {
             console.error('❌ Failed to send certification rejection email:', error.message);
+        }
+    }
+};
+
+const processSubscriptionStatusUpdated = async (data: any) => {
+    const {
+        ownerId,
+        ownerEmail,
+        ownerName,
+        businessId,
+        businessName,
+        previousStatus,
+        newStatus,
+        nextBillingDate,
+    } = data;
+
+    let title = 'Gym Subscription Updated';
+    let body = `Your gym subscription for "${businessName}" status has been updated to ${newStatus}.`;
+
+    if (newStatus === 'ACTIVE') {
+        title = 'Subscription Active 🎉';
+        body = 'Your gym subscription is now active.';
+    } else if (newStatus === 'INACTIVE') {
+        title = 'Subscription Inactive ⚠️';
+        body = 'Your gym subscription has been marked inactive.';
+    } else if (newStatus === 'OVERDUE') {
+        title = 'Subscription Payment Overdue ⚠️';
+        body = 'Your gym subscription payment is overdue.';
+    }
+
+    // In-app Notification
+    if (ownerId) {
+        try {
+            await NotificationService.createNotification(
+                ownerId,
+                title,
+                body,
+                NotificationType.SYSTEM,
+                { businessId, previousStatus, status: newStatus }
+            );
+            console.log(`✅ In-app notification created for subscription status update: ${businessId}`);
+        } catch (error: any) {
+            console.error('❌ Failed to create in-app notification for subscription status update:', error.message);
+        }
+    }
+
+    // Email
+    if (ownerEmail) {
+        try {
+            await MailService.sendSubscriptionStatusUpdatedEmail(
+                ownerName,
+                ownerEmail,
+                businessName,
+                newStatus,
+                nextBillingDate
+            );
+        } catch (error: any) {
+            console.error('❌ Failed to send subscription status email:', error.message);
         }
     }
 };
