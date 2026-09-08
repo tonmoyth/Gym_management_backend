@@ -31,6 +31,7 @@ import { referralRoutes } from "../modules/referral/referral.route";
 import { dashboardRoutes } from "../modules/super_admin/dashboard/dashboard.route";
 import { businessManagementRoutes } from "../modules/super_admin/bussiness_management/businessManagement.route";
 import { trainerMemberOversightRoutes } from "../modules/super_admin/trainer_member_oversight/trainerMemberOversight.route";
+import { certificationVerificationRoutes } from "../modules/super_admin/certification_verification/certificationVerification.route";
 
 const router = express.Router();
 
@@ -162,6 +163,10 @@ const moduleRoutes = [
     {
         path: "/admin/users",
         route: trainerMemberOversightRoutes,
+    },
+    {
+        path: "/admin/certifications",
+        route: certificationVerificationRoutes,
     },
 ];
 

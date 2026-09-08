@@ -475,6 +475,85 @@ const sendAccountActivatedEmail = async (
     }
 };
 
+const sendCertificationVerifiedEmail = async (
+    trainerName: string,
+    trainerEmail: string,
+    certTitle?: string
+) => {
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: #27ae60; text-align: center;">Certification Verified 🎉</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${trainerName || 'Trainer'},</p>
+            <p style="font-size: 16px; color: #333;">
+                Your submitted trainer certification${certTitle ? ` (<strong>${certTitle}</strong>)` : ''} has been reviewed and approved by the Super Admin.
+            </p>
+            <p style="font-size: 16px; color: #333;">
+                Your Trainer verified badge is now active on your profile!
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="${envVeriables.FRONTEND_URL}/dashboard" style="background-color: #27ae60; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                    View Profile
+                </a>
+            </div>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management System. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"Gym Management Platform" <${envVeriables.EMAIL_USER}>`,
+            to: trainerEmail,
+            subject: 'Your Trainer Certification Has Been Verified! 🎉',
+            html: htmlContent,
+        });
+        console.log(`✅ Certification verification email sent to ${trainerEmail}`);
+    } catch (error: any) {
+        console.error('❌ Failed to send certification verification email:', error.message);
+        throw error;
+    }
+};
+
+const sendCertificationRejectedEmail = async (
+    trainerName: string,
+    trainerEmail: string,
+    certTitle?: string,
+    reason?: string
+) => {
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: #e74c3c; text-align: center;">Certification Rejected</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${trainerName || 'Trainer'},</p>
+            <p style="font-size: 16px; color: #333;">
+                Your submitted trainer certification${certTitle ? ` (<strong>${certTitle}</strong>)` : ''} was reviewed and rejected.
+            </p>
+            ${reason ? `<p style="font-size: 16px; color: #e74c3c;"><strong>Reason:</strong> ${reason}</p>` : ''}
+            <p style="font-size: 14px; color: #7f8c8d;">
+                If you believe this is an error, please ensure you upload a valid, unexpired certificate and re-submit.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management System. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"Gym Management Platform" <${envVeriables.EMAIL_USER}>`,
+            to: trainerEmail,
+            subject: 'Your Trainer Certification Was Rejected',
+            html: htmlContent,
+        });
+        console.log(`✅ Certification rejection email sent to ${trainerEmail}`);
+    } catch (error: any) {
+        console.error('❌ Failed to send certification rejection email:', error.message);
+        throw error;
+    }
+};
+
 export const MailService = {
     sendApplicationApprovedEmail,
     sendApplicationRejectedEmail,
@@ -487,4 +566,6 @@ export const MailService = {
     sendBusinessSuspendedEmail,
     sendAccountSuspendedEmail,
     sendAccountActivatedEmail,
+    sendCertificationVerifiedEmail,
+    sendCertificationRejectedEmail,
 };

@@ -50,6 +50,10 @@ const handleJobWithRetry = async (jobData: any, attempt: number = 1) => {
             await processAccountSuspended(jobData);
         } else if (jobData.eventType === 'ACCOUNT_ACTIVATED') {
             await processAccountActivated(jobData);
+        } else if (jobData.eventType === 'CERTIFICATION_VERIFIED') {
+            await processCertificationVerified(jobData);
+        } else if (jobData.eventType === 'CERTIFICATION_REJECTED') {
+            await processCertificationRejected(jobData);
         } else {
             // Unhandled event type, just log it for now
             console.log(`ℹ️ Notification Worker received unhandled event type: ${jobData.eventType}`);
@@ -378,6 +382,64 @@ const processAccountActivated = async (data: any) => {
             await MailService.sendAccountActivatedEmail(userName, userEmail, role);
         } catch (error: any) {
             console.error('❌ Failed to send account activation email:', error.message);
+        }
+    }
+};
+
+const processCertificationVerified = async (data: any) => {
+    const { trainerUserId, trainerEmail, trainerName, certificationId, certificationTitle } = data;
+
+    // In-app Notification
+    if (trainerUserId) {
+        try {
+            await NotificationService.createNotification(
+                trainerUserId,
+                'Certification Verified 🎉',
+                'Your trainer certification has been verified successfully. Your verified badge is now active.',
+                NotificationType.SYSTEM,
+                { certificationId, status: 'VERIFIED' }
+            );
+            console.log(`✅ In-app notification created for certification verification: ${certificationId}`);
+        } catch (error: any) {
+            console.error('❌ Failed to create in-app notification for certification verification:', error.message);
+        }
+    }
+
+    // Email
+    if (trainerEmail) {
+        try {
+            await MailService.sendCertificationVerifiedEmail(trainerName, trainerEmail, certificationTitle);
+        } catch (error: any) {
+            console.error('❌ Failed to send certification verification email:', error.message);
+        }
+    }
+};
+
+const processCertificationRejected = async (data: any) => {
+    const { trainerUserId, trainerEmail, trainerName, certificationId, certificationTitle, reason } = data;
+
+    // In-app Notification
+    if (trainerUserId) {
+        try {
+            await NotificationService.createNotification(
+                trainerUserId,
+                'Certification Rejected',
+                `Your trainer certification was rejected.${reason ? ` Reason: ${reason}` : ''}`,
+                NotificationType.SYSTEM,
+                { certificationId, status: 'REJECTED', reason }
+            );
+            console.log(`✅ In-app notification created for certification rejection: ${certificationId}`);
+        } catch (error: any) {
+            console.error('❌ Failed to create in-app notification for certification rejection:', error.message);
+        }
+    }
+
+    // Email
+    if (trainerEmail) {
+        try {
+            await MailService.sendCertificationRejectedEmail(trainerName, trainerEmail, certificationTitle, reason);
+        } catch (error: any) {
+            console.error('❌ Failed to send certification rejection email:', error.message);
         }
     }
 };
