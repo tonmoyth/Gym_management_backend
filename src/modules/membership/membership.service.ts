@@ -9,9 +9,16 @@ const createMembership = async (userId: string, planId: string) => {
   const memberProfile = await prisma.memberProfile.findUnique({ where: { userId } });
   if (!memberProfile) throw new AppError(404, "Member profile not found");
 
-  const plan = await prisma.membershipPlan.findUnique({ where: { id: planId } });
+  const plan = await prisma.membershipPlan.findUnique({ 
+    where: { id: planId },
+    include: { business: true }
+  });
   if (!plan) throw new AppError(404, "Membership plan not found");
   if (plan.status === PlanStatus.ARCHIVED) throw new AppError(400, "This plan is no longer available");
+
+  if (plan.business.status === "SUSPENDED") {
+    throw new AppError(403, "This business is currently suspended");
+  }
 
   const existingMembership = await prisma.membership.findFirst({
     where: {

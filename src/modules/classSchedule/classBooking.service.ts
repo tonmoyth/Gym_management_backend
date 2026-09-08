@@ -23,6 +23,10 @@ const bookClass = async (userId: string, classScheduleId: string) => {
     throw new AppError(404, "Class not found.");
   }
 
+  if (classSchedule.business.status === "SUSPENDED") {
+    throw new AppError(403, "This business is currently suspended.");
+  }
+
   // const now = new Date();
   // if (classSchedule.endTime <= now) {
   //   throw new AppError(400, "Class has already ended.");
