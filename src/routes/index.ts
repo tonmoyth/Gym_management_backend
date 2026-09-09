@@ -34,6 +34,7 @@ import { trainerMemberOversightRoutes } from "../modules/super_admin/trainer_mem
 import { certificationVerificationRoutes } from "../modules/super_admin/certification_verification/certificationVerification.route";
 import { subscriptionBillingControlRoutes } from "../modules/super_admin/subscription_billing_control/subscription.route";
 import { paymentGatewayOversightRoutes } from "../modules/super_admin/payment_gateway_oversight/payment.route";
+import { disputeRefundResolutionRoutes } from "../modules/super_admin/dispute_refund_resolution/dispute.route";
 
 const router = express.Router();
 
@@ -177,6 +178,10 @@ const moduleRoutes = [
     {
         path: "/admin/payments",
         route: paymentGatewayOversightRoutes,
+    },
+    {
+        path: "/admin/disputes",
+        route: disputeRefundResolutionRoutes,
     },
 ];
 

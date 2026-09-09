@@ -629,6 +629,89 @@ const sendSubscriptionStatusUpdatedEmail = async (
     }
 };
 
+const sendDisputeResolvedEmail = async (
+    userName: string,
+    userEmail: string,
+    disputeSubject: string,
+    resolution: string,
+    reason: string,
+    refundInfo?: {
+        paymentId?: string;
+        amount?: number | string;
+        currency?: string;
+    }
+) => {
+    let resolutionTitle = 'Dispute Resolved';
+    let resolutionBadgeColor = '#27ae60';
+    let resolutionDescription = 'Your dispute has been reviewed and resolved by platform administration.';
+
+    if (resolution === 'REFUND') {
+        resolutionTitle = 'Dispute Resolved - Refund Initiated 💰';
+        resolutionBadgeColor = '#27ae60';
+        resolutionDescription = `A refund of ${refundInfo?.amount || ''} ${refundInfo?.currency || 'BDT'} has been successfully processed for your payment.`;
+    } else if (resolution === 'WARNING') {
+        resolutionTitle = 'Dispute Update - Administrative Warning ⚠️';
+        resolutionBadgeColor = '#f39c12';
+        resolutionDescription = 'Your dispute has been investigated and resolved with an official administrative warning.';
+    } else if (resolution === 'ACCOUNT_ACTION') {
+        resolutionTitle = 'Dispute Update - Account Action Taken 🛡️';
+        resolutionBadgeColor = '#e74c3c';
+        resolutionDescription = 'Following our dispute review, administrative action has been applied to the relevant account.';
+    } else if (resolution === 'DISMISSAL') {
+        resolutionTitle = 'Dispute Update - Dispute Dismissed ℹ️';
+        resolutionBadgeColor = '#7f8c8d';
+        resolutionDescription = 'Your dispute has been thoroughly reviewed and dismissed.';
+    }
+
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span style="display: inline-block; background-color: ${resolutionBadgeColor}; color: #ffffff; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 14px;">
+                    ${resolution}
+                </span>
+            </div>
+            <h2 style="color: #2c3e50; text-align: center; margin-top: 0;">${resolutionTitle}</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${userName},</p>
+            <p style="font-size: 16px; color: #333;">
+                ${resolutionDescription}
+            </p>
+            <div style="background-color: #f8f9fa; border-left: 4px solid ${resolutionBadgeColor}; padding: 15px; margin: 20px 0; border-radius: 4px;">
+                <p style="margin: 0 0 10px 0; font-size: 14px; color: #555;">
+                    <strong>Dispute Subject:</strong> ${disputeSubject}
+                </p>
+                <p style="margin: 0; font-size: 14px; color: #555;">
+                    <strong>Administrative Note / Reason:</strong> ${reason}
+                </p>
+                ${
+                    refundInfo && refundInfo.amount
+                        ? `<p style="margin: 10px 0 0 0; font-size: 14px; color: #27ae60; font-weight: bold;">Refund Amount: ${refundInfo.amount} ${refundInfo.currency || 'BDT'}</p>`
+                        : ''
+                }
+            </div>
+            <p style="font-size: 14px; color: #7f8c8d;">
+                If you have any further questions regarding this resolution, please contact support.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management Platform. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"Gym Management Platform" <${envVeriables.EMAIL_USER}>`,
+            to: userEmail,
+            subject: `Dispute Update: ${disputeSubject} [${resolution}]`,
+            html: htmlContent,
+        });
+        console.log(`✅ Dispute resolution email (${resolution}) sent to ${userEmail}`);
+    } catch (error: any) {
+        console.error('❌ Failed to send dispute resolution email:', error.message);
+        throw error;
+    }
+};
+
 export const MailService = {
     sendApplicationApprovedEmail,
     sendApplicationRejectedEmail,
@@ -644,4 +727,5 @@ export const MailService = {
     sendCertificationVerifiedEmail,
     sendCertificationRejectedEmail,
     sendSubscriptionStatusUpdatedEmail,
+    sendDisputeResolvedEmail,
 };

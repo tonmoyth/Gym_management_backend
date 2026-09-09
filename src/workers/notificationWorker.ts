@@ -56,6 +56,8 @@ const handleJobWithRetry = async (jobData: any, attempt: number = 1) => {
             await processCertificationRejected(jobData);
         } else if (jobData.eventType === 'SUBSCRIPTION_STATUS_UPDATED') {
             await processSubscriptionStatusUpdated(jobData);
+        } else if (jobData.eventType === 'DISPUTE_RESOLVED') {
+            await processDisputeResolved(jobData);
         } else {
             // Unhandled event type, just log it for now
             console.log(`ℹ️ Notification Worker received unhandled event type: ${jobData.eventType}`);
@@ -500,6 +502,35 @@ const processSubscriptionStatusUpdated = async (data: any) => {
             );
         } catch (error: any) {
             console.error('❌ Failed to send subscription status email:', error.message);
+        }
+    }
+};
+
+const processDisputeResolved = async (data: any) => {
+    const {
+        userId,
+        userEmail,
+        userName,
+        subject,
+        resolution,
+        reason,
+        paymentId,
+        amount,
+        currency,
+    } = data;
+
+    if (userEmail) {
+        try {
+            await MailService.sendDisputeResolvedEmail(
+                userName || 'User',
+                userEmail,
+                subject || 'Platform Dispute',
+                resolution,
+                reason,
+                paymentId ? { paymentId, amount, currency } : undefined
+            );
+        } catch (error: any) {
+            console.error('❌ Failed to send dispute resolution email:', error.message);
         }
     }
 };

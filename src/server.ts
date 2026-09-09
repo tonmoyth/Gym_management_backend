@@ -10,7 +10,7 @@ async function main() {
     startNotificationWorker();
 
     app.listen(envVeriables.PORT, () => {
-      console.log(`Swenker Server is running on port ${envVeriables.PORT}`);
+      console.log(`Gym Management Server is running on port ${envVeriables.PORT}`);
     });
   } catch (err) {
     console.log(err);
