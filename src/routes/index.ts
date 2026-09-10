@@ -37,6 +37,8 @@ import { paymentGatewayOversightRoutes } from "../modules/super_admin/payment_ga
 import { disputeRefundResolutionRoutes } from "../modules/super_admin/dispute_refund_resolution/dispute.route";
 import { contentModerationRoutes } from "../modules/super_admin/content_moderation/content_moderation.route";
 import { rolePermissionManagementRoutes } from "../modules/super_admin/role_permission_management/rolePermissionManagement.route";
+import { auditLogsRoutes } from "../modules/super_admin/audit_logs/auditLogs.route";
+import { platformReportsRoutes } from "../modules/super_admin/reports_export/reports.route";
 
 const router = express.Router();
 
@@ -192,6 +194,14 @@ const moduleRoutes = [
     {
         path: "/admin/staff",
         route: rolePermissionManagementRoutes,
+    },
+    {
+        path: "/admin/audit-logs",
+        route: auditLogsRoutes,
+    },
+    {
+        path: "/admin/reports",
+        route: platformReportsRoutes,
     },
 ];
 

@@ -47,6 +47,7 @@ model Business {
   attendanceLogs   AttendanceLog[]
   memberBiometrics MemberBiometric[]
   disputes         Dispute[]
+  auditLogs        AuditLog[]        @relation("BusinessAuditLogs")
 
   @@index([status])
   @@index([createdAt])

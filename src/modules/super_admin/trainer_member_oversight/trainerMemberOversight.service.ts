@@ -3,6 +3,7 @@ import AppError from '../../../errors/AppError';
 import { QueryBuilder } from '../../../utils/queryBuilder';
 import { Role } from '../../../generated/prisma/enums';
 import { pushJob } from '../../../utils/redisQueue';
+import { auditLogger } from '../../../utils/auditLogger';
 import {
   userSearchableFields,
   userFilterableFields,
@@ -223,6 +224,16 @@ const updateAccountStatus = async (
     userEmail: updatedUser.email,
     userName: updatedUser.fullName || 'User',
     role: updatedUser.role,
+  });
+
+  // Audit log
+  await auditLogger.record({
+    actorId: adminId,
+    action: 'USER_STATUS_UPDATED',
+    resource: 'USER',
+    resourceId: updatedUser.id,
+    details: `Updated user ${updatedUser.fullName} (${updatedUser.email}) status to ${status}`,
+    metadata: { status, role: updatedUser.role },
   });
 
   return {

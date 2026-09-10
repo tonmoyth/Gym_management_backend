@@ -11,6 +11,7 @@
 export type * from './models/Announcement'
 export type * from './models/Attendance'
 export type * from './models/AttendanceLog'
+export type * from './models/AuditLog'
 export type * from './models/BiometricDevice'
 export type * from './models/Business'
 export type * from './models/BusinessReferral'

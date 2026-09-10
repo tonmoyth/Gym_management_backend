@@ -3,6 +3,7 @@ import AppError from '../../../errors/AppError';
 import { Role } from '../../../generated/prisma/enums';
 import { QueryBuilder } from '../../../utils/queryBuilder';
 import { hashPassword, generateRandomString } from 'better-auth/crypto';
+import { auditLogger } from '../../../utils/auditLogger';
 import {
     ICreateStaffPayload,
     IUpdateStaffPermissionPayload,
@@ -114,9 +115,14 @@ const createStaff = async (
     });
 
     // 6. Audit log
-    console.log(
-        `[AUDIT] SUPER_ADMIN ${superAdminId} created platform ${payload.role} account ${user.id} (${user.email}) with permissions: [${payload.permissions.join(', ')}] at ${new Date().toISOString()}`
-    );
+    await auditLogger.record({
+        actorId: superAdminId,
+        action: 'STAFF_CREATED',
+        resource: 'STAFF',
+        resourceId: user.id,
+        details: `Created platform ${payload.role} account ${user.fullName} (${user.email})`,
+        metadata: { role: payload.role, permissions: payload.permissions },
+    });
 
     return {
         id: user.id,
@@ -256,9 +262,14 @@ const updateStaffPermission = async (
     });
 
     // Audit log
-    console.log(
-        `[AUDIT] SUPER_ADMIN ${superAdminId} updated platform account ${user.id} (${user.email}). Role: ${targetRole}, Permissions: [${newPermissions.join(', ')}], Status: ${newIsActive ? 'ACTIVE' : 'SUSPENDED'} at ${new Date().toISOString()}`
-    );
+    await auditLogger.record({
+        actorId: superAdminId,
+        action: 'STAFF_PERMISSION_UPDATED',
+        resource: 'STAFF',
+        resourceId: user.id,
+        details: `Updated platform account ${user.fullName} (${user.email}). Role: ${targetRole}`,
+        metadata: { role: targetRole, permissions: newPermissions, status: newIsActive ? 'ACTIVE' : 'SUSPENDED' },
+    });
 
     return {
         id: updatedUser.id,
@@ -318,9 +329,13 @@ const removeStaff = async (id: string, superAdminId: string) => {
     });
 
     // Audit log
-    console.log(
-        `[AUDIT] SUPER_ADMIN ${superAdminId} deactivated platform staff user ${user.id} (${user.email}) and revoked all active sessions at ${new Date().toISOString()}`
-    );
+    await auditLogger.record({
+        actorId: superAdminId,
+        action: 'STAFF_REMOVED',
+        resource: 'STAFF',
+        resourceId: user.id,
+        details: `Deactivated platform staff user ${user.fullName} (${user.email}) and revoked sessions`,
+    });
 
     return null;
 };

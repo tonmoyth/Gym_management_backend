@@ -10,6 +10,7 @@ import { paymentService } from '../../Payment/payment.service';
 import { TrainerMemberOversightService } from '../trainer_member_oversight/trainerMemberOversight.service';
 import { NotificationService } from '../../../utils/notification.service';
 import { pushJob } from '../../../utils/redisQueue';
+import { auditLogger } from '../../../utils/auditLogger';
 import {
   disputeSearchableFields,
   disputeFilterableFields,
@@ -581,9 +582,15 @@ const resolveDispute = async (
       }
 
       // 5. Administrative audit log
-      console.log(
-        `[AUDIT] SUPER_ADMIN ${adminId} resolved Dispute ${id} with REFUND for Payment ${paymentRecord.id}. Reason: ${trimmedReason}`
-      );
+      await auditLogger.record({
+        actorId: adminId,
+        action: 'DISPUTE_RESOLVED',
+        resource: 'DISPUTE',
+        resourceId: id,
+        businessId: dispute.businessId,
+        details: `Resolved dispute with REFUND for payment ${paymentRecord.id}: ${trimmedReason}`,
+        metadata: { resolution: 'REFUND', paymentId: paymentRecord.id },
+      });
 
       // 6. In-app Notification
       await NotificationService.createNotification(
@@ -637,9 +644,15 @@ const resolveDispute = async (
         );
       }
 
-      console.log(
-        `[AUDIT] SUPER_ADMIN ${adminId} resolved Dispute ${id} with WARNING. Reason: ${trimmedReason}`
-      );
+      await auditLogger.record({
+        actorId: adminId,
+        action: 'DISPUTE_RESOLVED',
+        resource: 'DISPUTE',
+        resourceId: id,
+        businessId: dispute.businessId,
+        details: `Resolved dispute with WARNING: ${trimmedReason}`,
+        metadata: { resolution: 'WARNING' },
+      });
 
       await NotificationService.createNotification(
         dispute.userId,
@@ -715,9 +728,15 @@ const resolveDispute = async (
         );
       }
 
-      console.log(
-        `[AUDIT] SUPER_ADMIN ${adminId} resolved Dispute ${id} with ACCOUNT_ACTION (${targetAction}) on User ${targetUserId}. Reason: ${trimmedReason}`
-      );
+      await auditLogger.record({
+        actorId: adminId,
+        action: 'DISPUTE_RESOLVED',
+        resource: 'DISPUTE',
+        resourceId: id,
+        businessId: dispute.businessId,
+        details: `Resolved dispute with ACCOUNT_ACTION (${targetAction}) on user ${targetUserId}: ${trimmedReason}`,
+        metadata: { resolution: 'ACCOUNT_ACTION', targetUserId, action: targetAction },
+      });
 
       await NotificationService.createNotification(
         dispute.userId,
@@ -767,9 +786,15 @@ const resolveDispute = async (
         );
       }
 
-      console.log(
-        `[AUDIT] SUPER_ADMIN ${adminId} dismissed Dispute ${id}. Reason: ${trimmedReason}`
-      );
+      await auditLogger.record({
+        actorId: adminId,
+        action: 'DISPUTE_RESOLVED',
+        resource: 'DISPUTE',
+        resourceId: id,
+        businessId: dispute.businessId,
+        details: `Dismissed dispute: ${trimmedReason}`,
+        metadata: { resolution: 'DISMISSAL' },
+      });
 
       await NotificationService.createNotification(
         dispute.userId,

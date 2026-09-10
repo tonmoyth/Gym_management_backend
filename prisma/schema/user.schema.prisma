@@ -27,6 +27,7 @@ model User {
   referredMembers             MemberReferral[]       @relation("ReferredUser")
   businessReferrals           BusinessReferral[]     @relation("ReferrerOwner")
   disputes                    Dispute[]
+  auditLogs                   AuditLog[]             @relation("UserAuditLogs")
 
   @@map("user")
 }

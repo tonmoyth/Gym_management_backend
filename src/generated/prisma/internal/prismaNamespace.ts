@@ -393,6 +393,7 @@ export const ModelName = {
   Announcement: 'Announcement',
   Attendance: 'Attendance',
   AttendanceLog: 'AttendanceLog',
+  AuditLog: 'AuditLog',
   BiometricDevice: 'BiometricDevice',
   Business: 'Business',
   BusinessReferral: 'BusinessReferral',
@@ -445,7 +446,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "announcement" | "attendance" | "attendanceLog" | "biometricDevice" | "business" | "businessReferral" | "businessStaff" | "chatMessage" | "chatThread" | "classBooking" | "classSchedule" | "dietPlan" | "dispute" | "equipment" | "favorite" | "invoice" | "jobPost" | "memberBiometric" | "memberProfile" | "memberReferral" | "memberReferralSetting" | "membership" | "membershipPlan" | "notification" | "payment" | "platformSubscription" | "progressLog" | "attendanceQrCode" | "review" | "specializationTag" | "trainerApplication" | "trainerBusiness" | "trainerCertification" | "trainerPayout" | "trainerProfile" | "trainerSpecialization" | "user" | "session" | "account" | "verification"
+    modelProps: "announcement" | "attendance" | "attendanceLog" | "auditLog" | "biometricDevice" | "business" | "businessReferral" | "businessStaff" | "chatMessage" | "chatThread" | "classBooking" | "classSchedule" | "dietPlan" | "dispute" | "equipment" | "favorite" | "invoice" | "jobPost" | "memberBiometric" | "memberProfile" | "memberReferral" | "memberReferralSetting" | "membership" | "membershipPlan" | "notification" | "payment" | "platformSubscription" | "progressLog" | "attendanceQrCode" | "review" | "specializationTag" | "trainerApplication" | "trainerBusiness" | "trainerCertification" | "trainerPayout" | "trainerProfile" | "trainerSpecialization" | "user" | "session" | "account" | "verification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -668,6 +669,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.AttendanceLogCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AttendanceLogCountAggregateOutputType> | number
+        }
+      }
+    }
+    AuditLog: {
+      payload: Prisma.$AuditLogPayload<ExtArgs>
+      fields: Prisma.AuditLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AuditLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AuditLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+        }
+        findFirst: {
+          args: Prisma.AuditLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AuditLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+        }
+        findMany: {
+          args: Prisma.AuditLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+        }
+        create: {
+          args: Prisma.AuditLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+        }
+        createMany: {
+          args: Prisma.AuditLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AuditLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+        }
+        delete: {
+          args: Prisma.AuditLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+        }
+        update: {
+          args: Prisma.AuditLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.AuditLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AuditLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AuditLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.AuditLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+        }
+        aggregate: {
+          args: Prisma.AuditLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAuditLog>
+        }
+        groupBy: {
+          args: Prisma.AuditLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuditLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AuditLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuditLogCountAggregateOutputType> | number
         }
       }
     }
@@ -3487,6 +3562,23 @@ export const AttendanceLogScalarFieldEnum = {
 export type AttendanceLogScalarFieldEnum = (typeof AttendanceLogScalarFieldEnum)[keyof typeof AttendanceLogScalarFieldEnum]
 
 
+export const AuditLogScalarFieldEnum = {
+  id: 'id',
+  actorId: 'actorId',
+  action: 'action',
+  resource: 'resource',
+  resourceId: 'resourceId',
+  businessId: 'businessId',
+  details: 'details',
+  metadata: 'metadata',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
 export const BiometricDeviceScalarFieldEnum = {
   id: 'id',
   businessId: 'businessId',
@@ -4016,19 +4108,19 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const JsonNullValueInput = {
-  JsonNull: JsonNull
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
 export const NullableJsonNullValueInput = {
   DbNull: DbNull,
   JsonNull: JsonNull
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -4143,6 +4235,20 @@ export type EnumVerifyMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'VerifyMethod[]'
  */
 export type ListEnumVerifyMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerifyMethod[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -4269,20 +4375,6 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
- * Reference to a field of type 'Json'
- */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-/**
- * Reference to a field of type 'QueryMode'
- */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -4606,6 +4698,7 @@ export type GlobalOmitConfig = {
   announcement?: Prisma.AnnouncementOmit
   attendance?: Prisma.AttendanceOmit
   attendanceLog?: Prisma.AttendanceLogOmit
+  auditLog?: Prisma.AuditLogOmit
   biometricDevice?: Prisma.BiometricDeviceOmit
   business?: Prisma.BusinessOmit
   businessReferral?: Prisma.BusinessReferralOmit

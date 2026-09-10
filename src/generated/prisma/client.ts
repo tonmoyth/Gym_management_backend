@@ -58,6 +58,11 @@ export type Attendance = Prisma.AttendanceModel
  */
 export type AttendanceLog = Prisma.AttendanceLogModel
 /**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel
+/**
  * Model BiometricDevice
  * 
  */

@@ -3,6 +3,7 @@ import AppError from '../../../errors/AppError';
 import { QueryBuilder } from '../../../utils/queryBuilder';
 import { SubscriptionStatus } from '../../../generated/prisma/enums';
 import { pushJob } from '../../../utils/redisQueue';
+import { auditLogger } from '../../../utils/auditLogger';
 import {
   subscriptionSearchableFields,
   subscriptionFilterableFields,
@@ -192,9 +193,18 @@ const updateSubscriptionStatus = async (
   });
 
   // 4. Record administrative audit log
-  console.log(
-    `[AUDIT] SUPER_ADMIN ${adminId} changed Business ${businessId} subscription status: ${transactionResult.previousStatus} -> ${status} at ${new Date().toISOString()}`
-  );
+  await auditLogger.record({
+    actorId: adminId,
+    action: 'SUBSCRIPTION_STATUS_UPDATED',
+    resource: 'SUBSCRIPTION',
+    resourceId: transactionResult.updatedSubscription.id,
+    businessId: transactionResult.business.id,
+    details: `Changed Business ${transactionResult.business.name} subscription status from ${transactionResult.previousStatus} to ${status}`,
+    metadata: {
+      previousStatus: transactionResult.previousStatus,
+      newStatus: status,
+    },
+  });
 
   // 5. Asynchronously trigger notification & email through Redis worker queue
   await pushJob('notification_queue', {

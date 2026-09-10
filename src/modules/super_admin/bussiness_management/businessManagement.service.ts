@@ -3,6 +3,7 @@ import AppError from '../../../errors/AppError';
 import { QueryBuilder } from '../../../utils/queryBuilder';
 import { BusinessStatus } from '../../../generated/prisma/enums';
 import { pushJob } from '../../../utils/redisQueue';
+import { auditLogger } from '../../../utils/auditLogger';
 import {
   businessSearchableFields,
   businessFilterableFields,
@@ -78,6 +79,16 @@ const approveBusiness = async (id: string, adminId: string) => {
     ownerName: updatedBusiness.owner?.fullName || 'Business Owner',
   });
 
+  // Audit log
+  await auditLogger.record({
+    actorId: adminId,
+    action: 'BUSINESS_APPROVED',
+    resource: 'BUSINESS',
+    resourceId: updatedBusiness.id,
+    businessId: updatedBusiness.id,
+    details: `Approved business: ${updatedBusiness.name}`,
+  });
+
   return updatedBusiness;
 };
 
@@ -117,6 +128,17 @@ const rejectBusiness = async (id: string, adminId: string, reason?: string) => {
     reason,
   });
 
+  // Audit log
+  await auditLogger.record({
+    actorId: adminId,
+    action: 'BUSINESS_REJECTED',
+    resource: 'BUSINESS',
+    resourceId: updatedBusiness.id,
+    businessId: updatedBusiness.id,
+    details: `Rejected business: ${updatedBusiness.name}${reason ? ` (${reason})` : ''}`,
+    metadata: { reason },
+  });
+
   return updatedBusiness;
 };
 
@@ -154,6 +176,17 @@ const suspendBusiness = async (id: string, adminId: string, reason?: string) => 
     ownerEmail: updatedBusiness.owner?.email,
     ownerName: updatedBusiness.owner?.fullName || 'Business Owner',
     reason,
+  });
+
+  // Audit log
+  await auditLogger.record({
+    actorId: adminId,
+    action: 'BUSINESS_SUSPENDED',
+    resource: 'BUSINESS',
+    resourceId: updatedBusiness.id,
+    businessId: updatedBusiness.id,
+    details: `Suspended business: ${updatedBusiness.name}${reason ? ` (${reason})` : ''}`,
+    metadata: { reason },
   });
 
   return updatedBusiness;

@@ -52,6 +52,7 @@ export const ModelName = {
   Announcement: 'Announcement',
   Attendance: 'Attendance',
   AttendanceLog: 'AttendanceLog',
+  AuditLog: 'AuditLog',
   BiometricDevice: 'BiometricDevice',
   Business: 'Business',
   BusinessReferral: 'BusinessReferral',
@@ -144,6 +145,23 @@ export const AttendanceLogScalarFieldEnum = {
 } as const
 
 export type AttendanceLogScalarFieldEnum = (typeof AttendanceLogScalarFieldEnum)[keyof typeof AttendanceLogScalarFieldEnum]
+
+
+export const AuditLogScalarFieldEnum = {
+  id: 'id',
+  actorId: 'actorId',
+  action: 'action',
+  resource: 'resource',
+  resourceId: 'resourceId',
+  businessId: 'businessId',
+  details: 'details',
+  metadata: 'metadata',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
 
 
 export const BiometricDeviceScalarFieldEnum = {
@@ -675,19 +693,19 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const JsonNullValueInput = {
-  JsonNull: JsonNull
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
 export const NullableJsonNullValueInput = {
   DbNull: DbNull,
   JsonNull: JsonNull
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {

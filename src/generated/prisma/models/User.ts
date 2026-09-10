@@ -241,6 +241,7 @@ export type UserWhereInput = {
   referredMembers?: Prisma.MemberReferralListRelationFilter
   businessReferrals?: Prisma.BusinessReferralListRelationFilter
   disputes?: Prisma.DisputeListRelationFilter
+  auditLogs?: Prisma.AuditLogListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -270,6 +271,7 @@ export type UserOrderByWithRelationInput = {
   referredMembers?: Prisma.MemberReferralOrderByRelationAggregateInput
   businessReferrals?: Prisma.BusinessReferralOrderByRelationAggregateInput
   disputes?: Prisma.DisputeOrderByRelationAggregateInput
+  auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -302,6 +304,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   referredMembers?: Prisma.MemberReferralListRelationFilter
   businessReferrals?: Prisma.BusinessReferralListRelationFilter
   disputes?: Prisma.DisputeListRelationFilter
+  auditLogs?: Prisma.AuditLogListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -365,6 +368,7 @@ export type UserCreateInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -394,6 +398,7 @@ export type UserUncheckedCreateInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserUpdateInput = {
@@ -423,6 +428,7 @@ export type UserUpdateInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -452,6 +458,7 @@ export type UserUncheckedUpdateInput = {
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -558,6 +565,22 @@ export type UserUpdateOneRequiredWithoutAttendancesNestedInput = {
   upsert?: Prisma.UserUpsertWithoutAttendancesInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAttendancesInput, Prisma.UserUpdateWithoutAttendancesInput>, Prisma.UserUncheckedUpdateWithoutAttendancesInput>
+}
+
+export type UserCreateNestedOneWithoutAuditLogsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAuditLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
+  upsert?: Prisma.UserUpsertWithoutAuditLogsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.UserUpdateWithoutAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
 }
 
 export type UserCreateNestedOneWithoutOwnedBusinessesInput = {
@@ -797,6 +820,7 @@ export type UserCreateWithoutAttendancesInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAttendancesInput = {
@@ -825,6 +849,7 @@ export type UserUncheckedCreateWithoutAttendancesInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAttendancesInput = {
@@ -869,6 +894,7 @@ export type UserUpdateWithoutAttendancesInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttendancesInput = {
@@ -893,6 +919,139 @@ export type UserUncheckedUpdateWithoutAttendancesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPayerNestedInput
   progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutLoggedByUserNestedInput
+  adminReviewedCertifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
+  businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutAuditLogsInput = {
+  id?: string
+  fullName?: string | null
+  email: string
+  emailVerified?: boolean
+  profileImage?: string | null
+  role: $Enums.Role
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  isActive?: boolean
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
+  staffRoles?: Prisma.BusinessStaffCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  memberProfile?: Prisma.MemberProfileCreateNestedOneWithoutUserInput
+  trainerProfile?: Prisma.TrainerProfileCreateNestedOneWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPayerInput
+  progressLogs?: Prisma.ProgressLogCreateNestedManyWithoutLoggedByUserInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  adminReviewedCertifications?: Prisma.TrainerCertificationCreateNestedManyWithoutReviewedByAdminInput
+  referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
+  businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAuditLogsInput = {
+  id?: string
+  fullName?: string | null
+  email: string
+  emailVerified?: boolean
+  profileImage?: string | null
+  role: $Enums.Role
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  isActive?: boolean
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
+  staffRoles?: Prisma.BusinessStaffUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  memberProfile?: Prisma.MemberProfileUncheckedCreateNestedOneWithoutUserInput
+  trainerProfile?: Prisma.TrainerProfileUncheckedCreateNestedOneWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPayerInput
+  progressLogs?: Prisma.ProgressLogUncheckedCreateNestedManyWithoutLoggedByUserInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+  adminReviewedCertifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
+  businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAuditLogsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+}
+
+export type UserUpsertWithoutAuditLogsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuditLogsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+}
+
+export type UserUpdateWithoutAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
+  staffRoles?: Prisma.BusinessStaffUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  memberProfile?: Prisma.MemberProfileUpdateOneWithoutUserNestedInput
+  trainerProfile?: Prisma.TrainerProfileUpdateOneWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPayerNestedInput
+  progressLogs?: Prisma.ProgressLogUpdateManyWithoutLoggedByUserNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  adminReviewedCertifications?: Prisma.TrainerCertificationUpdateManyWithoutReviewedByAdminNestedInput
+  referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
+  businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
+  staffRoles?: Prisma.BusinessStaffUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  memberProfile?: Prisma.MemberProfileUncheckedUpdateOneWithoutUserNestedInput
+  trainerProfile?: Prisma.TrainerProfileUncheckedUpdateOneWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPayerNestedInput
+  progressLogs?: Prisma.ProgressLogUncheckedUpdateManyWithoutLoggedByUserNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
   adminReviewedCertifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutReviewedByAdminNestedInput
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
@@ -925,6 +1084,7 @@ export type UserCreateWithoutOwnedBusinessesInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutOwnedBusinessesInput = {
@@ -953,6 +1113,7 @@ export type UserUncheckedCreateWithoutOwnedBusinessesInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutOwnedBusinessesInput = {
@@ -997,6 +1158,7 @@ export type UserUpdateWithoutOwnedBusinessesInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedBusinessesInput = {
@@ -1025,6 +1187,7 @@ export type UserUncheckedUpdateWithoutOwnedBusinessesInput = {
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutBusinessReferralsInput = {
@@ -1053,6 +1216,7 @@ export type UserCreateWithoutBusinessReferralsInput = {
   adminReviewedCertifications?: Prisma.TrainerCertificationCreateNestedManyWithoutReviewedByAdminInput
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutBusinessReferralsInput = {
@@ -1081,6 +1245,7 @@ export type UserUncheckedCreateWithoutBusinessReferralsInput = {
   adminReviewedCertifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutReviewedByAdminInput
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutBusinessReferralsInput = {
@@ -1125,6 +1290,7 @@ export type UserUpdateWithoutBusinessReferralsInput = {
   adminReviewedCertifications?: Prisma.TrainerCertificationUpdateManyWithoutReviewedByAdminNestedInput
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBusinessReferralsInput = {
@@ -1153,6 +1319,7 @@ export type UserUncheckedUpdateWithoutBusinessReferralsInput = {
   adminReviewedCertifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutReviewedByAdminNestedInput
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutStaffRolesInput = {
@@ -1181,6 +1348,7 @@ export type UserCreateWithoutStaffRolesInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutStaffRolesInput = {
@@ -1209,6 +1377,7 @@ export type UserUncheckedCreateWithoutStaffRolesInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutStaffRolesInput = {
@@ -1253,6 +1422,7 @@ export type UserUpdateWithoutStaffRolesInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStaffRolesInput = {
@@ -1281,6 +1451,7 @@ export type UserUncheckedUpdateWithoutStaffRolesInput = {
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutSentMessagesInput = {
@@ -1309,6 +1480,7 @@ export type UserCreateWithoutSentMessagesInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -1337,6 +1509,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -1381,6 +1554,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -1409,6 +1583,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutDisputesInput = {
@@ -1437,6 +1612,7 @@ export type UserCreateWithoutDisputesInput = {
   adminReviewedCertifications?: Prisma.TrainerCertificationCreateNestedManyWithoutReviewedByAdminInput
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutDisputesInput = {
@@ -1465,6 +1641,7 @@ export type UserUncheckedCreateWithoutDisputesInput = {
   adminReviewedCertifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutReviewedByAdminInput
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutDisputesInput = {
@@ -1509,6 +1686,7 @@ export type UserUpdateWithoutDisputesInput = {
   adminReviewedCertifications?: Prisma.TrainerCertificationUpdateManyWithoutReviewedByAdminNestedInput
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesInput = {
@@ -1537,6 +1715,7 @@ export type UserUncheckedUpdateWithoutDisputesInput = {
   adminReviewedCertifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutReviewedByAdminNestedInput
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutMemberProfileInput = {
@@ -1565,6 +1744,7 @@ export type UserCreateWithoutMemberProfileInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutMemberProfileInput = {
@@ -1593,6 +1773,7 @@ export type UserUncheckedCreateWithoutMemberProfileInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutMemberProfileInput = {
@@ -1637,6 +1818,7 @@ export type UserUpdateWithoutMemberProfileInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMemberProfileInput = {
@@ -1665,6 +1847,7 @@ export type UserUncheckedUpdateWithoutMemberProfileInput = {
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutReferredMembersInput = {
@@ -1693,6 +1876,7 @@ export type UserCreateWithoutReferredMembersInput = {
   adminReviewedCertifications?: Prisma.TrainerCertificationCreateNestedManyWithoutReviewedByAdminInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutReferredMembersInput = {
@@ -1721,6 +1905,7 @@ export type UserUncheckedCreateWithoutReferredMembersInput = {
   adminReviewedCertifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutReviewedByAdminInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutReferredMembersInput = {
@@ -1765,6 +1950,7 @@ export type UserUpdateWithoutReferredMembersInput = {
   adminReviewedCertifications?: Prisma.TrainerCertificationUpdateManyWithoutReviewedByAdminNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferredMembersInput = {
@@ -1793,6 +1979,7 @@ export type UserUncheckedUpdateWithoutReferredMembersInput = {
   adminReviewedCertifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutReviewedByAdminNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1821,6 +2008,7 @@ export type UserCreateWithoutNotificationsInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1849,6 +2037,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1893,6 +2082,7 @@ export type UserUpdateWithoutNotificationsInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -1921,6 +2111,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutPaymentsInput = {
@@ -1949,6 +2140,7 @@ export type UserCreateWithoutPaymentsInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -1977,6 +2169,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -2021,6 +2214,7 @@ export type UserUpdateWithoutPaymentsInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -2049,6 +2243,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutProgressLogsInput = {
@@ -2077,6 +2272,7 @@ export type UserCreateWithoutProgressLogsInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutProgressLogsInput = {
@@ -2105,6 +2301,7 @@ export type UserUncheckedCreateWithoutProgressLogsInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutProgressLogsInput = {
@@ -2149,6 +2346,7 @@ export type UserUpdateWithoutProgressLogsInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProgressLogsInput = {
@@ -2177,6 +2375,7 @@ export type UserUncheckedUpdateWithoutProgressLogsInput = {
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutAdminReviewedCertificationsInput = {
@@ -2205,6 +2404,7 @@ export type UserCreateWithoutAdminReviewedCertificationsInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAdminReviewedCertificationsInput = {
@@ -2233,6 +2433,7 @@ export type UserUncheckedCreateWithoutAdminReviewedCertificationsInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAdminReviewedCertificationsInput = {
@@ -2277,6 +2478,7 @@ export type UserUpdateWithoutAdminReviewedCertificationsInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAdminReviewedCertificationsInput = {
@@ -2305,6 +2507,7 @@ export type UserUncheckedUpdateWithoutAdminReviewedCertificationsInput = {
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutTrainerProfileInput = {
@@ -2333,6 +2536,7 @@ export type UserCreateWithoutTrainerProfileInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutTrainerProfileInput = {
@@ -2361,6 +2565,7 @@ export type UserUncheckedCreateWithoutTrainerProfileInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutTrainerProfileInput = {
@@ -2405,6 +2610,7 @@ export type UserUpdateWithoutTrainerProfileInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTrainerProfileInput = {
@@ -2433,6 +2639,7 @@ export type UserUncheckedUpdateWithoutTrainerProfileInput = {
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -2461,6 +2668,7 @@ export type UserCreateWithoutSessionsInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -2489,6 +2697,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2533,6 +2742,7 @@ export type UserUpdateWithoutSessionsInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2561,6 +2771,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -2589,6 +2800,7 @@ export type UserCreateWithoutAccountsInput = {
   referredMembers?: Prisma.MemberReferralCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -2617,6 +2829,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   referredMembers?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutReferredUserInput
   businessReferrals?: Prisma.BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -2661,6 +2874,7 @@ export type UserUpdateWithoutAccountsInput = {
   referredMembers?: Prisma.MemberReferralUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -2689,6 +2903,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   referredMembers?: Prisma.MemberReferralUncheckedUpdateManyWithoutReferredUserNestedInput
   businessReferrals?: Prisma.BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
 }
 
 
@@ -2710,6 +2925,7 @@ export type UserCountOutputType = {
   referredMembers: number
   businessReferrals: number
   disputes: number
+  auditLogs: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2726,6 +2942,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   referredMembers?: boolean | UserCountOutputTypeCountReferredMembersArgs
   businessReferrals?: boolean | UserCountOutputTypeCountBusinessReferralsArgs
   disputes?: boolean | UserCountOutputTypeCountDisputesArgs
+  auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
 }
 
 /**
@@ -2829,6 +3046,13 @@ export type UserCountOutputTypeCountDisputesArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.DisputeWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditLogWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2857,6 +3081,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   referredMembers?: boolean | Prisma.User$referredMembersArgs<ExtArgs>
   businessReferrals?: boolean | Prisma.User$businessReferralsArgs<ExtArgs>
   disputes?: boolean | Prisma.User$disputesArgs<ExtArgs>
+  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2919,6 +3144,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   referredMembers?: boolean | Prisma.User$referredMembersArgs<ExtArgs>
   businessReferrals?: boolean | Prisma.User$businessReferralsArgs<ExtArgs>
   disputes?: boolean | Prisma.User$disputesArgs<ExtArgs>
+  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2942,6 +3168,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     referredMembers: Prisma.$MemberReferralPayload<ExtArgs>[]
     businessReferrals: Prisma.$BusinessReferralPayload<ExtArgs>[]
     disputes: Prisma.$DisputePayload<ExtArgs>[]
+    auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3364,6 +3591,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   referredMembers<T extends Prisma.User$referredMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$referredMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MemberReferralPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   businessReferrals<T extends Prisma.User$businessReferralsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$businessReferralsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessReferralPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   disputes<T extends Prisma.User$disputesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$disputesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4139,6 +4367,30 @@ export type User$disputesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.DisputeScalarFieldEnum | Prisma.DisputeScalarFieldEnum[]
+}
+
+/**
+ * User.auditLogs
+ */
+export type User$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditLog
+   */
+  select?: Prisma.AuditLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditLog
+   */
+  omit?: Prisma.AuditLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditLogInclude<ExtArgs> | null
+  where?: Prisma.AuditLogWhereInput
+  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
+  cursor?: Prisma.AuditLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
 }
 
 /**

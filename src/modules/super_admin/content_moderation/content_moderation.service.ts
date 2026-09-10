@@ -3,6 +3,7 @@ import AppError from '../../../errors/AppError';
 import { QueryBuilder } from '../../../utils/queryBuilder';
 import { NotificationType } from '../../../generated/prisma/enums';
 import { NotificationService } from '../../../utils/notification.service';
+import { auditLogger } from '../../../utils/auditLogger';
 import {
   reviewSearchableFields,
   reviewFilterableFields,
@@ -176,9 +177,14 @@ const removeReview = async (id: string, adminId: string) => {
   });
 
   // Administrative audit logging
-  console.log(
-    `[AUDIT] SUPER_ADMIN ${adminId} removed Review ${id} at ${new Date().toISOString()}`
-  );
+  await auditLogger.record({
+    actorId: adminId,
+    action: 'REVIEW_REMOVED',
+    resource: 'REVIEW',
+    resourceId: id,
+    businessId: review.businessId,
+    details: `Moderated and removed review ${id} for business ${review.business?.name || 'N/A'}`,
+  });
 
   // In-app notification to review author
   if (review.member?.userId) {
@@ -344,9 +350,14 @@ const removeJobPost = async (id: string, adminId: string) => {
   });
 
   // Administrative audit logging
-  console.log(
-    `[AUDIT] SUPER_ADMIN ${adminId} removed JobPost ${id} at ${new Date().toISOString()}`
-  );
+  await auditLogger.record({
+    actorId: adminId,
+    action: 'JOB_POST_REMOVED',
+    resource: 'JOB_POST',
+    resourceId: id,
+    businessId: jobPost.businessId,
+    details: `Moderated and removed job post "${jobPost.title}" for business ${jobPost.business?.name || 'N/A'}`,
+  });
 
   // In-app notification to business owner
   if (jobPost.business?.ownerId) {

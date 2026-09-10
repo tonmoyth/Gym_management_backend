@@ -1,0 +1,21 @@
+model AuditLog {
+  id          String    @id @default(uuid())
+  actorId     String?
+  actor       User?     @relation("UserAuditLogs", fields: [actorId], references: [id], onDelete: SetNull)
+  action      String
+  resource    String
+  resourceId  String?
+  businessId  String?
+  business    Business? @relation("BusinessAuditLogs", fields: [businessId], references: [id], onDelete: SetNull)
+  details     String?
+  metadata    Json?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime  @default(now())
+
+  @@index([actorId])
+  @@index([action])
+  @@index([resource])
+  @@index([businessId])
+  @@index([createdAt])
+}

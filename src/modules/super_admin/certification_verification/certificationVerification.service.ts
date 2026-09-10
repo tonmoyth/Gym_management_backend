@@ -3,6 +3,7 @@ import AppError from '../../../errors/AppError';
 import { QueryBuilder } from '../../../utils/queryBuilder';
 import { CertificationStatus } from '../../../generated/prisma/enums';
 import { pushJob } from '../../../utils/redisQueue';
+import { auditLogger } from '../../../utils/auditLogger';
 import {
   certificationSearchableFields,
   certificationFilterableFields,
@@ -195,6 +196,15 @@ const verifyCertification = async (certificationId: string, adminId: string) => 
     certificationTitle: transactionResult.certification.title,
   });
 
+  // Audit log
+  await auditLogger.record({
+    actorId: adminId,
+    action: 'CERTIFICATION_VERIFIED',
+    resource: 'CERTIFICATION',
+    resourceId: transactionResult.certification.id,
+    details: `Verified trainer certification: ${transactionResult.certification.title}`,
+  });
+
   return {
     id: transactionResult.certification.id,
     title: transactionResult.certification.title,
@@ -279,6 +289,16 @@ const rejectCertification = async (
     certificationId: transactionResult.certification.id,
     certificationTitle: transactionResult.certification.title,
     reason: reason.trim(),
+  });
+
+  // Audit log
+  await auditLogger.record({
+    actorId: adminId,
+    action: 'CERTIFICATION_REJECTED',
+    resource: 'CERTIFICATION',
+    resourceId: transactionResult.certification.id,
+    details: `Rejected trainer certification: ${transactionResult.certification.title} (${reason.trim()})`,
+    metadata: { reason: reason.trim() },
   });
 
   return {
