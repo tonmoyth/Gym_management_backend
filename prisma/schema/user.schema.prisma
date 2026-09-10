@@ -5,6 +5,7 @@ model User {
   emailVerified Boolean  @default(false)
   profileImage  String?
   role          Role
+  permissions   String[] @default([])
   isActive      Boolean  @default(true)
   isVerified    Boolean  @default(false)
   createdAt     DateTime @default(now())

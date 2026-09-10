@@ -3,6 +3,8 @@ enum Role {
   BUSINESS_OWNER
   TRAINER
   MEMBER
+  ADMIN
+  STAFF
 }
 
 enum BusinessStatus {
