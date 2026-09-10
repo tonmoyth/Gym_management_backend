@@ -712,6 +712,50 @@ const sendDisputeResolvedEmail = async (
     }
 };
 
+const sendBusinessReferralCreditedEmail = async (
+    ownerName: string,
+    ownerEmail: string,
+    referredBusinessName: string,
+    commissionAmount: number,
+    payoutReference: string
+) => {
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 8px;">
+            <h2 style="color: #27ae60; text-align: center;">Referral Commission Credited! 🎉</h2>
+            <p style="font-size: 16px; color: #333;">Dear ${ownerName || 'Partner'},</p>
+            <p style="font-size: 16px; color: #333;">
+                Great news! Your business referral commission for introducing <strong>${referredBusinessName}</strong> to our platform has been reviewed and credited by platform administration.
+            </p>
+            <div style="background-color: #f8f9fa; border-left: 4px solid #27ae60; padding: 15px; margin: 20px 0;">
+                <p style="margin: 5px 0; font-size: 15px;"><strong>Commission Amount:</strong> ${commissionAmount.toFixed(2)} BDT</p>
+                <p style="margin: 5px 0; font-size: 15px;"><strong>Referred Business:</strong> ${referredBusinessName}</p>
+                <p style="margin: 5px 0; font-size: 15px;"><strong>Transaction Reference:</strong> ${payoutReference}</p>
+                <p style="margin: 5px 0; font-size: 15px;"><strong>Status:</strong> <span style="color: #27ae60; font-weight: bold;">CREDITED</span></p>
+            </div>
+            <p style="font-size: 14px; color: #7f8c8d;">
+                Thank you for helping grow our gym community! If you have any questions regarding this credit, please feel free to reach out to our platform support team.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e1e1e1; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #95a5a6; text-align: center;">
+                &copy; ${new Date().getFullYear()} Gym Management Platform. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"Gym Management Platform" <${envVeriables.EMAIL_USER}>`,
+            to: ownerEmail,
+            subject: `Referral Commission Credited: ${commissionAmount.toFixed(2)} BDT! 🎉`,
+            html: htmlContent,
+        });
+        console.log(`✅ Referral commission credited email sent to ${ownerEmail}`);
+    } catch (error: any) {
+        console.error('❌ Failed to send referral commission email:', error.message);
+        // Non-blocking in worker
+    }
+};
+
 export const MailService = {
     sendApplicationApprovedEmail,
     sendApplicationRejectedEmail,
@@ -728,4 +772,5 @@ export const MailService = {
     sendCertificationRejectedEmail,
     sendSubscriptionStatusUpdatedEmail,
     sendDisputeResolvedEmail,
+    sendBusinessReferralCreditedEmail,
 };

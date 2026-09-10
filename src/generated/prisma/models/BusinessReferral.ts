@@ -42,7 +42,11 @@ export type BusinessReferralMinAggregateOutputType = {
   commissionAmount: runtime.Decimal | null
   status: $Enums.ReferralStatus | null
   creditedAt: Date | null
+  creditedById: string | null
+  payoutReference: string | null
+  notes: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type BusinessReferralMaxAggregateOutputType = {
@@ -53,7 +57,11 @@ export type BusinessReferralMaxAggregateOutputType = {
   commissionAmount: runtime.Decimal | null
   status: $Enums.ReferralStatus | null
   creditedAt: Date | null
+  creditedById: string | null
+  payoutReference: string | null
+  notes: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type BusinessReferralCountAggregateOutputType = {
@@ -64,7 +72,11 @@ export type BusinessReferralCountAggregateOutputType = {
   commissionAmount: number
   status: number
   creditedAt: number
+  creditedById: number
+  payoutReference: number
+  notes: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -85,7 +97,11 @@ export type BusinessReferralMinAggregateInputType = {
   commissionAmount?: true
   status?: true
   creditedAt?: true
+  creditedById?: true
+  payoutReference?: true
+  notes?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type BusinessReferralMaxAggregateInputType = {
@@ -96,7 +112,11 @@ export type BusinessReferralMaxAggregateInputType = {
   commissionAmount?: true
   status?: true
   creditedAt?: true
+  creditedById?: true
+  payoutReference?: true
+  notes?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type BusinessReferralCountAggregateInputType = {
@@ -107,7 +127,11 @@ export type BusinessReferralCountAggregateInputType = {
   commissionAmount?: true
   status?: true
   creditedAt?: true
+  creditedById?: true
+  payoutReference?: true
+  notes?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -205,7 +229,11 @@ export type BusinessReferralGroupByOutputType = {
   commissionAmount: runtime.Decimal
   status: $Enums.ReferralStatus
   creditedAt: Date | null
+  creditedById: string | null
+  payoutReference: string | null
+  notes: string | null
   createdAt: Date
+  updatedAt: Date
   _count: BusinessReferralCountAggregateOutputType | null
   _avg: BusinessReferralAvgAggregateOutputType | null
   _sum: BusinessReferralSumAggregateOutputType | null
@@ -239,9 +267,14 @@ export type BusinessReferralWhereInput = {
   commissionAmount?: Prisma.DecimalFilter<"BusinessReferral"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusFilter<"BusinessReferral"> | $Enums.ReferralStatus
   creditedAt?: Prisma.DateTimeNullableFilter<"BusinessReferral"> | Date | string | null
+  creditedById?: Prisma.StringNullableFilter<"BusinessReferral"> | string | null
+  payoutReference?: Prisma.StringNullableFilter<"BusinessReferral"> | string | null
+  notes?: Prisma.StringNullableFilter<"BusinessReferral"> | string | null
   createdAt?: Prisma.DateTimeFilter<"BusinessReferral"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"BusinessReferral"> | Date | string
   referrerOwner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   referredBusiness?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
+  creditedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type BusinessReferralOrderByWithRelationInput = {
@@ -252,9 +285,14 @@ export type BusinessReferralOrderByWithRelationInput = {
   commissionAmount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   creditedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  creditedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  payoutReference?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   referrerOwner?: Prisma.UserOrderByWithRelationInput
   referredBusiness?: Prisma.BusinessOrderByWithRelationInput
+  creditedBy?: Prisma.UserOrderByWithRelationInput
 }
 
 export type BusinessReferralWhereUniqueInput = Prisma.AtLeast<{
@@ -268,9 +306,14 @@ export type BusinessReferralWhereUniqueInput = Prisma.AtLeast<{
   commissionAmount?: Prisma.DecimalFilter<"BusinessReferral"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusFilter<"BusinessReferral"> | $Enums.ReferralStatus
   creditedAt?: Prisma.DateTimeNullableFilter<"BusinessReferral"> | Date | string | null
+  creditedById?: Prisma.StringNullableFilter<"BusinessReferral"> | string | null
+  payoutReference?: Prisma.StringNullableFilter<"BusinessReferral"> | string | null
+  notes?: Prisma.StringNullableFilter<"BusinessReferral"> | string | null
   createdAt?: Prisma.DateTimeFilter<"BusinessReferral"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"BusinessReferral"> | Date | string
   referrerOwner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   referredBusiness?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
+  creditedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id" | "referredBusinessId">
 
 export type BusinessReferralOrderByWithAggregationInput = {
@@ -281,7 +324,11 @@ export type BusinessReferralOrderByWithAggregationInput = {
   commissionAmount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   creditedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  creditedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  payoutReference?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.BusinessReferralCountOrderByAggregateInput
   _avg?: Prisma.BusinessReferralAvgOrderByAggregateInput
   _max?: Prisma.BusinessReferralMaxOrderByAggregateInput
@@ -300,7 +347,11 @@ export type BusinessReferralScalarWhereWithAggregatesInput = {
   commissionAmount?: Prisma.DecimalWithAggregatesFilter<"BusinessReferral"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusWithAggregatesFilter<"BusinessReferral"> | $Enums.ReferralStatus
   creditedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"BusinessReferral"> | Date | string | null
+  creditedById?: Prisma.StringNullableWithAggregatesFilter<"BusinessReferral"> | string | null
+  payoutReference?: Prisma.StringNullableWithAggregatesFilter<"BusinessReferral"> | string | null
+  notes?: Prisma.StringNullableWithAggregatesFilter<"BusinessReferral"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"BusinessReferral"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"BusinessReferral"> | Date | string
 }
 
 export type BusinessReferralCreateInput = {
@@ -309,9 +360,13 @@ export type BusinessReferralCreateInput = {
   commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ReferralStatus
   creditedAt?: Date | string | null
+  payoutReference?: string | null
+  notes?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   referrerOwner: Prisma.UserCreateNestedOneWithoutBusinessReferralsInput
   referredBusiness: Prisma.BusinessCreateNestedOneWithoutBusinessReferralInput
+  creditedBy?: Prisma.UserCreateNestedOneWithoutCreditedBusinessReferralsInput
 }
 
 export type BusinessReferralUncheckedCreateInput = {
@@ -322,7 +377,11 @@ export type BusinessReferralUncheckedCreateInput = {
   commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ReferralStatus
   creditedAt?: Date | string | null
+  creditedById?: string | null
+  payoutReference?: string | null
+  notes?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type BusinessReferralUpdateInput = {
@@ -331,9 +390,13 @@ export type BusinessReferralUpdateInput = {
   commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusFieldUpdateOperationsInput | $Enums.ReferralStatus
   creditedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  payoutReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   referrerOwner?: Prisma.UserUpdateOneRequiredWithoutBusinessReferralsNestedInput
   referredBusiness?: Prisma.BusinessUpdateOneRequiredWithoutBusinessReferralNestedInput
+  creditedBy?: Prisma.UserUpdateOneWithoutCreditedBusinessReferralsNestedInput
 }
 
 export type BusinessReferralUncheckedUpdateInput = {
@@ -344,7 +407,11 @@ export type BusinessReferralUncheckedUpdateInput = {
   commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusFieldUpdateOperationsInput | $Enums.ReferralStatus
   creditedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  creditedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payoutReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BusinessReferralCreateManyInput = {
@@ -355,7 +422,11 @@ export type BusinessReferralCreateManyInput = {
   commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ReferralStatus
   creditedAt?: Date | string | null
+  creditedById?: string | null
+  payoutReference?: string | null
+  notes?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type BusinessReferralUpdateManyMutationInput = {
@@ -364,7 +435,10 @@ export type BusinessReferralUpdateManyMutationInput = {
   commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusFieldUpdateOperationsInput | $Enums.ReferralStatus
   creditedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  payoutReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BusinessReferralUncheckedUpdateManyInput = {
@@ -375,7 +449,11 @@ export type BusinessReferralUncheckedUpdateManyInput = {
   commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusFieldUpdateOperationsInput | $Enums.ReferralStatus
   creditedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  creditedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payoutReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BusinessReferralNullableScalarRelationFilter = {
@@ -391,7 +469,11 @@ export type BusinessReferralCountOrderByAggregateInput = {
   commissionAmount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   creditedAt?: Prisma.SortOrder
+  creditedById?: Prisma.SortOrder
+  payoutReference?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type BusinessReferralAvgOrderByAggregateInput = {
@@ -406,7 +488,11 @@ export type BusinessReferralMaxOrderByAggregateInput = {
   commissionAmount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   creditedAt?: Prisma.SortOrder
+  creditedById?: Prisma.SortOrder
+  payoutReference?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type BusinessReferralMinOrderByAggregateInput = {
@@ -417,7 +503,11 @@ export type BusinessReferralMinOrderByAggregateInput = {
   commissionAmount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   creditedAt?: Prisma.SortOrder
+  creditedById?: Prisma.SortOrder
+  payoutReference?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type BusinessReferralSumOrderByAggregateInput = {
@@ -489,10 +579,24 @@ export type BusinessReferralCreateNestedManyWithoutReferrerOwnerInput = {
   connect?: Prisma.BusinessReferralWhereUniqueInput | Prisma.BusinessReferralWhereUniqueInput[]
 }
 
+export type BusinessReferralCreateNestedManyWithoutCreditedByInput = {
+  create?: Prisma.XOR<Prisma.BusinessReferralCreateWithoutCreditedByInput, Prisma.BusinessReferralUncheckedCreateWithoutCreditedByInput> | Prisma.BusinessReferralCreateWithoutCreditedByInput[] | Prisma.BusinessReferralUncheckedCreateWithoutCreditedByInput[]
+  connectOrCreate?: Prisma.BusinessReferralCreateOrConnectWithoutCreditedByInput | Prisma.BusinessReferralCreateOrConnectWithoutCreditedByInput[]
+  createMany?: Prisma.BusinessReferralCreateManyCreditedByInputEnvelope
+  connect?: Prisma.BusinessReferralWhereUniqueInput | Prisma.BusinessReferralWhereUniqueInput[]
+}
+
 export type BusinessReferralUncheckedCreateNestedManyWithoutReferrerOwnerInput = {
   create?: Prisma.XOR<Prisma.BusinessReferralCreateWithoutReferrerOwnerInput, Prisma.BusinessReferralUncheckedCreateWithoutReferrerOwnerInput> | Prisma.BusinessReferralCreateWithoutReferrerOwnerInput[] | Prisma.BusinessReferralUncheckedCreateWithoutReferrerOwnerInput[]
   connectOrCreate?: Prisma.BusinessReferralCreateOrConnectWithoutReferrerOwnerInput | Prisma.BusinessReferralCreateOrConnectWithoutReferrerOwnerInput[]
   createMany?: Prisma.BusinessReferralCreateManyReferrerOwnerInputEnvelope
+  connect?: Prisma.BusinessReferralWhereUniqueInput | Prisma.BusinessReferralWhereUniqueInput[]
+}
+
+export type BusinessReferralUncheckedCreateNestedManyWithoutCreditedByInput = {
+  create?: Prisma.XOR<Prisma.BusinessReferralCreateWithoutCreditedByInput, Prisma.BusinessReferralUncheckedCreateWithoutCreditedByInput> | Prisma.BusinessReferralCreateWithoutCreditedByInput[] | Prisma.BusinessReferralUncheckedCreateWithoutCreditedByInput[]
+  connectOrCreate?: Prisma.BusinessReferralCreateOrConnectWithoutCreditedByInput | Prisma.BusinessReferralCreateOrConnectWithoutCreditedByInput[]
+  createMany?: Prisma.BusinessReferralCreateManyCreditedByInputEnvelope
   connect?: Prisma.BusinessReferralWhereUniqueInput | Prisma.BusinessReferralWhereUniqueInput[]
 }
 
@@ -510,6 +614,20 @@ export type BusinessReferralUpdateManyWithoutReferrerOwnerNestedInput = {
   deleteMany?: Prisma.BusinessReferralScalarWhereInput | Prisma.BusinessReferralScalarWhereInput[]
 }
 
+export type BusinessReferralUpdateManyWithoutCreditedByNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessReferralCreateWithoutCreditedByInput, Prisma.BusinessReferralUncheckedCreateWithoutCreditedByInput> | Prisma.BusinessReferralCreateWithoutCreditedByInput[] | Prisma.BusinessReferralUncheckedCreateWithoutCreditedByInput[]
+  connectOrCreate?: Prisma.BusinessReferralCreateOrConnectWithoutCreditedByInput | Prisma.BusinessReferralCreateOrConnectWithoutCreditedByInput[]
+  upsert?: Prisma.BusinessReferralUpsertWithWhereUniqueWithoutCreditedByInput | Prisma.BusinessReferralUpsertWithWhereUniqueWithoutCreditedByInput[]
+  createMany?: Prisma.BusinessReferralCreateManyCreditedByInputEnvelope
+  set?: Prisma.BusinessReferralWhereUniqueInput | Prisma.BusinessReferralWhereUniqueInput[]
+  disconnect?: Prisma.BusinessReferralWhereUniqueInput | Prisma.BusinessReferralWhereUniqueInput[]
+  delete?: Prisma.BusinessReferralWhereUniqueInput | Prisma.BusinessReferralWhereUniqueInput[]
+  connect?: Prisma.BusinessReferralWhereUniqueInput | Prisma.BusinessReferralWhereUniqueInput[]
+  update?: Prisma.BusinessReferralUpdateWithWhereUniqueWithoutCreditedByInput | Prisma.BusinessReferralUpdateWithWhereUniqueWithoutCreditedByInput[]
+  updateMany?: Prisma.BusinessReferralUpdateManyWithWhereWithoutCreditedByInput | Prisma.BusinessReferralUpdateManyWithWhereWithoutCreditedByInput[]
+  deleteMany?: Prisma.BusinessReferralScalarWhereInput | Prisma.BusinessReferralScalarWhereInput[]
+}
+
 export type BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput = {
   create?: Prisma.XOR<Prisma.BusinessReferralCreateWithoutReferrerOwnerInput, Prisma.BusinessReferralUncheckedCreateWithoutReferrerOwnerInput> | Prisma.BusinessReferralCreateWithoutReferrerOwnerInput[] | Prisma.BusinessReferralUncheckedCreateWithoutReferrerOwnerInput[]
   connectOrCreate?: Prisma.BusinessReferralCreateOrConnectWithoutReferrerOwnerInput | Prisma.BusinessReferralCreateOrConnectWithoutReferrerOwnerInput[]
@@ -524,14 +642,32 @@ export type BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerNestedInput =
   deleteMany?: Prisma.BusinessReferralScalarWhereInput | Prisma.BusinessReferralScalarWhereInput[]
 }
 
+export type BusinessReferralUncheckedUpdateManyWithoutCreditedByNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessReferralCreateWithoutCreditedByInput, Prisma.BusinessReferralUncheckedCreateWithoutCreditedByInput> | Prisma.BusinessReferralCreateWithoutCreditedByInput[] | Prisma.BusinessReferralUncheckedCreateWithoutCreditedByInput[]
+  connectOrCreate?: Prisma.BusinessReferralCreateOrConnectWithoutCreditedByInput | Prisma.BusinessReferralCreateOrConnectWithoutCreditedByInput[]
+  upsert?: Prisma.BusinessReferralUpsertWithWhereUniqueWithoutCreditedByInput | Prisma.BusinessReferralUpsertWithWhereUniqueWithoutCreditedByInput[]
+  createMany?: Prisma.BusinessReferralCreateManyCreditedByInputEnvelope
+  set?: Prisma.BusinessReferralWhereUniqueInput | Prisma.BusinessReferralWhereUniqueInput[]
+  disconnect?: Prisma.BusinessReferralWhereUniqueInput | Prisma.BusinessReferralWhereUniqueInput[]
+  delete?: Prisma.BusinessReferralWhereUniqueInput | Prisma.BusinessReferralWhereUniqueInput[]
+  connect?: Prisma.BusinessReferralWhereUniqueInput | Prisma.BusinessReferralWhereUniqueInput[]
+  update?: Prisma.BusinessReferralUpdateWithWhereUniqueWithoutCreditedByInput | Prisma.BusinessReferralUpdateWithWhereUniqueWithoutCreditedByInput[]
+  updateMany?: Prisma.BusinessReferralUpdateManyWithWhereWithoutCreditedByInput | Prisma.BusinessReferralUpdateManyWithWhereWithoutCreditedByInput[]
+  deleteMany?: Prisma.BusinessReferralScalarWhereInput | Prisma.BusinessReferralScalarWhereInput[]
+}
+
 export type BusinessReferralCreateWithoutReferredBusinessInput = {
   id?: string
   referralCode: string
   commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ReferralStatus
   creditedAt?: Date | string | null
+  payoutReference?: string | null
+  notes?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   referrerOwner: Prisma.UserCreateNestedOneWithoutBusinessReferralsInput
+  creditedBy?: Prisma.UserCreateNestedOneWithoutCreditedBusinessReferralsInput
 }
 
 export type BusinessReferralUncheckedCreateWithoutReferredBusinessInput = {
@@ -541,7 +677,11 @@ export type BusinessReferralUncheckedCreateWithoutReferredBusinessInput = {
   commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ReferralStatus
   creditedAt?: Date | string | null
+  creditedById?: string | null
+  payoutReference?: string | null
+  notes?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type BusinessReferralCreateOrConnectWithoutReferredBusinessInput = {
@@ -566,8 +706,12 @@ export type BusinessReferralUpdateWithoutReferredBusinessInput = {
   commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusFieldUpdateOperationsInput | $Enums.ReferralStatus
   creditedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  payoutReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   referrerOwner?: Prisma.UserUpdateOneRequiredWithoutBusinessReferralsNestedInput
+  creditedBy?: Prisma.UserUpdateOneWithoutCreditedBusinessReferralsNestedInput
 }
 
 export type BusinessReferralUncheckedUpdateWithoutReferredBusinessInput = {
@@ -577,7 +721,11 @@ export type BusinessReferralUncheckedUpdateWithoutReferredBusinessInput = {
   commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusFieldUpdateOperationsInput | $Enums.ReferralStatus
   creditedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  creditedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payoutReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BusinessReferralCreateWithoutReferrerOwnerInput = {
@@ -586,8 +734,12 @@ export type BusinessReferralCreateWithoutReferrerOwnerInput = {
   commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ReferralStatus
   creditedAt?: Date | string | null
+  payoutReference?: string | null
+  notes?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   referredBusiness: Prisma.BusinessCreateNestedOneWithoutBusinessReferralInput
+  creditedBy?: Prisma.UserCreateNestedOneWithoutCreditedBusinessReferralsInput
 }
 
 export type BusinessReferralUncheckedCreateWithoutReferrerOwnerInput = {
@@ -597,7 +749,11 @@ export type BusinessReferralUncheckedCreateWithoutReferrerOwnerInput = {
   commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ReferralStatus
   creditedAt?: Date | string | null
+  creditedById?: string | null
+  payoutReference?: string | null
+  notes?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type BusinessReferralCreateOrConnectWithoutReferrerOwnerInput = {
@@ -607,6 +763,44 @@ export type BusinessReferralCreateOrConnectWithoutReferrerOwnerInput = {
 
 export type BusinessReferralCreateManyReferrerOwnerInputEnvelope = {
   data: Prisma.BusinessReferralCreateManyReferrerOwnerInput | Prisma.BusinessReferralCreateManyReferrerOwnerInput[]
+  skipDuplicates?: boolean
+}
+
+export type BusinessReferralCreateWithoutCreditedByInput = {
+  id?: string
+  referralCode: string
+  commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ReferralStatus
+  creditedAt?: Date | string | null
+  payoutReference?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  referrerOwner: Prisma.UserCreateNestedOneWithoutBusinessReferralsInput
+  referredBusiness: Prisma.BusinessCreateNestedOneWithoutBusinessReferralInput
+}
+
+export type BusinessReferralUncheckedCreateWithoutCreditedByInput = {
+  id?: string
+  referrerOwnerId: string
+  referredBusinessId: string
+  referralCode: string
+  commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ReferralStatus
+  creditedAt?: Date | string | null
+  payoutReference?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BusinessReferralCreateOrConnectWithoutCreditedByInput = {
+  where: Prisma.BusinessReferralWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessReferralCreateWithoutCreditedByInput, Prisma.BusinessReferralUncheckedCreateWithoutCreditedByInput>
+}
+
+export type BusinessReferralCreateManyCreditedByInputEnvelope = {
+  data: Prisma.BusinessReferralCreateManyCreditedByInput | Prisma.BusinessReferralCreateManyCreditedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -637,7 +831,27 @@ export type BusinessReferralScalarWhereInput = {
   commissionAmount?: Prisma.DecimalFilter<"BusinessReferral"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusFilter<"BusinessReferral"> | $Enums.ReferralStatus
   creditedAt?: Prisma.DateTimeNullableFilter<"BusinessReferral"> | Date | string | null
+  creditedById?: Prisma.StringNullableFilter<"BusinessReferral"> | string | null
+  payoutReference?: Prisma.StringNullableFilter<"BusinessReferral"> | string | null
+  notes?: Prisma.StringNullableFilter<"BusinessReferral"> | string | null
   createdAt?: Prisma.DateTimeFilter<"BusinessReferral"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"BusinessReferral"> | Date | string
+}
+
+export type BusinessReferralUpsertWithWhereUniqueWithoutCreditedByInput = {
+  where: Prisma.BusinessReferralWhereUniqueInput
+  update: Prisma.XOR<Prisma.BusinessReferralUpdateWithoutCreditedByInput, Prisma.BusinessReferralUncheckedUpdateWithoutCreditedByInput>
+  create: Prisma.XOR<Prisma.BusinessReferralCreateWithoutCreditedByInput, Prisma.BusinessReferralUncheckedCreateWithoutCreditedByInput>
+}
+
+export type BusinessReferralUpdateWithWhereUniqueWithoutCreditedByInput = {
+  where: Prisma.BusinessReferralWhereUniqueInput
+  data: Prisma.XOR<Prisma.BusinessReferralUpdateWithoutCreditedByInput, Prisma.BusinessReferralUncheckedUpdateWithoutCreditedByInput>
+}
+
+export type BusinessReferralUpdateManyWithWhereWithoutCreditedByInput = {
+  where: Prisma.BusinessReferralScalarWhereInput
+  data: Prisma.XOR<Prisma.BusinessReferralUpdateManyMutationInput, Prisma.BusinessReferralUncheckedUpdateManyWithoutCreditedByInput>
 }
 
 export type BusinessReferralCreateManyReferrerOwnerInput = {
@@ -647,7 +861,25 @@ export type BusinessReferralCreateManyReferrerOwnerInput = {
   commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.ReferralStatus
   creditedAt?: Date | string | null
+  creditedById?: string | null
+  payoutReference?: string | null
+  notes?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BusinessReferralCreateManyCreditedByInput = {
+  id?: string
+  referrerOwnerId: string
+  referredBusinessId: string
+  referralCode: string
+  commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.ReferralStatus
+  creditedAt?: Date | string | null
+  payoutReference?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type BusinessReferralUpdateWithoutReferrerOwnerInput = {
@@ -656,8 +888,12 @@ export type BusinessReferralUpdateWithoutReferrerOwnerInput = {
   commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusFieldUpdateOperationsInput | $Enums.ReferralStatus
   creditedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  payoutReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   referredBusiness?: Prisma.BusinessUpdateOneRequiredWithoutBusinessReferralNestedInput
+  creditedBy?: Prisma.UserUpdateOneWithoutCreditedBusinessReferralsNestedInput
 }
 
 export type BusinessReferralUncheckedUpdateWithoutReferrerOwnerInput = {
@@ -667,7 +903,11 @@ export type BusinessReferralUncheckedUpdateWithoutReferrerOwnerInput = {
   commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusFieldUpdateOperationsInput | $Enums.ReferralStatus
   creditedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  creditedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payoutReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerInput = {
@@ -677,7 +917,53 @@ export type BusinessReferralUncheckedUpdateManyWithoutReferrerOwnerInput = {
   commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumReferralStatusFieldUpdateOperationsInput | $Enums.ReferralStatus
   creditedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  creditedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payoutReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BusinessReferralUpdateWithoutCreditedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.StringFieldUpdateOperationsInput | string
+  commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumReferralStatusFieldUpdateOperationsInput | $Enums.ReferralStatus
+  creditedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  payoutReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  referrerOwner?: Prisma.UserUpdateOneRequiredWithoutBusinessReferralsNestedInput
+  referredBusiness?: Prisma.BusinessUpdateOneRequiredWithoutBusinessReferralNestedInput
+}
+
+export type BusinessReferralUncheckedUpdateWithoutCreditedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  referrerOwnerId?: Prisma.StringFieldUpdateOperationsInput | string
+  referredBusinessId?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.StringFieldUpdateOperationsInput | string
+  commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumReferralStatusFieldUpdateOperationsInput | $Enums.ReferralStatus
+  creditedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  payoutReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BusinessReferralUncheckedUpdateManyWithoutCreditedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  referrerOwnerId?: Prisma.StringFieldUpdateOperationsInput | string
+  referredBusinessId?: Prisma.StringFieldUpdateOperationsInput | string
+  referralCode?: Prisma.StringFieldUpdateOperationsInput | string
+  commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumReferralStatusFieldUpdateOperationsInput | $Enums.ReferralStatus
+  creditedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  payoutReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -690,9 +976,14 @@ export type BusinessReferralSelect<ExtArgs extends runtime.Types.Extensions.Inte
   commissionAmount?: boolean
   status?: boolean
   creditedAt?: boolean
+  creditedById?: boolean
+  payoutReference?: boolean
+  notes?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   referrerOwner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   referredBusiness?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
+  creditedBy?: boolean | Prisma.BusinessReferral$creditedByArgs<ExtArgs>
 }, ExtArgs["result"]["businessReferral"]>
 
 export type BusinessReferralSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -703,9 +994,14 @@ export type BusinessReferralSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   commissionAmount?: boolean
   status?: boolean
   creditedAt?: boolean
+  creditedById?: boolean
+  payoutReference?: boolean
+  notes?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   referrerOwner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   referredBusiness?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
+  creditedBy?: boolean | Prisma.BusinessReferral$creditedByArgs<ExtArgs>
 }, ExtArgs["result"]["businessReferral"]>
 
 export type BusinessReferralSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -716,9 +1012,14 @@ export type BusinessReferralSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   commissionAmount?: boolean
   status?: boolean
   creditedAt?: boolean
+  creditedById?: boolean
+  payoutReference?: boolean
+  notes?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   referrerOwner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   referredBusiness?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
+  creditedBy?: boolean | Prisma.BusinessReferral$creditedByArgs<ExtArgs>
 }, ExtArgs["result"]["businessReferral"]>
 
 export type BusinessReferralSelectScalar = {
@@ -729,21 +1030,28 @@ export type BusinessReferralSelectScalar = {
   commissionAmount?: boolean
   status?: boolean
   creditedAt?: boolean
+  creditedById?: boolean
+  payoutReference?: boolean
+  notes?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type BusinessReferralOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "referrerOwnerId" | "referredBusinessId" | "referralCode" | "commissionAmount" | "status" | "creditedAt" | "createdAt", ExtArgs["result"]["businessReferral"]>
+export type BusinessReferralOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "referrerOwnerId" | "referredBusinessId" | "referralCode" | "commissionAmount" | "status" | "creditedAt" | "creditedById" | "payoutReference" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["businessReferral"]>
 export type BusinessReferralInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   referrerOwner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   referredBusiness?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
+  creditedBy?: boolean | Prisma.BusinessReferral$creditedByArgs<ExtArgs>
 }
 export type BusinessReferralIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   referrerOwner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   referredBusiness?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
+  creditedBy?: boolean | Prisma.BusinessReferral$creditedByArgs<ExtArgs>
 }
 export type BusinessReferralIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   referrerOwner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   referredBusiness?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
+  creditedBy?: boolean | Prisma.BusinessReferral$creditedByArgs<ExtArgs>
 }
 
 export type $BusinessReferralPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -751,6 +1059,7 @@ export type $BusinessReferralPayload<ExtArgs extends runtime.Types.Extensions.In
   objects: {
     referrerOwner: Prisma.$UserPayload<ExtArgs>
     referredBusiness: Prisma.$BusinessPayload<ExtArgs>
+    creditedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -760,7 +1069,11 @@ export type $BusinessReferralPayload<ExtArgs extends runtime.Types.Extensions.In
     commissionAmount: runtime.Decimal
     status: $Enums.ReferralStatus
     creditedAt: Date | null
+    creditedById: string | null
+    payoutReference: string | null
+    notes: string | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["businessReferral"]>
   composites: {}
 }
@@ -1157,6 +1470,7 @@ export interface Prisma__BusinessReferralClient<T, Null = never, ExtArgs extends
   readonly [Symbol.toStringTag]: "PrismaPromise"
   referrerOwner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   referredBusiness<T extends Prisma.BusinessDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessDefaultArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  creditedBy<T extends Prisma.BusinessReferral$creditedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessReferral$creditedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1193,7 +1507,11 @@ export interface BusinessReferralFieldRefs {
   readonly commissionAmount: Prisma.FieldRef<"BusinessReferral", 'Decimal'>
   readonly status: Prisma.FieldRef<"BusinessReferral", 'ReferralStatus'>
   readonly creditedAt: Prisma.FieldRef<"BusinessReferral", 'DateTime'>
+  readonly creditedById: Prisma.FieldRef<"BusinessReferral", 'String'>
+  readonly payoutReference: Prisma.FieldRef<"BusinessReferral", 'String'>
+  readonly notes: Prisma.FieldRef<"BusinessReferral", 'String'>
   readonly createdAt: Prisma.FieldRef<"BusinessReferral", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"BusinessReferral", 'DateTime'>
 }
     
 
@@ -1587,6 +1905,25 @@ export type BusinessReferralDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many BusinessReferrals to delete.
    */
   limit?: number
+}
+
+/**
+ * BusinessReferral.creditedBy
+ */
+export type BusinessReferral$creditedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

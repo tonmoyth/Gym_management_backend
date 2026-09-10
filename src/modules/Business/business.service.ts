@@ -1,5 +1,5 @@
 import AppError from "../../errors/AppError";
-import { BookingStatus, BusinessStatus, PlanStatus } from "../../generated/prisma/enums";
+import { BookingStatus, BusinessStatus, PlanStatus, ReferralStatus } from "../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { QueryBuilder } from "../../utils/queryBuilder";
 import {
@@ -8,6 +8,10 @@ import {
 } from "./business.constant";
 import { calculateHaversineDistance } from "../../utils/geo";
 import { uploadToCloudinary } from "../../utils/cloudinary";
+
+const generateGymReferralCode = () => {
+  return "GYM-" + Math.random().toString(36).substring(2, 7).toUpperCase();
+};
 
 const createBusiness = async (ownerId: string, payload: any) => {
   // Check duplicate business
@@ -19,19 +23,76 @@ const createBusiness = async (ownerId: string, payload: any) => {
     throw new AppError(409, "Business Owner can own only one Business");
   }
 
-  const amenities = payload.amenities || [];
-  const photos = payload.photos || [];
+  const { referralCode: incomingReferralCode, ...cleanPayload } = payload;
+
+  let referringBusiness: any = null;
+  if (incomingReferralCode) {
+    const trimmedCode = String(incomingReferralCode).trim();
+    referringBusiness = await prisma.business.findUnique({
+      where: { referralCode: trimmedCode },
+      include: { owner: true },
+    });
+
+    if (!referringBusiness) {
+      throw new AppError(404, "Invalid referral code");
+    }
+
+    if (referringBusiness.status !== BusinessStatus.ACTIVE) {
+      throw new AppError(400, "Referring business is not active");
+    }
+
+    if (!referringBusiness.owner || !referringBusiness.owner.isActive) {
+      throw new AppError(400, "Referring business owner account is inactive");
+    }
+
+    if (referringBusiness.ownerId === ownerId) {
+      throw new AppError(400, "Self-referral is not allowed");
+    }
+  }
+
+  // Generate a unique referral code for this new business
+  let newBusinessCode = "";
+  let isCodeUnique = false;
+  while (!isCodeUnique) {
+    newBusinessCode = generateGymReferralCode();
+    const existing = await prisma.business.findUnique({
+      where: { referralCode: newBusinessCode },
+    });
+    if (!existing) {
+      isCodeUnique = true;
+    }
+  }
+
+  const amenities = cleanPayload.amenities || [];
+  const photos = cleanPayload.photos || [];
 
   const businessPayload = {
-    ...payload,
+    ...cleanPayload,
     ownerId,
+    referralCode: newBusinessCode,
     status: BusinessStatus.PENDING_APPROVAL,
     amenities,
     photos,
   };
 
-  const newBusiness = await prisma.business.create({
-    data: businessPayload,
+  const newBusiness = await prisma.$transaction(async (tx) => {
+    const createdBusiness = await tx.business.create({
+      data: businessPayload,
+    });
+
+    if (referringBusiness) {
+      await tx.businessReferral.create({
+        data: {
+          referrerOwnerId: referringBusiness.ownerId,
+          referredBusinessId: createdBusiness.id,
+          referralCode: String(incomingReferralCode).trim(),
+          commissionAmount: 500.00,
+          status: ReferralStatus.PENDING,
+        },
+      });
+    }
+
+    return createdBusiness;
   });
 
   return newBusiness;

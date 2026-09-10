@@ -14,10 +14,17 @@ model BusinessReferral {
   status ReferralStatus @default(PENDING)
 
   creditedAt DateTime?
+  creditedById String?
+  creditedBy   User?     @relation("ReferralCreditedBy", fields: [creditedById], references: [id], onDelete: SetNull)
+
+  payoutReference String?
+  notes           String?
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@index([referrerOwnerId])
+  @@index([creditedById])
   @@index([status])
   @@index([referralCode])
   @@index([createdAt])

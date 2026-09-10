@@ -159,8 +159,200 @@ const getMyReferrals = async (userId: string, queryParams: any) => {
   return result;
 };
 
+const generateBusinessReferralCode = () => {
+  return "GYM-" + Math.random().toString(36).substring(2, 7).toUpperCase();
+};
+
+const getMyBusinessReferralCode = async (userId: string) => {
+  const business = await prisma.business.findUnique({
+    where: { ownerId: userId },
+  });
+
+  if (!business) {
+    throw new AppError(httpStatus.NOT_FOUND, "No business found for this owner account");
+  }
+
+  if (business.referralCode) {
+    return {
+      referralCode: business.referralCode,
+      businessId: business.id,
+      businessName: business.name,
+    };
+  }
+
+  // Generate unique code
+  let newCode = "";
+  let isUnique = false;
+  while (!isUnique) {
+    newCode = generateBusinessReferralCode();
+    const existing = await prisma.business.findUnique({
+      where: { referralCode: newCode },
+    });
+    if (!existing) {
+      isUnique = true;
+    }
+  }
+
+  await prisma.business.update({
+    where: { id: business.id },
+    data: { referralCode: newCode },
+  });
+
+  return {
+    referralCode: newCode,
+    businessId: business.id,
+    businessName: business.name,
+  };
+};
+
+const validateBusinessReferralCode = async (referralCode: string) => {
+  const business = await prisma.business.findUnique({
+    where: { referralCode: referralCode.trim() },
+    select: {
+      id: true,
+      name: true,
+      status: true,
+      owner: {
+        select: {
+          id: true,
+          isActive: true,
+        },
+      },
+    },
+  });
+
+  if (!business || business.status !== "ACTIVE" || !business.owner?.isActive) {
+    return {
+      valid: false,
+      message: "Invalid or inactive referral code",
+    };
+  }
+
+  return {
+    valid: true,
+    businessName: business.name,
+  };
+};
+
+const registerBusinessReferral = async (payload: { referralCode: string; businessId: string }) => {
+  const { referralCode, businessId } = payload;
+  const trimmedCode = referralCode.trim();
+
+  // 1. Find referring business and owner
+  const referringBusiness = await prisma.business.findUnique({
+    where: { referralCode: trimmedCode },
+    include: { owner: true },
+  });
+
+  if (!referringBusiness) {
+    throw new AppError(httpStatus.NOT_FOUND, "Invalid referral code");
+  }
+
+  if (referringBusiness.status !== "ACTIVE") {
+    throw new AppError(httpStatus.BAD_REQUEST, "Referring business is not in active status");
+  }
+
+  if (!referringBusiness.owner || !referringBusiness.owner.isActive) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Referring business owner account is inactive");
+  }
+
+  // 2. Find newly registered business
+  const newBusiness = await prisma.business.findUnique({
+    where: { id: businessId },
+    include: { owner: true },
+  });
+
+  if (!newBusiness) {
+    throw new AppError(httpStatus.NOT_FOUND, "Referred business not found");
+  }
+
+  // 3. Prevent self-referral
+  if (referringBusiness.id === newBusiness.id || referringBusiness.ownerId === newBusiness.ownerId) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Self-referral is not allowed. A business cannot refer itself");
+  }
+
+  // 4. Prevent duplicate referral for same business
+  const existingReferral = await prisma.businessReferral.findUnique({
+    where: { referredBusinessId: newBusiness.id },
+  });
+
+  if (existingReferral) {
+    throw new AppError(httpStatus.CONFLICT, "A referral has already been registered for this business");
+  }
+
+  // 5. Create Type-A BusinessReferral
+  const businessReferral = await prisma.businessReferral.create({
+    data: {
+      referrerOwnerId: referringBusiness.ownerId,
+      referredBusinessId: newBusiness.id,
+      referralCode: trimmedCode,
+      commissionAmount: 500.00,
+      status: ReferralStatus.PENDING,
+    },
+    include: {
+      referrerOwner: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+        },
+      },
+      referredBusiness: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phone: true,
+          status: true,
+        },
+      },
+    },
+  });
+
+  return {
+    id: businessReferral.id,
+    type: "BUSINESS",
+    referralCode: businessReferral.referralCode,
+    commissionAmount: Number(businessReferral.commissionAmount),
+    commissionStatus: businessReferral.status,
+    status: businessReferral.status,
+    createdAt: businessReferral.createdAt,
+    referrerOwner: businessReferral.referrerOwner,
+    referredBusiness: businessReferral.referredBusiness,
+  };
+};
+
+const getMyBusinessReferrals = async (userId: string, queryParams: any) => {
+  const queryBuilder = new QueryBuilder(prisma.businessReferral, queryParams, {
+    filterableFields: ["status"],
+    searchableFields: ["referralCode"],
+  })
+    .where({ referrerOwnerId: userId })
+    .filter()
+    .sort()
+    .paginate()
+    .include({
+      referredBusiness: {
+        select: {
+          id: true,
+          name: true,
+          status: true,
+          createdAt: true,
+        },
+      },
+    });
+
+  const result = await queryBuilder.execute();
+  return result;
+};
+
 export const ReferralService = {
   getMyReferralCode,
   registerReferral,
   getMyReferrals,
+  getMyBusinessReferralCode,
+  validateBusinessReferralCode,
+  registerBusinessReferral,
+  getMyBusinessReferrals,
 };
+

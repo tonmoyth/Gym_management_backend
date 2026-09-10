@@ -7,7 +7,8 @@ const createBusinessBodySchema = z.object({
     latitude: z.number().min(-90).max(90).optional(),
     longitude: z.number().min(-180).max(180).optional(),
     amenities: z.array(z.string().trim()),
-    photos: z.array(z.string().url('Invalid URL format').trim()).optional()
+    photos: z.array(z.string().url('Invalid URL format').trim()).optional(),
+    referralCode: z.string().trim().optional(),
 }).refine(data => {
     const hasLat = data.latitude !== undefined && data.latitude !== null;
     const hasLng = data.longitude !== undefined && data.longitude !== null;

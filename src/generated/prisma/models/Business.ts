@@ -49,6 +49,7 @@ export type BusinessMinAggregateOutputType = {
   latitude: number | null
   longitude: number | null
   status: $Enums.BusinessStatus | null
+  referralCode: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -66,6 +67,7 @@ export type BusinessMaxAggregateOutputType = {
   latitude: number | null
   longitude: number | null
   status: $Enums.BusinessStatus | null
+  referralCode: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -85,6 +87,7 @@ export type BusinessCountAggregateOutputType = {
   amenities: number
   photos: number
   status: number
+  referralCode: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -114,6 +117,7 @@ export type BusinessMinAggregateInputType = {
   latitude?: true
   longitude?: true
   status?: true
+  referralCode?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -131,6 +135,7 @@ export type BusinessMaxAggregateInputType = {
   latitude?: true
   longitude?: true
   status?: true
+  referralCode?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -150,6 +155,7 @@ export type BusinessCountAggregateInputType = {
   amenities?: true
   photos?: true
   status?: true
+  referralCode?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -256,6 +262,7 @@ export type BusinessGroupByOutputType = {
   amenities: string[]
   photos: string[]
   status: $Enums.BusinessStatus
+  referralCode: string | null
   createdAt: Date
   updatedAt: Date
   _count: BusinessCountAggregateOutputType | null
@@ -298,6 +305,7 @@ export type BusinessWhereInput = {
   amenities?: Prisma.StringNullableListFilter<"Business">
   photos?: Prisma.StringNullableListFilter<"Business">
   status?: Prisma.EnumBusinessStatusFilter<"Business"> | $Enums.BusinessStatus
+  referralCode?: Prisma.StringNullableFilter<"Business"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -342,6 +350,7 @@ export type BusinessOrderByWithRelationInput = {
   amenities?: Prisma.SortOrder
   photos?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  referralCode?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
@@ -374,6 +383,7 @@ export type BusinessOrderByWithRelationInput = {
 export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   ownerId?: string
+  referralCode?: string
   AND?: Prisma.BusinessWhereInput | Prisma.BusinessWhereInput[]
   OR?: Prisma.BusinessWhereInput[]
   NOT?: Prisma.BusinessWhereInput | Prisma.BusinessWhereInput[]
@@ -416,7 +426,7 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   memberBiometrics?: Prisma.MemberBiometricListRelationFilter
   disputes?: Prisma.DisputeListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
-}, "id" | "ownerId">
+}, "id" | "ownerId" | "referralCode">
 
 export type BusinessOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -433,6 +443,7 @@ export type BusinessOrderByWithAggregationInput = {
   amenities?: Prisma.SortOrder
   photos?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  referralCode?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.BusinessCountOrderByAggregateInput
@@ -460,6 +471,7 @@ export type BusinessScalarWhereWithAggregatesInput = {
   amenities?: Prisma.StringNullableListFilter<"Business">
   photos?: Prisma.StringNullableListFilter<"Business">
   status?: Prisma.EnumBusinessStatusWithAggregatesFilter<"Business"> | $Enums.BusinessStatus
+  referralCode?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Business"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Business"> | Date | string
 }
@@ -478,6 +490,7 @@ export type BusinessCreateInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -522,6 +535,7 @@ export type BusinessUncheckedCreateInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -564,6 +578,7 @@ export type BusinessUpdateInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -608,6 +623,7 @@ export type BusinessUncheckedUpdateInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -651,6 +667,7 @@ export type BusinessCreateManyInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -669,6 +686,7 @@ export type BusinessUpdateManyMutationInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -688,6 +706,7 @@ export type BusinessUncheckedUpdateManyInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -725,6 +744,7 @@ export type BusinessCountOrderByAggregateInput = {
   amenities?: Prisma.SortOrder
   photos?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  referralCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -747,6 +767,7 @@ export type BusinessMaxOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  referralCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -764,6 +785,7 @@ export type BusinessMinOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  referralCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1209,6 +1231,7 @@ export type BusinessCreateWithoutAnnouncementsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -1252,6 +1275,7 @@ export type BusinessUncheckedCreateWithoutAnnouncementsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutBusinessInput
@@ -1309,6 +1333,7 @@ export type BusinessUpdateWithoutAnnouncementsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -1352,6 +1377,7 @@ export type BusinessUncheckedUpdateWithoutAnnouncementsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1393,6 +1419,7 @@ export type BusinessCreateWithoutAttendancesInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -1436,6 +1463,7 @@ export type BusinessUncheckedCreateWithoutAttendancesInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -1493,6 +1521,7 @@ export type BusinessUpdateWithoutAttendancesInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -1536,6 +1565,7 @@ export type BusinessUncheckedUpdateWithoutAttendancesInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1577,6 +1607,7 @@ export type BusinessCreateWithoutAttendanceLogsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -1620,6 +1651,7 @@ export type BusinessUncheckedCreateWithoutAttendanceLogsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -1677,6 +1709,7 @@ export type BusinessUpdateWithoutAttendanceLogsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -1720,6 +1753,7 @@ export type BusinessUncheckedUpdateWithoutAttendanceLogsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1761,6 +1795,7 @@ export type BusinessCreateWithoutAuditLogsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -1804,6 +1839,7 @@ export type BusinessUncheckedCreateWithoutAuditLogsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -1861,6 +1897,7 @@ export type BusinessUpdateWithoutAuditLogsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -1904,6 +1941,7 @@ export type BusinessUncheckedUpdateWithoutAuditLogsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1945,6 +1983,7 @@ export type BusinessCreateWithoutBiometricDevicesInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -1988,6 +2027,7 @@ export type BusinessUncheckedCreateWithoutBiometricDevicesInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -2045,6 +2085,7 @@ export type BusinessUpdateWithoutBiometricDevicesInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -2088,6 +2129,7 @@ export type BusinessUncheckedUpdateWithoutBiometricDevicesInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2129,6 +2171,7 @@ export type BusinessCreateWithoutBusinessReferralInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -2172,6 +2215,7 @@ export type BusinessUncheckedCreateWithoutBusinessReferralInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -2229,6 +2273,7 @@ export type BusinessUpdateWithoutBusinessReferralInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -2272,6 +2317,7 @@ export type BusinessUncheckedUpdateWithoutBusinessReferralInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2313,6 +2359,7 @@ export type BusinessCreateWithoutStaffInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -2356,6 +2403,7 @@ export type BusinessUncheckedCreateWithoutStaffInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -2413,6 +2461,7 @@ export type BusinessUpdateWithoutStaffInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -2456,6 +2505,7 @@ export type BusinessUncheckedUpdateWithoutStaffInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2497,6 +2547,7 @@ export type BusinessCreateWithoutChatThreadsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -2540,6 +2591,7 @@ export type BusinessUncheckedCreateWithoutChatThreadsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -2597,6 +2649,7 @@ export type BusinessUpdateWithoutChatThreadsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -2640,6 +2693,7 @@ export type BusinessUncheckedUpdateWithoutChatThreadsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2681,6 +2735,7 @@ export type BusinessCreateWithoutClassSchedulesInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -2724,6 +2779,7 @@ export type BusinessUncheckedCreateWithoutClassSchedulesInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -2781,6 +2837,7 @@ export type BusinessUpdateWithoutClassSchedulesInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -2824,6 +2881,7 @@ export type BusinessUncheckedUpdateWithoutClassSchedulesInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2865,6 +2923,7 @@ export type BusinessCreateWithoutDietPlansInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -2908,6 +2967,7 @@ export type BusinessUncheckedCreateWithoutDietPlansInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -2965,6 +3025,7 @@ export type BusinessUpdateWithoutDietPlansInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -3008,6 +3069,7 @@ export type BusinessUncheckedUpdateWithoutDietPlansInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3049,6 +3111,7 @@ export type BusinessCreateWithoutDisputesInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -3092,6 +3155,7 @@ export type BusinessUncheckedCreateWithoutDisputesInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -3149,6 +3213,7 @@ export type BusinessUpdateWithoutDisputesInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -3192,6 +3257,7 @@ export type BusinessUncheckedUpdateWithoutDisputesInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3233,6 +3299,7 @@ export type BusinessCreateWithoutEquipmentInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -3276,6 +3343,7 @@ export type BusinessUncheckedCreateWithoutEquipmentInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -3333,6 +3401,7 @@ export type BusinessUpdateWithoutEquipmentInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -3376,6 +3445,7 @@ export type BusinessUncheckedUpdateWithoutEquipmentInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3417,6 +3487,7 @@ export type BusinessCreateWithoutFavoritesInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -3460,6 +3531,7 @@ export type BusinessUncheckedCreateWithoutFavoritesInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -3517,6 +3589,7 @@ export type BusinessUpdateWithoutFavoritesInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -3560,6 +3633,7 @@ export type BusinessUncheckedUpdateWithoutFavoritesInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3601,6 +3675,7 @@ export type BusinessCreateWithoutJobPostsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -3644,6 +3719,7 @@ export type BusinessUncheckedCreateWithoutJobPostsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -3701,6 +3777,7 @@ export type BusinessUpdateWithoutJobPostsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -3744,6 +3821,7 @@ export type BusinessUncheckedUpdateWithoutJobPostsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3785,6 +3863,7 @@ export type BusinessCreateWithoutMemberBiometricsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -3828,6 +3907,7 @@ export type BusinessUncheckedCreateWithoutMemberBiometricsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -3885,6 +3965,7 @@ export type BusinessUpdateWithoutMemberBiometricsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -3928,6 +4009,7 @@ export type BusinessUncheckedUpdateWithoutMemberBiometricsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3969,6 +4051,7 @@ export type BusinessCreateWithoutMemberReferralsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -4012,6 +4095,7 @@ export type BusinessUncheckedCreateWithoutMemberReferralsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -4069,6 +4153,7 @@ export type BusinessUpdateWithoutMemberReferralsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -4112,6 +4197,7 @@ export type BusinessUncheckedUpdateWithoutMemberReferralsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4153,6 +4239,7 @@ export type BusinessCreateWithoutReferralSettingInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -4196,6 +4283,7 @@ export type BusinessUncheckedCreateWithoutReferralSettingInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -4253,6 +4341,7 @@ export type BusinessUpdateWithoutReferralSettingInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -4296,6 +4385,7 @@ export type BusinessUncheckedUpdateWithoutReferralSettingInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4337,6 +4427,7 @@ export type BusinessCreateWithoutMembershipsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -4380,6 +4471,7 @@ export type BusinessUncheckedCreateWithoutMembershipsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -4437,6 +4529,7 @@ export type BusinessUpdateWithoutMembershipsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -4480,6 +4573,7 @@ export type BusinessUncheckedUpdateWithoutMembershipsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4521,6 +4615,7 @@ export type BusinessCreateWithoutMembershipPlansInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -4564,6 +4659,7 @@ export type BusinessUncheckedCreateWithoutMembershipPlansInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -4621,6 +4717,7 @@ export type BusinessUpdateWithoutMembershipPlansInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -4664,6 +4761,7 @@ export type BusinessUncheckedUpdateWithoutMembershipPlansInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4705,6 +4803,7 @@ export type BusinessCreateWithoutSubscriptionInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -4748,6 +4847,7 @@ export type BusinessUncheckedCreateWithoutSubscriptionInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -4805,6 +4905,7 @@ export type BusinessUpdateWithoutSubscriptionInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -4848,6 +4949,7 @@ export type BusinessUncheckedUpdateWithoutSubscriptionInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4889,6 +4991,7 @@ export type BusinessCreateWithoutQrCodeInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -4932,6 +5035,7 @@ export type BusinessUncheckedCreateWithoutQrCodeInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -4989,6 +5093,7 @@ export type BusinessUpdateWithoutQrCodeInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -5032,6 +5137,7 @@ export type BusinessUncheckedUpdateWithoutQrCodeInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5073,6 +5179,7 @@ export type BusinessCreateWithoutReviewsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -5116,6 +5223,7 @@ export type BusinessUncheckedCreateWithoutReviewsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -5173,6 +5281,7 @@ export type BusinessUpdateWithoutReviewsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -5216,6 +5325,7 @@ export type BusinessUncheckedUpdateWithoutReviewsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5257,6 +5367,7 @@ export type BusinessCreateWithoutTrainersInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -5300,6 +5411,7 @@ export type BusinessUncheckedCreateWithoutTrainersInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -5357,6 +5469,7 @@ export type BusinessUpdateWithoutTrainersInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -5400,6 +5513,7 @@ export type BusinessUncheckedUpdateWithoutTrainersInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5441,6 +5555,7 @@ export type BusinessCreateWithoutTrainerPayoutsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
@@ -5484,6 +5599,7 @@ export type BusinessUncheckedCreateWithoutTrainerPayoutsInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -5541,6 +5657,7 @@ export type BusinessUpdateWithoutTrainerPayoutsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
@@ -5584,6 +5701,7 @@ export type BusinessUncheckedUpdateWithoutTrainerPayoutsInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5625,6 +5743,7 @@ export type BusinessCreateWithoutOwnerInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutBusinessInput
@@ -5667,6 +5786,7 @@ export type BusinessUncheckedCreateWithoutOwnerInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
@@ -5739,6 +5859,7 @@ export type BusinessScalarWhereInput = {
   amenities?: Prisma.StringNullableListFilter<"Business">
   photos?: Prisma.StringNullableListFilter<"Business">
   status?: Prisma.EnumBusinessStatusFilter<"Business"> | $Enums.BusinessStatus
+  referralCode?: Prisma.StringNullableFilter<"Business"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Business"> | Date | string
 }
@@ -5757,6 +5878,7 @@ export type BusinessCreateManyOwnerInput = {
   amenities?: Prisma.BusinessCreateamenitiesInput | string[]
   photos?: Prisma.BusinessCreatephotosInput | string[]
   status?: $Enums.BusinessStatus
+  referralCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -5775,6 +5897,7 @@ export type BusinessUpdateWithoutOwnerInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUpdateManyWithoutBusinessNestedInput
@@ -5817,6 +5940,7 @@ export type BusinessUncheckedUpdateWithoutOwnerInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5859,6 +5983,7 @@ export type BusinessUncheckedUpdateManyWithoutOwnerInput = {
   amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
   photos?: Prisma.BusinessUpdatephotosInput | string[]
   status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -6080,6 +6205,7 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   amenities?: boolean
   photos?: boolean
   status?: boolean
+  referralCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -6125,6 +6251,7 @@ export type BusinessSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   amenities?: boolean
   photos?: boolean
   status?: boolean
+  referralCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -6145,6 +6272,7 @@ export type BusinessSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   amenities?: boolean
   photos?: boolean
   status?: boolean
+  referralCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -6165,11 +6293,12 @@ export type BusinessSelectScalar = {
   amenities?: boolean
   photos?: boolean
   status?: boolean
+  referralCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "description" | "logo" | "email" | "phone" | "whatsapp" | "address" | "latitude" | "longitude" | "amenities" | "photos" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["business"]>
+export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "description" | "logo" | "email" | "phone" | "whatsapp" | "address" | "latitude" | "longitude" | "amenities" | "photos" | "status" | "referralCode" | "createdAt" | "updatedAt", ExtArgs["result"]["business"]>
 export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   announcements?: boolean | Prisma.Business$announcementsArgs<ExtArgs>
@@ -6249,6 +6378,7 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     amenities: string[]
     photos: string[]
     status: $Enums.BusinessStatus
+    referralCode: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["business"]>
@@ -6713,6 +6843,7 @@ export interface BusinessFieldRefs {
   readonly amenities: Prisma.FieldRef<"Business", 'String[]'>
   readonly photos: Prisma.FieldRef<"Business", 'String[]'>
   readonly status: Prisma.FieldRef<"Business", 'BusinessStatus'>
+  readonly referralCode: Prisma.FieldRef<"Business", 'String'>
   readonly createdAt: Prisma.FieldRef<"Business", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Business", 'DateTime'>
 }

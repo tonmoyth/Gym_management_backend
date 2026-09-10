@@ -20,6 +20,8 @@ model Business {
 
   status BusinessStatus @default(PENDING_APPROVAL)
 
+  referralCode String? @unique
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -50,6 +52,7 @@ model Business {
   auditLogs        AuditLog[]        @relation("BusinessAuditLogs")
 
   @@index([status])
+  @@index([referralCode])
   @@index([createdAt])
   @@index([latitude, longitude])
 }

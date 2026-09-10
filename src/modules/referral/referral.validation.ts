@@ -8,6 +8,14 @@ export const registerReferralValidation = z.object({
   }),
 });
 
+export const registerBusinessReferralValidation = z.object({
+  body: z.object({
+    referralCode: z.string({ message: "Referral code is required" }).trim().min(1, "Referral code cannot be empty"),
+    businessId: z.string({ message: "Business ID is required" }).uuid({ message: "Invalid Business ID format" }),
+  }),
+});
+
 export const ReferralValidations = {
   registerReferralValidation,
+  registerBusinessReferralValidation,
 };

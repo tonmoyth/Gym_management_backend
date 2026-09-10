@@ -39,6 +39,7 @@ import { contentModerationRoutes } from "../modules/super_admin/content_moderati
 import { rolePermissionManagementRoutes } from "../modules/super_admin/role_permission_management/rolePermissionManagement.route";
 import { auditLogsRoutes } from "../modules/super_admin/audit_logs/auditLogs.route";
 import { platformReportsRoutes } from "../modules/super_admin/reports_export/reports.route";
+import { referralCommissionRoutes } from "../modules/super_admin/referral_commission_management/referralCommission.route";
 
 const router = express.Router();
 
@@ -202,6 +203,10 @@ const moduleRoutes = [
     {
         path: "/admin/reports",
         route: platformReportsRoutes,
+    },
+    {
+        path: "/admin/referrals",
+        route: referralCommissionRoutes,
     },
 ];
 

@@ -31,4 +31,33 @@ router.get(
   ReferralController.getMyReferrals
 );
 
+// Register a Type-A business referral (PUBLIC)
+router.post(
+  "/business",
+  validateRequest(ReferralValidations.registerBusinessReferralValidation),
+  ReferralController.registerBusinessReferral
+);
+
+// Validate a business referral code (PUBLIC)
+router.get(
+  "/business/validate/:code",
+  ReferralController.validateBusinessReferralCode
+);
+
+// Get the authenticated business owner's referral code
+router.get(
+  "/business/my-code",
+  // @ts-ignore
+  checkAuth(USER_ROLE.BUSINESS_OWNER),
+  ReferralController.getMyBusinessReferralCode
+);
+
+// Get referrals made by the authenticated business owner
+router.get(
+  "/business/me",
+  // @ts-ignore
+  checkAuth(USER_ROLE.BUSINESS_OWNER),
+  ReferralController.getMyBusinessReferrals
+);
+
 export const referralRoutes = router;

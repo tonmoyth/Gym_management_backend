@@ -3609,6 +3609,7 @@ export const BusinessScalarFieldEnum = {
   amenities: 'amenities',
   photos: 'photos',
   status: 'status',
+  referralCode: 'referralCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -3624,7 +3625,11 @@ export const BusinessReferralScalarFieldEnum = {
   commissionAmount: 'commissionAmount',
   status: 'status',
   creditedAt: 'creditedAt',
-  createdAt: 'createdAt'
+  creditedById: 'creditedById',
+  payoutReference: 'payoutReference',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type BusinessReferralScalarFieldEnum = (typeof BusinessReferralScalarFieldEnum)[keyof typeof BusinessReferralScalarFieldEnum]

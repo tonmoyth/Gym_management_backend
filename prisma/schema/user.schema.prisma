@@ -26,6 +26,7 @@ model User {
   adminReviewedCertifications TrainerCertification[] @relation("AdminReviewer")
   referredMembers             MemberReferral[]       @relation("ReferredUser")
   businessReferrals           BusinessReferral[]     @relation("ReferrerOwner")
+  creditedBusinessReferrals   BusinessReferral[]     @relation("ReferralCreditedBy")
   disputes                    Dispute[]
   auditLogs                   AuditLog[]             @relation("UserAuditLogs")
 

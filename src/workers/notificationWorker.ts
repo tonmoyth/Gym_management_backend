@@ -58,6 +58,8 @@ const handleJobWithRetry = async (jobData: any, attempt: number = 1) => {
             await processSubscriptionStatusUpdated(jobData);
         } else if (jobData.eventType === 'DISPUTE_RESOLVED') {
             await processDisputeResolved(jobData);
+        } else if (jobData.eventType === 'BUSINESS_REFERRAL_CREDITED') {
+            await processBusinessReferralCredited(jobData);
         } else {
             // Unhandled event type, just log it for now
             console.log(`ℹ️ Notification Worker received unhandled event type: ${jobData.eventType}`);
@@ -534,3 +536,31 @@ const processDisputeResolved = async (data: any) => {
         }
     }
 };
+
+const processBusinessReferralCredited = async (data: any) => {
+    const {
+        referralId,
+        referrerEmail,
+        referrerName,
+        referredBusinessName,
+        commissionAmount,
+        payoutReference,
+    } = data;
+
+    console.log(`Processing referral commission credited notification for referral ${referralId} to ${referrerEmail}`);
+
+    if (referrerEmail) {
+        try {
+            await MailService.sendBusinessReferralCreditedEmail(
+                referrerName || 'Valued Business Owner',
+                referrerEmail,
+                referredBusinessName || 'New Gym Business',
+                Number(commissionAmount) || 0,
+                payoutReference || 'N/A'
+            );
+        } catch (error: any) {
+            console.error('❌ Failed to send business referral credited email:', error.message);
+        }
+    }
+};
+
