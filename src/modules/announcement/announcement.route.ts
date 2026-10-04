@@ -18,7 +18,13 @@ router.post(
 router.get(
   "/:businessId/announcements",
   // @ts-ignore
-  checkAuth(USER_ROLE.MEMBER, USER_ROLE.TRAINER),
+  checkAuth(
+    USER_ROLE.BUSINESS_OWNER,
+    USER_ROLE.STAFF,
+    USER_ROLE.MEMBER,
+    USER_ROLE.TRAINER,
+    USER_ROLE.SUPER_ADMIN
+  ),
   validateRequest(AnnouncementValidations.getAnnouncementsValidation),
   AnnouncementController.getAnnouncements
 );

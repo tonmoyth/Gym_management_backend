@@ -8,6 +8,7 @@ import {
 } from "./business.constant";
 import { calculateHaversineDistance } from "../../utils/geo";
 import { uploadToCloudinary } from "../../utils/cloudinary";
+import { verifyBusinessAccess } from "../../utils/businessAccess";
 
 const generateGymReferralCode = () => {
   return "GYM-" + Math.random().toString(36).substring(2, 7).toUpperCase();
@@ -23,18 +24,21 @@ const createBusiness = async (ownerId: string, payload: any) => {
     throw new AppError(409, "Business Owner can own only one Business");
   }
 
-  const { referralCode: incomingReferralCode, ...cleanPayload } = payload;
+  const { referralCode: userProvidedCode, referredByCode, ...cleanPayload } = payload;
 
+  /*
+  // Referral system temporarily disabled - will be implemented later
   let referringBusiness: any = null;
-  if (incomingReferralCode) {
-    const trimmedCode = String(incomingReferralCode).trim();
+  const incomingReferrer = referredByCode;
+  if (incomingReferrer) {
+    const trimmedReferrer = String(incomingReferrer).trim().toUpperCase();
     referringBusiness = await prisma.business.findUnique({
-      where: { referralCode: trimmedCode },
+      where: { referralCode: trimmedReferrer },
       include: { owner: true },
     });
 
     if (!referringBusiness) {
-      throw new AppError(404, "Invalid referral code");
+      throw new AppError(404, "Invalid referrer code");
     }
 
     if (referringBusiness.status !== BusinessStatus.ACTIVE) {
@@ -50,18 +54,31 @@ const createBusiness = async (ownerId: string, payload: any) => {
     }
   }
 
-  // Generate a unique referral code for this new business
+  // Determine referral code for this new business
   let newBusinessCode = "";
-  let isCodeUnique = false;
-  while (!isCodeUnique) {
-    newBusinessCode = generateGymReferralCode();
+  if (userProvidedCode && String(userProvidedCode).trim().length > 0) {
+    const customCode = String(userProvidedCode).trim().toUpperCase();
     const existing = await prisma.business.findUnique({
-      where: { referralCode: newBusinessCode },
+      where: { referralCode: customCode },
     });
-    if (!existing) {
-      isCodeUnique = true;
+
+    if (existing) {
+      throw new AppError(400, "This referral code is already in use by another facility. Please generate or choose another code.");
+    }
+    newBusinessCode = customCode;
+  } else {
+    let isCodeUnique = false;
+    while (!isCodeUnique) {
+      newBusinessCode = generateGymReferralCode();
+      const existing = await prisma.business.findUnique({
+        where: { referralCode: newBusinessCode },
+      });
+      if (!existing) {
+        isCodeUnique = true;
+      }
     }
   }
+  */
 
   const amenities = cleanPayload.amenities || [];
   const photos = cleanPayload.photos || [];
@@ -69,7 +86,7 @@ const createBusiness = async (ownerId: string, payload: any) => {
   const businessPayload = {
     ...cleanPayload,
     ownerId,
-    referralCode: newBusinessCode,
+    // referralCode: newBusinessCode, // Referral system temporarily disabled
     status: BusinessStatus.PENDING_APPROVAL,
     amenities,
     photos,
@@ -80,17 +97,20 @@ const createBusiness = async (ownerId: string, payload: any) => {
       data: businessPayload,
     });
 
+    /*
+    // Referral system temporarily disabled - will be implemented later
     if (referringBusiness) {
       await tx.businessReferral.create({
         data: {
           referrerOwnerId: referringBusiness.ownerId,
           referredBusinessId: createdBusiness.id,
-          referralCode: String(incomingReferralCode).trim(),
+          referralCode: referringBusiness.referralCode,
           commissionAmount: 500.00,
           status: ReferralStatus.PENDING,
         },
       });
     }
+    */
 
     return createdBusiness;
   });
@@ -307,16 +327,38 @@ const updateBusiness = async (
     ...updateData
   } = payload;
 
-  if (latitude !== undefined) {
-    updateData.latitude = latitude;
+  if (latitude !== undefined && latitude !== null && latitude !== '') {
+    updateData.latitude = typeof latitude === 'string' ? parseFloat(latitude) : latitude;
   }
 
-  if (longitude !== undefined) {
-    updateData.longitude = longitude;
+  if (longitude !== undefined && longitude !== null && longitude !== '') {
+    updateData.longitude = typeof longitude === 'string' ? parseFloat(longitude) : longitude;
   }
 
   if (amenities !== undefined) {
-    updateData.amenities = amenities;
+    if (typeof amenities === 'string') {
+      try {
+        const parsed = JSON.parse(amenities);
+        updateData.amenities = Array.isArray(parsed) ? parsed : [amenities];
+      } catch {
+        updateData.amenities = amenities.split(',').map((s: string) => s.trim()).filter(Boolean);
+      }
+    } else if (Array.isArray(amenities)) {
+      updateData.amenities = amenities;
+    }
+  }
+
+  if (updateData.email === '') {
+    updateData.email = null;
+  }
+  if (updateData.phone === '') {
+    updateData.phone = null;
+  }
+  if (updateData.whatsapp === '') {
+    updateData.whatsapp = null;
+  }
+  if (updateData.description === '') {
+    updateData.description = null;
   }
 
   updateData.logo = updatedLogoUrl;
@@ -344,62 +386,112 @@ const updateBusiness = async (
   return updatedBusiness;
 };
 
-const getMyBusiness = async (ownerId: string) => {
-  const business = await prisma.business.findUnique({
+const getMyBusiness = async (userId: string) => {
+  const businessSelect = {
+    id: true,
+    name: true,
+    description: true,
+    logo: true,
+    email: true,
+    phone: true,
+    whatsapp: true,
+    address: true,
+    latitude: true,
+    longitude: true,
+    amenities: true,
+    photos: true,
+    status: true,
+    referralCode: true,
+    createdAt: true,
+    updatedAt: true,
+    subscription: {
+      select: {
+        status: true,
+        nextBillingDate: true,
+      },
+    },
+    reviews: {
+      where: {
+        isRemoved: false,
+      },
+      select: {
+        rating: true,
+      },
+    },
+    _count: {
+      select: {
+        membershipPlans: true,
+        trainers: {
+          where: {
+            isActive: true,
+          },
+        },
+        memberships: {
+          where: {
+            status: BookingStatus.ACTIVE,
+          },
+        },
+      },
+    },
+  };
+
+  let business = await prisma.business.findUnique({
     where: {
-      ownerId,
+      ownerId: userId,
     },
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      logo: true,
-      email: true,
-      phone: true,
-      whatsapp: true,
-      address: true,
-      latitude: true,
-      longitude: true,
-      amenities: true,
-      photos: true,
-      status: true,
-      createdAt: true,
-      updatedAt: true,
-      subscription: {
-        select: {
-          status: true,
-          nextBillingDate: true,
-        },
-      },
-      reviews: {
-        where: {
-          isRemoved: false,
-        },
-        select: {
-          rating: true,
-        },
-      },
-      _count: {
-        select: {
-          membershipPlans: true,
-          trainers: {
-            where: {
-              isActive: true,
-            },
-          },
-          memberships: {
-            where: {
-              status: BookingStatus.ACTIVE,
-            },
-          },
-        },
-      },
-    },
+    select: businessSelect,
   });
+
+  let isOwner = true;
+  let staffRole: string = 'OWNER';
+
+  // If user is not the business owner, check if they are a staff member
+  if (!business) {
+    const staff = await prisma.businessStaff.findFirst({
+      where: { userId },
+      select: {
+        businessId: true,
+        permissionRole: true,
+      },
+    });
+
+    if (staff) {
+      business = await prisma.business.findUnique({
+        where: { id: staff.businessId },
+        select: businessSelect,
+      });
+      isOwner = false;
+      staffRole = staff.permissionRole;
+    }
+  }
 
   if (!business) {
     throw new AppError(404, "Business not found");
   }
+
+  /*
+  // Referral system temporarily disabled - will be implemented later
+  // Ensure gym business has a referral code
+  if (!business.referralCode) {
+    let newCode = "";
+    let isCodeUnique = false;
+    while (!isCodeUnique) {
+      newCode = generateGymReferralCode();
+      const existing = await prisma.business.findUnique({
+        where: { referralCode: newCode },
+      });
+      if (!existing) {
+        isCodeUnique = true;
+      }
+    }
+
+    await prisma.business.update({
+      where: { id: business.id },
+      data: { referralCode: newCode },
+    });
+    business.referralCode = newCode;
+  }
+  */
 
   let averageRating = 0;
   if (business.reviews.length > 0) {
@@ -420,10 +512,15 @@ const getMyBusiness = async (ownerId: string) => {
     membershipPlansCount: _count.membershipPlans,
     trainerCount: _count.trainers,
     memberCount: _count.memberships,
+    isOwner,
+    staffRole,
   };
 };
 
-const getBusinessDashboard = async (id: string, ownerId: string) => {
+const getBusinessDashboard = async (id: string, userId: string) => {
+  // Validate owner or staff access
+  await verifyBusinessAccess(id, userId);
+
   const business = await prisma.business.findUnique({
     where: { id },
     select: {
@@ -432,6 +529,7 @@ const getBusinessDashboard = async (id: string, ownerId: string) => {
       name: true,
       logo: true,
       status: true,
+      referralCode: true,
       createdAt: true,
     },
   });
@@ -440,9 +538,28 @@ const getBusinessDashboard = async (id: string, ownerId: string) => {
     throw new AppError(404, "Business not found");
   }
 
-  if (business.ownerId !== ownerId) {
-    throw new AppError(403, "Forbidden: You do not own this business");
+  /*
+  // Referral system temporarily disabled - will be implemented later
+  if (!business.referralCode) {
+    let newCode = "";
+    let isCodeUnique = false;
+    while (!isCodeUnique) {
+      newCode = generateGymReferralCode();
+      const existing = await prisma.business.findUnique({
+        where: { referralCode: newCode },
+      });
+      if (!existing) {
+        isCodeUnique = true;
+      }
+    }
+
+    await prisma.business.update({
+      where: { id: business.id },
+      data: { referralCode: newCode },
+    });
+    business.referralCode = newCode;
   }
+  */
 
   const now = new Date();
   const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -650,6 +767,7 @@ const getBusinessDashboard = async (id: string, ownerId: string) => {
       businessName: business.name,
       logo: business.logo,
       status: business.status,
+      referralCode: business.referralCode,
       createdAt: business.createdAt,
     },
     members,

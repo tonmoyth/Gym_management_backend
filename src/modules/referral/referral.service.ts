@@ -2,7 +2,10 @@ import { prisma } from "../../lib/prisma";
 import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
 import { QueryBuilder } from "../../utils/queryBuilder";
-import { ReferralStatus, BookingStatus } from "../../generated/prisma/enums";
+import { ReferralStatus, BookingStatus, NotificationType } from "../../generated/prisma/enums";
+import { NotificationService } from "../../utils/notification.service";
+import { auditLogger } from "../../utils/auditLogger";
+import { pushJob } from "../../utils/redisQueue";
 
 const generateReferralCode = () => {
   return "REF-" + Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -346,6 +349,224 @@ const getMyBusinessReferrals = async (userId: string, queryParams: any) => {
   return result;
 };
 
+const getOwnerMemberReferrals = async (userId: string, queryParams: any) => {
+  // 1. Identify business owned by the authenticated owner
+  const business = await prisma.business.findUnique({
+    where: { ownerId: userId },
+  });
+
+  if (!business) {
+    throw new AppError(httpStatus.NOT_FOUND, "No business found for this owner account");
+  }
+
+  // 2. Strip client-provided businessId to strictly prevent cross-tenant exposure
+  const cleanParams = { ...queryParams };
+  delete cleanParams.businessId;
+
+  // 3. Query Type-B referrals belonging to owner's business
+  const queryBuilder = new QueryBuilder(prisma.memberReferral, cleanParams, {
+    filterableFields: ["status", "referralCode"],
+    searchableFields: ["referralCode"],
+  })
+    .where({ businessId: business.id })
+    .filter()
+    .sort()
+    .paginate()
+    .include({
+      referrerMember: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              fullName: true,
+              email: true,
+              profileImage: true,
+            },
+          },
+        },
+      },
+      referredUser: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+          profileImage: true,
+        },
+      },
+    });
+
+  const result = await queryBuilder.execute();
+  return result;
+};
+
+const creditMemberReferral = async (
+  userId: string,
+  referralId: string,
+  reqMeta?: { ipAddress?: string; userAgent?: string }
+) => {
+  // 1. Identify owner's business
+  const business = await prisma.business.findUnique({
+    where: { ownerId: userId },
+  });
+
+  if (!business) {
+    throw new AppError(httpStatus.NOT_FOUND, "No business found for this owner account");
+  }
+
+  // 2. Find Type-B referral
+  const referral = await prisma.memberReferral.findUnique({
+    where: { id: referralId },
+    include: {
+      referrerMember: {
+        include: {
+          user: true,
+        },
+      },
+      referredUser: true,
+    },
+  });
+
+  if (!referral) {
+    throw new AppError(httpStatus.NOT_FOUND, "Member referral not found");
+  }
+
+  // 3. Tenant Isolation Check: Verify referral belongs to this business
+  if (referral.businessId !== business.id) {
+    throw new AppError(
+      httpStatus.FORBIDDEN,
+      "Forbidden: You do not have permission to credit referrals for another business"
+    );
+  }
+
+  // 4. Verify eligibility / already credited
+  if (referral.status === ReferralStatus.CREDITED) {
+    throw new AppError(
+      httpStatus.CONFLICT,
+      "Referral commission has already been credited"
+    );
+  }
+
+  // 5. Verify referring member exists and is active
+  if (!referral.referrerMember || !referral.referrerMember.user) {
+    throw new AppError(httpStatus.NOT_FOUND, "Referring member profile not found");
+  }
+
+  if (!referral.referrerMember.user.isActive) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Referring member user account is inactive. Commission cannot be credited."
+    );
+  }
+
+  const creditedTimestamp = new Date();
+  const commissionAmount = Number(referral.commissionAmount);
+
+  // 6. Concurrency & Transaction Safety: Atomic update
+  const updatedReferral = await prisma.$transaction(async (tx) => {
+    const updateResult = await tx.memberReferral.updateMany({
+      where: {
+        id: referralId,
+        businessId: business.id,
+        status: ReferralStatus.PENDING,
+      },
+      data: {
+        status: ReferralStatus.CREDITED,
+        creditedAt: creditedTimestamp,
+      },
+    });
+
+    if (updateResult.count === 0) {
+      throw new AppError(
+        httpStatus.CONFLICT,
+        "Referral commission has already been credited or is no longer pending"
+      );
+    }
+
+    return await tx.memberReferral.findUnique({
+      where: { id: referralId },
+      include: {
+        referrerMember: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                fullName: true,
+                email: true,
+                profileImage: true,
+              },
+            },
+          },
+        },
+        referredUser: {
+          select: {
+            id: true,
+            fullName: true,
+            email: true,
+            profileImage: true,
+          },
+        },
+        business: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+  });
+
+  // 7. Audit Logging
+  await auditLogger.record({
+    actorId: userId,
+    action: "MEMBER_REFERRAL_COMMISSION_CREDITED",
+    resource: "MEMBER_REFERRAL",
+    resourceId: referralId,
+    businessId: business.id,
+    details: `Business Owner credited Type-B referral commission of ${commissionAmount} BDT to member ${referral.referrerMember.user.fullName || referral.referrerMember.user.email}`,
+    metadata: {
+      referralId,
+      referralCode: referral.referralCode,
+      referrerMemberId: referral.referrerMemberId,
+      referrerUserId: referral.referrerMember.userId,
+      referredUserId: referral.referredUserId,
+      businessId: business.id,
+      commissionAmount,
+      creditedAt: creditedTimestamp,
+    },
+    ipAddress: reqMeta?.ipAddress,
+    userAgent: reqMeta?.userAgent,
+  });
+
+  // 8. In-App Notification to Referring Member
+  await NotificationService.createNotification(
+    referral.referrerMember.userId,
+    "Referral Commission Credited! 🎉",
+    `Your referral commission of ${commissionAmount.toFixed(2)} BDT for referring a member has been credited to your account by ${business.name}.`,
+    NotificationType.PAYOUT,
+    {
+      referralId,
+      businessId: business.id,
+      commissionAmount,
+      referralCode: referral.referralCode,
+    }
+  );
+
+  // 9. Redis Queue for Email / Async Notification
+  await pushJob("notification_queue", {
+    eventType: "MEMBER_REFERRAL_CREDITED",
+    referralId,
+    referralCode: referral.referralCode,
+    referrerUserId: referral.referrerMember.userId,
+    referrerEmail: referral.referrerMember.user.email,
+    referrerName: referral.referrerMember.user.fullName || "Member",
+    businessName: business.name,
+    commissionAmount,
+    creditedAt: creditedTimestamp,
+  });
+
+  return updatedReferral;
+};
+
 export const ReferralService = {
   getMyReferralCode,
   registerReferral,
@@ -354,5 +575,7 @@ export const ReferralService = {
   validateBusinessReferralCode,
   registerBusinessReferral,
   getMyBusinessReferrals,
+  getOwnerMemberReferrals,
+  creditMemberReferral,
 };
 

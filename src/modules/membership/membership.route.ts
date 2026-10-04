@@ -22,6 +22,12 @@ router.get(
 );
 
 router.get(
+  "/business/:businessId",
+  checkAuth(Role.BUSINESS_OWNER, Role.STAFF),
+  membershipController.getBusinessMemberships
+);
+
+router.get(
   "/:id",
   checkAuth(),
   membershipController.getMembershipById
@@ -43,14 +49,14 @@ router.patch(
 
 router.patch(
   "/:id/approve",
-  checkAuth(Role.BUSINESS_OWNER),
+  checkAuth(Role.BUSINESS_OWNER, Role.STAFF),
   validateRequest(membershipValidation.approveMembershipSchema),
   membershipController.approveMembership
 );
 
 router.patch(
   "/:id/reject",
-  checkAuth(Role.BUSINESS_OWNER),
+  checkAuth(Role.BUSINESS_OWNER, Role.STAFF),
   validateRequest(membershipValidation.rejectMembershipSchema),
   membershipController.rejectMembership
 );

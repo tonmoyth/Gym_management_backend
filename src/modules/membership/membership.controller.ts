@@ -104,6 +104,21 @@ const rejectMembership = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getBusinessMemberships = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id;
+  const businessId = req.params.businessId;
+  const query = req.query;
+
+  const result = await membershipService.getBusinessMemberships(userId, businessId as string, query);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Business memberships fetched successfully",
+    data: result,
+  });
+});
+
 export const membershipController = {
   createMembership,
   getMyMemberships,
@@ -112,4 +127,5 @@ export const membershipController = {
   cancelMembership,
   approveMembership,
   rejectMembership,
+  getBusinessMemberships,
 };

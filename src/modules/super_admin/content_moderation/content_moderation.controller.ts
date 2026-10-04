@@ -69,9 +69,27 @@ const removeJobPost = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const deleteJobPost = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const adminId = req.user?.id as string;
+
+  const result = await ContentModerationService.deleteJobPost(
+    id as string,
+    adminId
+  );
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Job post deleted permanently',
+    data: result,
+  });
+});
+
 export const ContentModerationController = {
   getModerationReviews,
   removeReview,
   getModerationJobPosts,
   removeJobPost,
+  deleteJobPost,
 };

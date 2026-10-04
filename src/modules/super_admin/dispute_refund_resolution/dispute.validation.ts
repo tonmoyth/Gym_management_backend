@@ -39,24 +39,34 @@ const resolveDisputeSchema = z.object({
       .trim()
       .min(1, 'Dispute ID is required'),
   }),
-  body: z.object({
-    resolution: z.enum(
-      ['REFUND', 'WARNING', 'ACCOUNT_ACTION', 'DISMISSAL'] as const,
+  body: z
+    .object({
+      resolution: z
+        .enum(['REFUND', 'WARNING', 'ACCOUNT_ACTION', 'DISMISSAL'] as const)
+        .optional(),
+      status: z.enum(['RESOLVED', 'DISMISSED'] as const).optional(),
+      reason: z.string().optional(),
+      resolutionNote: z.string().optional(),
+      paymentId: z.string().optional(),
+      accountAction: z.enum(['SUSPEND', 'ACTIVATE'] as const).optional(),
+      targetUserId: z.string().optional(),
+      refundAmount: z.union([z.number(), z.string()]).optional(),
+    })
+    .refine(
+      (data) => Boolean(data.reason?.trim() || data.resolutionNote?.trim()),
+      {
+        message: 'Resolution reason is required',
+        path: ['reason'],
+      }
+    )
+    .refine(
+      (data) => Boolean(data.resolution || data.status),
       {
         message:
           'Resolution must be one of: REFUND, WARNING, ACCOUNT_ACTION, DISMISSAL',
+        path: ['resolution'],
       }
     ),
-    reason: z
-      .string({
-        message: 'Resolution reason is required',
-      })
-      .trim()
-      .min(1, 'Resolution reason cannot be empty'),
-    paymentId: z.string().optional(),
-    accountAction: z.enum(['SUSPEND', 'ACTIVATE'] as const).optional(),
-    targetUserId: z.string().optional(),
-  }),
 });
 
 export const DisputeRefundResolutionValidation = {

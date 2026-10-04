@@ -6,8 +6,11 @@ const createOrUpdatePayoutValidation = z.object({
   }),
   body: z.object({
     trainerId: z.string({ message: "Trainer ID is required." }),
-    year: z.number().int().min(2000, "Invalid year."),
-    month: z.number().int().min(1).max(12, "Month must be between 1 and 12."),
+    year: z.number().int().min(2000, "Invalid year.").optional(),
+    month: z.union([
+      z.number().int().min(1).max(12, "Month must be between 1 and 12."),
+      z.string().min(1, "Month is required."),
+    ]),
     amount: z.number().min(0.01, "Amount must be greater than 0."),
     note: z.string().optional(),
   }),

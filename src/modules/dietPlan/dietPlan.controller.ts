@@ -60,9 +60,38 @@ const getMyDietPlan = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAssignableMembers = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const businessId = req.query.businessId as string | undefined;
+
+  const result = await DietPlanService.getAssignableMembers(userId, businessId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Assignable members retrieved successfully.",
+    data: result,
+  });
+});
+
+const getTrainerDietPlans = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+
+  const result = await DietPlanService.getTrainerDietPlans(userId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Trainer diet plans retrieved successfully.",
+    data: result,
+  });
+});
+
 export const DietPlanController = {
   createDietPlan,
   updateDietPlan,
   getMemberDietPlan,
   getMyDietPlan,
+  getAssignableMembers,
+  getTrainerDietPlans,
 };

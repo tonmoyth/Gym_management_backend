@@ -1,0 +1,44 @@
+model SubscriptionPayment {
+  id                     String                    @id @default(uuid())
+
+  businessId             String
+  business               Business                  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  businessSubscriptionId String?
+  businessSubscription   BusinessSubscription?     @relation(fields: [businessSubscriptionId], references: [id], onDelete: SetNull)
+
+  subscriptionPlanId     String
+  subscriptionPlan       SubscriptionPlan          @relation(fields: [subscriptionPlanId], references: [id], onDelete: Restrict)
+
+  amount                 Decimal                   @db.Decimal(10, 2)
+  currency               String                    @default("BDT")
+
+  paymentMethod          PaymentAccountType
+  transactionId          String
+  paymentProof           String?
+
+  paymentAccountId       String?
+  paymentAccount         PaymentAccount?           @relation(fields: [paymentAccountId], references: [id], onDelete: SetNull)
+
+  status                 SubscriptionPaymentStatus @default(PENDING)
+  rejectionReason        String?
+
+  reviewedByAdminId      String?
+  reviewedByAdmin        User?                     @relation("AdminSubscriptionPaymentReviewer", fields: [reviewedByAdminId], references: [id], onDelete: SetNull)
+  reviewedAt             DateTime?
+
+  // Snapshot fields of plan details at payment submission
+  planName               String
+  billingCycle           BillingCycle
+  features               String[]                  @default([])
+
+  createdAt              DateTime                  @default(now())
+  updatedAt              DateTime                  @updatedAt
+
+  @@unique([paymentMethod, transactionId])
+  @@index([businessId])
+  @@index([subscriptionPlanId])
+  @@index([paymentAccountId])
+  @@index([status])
+  @@index([createdAt])
+}

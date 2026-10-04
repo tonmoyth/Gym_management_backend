@@ -5,8 +5,10 @@ import { pushJob } from "../../utils/redisQueue";
 
 interface ICreateAnnouncementPayload {
   title: string;
-  content: string;
-  targetAudience: "MEMBERS" | "TRAINERS" | "BOTH";
+  content?: string;
+  body?: string;
+  targetAudience?: "MEMBERS" | "TRAINERS" | "BOTH";
+  audience?: "MEMBERS" | "TRAINERS" | "BOTH";
 }
 
 const createAnnouncement = async (
@@ -27,13 +29,24 @@ const createAnnouncement = async (
     throw new AppError(403, "Forbidden. You do not own this business.");
   }
 
+  const messageBody = payload.body || payload.content;
+  const targetAudience = (payload.audience || payload.targetAudience) as "MEMBERS" | "TRAINERS" | "BOTH";
+
+  if (!messageBody) {
+    throw new AppError(400, "Content or body is required.");
+  }
+
+  if (!targetAudience) {
+    throw new AppError(400, "Target audience must be MEMBERS, TRAINERS, or BOTH.");
+  }
+
   // Create Announcement
   const announcement = await prisma.announcement.create({
     data: {
       businessId,
       title: payload.title,
-      body: payload.content,
-      audience: payload.targetAudience,
+      body: messageBody,
+      audience: targetAudience,
     },
   });
 
@@ -51,8 +64,11 @@ const createAnnouncement = async (
 
   return {
     id: announcement.id,
+    businessId: announcement.businessId,
     title: announcement.title,
+    body: announcement.body,
     content: announcement.body,
+    audience: announcement.audience,
     targetAudience: announcement.audience,
     createdAt: announcement.createdAt,
   };
@@ -65,7 +81,40 @@ const getAnnouncements = async (
   query: any
 ) => {
   // Authorization Verification based on Role
-  if (role === "MEMBER") {
+  let allowedAudiences: ("MEMBERS" | "TRAINERS" | "BOTH")[] = ["BOTH"];
+
+  if (
+    role === "BUSINESS_OWNER" ||
+    role === "SUPER_ADMIN" ||
+    role === "ADMIN" ||
+    role === "STAFF"
+  ) {
+    if (role === "BUSINESS_OWNER") {
+      const business = await prisma.business.findUnique({
+        where: { id: businessId },
+      });
+      if (!business) {
+        throw new AppError(404, "Business not found.");
+      }
+      if (business.ownerId !== userId) {
+        throw new AppError(403, "Forbidden. You do not own this business.");
+      }
+    } else if (role === "STAFF") {
+      const staff = await prisma.businessStaff.findUnique({
+        where: {
+          businessId_userId: {
+            businessId,
+            userId,
+          },
+        },
+      });
+      if (!staff) {
+        throw new AppError(403, "Forbidden. You are not staff in this business.");
+      }
+    }
+    // Business owners and staff can view all announcements for the business
+    allowedAudiences = ["MEMBERS", "TRAINERS", "BOTH"];
+  } else if (role === "MEMBER") {
     const activeMembership = await prisma.membership.findFirst({
       where: {
         member: { userId },
@@ -77,6 +126,7 @@ const getAnnouncements = async (
     if (!activeMembership) {
       throw new AppError(403, "Forbidden. You do not have an active membership in this business.");
     }
+    allowedAudiences.push("MEMBERS");
   } else if (role === "TRAINER") {
     const assignedTrainer = await prisma.trainerBusiness.findFirst({
       where: {
@@ -88,21 +138,18 @@ const getAnnouncements = async (
     if (!assignedTrainer) {
       throw new AppError(403, "Forbidden. You are not assigned to this business.");
     }
+    allowedAudiences.push("TRAINERS");
   } else {
     throw new AppError(403, "Forbidden. Invalid role for accessing announcements.");
   }
 
-  // Build targetAudience filter based on user role and query
-  let allowedAudiences: ("MEMBERS" | "TRAINERS" | "BOTH")[] = ["BOTH"];
-  if (role === "MEMBER") {
-    allowedAudiences.push("MEMBERS");
-  } else if (role === "TRAINER") {
-    allowedAudiences.push("TRAINERS");
-  }
+  // If query specifies targetAudience or audience, validate it against allowed ones
+  const requestedAudience = (query.targetAudience || query.audience) as
+    | "MEMBERS"
+    | "TRAINERS"
+    | "BOTH"
+    | undefined;
 
-  // If query specifies targetAudience, validate it against allowed ones
-  const requestedAudience = query.targetAudience as "MEMBERS" | "TRAINERS" | "BOTH" | undefined;
-  
   const additionalFilters: any = { businessId };
 
   if (requestedAudience) {
@@ -117,8 +164,6 @@ const getAnnouncements = async (
   }
 
   if (query.createdAt) {
-    // Assuming createdAt could be an exact date string or range, QueryBuilder typically handles strings.
-    // If we need to support range, QueryBuilder takes care of it if configured.
     additionalFilters.createdAt = query.createdAt;
   }
 
@@ -143,8 +188,11 @@ const getAnnouncements = async (
 
   const formattedData = result.data.map((announcement: any) => ({
     id: announcement.id,
+    businessId: announcement.businessId,
     title: announcement.title,
+    body: announcement.body,
     content: announcement.body,
+    audience: announcement.audience,
     targetAudience: announcement.audience,
     createdAt: announcement.createdAt,
   }));

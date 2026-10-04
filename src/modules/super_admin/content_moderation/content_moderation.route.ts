@@ -40,4 +40,12 @@ router.patch(
   ContentModerationController.removeJobPost
 );
 
+router.delete(
+  '/job-posts/:id',
+  checkAuth(Role.SUPER_ADMIN, Role.ADMIN, Role.STAFF),
+  checkPermission('CONTENT_MODERATE'),
+  validateRequest(ContentModerationValidation.removeJobPostSchema),
+  ContentModerationController.deleteJobPost
+);
+
 export const contentModerationRoutes = router;

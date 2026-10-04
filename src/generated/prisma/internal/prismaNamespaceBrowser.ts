@@ -57,10 +57,12 @@ export const ModelName = {
   Business: 'Business',
   BusinessReferral: 'BusinessReferral',
   BusinessStaff: 'BusinessStaff',
+  BusinessSubscription: 'BusinessSubscription',
   ChatMessage: 'ChatMessage',
   ChatThread: 'ChatThread',
   ClassBooking: 'ClassBooking',
   ClassSchedule: 'ClassSchedule',
+  ClassScheduleTrainer: 'ClassScheduleTrainer',
   DietPlan: 'DietPlan',
   Dispute: 'Dispute',
   Equipment: 'Equipment',
@@ -75,11 +77,14 @@ export const ModelName = {
   MembershipPlan: 'MembershipPlan',
   Notification: 'Notification',
   Payment: 'Payment',
+  PaymentAccount: 'PaymentAccount',
   PlatformSubscription: 'PlatformSubscription',
   ProgressLog: 'ProgressLog',
   AttendanceQrCode: 'AttendanceQrCode',
   Review: 'Review',
   SpecializationTag: 'SpecializationTag',
+  SubscriptionPayment: 'SubscriptionPayment',
+  SubscriptionPlan: 'SubscriptionPlan',
   TrainerApplication: 'TrainerApplication',
   TrainerBusiness: 'TrainerBusiness',
   TrainerCertification: 'TrainerCertification',
@@ -231,6 +236,24 @@ export const BusinessStaffScalarFieldEnum = {
 export type BusinessStaffScalarFieldEnum = (typeof BusinessStaffScalarFieldEnum)[keyof typeof BusinessStaffScalarFieldEnum]
 
 
+export const BusinessSubscriptionScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  subscriptionPlanId: 'subscriptionPlanId',
+  status: 'status',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  planName: 'planName',
+  planPrice: 'planPrice',
+  billingCycle: 'billingCycle',
+  features: 'features',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BusinessSubscriptionScalarFieldEnum = (typeof BusinessSubscriptionScalarFieldEnum)[keyof typeof BusinessSubscriptionScalarFieldEnum]
+
+
 export const ChatMessageScalarFieldEnum = {
   id: 'id',
   threadId: 'threadId',
@@ -271,6 +294,11 @@ export const ClassScheduleScalarFieldEnum = {
   businessId: 'businessId',
   trainerId: 'trainerId',
   title: 'title',
+  description: 'description',
+  daysOfWeek: 'daysOfWeek',
+  timeSlot: 'timeSlot',
+  startTimeStr: 'startTimeStr',
+  endTimeStr: 'endTimeStr',
   startTime: 'startTime',
   endTime: 'endTime',
   capacity: 'capacity',
@@ -279,6 +307,16 @@ export const ClassScheduleScalarFieldEnum = {
 } as const
 
 export type ClassScheduleScalarFieldEnum = (typeof ClassScheduleScalarFieldEnum)[keyof typeof ClassScheduleScalarFieldEnum]
+
+
+export const ClassScheduleTrainerScalarFieldEnum = {
+  id: 'id',
+  classScheduleId: 'classScheduleId',
+  trainerId: 'trainerId',
+  createdAt: 'createdAt'
+} as const
+
+export type ClassScheduleTrainerScalarFieldEnum = (typeof ClassScheduleTrainerScalarFieldEnum)[keyof typeof ClassScheduleTrainerScalarFieldEnum]
 
 
 export const DietPlanScalarFieldEnum = {
@@ -354,6 +392,8 @@ export const JobPostScalarFieldEnum = {
   description: 'description',
   specializationTagId: 'specializationTagId',
   isOpen: 'isOpen',
+  salary: 'salary',
+  experience: 'experience',
   createdAt: 'createdAt'
 } as const
 
@@ -481,6 +521,26 @@ export const PaymentScalarFieldEnum = {
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
+export const PaymentAccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  businessId: 'businessId',
+  trainerId: 'trainerId',
+  accountType: 'accountType',
+  accountName: 'accountName',
+  accountNumber: 'accountNumber',
+  bankName: 'bankName',
+  branchName: 'branchName',
+  routingNumber: 'routingNumber',
+  isDefault: 'isDefault',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentAccountScalarFieldEnum = (typeof PaymentAccountScalarFieldEnum)[keyof typeof PaymentAccountScalarFieldEnum]
+
+
 export const PlatformSubscriptionScalarFieldEnum = {
   id: 'id',
   businessId: 'businessId',
@@ -542,6 +602,47 @@ export const SpecializationTagScalarFieldEnum = {
 export type SpecializationTagScalarFieldEnum = (typeof SpecializationTagScalarFieldEnum)[keyof typeof SpecializationTagScalarFieldEnum]
 
 
+export const SubscriptionPaymentScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  businessSubscriptionId: 'businessSubscriptionId',
+  subscriptionPlanId: 'subscriptionPlanId',
+  amount: 'amount',
+  currency: 'currency',
+  paymentMethod: 'paymentMethod',
+  transactionId: 'transactionId',
+  paymentProof: 'paymentProof',
+  paymentAccountId: 'paymentAccountId',
+  status: 'status',
+  rejectionReason: 'rejectionReason',
+  reviewedByAdminId: 'reviewedByAdminId',
+  reviewedAt: 'reviewedAt',
+  planName: 'planName',
+  billingCycle: 'billingCycle',
+  features: 'features',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SubscriptionPaymentScalarFieldEnum = (typeof SubscriptionPaymentScalarFieldEnum)[keyof typeof SubscriptionPaymentScalarFieldEnum]
+
+
+export const SubscriptionPlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  price: 'price',
+  billingCycle: 'billingCycle',
+  durationDays: 'durationDays',
+  features: 'features',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SubscriptionPlanScalarFieldEnum = (typeof SubscriptionPlanScalarFieldEnum)[keyof typeof SubscriptionPlanScalarFieldEnum]
+
+
 export const TrainerApplicationScalarFieldEnum = {
   id: 'id',
   jobPostId: 'jobPostId',
@@ -559,6 +660,8 @@ export const TrainerBusinessScalarFieldEnum = {
   trainerId: 'trainerId',
   businessId: 'businessId',
   isActive: 'isActive',
+  monthlySalary: 'monthlySalary',
+  notes: 'notes',
   joinedAt: 'joinedAt'
 } as const
 

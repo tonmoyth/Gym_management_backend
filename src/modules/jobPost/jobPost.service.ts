@@ -7,6 +7,8 @@ interface ICreateJobPostPayload {
   title: string;
   description: string;
   specializationTagId: string;
+  salary?: number;
+  experience?: number;
 }
 
 const createJobPost = async (
@@ -50,12 +52,16 @@ const createJobPost = async (
       specializationTagId: payload.specializationTagId,
       businessId: business.id,
       isOpen: true,
+      salary: payload.salary !== undefined ? payload.salary : null,
+      experience: payload.experience !== undefined ? payload.experience : 0,
     },
     select: {
       id: true,
       businessId: true,
       title: true,
       description: true,
+      salary: true,
+      experience: true,
       isOpen: true,
       createdAt: true,
       specializationTag: {
@@ -262,7 +268,11 @@ const getJobPostApplicants = async (
   };
 };
 
-const approveTrainerApplication = async (ownerId: string, appId: string) => {
+const approveTrainerApplication = async (
+  ownerId: string,
+  appId: string,
+  payload?: { monthlySalary?: number }
+) => {
   // 1. Find Trainer Application with related Job Post and Business
   const application = await prisma.trainerApplication.findUnique({
     where: { id: appId },
@@ -289,11 +299,6 @@ const approveTrainerApplication = async (ownerId: string, appId: string) => {
       "Forbidden. You do not have permission to approve this application.",
     );
   }
-
-  // 3. Job Post open verification
-  // if (!jobPost.isOpen) {
-  //     throw new AppError(400, 'Job post is already closed.');
-  // }
 
   // 4. Application status verification
   if (application.status !== "PENDING") {
@@ -341,19 +346,6 @@ const approveTrainerApplication = async (ownerId: string, appId: string) => {
       },
     });
 
-    // Step 2: Reject every other pending application for the same Job Post
-    // await tx.trainerApplication.updateMany({
-    //   where: {
-    //     jobPostId: jobPost.id,
-    //     id: { not: appId },
-    //     status: "PENDING",
-    //   },
-    //   data: {
-    //     status: "REJECTED",
-    //     reviewedAt: new Date(),
-    //   },
-    // });
-
     // Step 3: Close Job Post
     const closedJobPost = await tx.jobPost.update({
       where: { id: jobPost.id },
@@ -365,11 +357,19 @@ const approveTrainerApplication = async (ownerId: string, appId: string) => {
       },
     });
 
+    const agreedSalary =
+      payload?.monthlySalary !== undefined
+        ? payload.monthlySalary
+        : jobPost.salary
+        ? Number(jobPost.salary)
+        : null;
+
     // Step 4: Create TrainerBusiness
     const trainerBusiness = await tx.trainerBusiness.create({
       data: {
         trainerId: application.trainerId,
         businessId: business.id,
+        monthlySalary: agreedSalary,
       },
     });
 
@@ -392,6 +392,7 @@ const approveTrainerApplication = async (ownerId: string, appId: string) => {
         isOpen: closedJobPost.isOpen,
       },
       trainerBusinessId: trainerBusiness.id,
+      monthlySalary: trainerBusiness.monthlySalary ? Number(trainerBusiness.monthlySalary) : null,
     };
   });
 
@@ -497,8 +498,8 @@ const rejectTrainerApplication = async (ownerId: string, appId: string) => {
 
 const getOpenJobPosts = async (trainerUserId: string, query: any) => {
   // 1. Get TrainerProfile ID for this user
-  const trainerProfile = await prisma.user.findUnique({
-    where: { id: trainerUserId },
+  const trainerProfile = await prisma.trainerProfile.findUnique({
+    where: { userId: trainerUserId },
   });
 
   if (!trainerProfile) {
@@ -562,6 +563,8 @@ const getOpenJobPosts = async (trainerUserId: string, query: any) => {
     id: true,
     title: true,
     description: true,
+    salary: true,
+    experience: true,
     createdAt: true,
     business: {
       select: {
@@ -588,6 +591,8 @@ const getOpenJobPosts = async (trainerUserId: string, query: any) => {
     id: job.id,
     title: job.title,
     description: job.description,
+    salary: job.salary ? Number(job.salary) : null,
+    experience: job.experience ?? 0,
     business: {
       id: job.business.id,
       name: job.business.name,
@@ -595,9 +600,14 @@ const getOpenJobPosts = async (trainerUserId: string, query: any) => {
       address: job.business.address,
     },
     specialization: {
-      id: job.specializationTag.id,
-      name: job.specializationTag.name,
-      slug: job.specializationTag.slug,
+      id: job.specializationTag?.id,
+      name: job.specializationTag?.name,
+      slug: job.specializationTag?.slug,
+    },
+    specializationTag: {
+      id: job.specializationTag?.id,
+      name: job.specializationTag?.name,
+      slug: job.specializationTag?.slug,
     },
     createdAt: job.createdAt,
   }));
@@ -612,15 +622,13 @@ const getJobPostDetail = async (jobPostId: string) => {
   const jobPost = await prisma.jobPost.findUnique({
     where: {
       id: jobPostId,
-      isOpen: true,
-      business: {
-        status: "ACTIVE",
-      },
     },
     select: {
       id: true,
       title: true,
       description: true,
+      salary: true,
+      experience: true,
       isOpen: true,
       createdAt: true,
       _count: {
@@ -660,6 +668,8 @@ const getJobPostDetail = async (jobPostId: string) => {
     id: jobPost.id,
     title: jobPost.title,
     description: jobPost.description,
+    salary: jobPost.salary ? Number(jobPost.salary) : null,
+    experience: jobPost.experience ?? 0,
     isOpen: jobPost.isOpen,
     isAcceptingApplications: jobPost.isOpen,
     postedDaysAgo: postedDaysAgo >= 0 ? postedDaysAgo : 0,
@@ -670,6 +680,7 @@ const getJobPostDetail = async (jobPostId: string) => {
       name: jobPost.specializationTag.name,
       slug: jobPost.specializationTag.slug,
     },
+    specializationTag: jobPost.specializationTag,
     createdAt: jobPost.createdAt,
   };
 };
@@ -678,7 +689,16 @@ const applyToJobPost = async (trainerUserId: string, jobPostId: string) => {
   // 1. Find Trainer Profile
   const trainerProfile = await prisma.trainerProfile.findUnique({
     where: { userId: trainerUserId },
-    include: { certifications: true },
+    include: {
+      certifications: true,
+      user: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+        },
+      },
+    },
   });
 
   if (!trainerProfile) {
@@ -703,11 +723,11 @@ const applyToJobPost = async (trainerUserId: string, jobPostId: string) => {
     );
   }
 
-  // 2. Profile Completion Rule
-  if (trainerProfile.profileCompletionPercent < 80) {
+  // 2. Profile Completion Rule: Must be 100% complete
+  if (trainerProfile.profileCompletionPercent < 100) {
     throw new AppError(
       403,
-      "Complete at least 80% of your trainer profile before applying for jobs.",
+      "Your trainer profile must be 100% complete with verified certifications before applying for jobs.",
     );
   }
 
@@ -783,10 +803,14 @@ const applyToJobPost = async (trainerUserId: string, jobPostId: string) => {
     eventType: "TRAINER_JOB_APPLIED",
     applicationId: application.id,
     trainerId: trainerProfile.id,
-    jobPostId: jobPost.id,
-    businessId: jobPost.businessId,
-    // Add additional info for notification payload if needed by the worker
     trainerUserId: trainerUserId,
+    trainerName: trainerProfile.user?.fullName || "Trainer",
+    trainerEmail: trainerProfile.user?.email || undefined,
+    jobPostId: jobPost.id,
+    jobPostTitle: jobPost.title,
+    businessId: jobPost.businessId,
+    businessName: jobPost.business.name,
+    ownerId: jobPost.business.ownerId,
   });
 
   return {
@@ -877,17 +901,21 @@ const getMyApplications = async (trainerUserId: string, query: any) => {
         id: true,
         title: true,
         description: true,
+        salary: true,
+        experience: true,
         business: {
           select: {
             id: true,
             name: true,
             logo: true,
+            address: true,
           },
         },
         specializationTag: {
           select: {
             id: true,
             name: true,
+            slug: true,
           },
         },
       },
@@ -906,16 +934,125 @@ const getMyApplications = async (trainerUserId: string, query: any) => {
       id: app.jobPost.id,
       title: app.jobPost.title,
       description: app.jobPost.description,
+      salary: app.jobPost.salary ? Number(app.jobPost.salary) : null,
+      experience: app.jobPost.experience ?? 0,
     },
     business: {
       id: app.jobPost.business.id,
       name: app.jobPost.business.name,
       logo: app.jobPost.business.logo,
+      address: app.jobPost.business.address,
     },
     specialization: {
-      id: app.jobPost.specializationTag.id,
-      name: app.jobPost.specializationTag.name,
+      id: app.jobPost.specializationTag?.id,
+      name: app.jobPost.specializationTag?.name,
+      slug: app.jobPost.specializationTag?.slug,
     },
+  }));
+
+  return {
+    meta: result.meta,
+    data: mappedData,
+  };
+};
+
+const getMyJobPosts = async (userId: string, query: any) => {
+  // 1. Find Business associated with this user (Owner or Staff)
+  const business = await prisma.business.findFirst({
+    where: {
+      OR: [
+        { ownerId: userId },
+        { staff: { some: { userId } } },
+      ],
+    },
+  });
+
+  if (!business) {
+    throw new AppError(404, "Business not found. You must be associated with an active business.");
+  }
+
+  // 2. Prepare query parameters for QueryBuilder
+  const queryParams = { ...query };
+
+  if (!queryParams.sort && !queryParams.sortBy) {
+    queryParams.sort = "-createdAt";
+  }
+
+  if (queryParams.sort) {
+    if (queryParams.sort.startsWith("-")) {
+      queryParams.sortBy = queryParams.sort.substring(1);
+      queryParams.sortOrder = "desc";
+    } else {
+      queryParams.sortBy = queryParams.sort;
+      queryParams.sortOrder = "asc";
+    }
+    delete queryParams.sort;
+  }
+
+  // 3. Build Query
+  const queryBuilder = new QueryBuilder(prisma.jobPost, queryParams, {
+    searchableFields: ["title", "description", "specializationTag.name"],
+    filterableFields: ["specializationTagId", "isOpen"],
+  })
+    .search()
+    .filter()
+    .sort()
+    .paginate();
+
+  // 4. Force filter to this business
+  queryBuilder.where({
+    businessId: business.id,
+  });
+
+  // 5. Select fields
+  const qbQuery = queryBuilder.getQuery();
+  delete qbQuery.include;
+  qbQuery.select = {
+    id: true,
+    title: true,
+    description: true,
+    salary: true,
+    experience: true,
+    isOpen: true,
+    createdAt: true,
+    _count: {
+      select: {
+        applications: true,
+      },
+    },
+    business: {
+      select: {
+        id: true,
+        name: true,
+        logo: true,
+        address: true,
+      },
+    },
+    specializationTag: {
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+      },
+    },
+  };
+
+  // 6. Execute
+  const result = await queryBuilder.execute();
+
+  // 7. Map data
+  const mappedData = result.data.map((job: any) => ({
+    id: job.id,
+    title: job.title,
+    description: job.description,
+    salary: job.salary ? Number(job.salary) : null,
+    experience: job.experience ?? 0,
+    isOpen: job.isOpen,
+    createdAt: job.createdAt,
+    applicantCount: job._count?.applications || 0,
+    business: job.business,
+    specializationTag: job.specializationTag,
+    specialization: job.specializationTag,
   }));
 
   return {
@@ -934,4 +1071,5 @@ export const JobPostService = {
   getJobPostDetail,
   applyToJobPost,
   getMyApplications,
+  getMyJobPosts,
 };

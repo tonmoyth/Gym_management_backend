@@ -138,7 +138,7 @@ const getProfile = async (userId: string) => {
 const getRecommendations = async (userId: string, queryParams: any) => {
   const memberProfile = await prisma.memberProfile.findUnique({
     where: { userId },
-    select: { 
+    select: {
       fitnessGoalTagId: true,
       fitnessGoalTag: {
         select: {
@@ -155,7 +155,7 @@ const getRecommendations = async (userId: string, queryParams: any) => {
   }
 
   const fitnessGoalTagId = memberProfile.fitnessGoalTagId;
-  
+
   if (!fitnessGoalTagId) {
     throw new AppError(httpStatus.BAD_REQUEST, "Fitness Goal not set");
   }
@@ -317,12 +317,12 @@ const getDashboard = async (userId: string) => {
 
     // Attendance stats
     prisma.attendanceLog.count({ where: { memberId, attendanceType: "CHECK_IN" } }),
-    prisma.attendanceLog.count({ 
-      where: { 
-        memberId, 
+    prisma.attendanceLog.count({
+      where: {
+        memberId,
         attendanceTime: { gte: startOfMonth },
         attendanceType: "CHECK_IN"
-      } 
+      }
     }),
 
     // Today's attendance
@@ -338,25 +338,27 @@ const getDashboard = async (userId: string) => {
       take: 5
     }),
 
-    // Upcoming classes
+    // Upcoming / confirmed classes
     prisma.classBooking.findMany({
       where: {
         memberId,
         status: "CONFIRMED",
-        classSchedule: {
-          startTime: { gte: new Date() }
-        }
       },
       include: {
         classSchedule: {
           include: {
+            trainers: {
+              include: {
+                trainer: { include: { user: { select: { fullName: true } } } }
+              }
+            },
             trainer: { include: { user: { select: { fullName: true } } } },
             business: { select: { id: true, name: true } }
           }
         }
       },
       orderBy: {
-        classSchedule: { startTime: "asc" }
+        classSchedule: { startTime: "desc" }
       },
       take: 5
     })
@@ -370,7 +372,7 @@ const getDashboard = async (userId: string) => {
     if (activeMembership.endDate) {
       daysRemaining = Math.ceil((new Date(activeMembership.endDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
     }
-    
+
     membershipData = {
       id: activeMembership.id,
       status: activeMembership.status,
@@ -425,17 +427,32 @@ const getDashboard = async (userId: string) => {
         timestamp: log.attendanceTime,
       })),
     },
-    upcomingClasses: upcomingClasses.map((booking: any) => ({
-      id: booking.classSchedule.id,
-      title: booking.classSchedule.title,
-      startTime: booking.classSchedule.startTime,
-      endTime: booking.classSchedule.endTime,
-      trainer: booking.classSchedule.trainer ? {
-        id: booking.classSchedule.trainer.id,
-        name: booking.classSchedule.trainer.user?.fullName,
-      } : null,
-      business: booking.classSchedule.business,
-    })),
+    upcomingClasses: upcomingClasses.map((booking: any) => {
+      const cs = booking.classSchedule;
+      const trainersList = (cs.trainers && cs.trainers.length > 0)
+        ? cs.trainers.map((st: any) => ({
+            id: st.trainer.id,
+            name: st.trainer.user?.fullName || "Trainer",
+          }))
+        : (cs.trainer ? [{
+            id: cs.trainer.id,
+            name: cs.trainer.user?.fullName || "Trainer",
+          }] : []);
+
+      const timeSlotDisplay = cs.timeSlot || (cs.startTimeStr && cs.endTimeStr ? `${cs.startTimeStr} - ${cs.endTimeStr}` : `${new Date(cs.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${new Date(cs.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
+
+      return {
+        id: cs.id,
+        title: cs.title,
+        daysOfWeek: cs.daysOfWeek || [],
+        timeSlot: timeSlotDisplay,
+        startTime: cs.startTime,
+        endTime: cs.endTime,
+        trainers: trainersList,
+        trainer: trainersList[0] || null,
+        business: cs.business,
+      };
+    }),
   };
 };
 

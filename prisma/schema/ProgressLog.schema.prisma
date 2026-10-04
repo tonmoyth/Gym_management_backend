@@ -9,8 +9,8 @@ model ProgressLog {
   loggedByUserId String
   loggedByUser   User   @relation(fields: [loggedByUserId], references: [id], onDelete: Restrict)
 
-  weight Decimal? @db.Decimal(5, 2)
-  bmi    Decimal? @db.Decimal(4, 2)
+  weight Decimal? @db.Decimal(6, 2)
+  bmi    Decimal? @db.Decimal(6, 2)
 
   measurements Json?
   workoutLog   String?

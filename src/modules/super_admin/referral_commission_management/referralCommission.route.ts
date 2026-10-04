@@ -7,6 +7,8 @@ import { ReferralCommissionController } from './referralCommission.controller';
 
 const router = express.Router();
 
+// Referral system temporarily disabled - will be implemented later
+/*
 // All routes in this module are strictly restricted to SUPER_ADMIN
 router.use(checkAuth(Role.SUPER_ADMIN));
 
@@ -36,5 +38,6 @@ router.patch(
   validateRequest(ReferralCommissionValidation.creditCommissionSchema),
   ReferralCommissionController.creditCommission
 );
+*/
 
 export const referralCommissionRoutes = router;

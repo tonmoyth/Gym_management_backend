@@ -156,7 +156,15 @@ const getStaffList = async (queryParams: any) => {
     }
 
     if (status) {
-        whereConditions.isActive = status === 'ACTIVE';
+        if (status === 'ACTIVE') {
+            whereConditions.isActive = true;
+        } else if (status === 'SUSPENDED') {
+            whereConditions.isActive = false;
+        }
+        // If status === 'ALL', no isActive constraint is applied
+    } else {
+        // Default to active staff accounts unless explicitly requested
+        whereConditions.isActive = true;
     }
 
     const queryBuilder = new QueryBuilder(prisma.user, restQuery, {
@@ -314,19 +322,33 @@ const removeStaff = async (id: string, superAdminId: string) => {
         throw new AppError(400, 'User is not a platform ADMIN or STAFF account.');
     }
 
-    // Atomic deactivation: deactivate user and revoke active sessions
-    await prisma.$transaction(async (tx) => {
-        // 1. Deactivate user account
-        await tx.user.update({
-            where: { id: user.id },
-            data: { isActive: false }
+    // Clean permanent deletion with fallback to deactivation if historical records exist
+    let isHardDeleted = false;
+    try {
+        await prisma.$transaction(async (tx) => {
+            await tx.session.deleteMany({
+                where: { userId: user.id }
+            });
+            await tx.account.deleteMany({
+                where: { userId: user.id }
+            });
+            await tx.user.delete({
+                where: { id: user.id }
+            });
         });
-
-        // 2. Revoke all active login sessions immediately
-        await tx.session.deleteMany({
-            where: { userId: user.id }
+        isHardDeleted = true;
+    } catch (deleteError) {
+        // Fallback to soft deactivation if historical foreign key references exist
+        await prisma.$transaction(async (tx) => {
+            await tx.user.update({
+                where: { id: user.id },
+                data: { isActive: false }
+            });
+            await tx.session.deleteMany({
+                where: { userId: user.id }
+            });
         });
-    });
+    }
 
     // Audit log
     await auditLogger.record({
@@ -334,7 +356,10 @@ const removeStaff = async (id: string, superAdminId: string) => {
         action: 'STAFF_REMOVED',
         resource: 'STAFF',
         resourceId: user.id,
-        details: `Deactivated platform staff user ${user.fullName} (${user.email}) and revoked sessions`,
+        details: isHardDeleted
+            ? `Permanently removed platform staff user ${user.fullName} (${user.email})`
+            : `Deactivated platform staff user ${user.fullName} (${user.email}) and revoked sessions`,
+        metadata: { hardDeleted: isHardDeleted }
     });
 
     return null;

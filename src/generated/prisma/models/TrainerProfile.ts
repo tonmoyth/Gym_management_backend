@@ -267,6 +267,7 @@ export type TrainerProfileWhereInput = {
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   chatThreads?: Prisma.ChatThreadListRelationFilter
   classSchedules?: Prisma.ClassScheduleListRelationFilter
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerListRelationFilter
   dietPlans?: Prisma.DietPlanListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   applications?: Prisma.TrainerApplicationListRelationFilter
@@ -275,6 +276,7 @@ export type TrainerProfileWhereInput = {
   payouts?: Prisma.TrainerPayoutListRelationFilter
   specializations?: Prisma.TrainerSpecializationListRelationFilter
   disputes?: Prisma.DisputeListRelationFilter
+  paymentAccounts?: Prisma.PaymentAccountListRelationFilter
 }
 
 export type TrainerProfileOrderByWithRelationInput = {
@@ -291,6 +293,7 @@ export type TrainerProfileOrderByWithRelationInput = {
   user?: Prisma.UserOrderByWithRelationInput
   chatThreads?: Prisma.ChatThreadOrderByRelationAggregateInput
   classSchedules?: Prisma.ClassScheduleOrderByRelationAggregateInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerOrderByRelationAggregateInput
   dietPlans?: Prisma.DietPlanOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
   applications?: Prisma.TrainerApplicationOrderByRelationAggregateInput
@@ -299,6 +302,7 @@ export type TrainerProfileOrderByWithRelationInput = {
   payouts?: Prisma.TrainerPayoutOrderByRelationAggregateInput
   specializations?: Prisma.TrainerSpecializationOrderByRelationAggregateInput
   disputes?: Prisma.DisputeOrderByRelationAggregateInput
+  paymentAccounts?: Prisma.PaymentAccountOrderByRelationAggregateInput
 }
 
 export type TrainerProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -318,6 +322,7 @@ export type TrainerProfileWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   chatThreads?: Prisma.ChatThreadListRelationFilter
   classSchedules?: Prisma.ClassScheduleListRelationFilter
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerListRelationFilter
   dietPlans?: Prisma.DietPlanListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   applications?: Prisma.TrainerApplicationListRelationFilter
@@ -326,6 +331,7 @@ export type TrainerProfileWhereUniqueInput = Prisma.AtLeast<{
   payouts?: Prisma.TrainerPayoutListRelationFilter
   specializations?: Prisma.TrainerSpecializationListRelationFilter
   disputes?: Prisma.DisputeListRelationFilter
+  paymentAccounts?: Prisma.PaymentAccountListRelationFilter
 }, "id" | "userId">
 
 export type TrainerProfileOrderByWithAggregationInput = {
@@ -375,6 +381,7 @@ export type TrainerProfileCreateInput = {
   user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
   chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
@@ -383,6 +390,7 @@ export type TrainerProfileCreateInput = {
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateInput = {
@@ -398,6 +406,7 @@ export type TrainerProfileUncheckedCreateInput = {
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
@@ -406,6 +415,7 @@ export type TrainerProfileUncheckedCreateInput = {
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUpdateInput = {
@@ -421,6 +431,7 @@ export type TrainerProfileUpdateInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
   chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
@@ -429,6 +440,7 @@ export type TrainerProfileUpdateInput = {
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateInput = {
@@ -444,6 +456,7 @@ export type TrainerProfileUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
@@ -452,6 +465,7 @@ export type TrainerProfileUncheckedUpdateInput = {
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateManyInput = {
@@ -585,6 +599,20 @@ export type TrainerProfileUpdateOneWithoutClassSchedulesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TrainerProfileUpdateToOneWithWhereWithoutClassSchedulesInput, Prisma.TrainerProfileUpdateWithoutClassSchedulesInput>, Prisma.TrainerProfileUncheckedUpdateWithoutClassSchedulesInput>
 }
 
+export type TrainerProfileCreateNestedOneWithoutClassScheduleAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.TrainerProfileCreateWithoutClassScheduleAssignmentsInput, Prisma.TrainerProfileUncheckedCreateWithoutClassScheduleAssignmentsInput>
+  connectOrCreate?: Prisma.TrainerProfileCreateOrConnectWithoutClassScheduleAssignmentsInput
+  connect?: Prisma.TrainerProfileWhereUniqueInput
+}
+
+export type TrainerProfileUpdateOneRequiredWithoutClassScheduleAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.TrainerProfileCreateWithoutClassScheduleAssignmentsInput, Prisma.TrainerProfileUncheckedCreateWithoutClassScheduleAssignmentsInput>
+  connectOrCreate?: Prisma.TrainerProfileCreateOrConnectWithoutClassScheduleAssignmentsInput
+  upsert?: Prisma.TrainerProfileUpsertWithoutClassScheduleAssignmentsInput
+  connect?: Prisma.TrainerProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrainerProfileUpdateToOneWithWhereWithoutClassScheduleAssignmentsInput, Prisma.TrainerProfileUpdateWithoutClassScheduleAssignmentsInput>, Prisma.TrainerProfileUncheckedUpdateWithoutClassScheduleAssignmentsInput>
+}
+
 export type TrainerProfileCreateNestedOneWithoutDietPlansInput = {
   create?: Prisma.XOR<Prisma.TrainerProfileCreateWithoutDietPlansInput, Prisma.TrainerProfileUncheckedCreateWithoutDietPlansInput>
   connectOrCreate?: Prisma.TrainerProfileCreateOrConnectWithoutDietPlansInput
@@ -613,6 +641,22 @@ export type TrainerProfileUpdateOneWithoutDisputesNestedInput = {
   delete?: Prisma.TrainerProfileWhereInput | boolean
   connect?: Prisma.TrainerProfileWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TrainerProfileUpdateToOneWithWhereWithoutDisputesInput, Prisma.TrainerProfileUpdateWithoutDisputesInput>, Prisma.TrainerProfileUncheckedUpdateWithoutDisputesInput>
+}
+
+export type TrainerProfileCreateNestedOneWithoutPaymentAccountsInput = {
+  create?: Prisma.XOR<Prisma.TrainerProfileCreateWithoutPaymentAccountsInput, Prisma.TrainerProfileUncheckedCreateWithoutPaymentAccountsInput>
+  connectOrCreate?: Prisma.TrainerProfileCreateOrConnectWithoutPaymentAccountsInput
+  connect?: Prisma.TrainerProfileWhereUniqueInput
+}
+
+export type TrainerProfileUpdateOneWithoutPaymentAccountsNestedInput = {
+  create?: Prisma.XOR<Prisma.TrainerProfileCreateWithoutPaymentAccountsInput, Prisma.TrainerProfileUncheckedCreateWithoutPaymentAccountsInput>
+  connectOrCreate?: Prisma.TrainerProfileCreateOrConnectWithoutPaymentAccountsInput
+  upsert?: Prisma.TrainerProfileUpsertWithoutPaymentAccountsInput
+  disconnect?: Prisma.TrainerProfileWhereInput | boolean
+  delete?: Prisma.TrainerProfileWhereInput | boolean
+  connect?: Prisma.TrainerProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrainerProfileUpdateToOneWithWhereWithoutPaymentAccountsInput, Prisma.TrainerProfileUpdateWithoutPaymentAccountsInput>, Prisma.TrainerProfileUncheckedUpdateWithoutPaymentAccountsInput>
 }
 
 export type TrainerProfileCreateNestedOneWithoutReviewsInput = {
@@ -749,6 +793,7 @@ export type TrainerProfileCreateWithoutChatThreadsInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
   classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
@@ -757,6 +802,7 @@ export type TrainerProfileCreateWithoutChatThreadsInput = {
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutChatThreadsInput = {
@@ -771,6 +817,7 @@ export type TrainerProfileUncheckedCreateWithoutChatThreadsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
@@ -779,6 +826,7 @@ export type TrainerProfileUncheckedCreateWithoutChatThreadsInput = {
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutChatThreadsInput = {
@@ -809,6 +857,7 @@ export type TrainerProfileUpdateWithoutChatThreadsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
   classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
@@ -817,6 +866,7 @@ export type TrainerProfileUpdateWithoutChatThreadsInput = {
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutChatThreadsInput = {
@@ -831,6 +881,7 @@ export type TrainerProfileUncheckedUpdateWithoutChatThreadsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
@@ -839,6 +890,7 @@ export type TrainerProfileUncheckedUpdateWithoutChatThreadsInput = {
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutClassSchedulesInput = {
@@ -853,6 +905,7 @@ export type TrainerProfileCreateWithoutClassSchedulesInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
   chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
@@ -861,6 +914,7 @@ export type TrainerProfileCreateWithoutClassSchedulesInput = {
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutClassSchedulesInput = {
@@ -875,6 +929,7 @@ export type TrainerProfileUncheckedCreateWithoutClassSchedulesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
@@ -883,6 +938,7 @@ export type TrainerProfileUncheckedCreateWithoutClassSchedulesInput = {
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutClassSchedulesInput = {
@@ -913,6 +969,7 @@ export type TrainerProfileUpdateWithoutClassSchedulesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
   chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
@@ -921,6 +978,7 @@ export type TrainerProfileUpdateWithoutClassSchedulesInput = {
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutClassSchedulesInput = {
@@ -935,6 +993,7 @@ export type TrainerProfileUncheckedUpdateWithoutClassSchedulesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
@@ -943,6 +1002,119 @@ export type TrainerProfileUncheckedUpdateWithoutClassSchedulesInput = {
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
+}
+
+export type TrainerProfileCreateWithoutClassScheduleAssignmentsInput = {
+  id?: string
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  experience?: number
+  profileCompletionPercent?: number
+  verifiedBadge?: boolean
+  avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
+  chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
+  classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
+  applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
+  businesses?: Prisma.TrainerBusinessCreateNestedManyWithoutTrainerInput
+  certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
+  payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
+  specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
+}
+
+export type TrainerProfileUncheckedCreateWithoutClassScheduleAssignmentsInput = {
+  id?: string
+  userId: string
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  experience?: number
+  profileCompletionPercent?: number
+  verifiedBadge?: boolean
+  avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
+  classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
+  applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
+  businesses?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutTrainerInput
+  certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
+  payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
+  specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
+}
+
+export type TrainerProfileCreateOrConnectWithoutClassScheduleAssignmentsInput = {
+  where: Prisma.TrainerProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrainerProfileCreateWithoutClassScheduleAssignmentsInput, Prisma.TrainerProfileUncheckedCreateWithoutClassScheduleAssignmentsInput>
+}
+
+export type TrainerProfileUpsertWithoutClassScheduleAssignmentsInput = {
+  update: Prisma.XOR<Prisma.TrainerProfileUpdateWithoutClassScheduleAssignmentsInput, Prisma.TrainerProfileUncheckedUpdateWithoutClassScheduleAssignmentsInput>
+  create: Prisma.XOR<Prisma.TrainerProfileCreateWithoutClassScheduleAssignmentsInput, Prisma.TrainerProfileUncheckedCreateWithoutClassScheduleAssignmentsInput>
+  where?: Prisma.TrainerProfileWhereInput
+}
+
+export type TrainerProfileUpdateToOneWithWhereWithoutClassScheduleAssignmentsInput = {
+  where?: Prisma.TrainerProfileWhereInput
+  data: Prisma.XOR<Prisma.TrainerProfileUpdateWithoutClassScheduleAssignmentsInput, Prisma.TrainerProfileUncheckedUpdateWithoutClassScheduleAssignmentsInput>
+}
+
+export type TrainerProfileUpdateWithoutClassScheduleAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
+  chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
+  classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
+  applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
+  businesses?: Prisma.TrainerBusinessUpdateManyWithoutTrainerNestedInput
+  certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
+  payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
+  specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
+}
+
+export type TrainerProfileUncheckedUpdateWithoutClassScheduleAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
+  classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
+  applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
+  businesses?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutTrainerNestedInput
+  certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
+  payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
+  specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutDietPlansInput = {
@@ -958,6 +1130,7 @@ export type TrainerProfileCreateWithoutDietPlansInput = {
   user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
   chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
   businesses?: Prisma.TrainerBusinessCreateNestedManyWithoutTrainerInput
@@ -965,6 +1138,7 @@ export type TrainerProfileCreateWithoutDietPlansInput = {
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutDietPlansInput = {
@@ -980,6 +1154,7 @@ export type TrainerProfileUncheckedCreateWithoutDietPlansInput = {
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
   businesses?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutTrainerInput
@@ -987,6 +1162,7 @@ export type TrainerProfileUncheckedCreateWithoutDietPlansInput = {
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutDietPlansInput = {
@@ -1018,6 +1194,7 @@ export type TrainerProfileUpdateWithoutDietPlansInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
   chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
   businesses?: Prisma.TrainerBusinessUpdateManyWithoutTrainerNestedInput
@@ -1025,6 +1202,7 @@ export type TrainerProfileUpdateWithoutDietPlansInput = {
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutDietPlansInput = {
@@ -1040,6 +1218,7 @@ export type TrainerProfileUncheckedUpdateWithoutDietPlansInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
   businesses?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutTrainerNestedInput
@@ -1047,6 +1226,7 @@ export type TrainerProfileUncheckedUpdateWithoutDietPlansInput = {
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutDisputesInput = {
@@ -1062,6 +1242,7 @@ export type TrainerProfileCreateWithoutDisputesInput = {
   user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
   chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
@@ -1069,6 +1250,7 @@ export type TrainerProfileCreateWithoutDisputesInput = {
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutDisputesInput = {
@@ -1084,6 +1266,7 @@ export type TrainerProfileUncheckedCreateWithoutDisputesInput = {
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
@@ -1091,6 +1274,7 @@ export type TrainerProfileUncheckedCreateWithoutDisputesInput = {
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutDisputesInput = {
@@ -1122,6 +1306,7 @@ export type TrainerProfileUpdateWithoutDisputesInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
   chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
@@ -1129,6 +1314,7 @@ export type TrainerProfileUpdateWithoutDisputesInput = {
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutDisputesInput = {
@@ -1144,6 +1330,7 @@ export type TrainerProfileUncheckedUpdateWithoutDisputesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
@@ -1151,6 +1338,119 @@ export type TrainerProfileUncheckedUpdateWithoutDisputesInput = {
   certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
+}
+
+export type TrainerProfileCreateWithoutPaymentAccountsInput = {
+  id?: string
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  experience?: number
+  profileCompletionPercent?: number
+  verifiedBadge?: boolean
+  avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
+  chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
+  classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
+  dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
+  applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
+  businesses?: Prisma.TrainerBusinessCreateNestedManyWithoutTrainerInput
+  certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
+  payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
+  specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+}
+
+export type TrainerProfileUncheckedCreateWithoutPaymentAccountsInput = {
+  id?: string
+  userId: string
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  experience?: number
+  profileCompletionPercent?: number
+  verifiedBadge?: boolean
+  avgRating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
+  classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
+  dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
+  applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
+  businesses?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutTrainerInput
+  certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
+  payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
+  specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+}
+
+export type TrainerProfileCreateOrConnectWithoutPaymentAccountsInput = {
+  where: Prisma.TrainerProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrainerProfileCreateWithoutPaymentAccountsInput, Prisma.TrainerProfileUncheckedCreateWithoutPaymentAccountsInput>
+}
+
+export type TrainerProfileUpsertWithoutPaymentAccountsInput = {
+  update: Prisma.XOR<Prisma.TrainerProfileUpdateWithoutPaymentAccountsInput, Prisma.TrainerProfileUncheckedUpdateWithoutPaymentAccountsInput>
+  create: Prisma.XOR<Prisma.TrainerProfileCreateWithoutPaymentAccountsInput, Prisma.TrainerProfileUncheckedCreateWithoutPaymentAccountsInput>
+  where?: Prisma.TrainerProfileWhereInput
+}
+
+export type TrainerProfileUpdateToOneWithWhereWithoutPaymentAccountsInput = {
+  where?: Prisma.TrainerProfileWhereInput
+  data: Prisma.XOR<Prisma.TrainerProfileUpdateWithoutPaymentAccountsInput, Prisma.TrainerProfileUncheckedUpdateWithoutPaymentAccountsInput>
+}
+
+export type TrainerProfileUpdateWithoutPaymentAccountsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
+  chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
+  classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
+  dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
+  applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
+  businesses?: Prisma.TrainerBusinessUpdateManyWithoutTrainerNestedInput
+  certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
+  payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
+  specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+}
+
+export type TrainerProfileUncheckedUpdateWithoutPaymentAccountsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  profileCompletionPercent?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedBadge?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avgRating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
+  classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
+  dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
+  applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
+  businesses?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutTrainerNestedInput
+  certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
+  payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
+  specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutReviewsInput = {
@@ -1166,6 +1466,7 @@ export type TrainerProfileCreateWithoutReviewsInput = {
   user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
   chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
   businesses?: Prisma.TrainerBusinessCreateNestedManyWithoutTrainerInput
@@ -1173,6 +1474,7 @@ export type TrainerProfileCreateWithoutReviewsInput = {
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutReviewsInput = {
@@ -1188,6 +1490,7 @@ export type TrainerProfileUncheckedCreateWithoutReviewsInput = {
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
   businesses?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutTrainerInput
@@ -1195,6 +1498,7 @@ export type TrainerProfileUncheckedCreateWithoutReviewsInput = {
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutReviewsInput = {
@@ -1226,6 +1530,7 @@ export type TrainerProfileUpdateWithoutReviewsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
   chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
   businesses?: Prisma.TrainerBusinessUpdateManyWithoutTrainerNestedInput
@@ -1233,6 +1538,7 @@ export type TrainerProfileUpdateWithoutReviewsInput = {
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutReviewsInput = {
@@ -1248,6 +1554,7 @@ export type TrainerProfileUncheckedUpdateWithoutReviewsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
   businesses?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutTrainerNestedInput
@@ -1255,6 +1562,7 @@ export type TrainerProfileUncheckedUpdateWithoutReviewsInput = {
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutApplicationsInput = {
@@ -1270,6 +1578,7 @@ export type TrainerProfileCreateWithoutApplicationsInput = {
   user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
   chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
   businesses?: Prisma.TrainerBusinessCreateNestedManyWithoutTrainerInput
@@ -1277,6 +1586,7 @@ export type TrainerProfileCreateWithoutApplicationsInput = {
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutApplicationsInput = {
@@ -1292,6 +1602,7 @@ export type TrainerProfileUncheckedCreateWithoutApplicationsInput = {
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
   businesses?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutTrainerInput
@@ -1299,6 +1610,7 @@ export type TrainerProfileUncheckedCreateWithoutApplicationsInput = {
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutApplicationsInput = {
@@ -1330,6 +1642,7 @@ export type TrainerProfileUpdateWithoutApplicationsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
   chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
   businesses?: Prisma.TrainerBusinessUpdateManyWithoutTrainerNestedInput
@@ -1337,6 +1650,7 @@ export type TrainerProfileUpdateWithoutApplicationsInput = {
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutApplicationsInput = {
@@ -1352,6 +1666,7 @@ export type TrainerProfileUncheckedUpdateWithoutApplicationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
   businesses?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutTrainerNestedInput
@@ -1359,6 +1674,7 @@ export type TrainerProfileUncheckedUpdateWithoutApplicationsInput = {
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutBusinessesInput = {
@@ -1374,6 +1690,7 @@ export type TrainerProfileCreateWithoutBusinessesInput = {
   user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
   chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
@@ -1381,6 +1698,7 @@ export type TrainerProfileCreateWithoutBusinessesInput = {
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutBusinessesInput = {
@@ -1396,6 +1714,7 @@ export type TrainerProfileUncheckedCreateWithoutBusinessesInput = {
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
@@ -1403,6 +1722,7 @@ export type TrainerProfileUncheckedCreateWithoutBusinessesInput = {
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutBusinessesInput = {
@@ -1434,6 +1754,7 @@ export type TrainerProfileUpdateWithoutBusinessesInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
   chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
@@ -1441,6 +1762,7 @@ export type TrainerProfileUpdateWithoutBusinessesInput = {
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutBusinessesInput = {
@@ -1456,6 +1778,7 @@ export type TrainerProfileUncheckedUpdateWithoutBusinessesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
@@ -1463,6 +1786,7 @@ export type TrainerProfileUncheckedUpdateWithoutBusinessesInput = {
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutCertificationsInput = {
@@ -1478,6 +1802,7 @@ export type TrainerProfileCreateWithoutCertificationsInput = {
   user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
   chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
@@ -1485,6 +1810,7 @@ export type TrainerProfileCreateWithoutCertificationsInput = {
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutCertificationsInput = {
@@ -1500,6 +1826,7 @@ export type TrainerProfileUncheckedCreateWithoutCertificationsInput = {
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
@@ -1507,6 +1834,7 @@ export type TrainerProfileUncheckedCreateWithoutCertificationsInput = {
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutCertificationsInput = {
@@ -1538,6 +1866,7 @@ export type TrainerProfileUpdateWithoutCertificationsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
   chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
@@ -1545,6 +1874,7 @@ export type TrainerProfileUpdateWithoutCertificationsInput = {
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutCertificationsInput = {
@@ -1560,6 +1890,7 @@ export type TrainerProfileUncheckedUpdateWithoutCertificationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
@@ -1567,6 +1898,7 @@ export type TrainerProfileUncheckedUpdateWithoutCertificationsInput = {
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutPayoutsInput = {
@@ -1582,6 +1914,7 @@ export type TrainerProfileCreateWithoutPayoutsInput = {
   user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
   chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
@@ -1589,6 +1922,7 @@ export type TrainerProfileCreateWithoutPayoutsInput = {
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutPayoutsInput = {
@@ -1604,6 +1938,7 @@ export type TrainerProfileUncheckedCreateWithoutPayoutsInput = {
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
@@ -1611,6 +1946,7 @@ export type TrainerProfileUncheckedCreateWithoutPayoutsInput = {
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutPayoutsInput = {
@@ -1642,6 +1978,7 @@ export type TrainerProfileUpdateWithoutPayoutsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
   chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
@@ -1649,6 +1986,7 @@ export type TrainerProfileUpdateWithoutPayoutsInput = {
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutPayoutsInput = {
@@ -1664,6 +2002,7 @@ export type TrainerProfileUncheckedUpdateWithoutPayoutsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
@@ -1671,6 +2010,7 @@ export type TrainerProfileUncheckedUpdateWithoutPayoutsInput = {
   certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutSpecializationsInput = {
@@ -1686,6 +2026,7 @@ export type TrainerProfileCreateWithoutSpecializationsInput = {
   user: Prisma.UserCreateNestedOneWithoutTrainerProfileInput
   chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
@@ -1693,6 +2034,7 @@ export type TrainerProfileCreateWithoutSpecializationsInput = {
   certifications?: Prisma.TrainerCertificationCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutSpecializationsInput = {
@@ -1708,6 +2050,7 @@ export type TrainerProfileUncheckedCreateWithoutSpecializationsInput = {
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
@@ -1715,6 +2058,7 @@ export type TrainerProfileUncheckedCreateWithoutSpecializationsInput = {
   certifications?: Prisma.TrainerCertificationUncheckedCreateNestedManyWithoutTrainerInput
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutSpecializationsInput = {
@@ -1746,6 +2090,7 @@ export type TrainerProfileUpdateWithoutSpecializationsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutTrainerProfileNestedInput
   chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
@@ -1753,6 +2098,7 @@ export type TrainerProfileUpdateWithoutSpecializationsInput = {
   certifications?: Prisma.TrainerCertificationUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutSpecializationsInput = {
@@ -1768,6 +2114,7 @@ export type TrainerProfileUncheckedUpdateWithoutSpecializationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
@@ -1775,6 +2122,7 @@ export type TrainerProfileUncheckedUpdateWithoutSpecializationsInput = {
   certifications?: Prisma.TrainerCertificationUncheckedUpdateManyWithoutTrainerNestedInput
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileCreateWithoutUserInput = {
@@ -1789,6 +2137,7 @@ export type TrainerProfileCreateWithoutUserInput = {
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutTrainerInput
@@ -1797,6 +2146,7 @@ export type TrainerProfileCreateWithoutUserInput = {
   payouts?: Prisma.TrainerPayoutCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileUncheckedCreateWithoutUserInput = {
@@ -1811,6 +2161,7 @@ export type TrainerProfileUncheckedCreateWithoutUserInput = {
   updatedAt?: Date | string
   chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutTrainerInput
   classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutTrainerInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutTrainerInput
   dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutTrainerInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTrainerInput
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutTrainerInput
@@ -1819,6 +2170,7 @@ export type TrainerProfileUncheckedCreateWithoutUserInput = {
   payouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutTrainerInput
   specializations?: Prisma.TrainerSpecializationUncheckedCreateNestedManyWithoutTrainerInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutTrainerInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutTrainerInput
 }
 
 export type TrainerProfileCreateOrConnectWithoutUserInput = {
@@ -1849,6 +2201,7 @@ export type TrainerProfileUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutTrainerNestedInput
@@ -1857,6 +2210,7 @@ export type TrainerProfileUpdateWithoutUserInput = {
   payouts?: Prisma.TrainerPayoutUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutTrainerNestedInput
 }
 
 export type TrainerProfileUncheckedUpdateWithoutUserInput = {
@@ -1871,6 +2225,7 @@ export type TrainerProfileUncheckedUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutTrainerNestedInput
   classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput
+  classScheduleAssignments?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutTrainerNestedInput
   dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutTrainerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTrainerNestedInput
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutTrainerNestedInput
@@ -1879,6 +2234,7 @@ export type TrainerProfileUncheckedUpdateWithoutUserInput = {
   payouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutTrainerNestedInput
   specializations?: Prisma.TrainerSpecializationUncheckedUpdateManyWithoutTrainerNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutTrainerNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutTrainerNestedInput
 }
 
 
@@ -1889,6 +2245,7 @@ export type TrainerProfileUncheckedUpdateWithoutUserInput = {
 export type TrainerProfileCountOutputType = {
   chatThreads: number
   classSchedules: number
+  classScheduleAssignments: number
   dietPlans: number
   reviews: number
   applications: number
@@ -1897,11 +2254,13 @@ export type TrainerProfileCountOutputType = {
   payouts: number
   specializations: number
   disputes: number
+  paymentAccounts: number
 }
 
 export type TrainerProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   chatThreads?: boolean | TrainerProfileCountOutputTypeCountChatThreadsArgs
   classSchedules?: boolean | TrainerProfileCountOutputTypeCountClassSchedulesArgs
+  classScheduleAssignments?: boolean | TrainerProfileCountOutputTypeCountClassScheduleAssignmentsArgs
   dietPlans?: boolean | TrainerProfileCountOutputTypeCountDietPlansArgs
   reviews?: boolean | TrainerProfileCountOutputTypeCountReviewsArgs
   applications?: boolean | TrainerProfileCountOutputTypeCountApplicationsArgs
@@ -1910,6 +2269,7 @@ export type TrainerProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Ex
   payouts?: boolean | TrainerProfileCountOutputTypeCountPayoutsArgs
   specializations?: boolean | TrainerProfileCountOutputTypeCountSpecializationsArgs
   disputes?: boolean | TrainerProfileCountOutputTypeCountDisputesArgs
+  paymentAccounts?: boolean | TrainerProfileCountOutputTypeCountPaymentAccountsArgs
 }
 
 /**
@@ -1934,6 +2294,13 @@ export type TrainerProfileCountOutputTypeCountChatThreadsArgs<ExtArgs extends ru
  */
 export type TrainerProfileCountOutputTypeCountClassSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ClassScheduleWhereInput
+}
+
+/**
+ * TrainerProfileCountOutputType without action
+ */
+export type TrainerProfileCountOutputTypeCountClassScheduleAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClassScheduleTrainerWhereInput
 }
 
 /**
@@ -1992,6 +2359,13 @@ export type TrainerProfileCountOutputTypeCountDisputesArgs<ExtArgs extends runti
   where?: Prisma.DisputeWhereInput
 }
 
+/**
+ * TrainerProfileCountOutputType without action
+ */
+export type TrainerProfileCountOutputTypeCountPaymentAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentAccountWhereInput
+}
+
 
 export type TrainerProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2007,6 +2381,7 @@ export type TrainerProfileSelect<ExtArgs extends runtime.Types.Extensions.Intern
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   chatThreads?: boolean | Prisma.TrainerProfile$chatThreadsArgs<ExtArgs>
   classSchedules?: boolean | Prisma.TrainerProfile$classSchedulesArgs<ExtArgs>
+  classScheduleAssignments?: boolean | Prisma.TrainerProfile$classScheduleAssignmentsArgs<ExtArgs>
   dietPlans?: boolean | Prisma.TrainerProfile$dietPlansArgs<ExtArgs>
   reviews?: boolean | Prisma.TrainerProfile$reviewsArgs<ExtArgs>
   applications?: boolean | Prisma.TrainerProfile$applicationsArgs<ExtArgs>
@@ -2015,6 +2390,7 @@ export type TrainerProfileSelect<ExtArgs extends runtime.Types.Extensions.Intern
   payouts?: boolean | Prisma.TrainerProfile$payoutsArgs<ExtArgs>
   specializations?: boolean | Prisma.TrainerProfile$specializationsArgs<ExtArgs>
   disputes?: boolean | Prisma.TrainerProfile$disputesArgs<ExtArgs>
+  paymentAccounts?: boolean | Prisma.TrainerProfile$paymentAccountsArgs<ExtArgs>
   _count?: boolean | Prisma.TrainerProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trainerProfile"]>
 
@@ -2064,6 +2440,7 @@ export type TrainerProfileInclude<ExtArgs extends runtime.Types.Extensions.Inter
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   chatThreads?: boolean | Prisma.TrainerProfile$chatThreadsArgs<ExtArgs>
   classSchedules?: boolean | Prisma.TrainerProfile$classSchedulesArgs<ExtArgs>
+  classScheduleAssignments?: boolean | Prisma.TrainerProfile$classScheduleAssignmentsArgs<ExtArgs>
   dietPlans?: boolean | Prisma.TrainerProfile$dietPlansArgs<ExtArgs>
   reviews?: boolean | Prisma.TrainerProfile$reviewsArgs<ExtArgs>
   applications?: boolean | Prisma.TrainerProfile$applicationsArgs<ExtArgs>
@@ -2072,6 +2449,7 @@ export type TrainerProfileInclude<ExtArgs extends runtime.Types.Extensions.Inter
   payouts?: boolean | Prisma.TrainerProfile$payoutsArgs<ExtArgs>
   specializations?: boolean | Prisma.TrainerProfile$specializationsArgs<ExtArgs>
   disputes?: boolean | Prisma.TrainerProfile$disputesArgs<ExtArgs>
+  paymentAccounts?: boolean | Prisma.TrainerProfile$paymentAccountsArgs<ExtArgs>
   _count?: boolean | Prisma.TrainerProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TrainerProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2087,6 +2465,7 @@ export type $TrainerProfilePayload<ExtArgs extends runtime.Types.Extensions.Inte
     user: Prisma.$UserPayload<ExtArgs>
     chatThreads: Prisma.$ChatThreadPayload<ExtArgs>[]
     classSchedules: Prisma.$ClassSchedulePayload<ExtArgs>[]
+    classScheduleAssignments: Prisma.$ClassScheduleTrainerPayload<ExtArgs>[]
     dietPlans: Prisma.$DietPlanPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
     applications: Prisma.$TrainerApplicationPayload<ExtArgs>[]
@@ -2095,6 +2474,7 @@ export type $TrainerProfilePayload<ExtArgs extends runtime.Types.Extensions.Inte
     payouts: Prisma.$TrainerPayoutPayload<ExtArgs>[]
     specializations: Prisma.$TrainerSpecializationPayload<ExtArgs>[]
     disputes: Prisma.$DisputePayload<ExtArgs>[]
+    paymentAccounts: Prisma.$PaymentAccountPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2504,6 +2884,7 @@ export interface Prisma__TrainerProfileClient<T, Null = never, ExtArgs extends r
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   chatThreads<T extends Prisma.TrainerProfile$chatThreadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$chatThreadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatThreadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   classSchedules<T extends Prisma.TrainerProfile$classSchedulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$classSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  classScheduleAssignments<T extends Prisma.TrainerProfile$classScheduleAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$classScheduleAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassScheduleTrainerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   dietPlans<T extends Prisma.TrainerProfile$dietPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$dietPlansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DietPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.TrainerProfile$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   applications<T extends Prisma.TrainerProfile$applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainerApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2512,6 +2893,7 @@ export interface Prisma__TrainerProfileClient<T, Null = never, ExtArgs extends r
   payouts<T extends Prisma.TrainerProfile$payoutsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$payoutsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainerPayoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   specializations<T extends Prisma.TrainerProfile$specializationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$specializationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainerSpecializationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   disputes<T extends Prisma.TrainerProfile$disputesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$disputesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentAccounts<T extends Prisma.TrainerProfile$paymentAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainerProfile$paymentAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2995,6 +3377,30 @@ export type TrainerProfile$classSchedulesArgs<ExtArgs extends runtime.Types.Exte
 }
 
 /**
+ * TrainerProfile.classScheduleAssignments
+ */
+export type TrainerProfile$classScheduleAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClassScheduleTrainer
+   */
+  select?: Prisma.ClassScheduleTrainerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClassScheduleTrainer
+   */
+  omit?: Prisma.ClassScheduleTrainerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClassScheduleTrainerInclude<ExtArgs> | null
+  where?: Prisma.ClassScheduleTrainerWhereInput
+  orderBy?: Prisma.ClassScheduleTrainerOrderByWithRelationInput | Prisma.ClassScheduleTrainerOrderByWithRelationInput[]
+  cursor?: Prisma.ClassScheduleTrainerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClassScheduleTrainerScalarFieldEnum | Prisma.ClassScheduleTrainerScalarFieldEnum[]
+}
+
+/**
  * TrainerProfile.dietPlans
  */
 export type TrainerProfile$dietPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3184,6 +3590,30 @@ export type TrainerProfile$disputesArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.DisputeScalarFieldEnum | Prisma.DisputeScalarFieldEnum[]
+}
+
+/**
+ * TrainerProfile.paymentAccounts
+ */
+export type TrainerProfile$paymentAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PaymentAccount
+   */
+  select?: Prisma.PaymentAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PaymentAccount
+   */
+  omit?: Prisma.PaymentAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentAccountInclude<ExtArgs> | null
+  where?: Prisma.PaymentAccountWhereInput
+  orderBy?: Prisma.PaymentAccountOrderByWithRelationInput | Prisma.PaymentAccountOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentAccountWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentAccountScalarFieldEnum | Prisma.PaymentAccountScalarFieldEnum[]
 }
 
 /**

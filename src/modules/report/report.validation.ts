@@ -5,10 +5,14 @@ const getRevenueReportValidation = z.object({
     businessId: z.string({ message: "Business ID is required" }),
   }),
   query: z.object({
-    period: z.enum(["month", "quarter", "year"]).optional(),
+    period: z.enum(["month", "quarter", "year", "all", "custom"]).optional(),
     year: z.string().optional(),
     month: z.string().optional(),
     quarter: z.string().optional(),
+    from: z.string().optional(),
+    to: z.string().optional(),
+    dateFrom: z.string().optional(),
+    dateTo: z.string().optional(),
   }),
 });
 
@@ -21,6 +25,8 @@ const getPayoutReportValidation = z.object({
     trainerId: z.string().optional(),
     from: z.string().optional(),
     to: z.string().optional(),
+    dateFrom: z.string().optional(),
+    dateTo: z.string().optional(),
     page: z.string().optional(),
     limit: z.string().optional(),
   }),

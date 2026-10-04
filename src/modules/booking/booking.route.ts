@@ -16,7 +16,7 @@ const getPendingBookingsValidation = z.object({
 router.get(
     '/:businessId/bookings/pending',
     // @ts-ignore
-    checkAuth(USER_ROLE.BUSINESS_OWNER),
+    checkAuth(USER_ROLE.BUSINESS_OWNER, USER_ROLE.STAFF),
     validateRequest(getPendingBookingsValidation),
     BookingController.getPendingBookings
 );

@@ -1,6 +1,7 @@
 import express from 'express';
 import validateRequest from '../../middlewares/validateRequest';
 import { checkAuth } from '../../middlewares/checkAuth';
+import { checkSubscription } from '../../middlewares/checkSubscription';
 import { USER_ROLE } from '../Business/business.constant';
 import { MembershipPlanValidations } from './membershipPlan.validation';
 import { MembershipPlanController } from './membershipPlan.controller';
@@ -11,6 +12,7 @@ router.post(
     '/:businessId/plans',
     // @ts-ignore
     checkAuth(USER_ROLE.BUSINESS_OWNER),
+    checkSubscription(),
     validateRequest(MembershipPlanValidations.createMembershipPlanValidation),
     MembershipPlanController.createMembershipPlan
 );
@@ -31,6 +33,7 @@ router.patch(
     '/:businessId/plans/:planId',
     // @ts-ignore
     checkAuth(USER_ROLE.BUSINESS_OWNER),
+    checkSubscription(),
     validateRequest(MembershipPlanValidations.updateMembershipPlanValidation),
     MembershipPlanController.updateMembershipPlan
 );
@@ -39,6 +42,7 @@ router.patch(
     '/:businessId/plans/:planId/archive',
     // @ts-ignore
     checkAuth(USER_ROLE.BUSINESS_OWNER),
+    checkSubscription(),
     validateRequest(MembershipPlanValidations.archiveMembershipPlanValidation),
     MembershipPlanController.archiveMembershipPlan
 );

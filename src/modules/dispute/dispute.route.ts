@@ -22,4 +22,11 @@ router.get(
   DisputeController.getMyDisputes,
 );
 
+router.get(
+  '/:id',
+  checkAuth(),
+  validateRequest(DisputeValidation.getSingleDisputeSchema),
+  DisputeController.getSingleDispute
+);
+
 export const disputeRoutes = router;

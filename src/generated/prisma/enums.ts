@@ -253,3 +253,55 @@ export const BiometricAttendanceType = {
 } as const
 
 export type BiometricAttendanceType = (typeof BiometricAttendanceType)[keyof typeof BiometricAttendanceType]
+
+
+export const PaymentAccountType = {
+  BANK: 'BANK',
+  BKASH: 'BKASH',
+  NAGAD: 'NAGAD'
+} as const
+
+export type PaymentAccountType = (typeof PaymentAccountType)[keyof typeof PaymentAccountType]
+
+
+export const PaymentAccountStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+} as const
+
+export type PaymentAccountStatus = (typeof PaymentAccountStatus)[keyof typeof PaymentAccountStatus]
+
+
+export const BillingCycle = {
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY'
+} as const
+
+export type BillingCycle = (typeof BillingCycle)[keyof typeof BillingCycle]
+
+
+export const SubscriptionPlanStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+} as const
+
+export type SubscriptionPlanStatus = (typeof SubscriptionPlanStatus)[keyof typeof SubscriptionPlanStatus]
+
+
+export const BusinessSubscriptionStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type BusinessSubscriptionStatus = (typeof BusinessSubscriptionStatus)[keyof typeof BusinessSubscriptionStatus]
+
+
+export const SubscriptionPaymentStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type SubscriptionPaymentStatus = (typeof SubscriptionPaymentStatus)[keyof typeof SubscriptionPaymentStatus]

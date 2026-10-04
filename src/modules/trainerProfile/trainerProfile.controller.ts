@@ -26,6 +26,29 @@ const createTrainerProfile = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateTrainerProfile = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const payload = req.body;
+  const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+  const profilePhoto = files?.profilePhoto?.[0];
+  const certificationFiles = files?.certificationFiles || [];
+
+  const result = await TrainerProfileService.updateTrainerProfile(
+    userId,
+    payload,
+    profilePhoto,
+    certificationFiles,
+  );
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Trainer profile updated successfully.",
+    data: result,
+  });
+});
+
 const getOwnTrainerProfile = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user.id as string;
   const result = await TrainerProfileService.getOwnTrainerProfile(userId);
@@ -118,9 +141,9 @@ const getOwnCertifications = catchAsync(async (req: Request, res: Response) => {
 
 const getBusinessTrainerDashboard = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user.id as string;
-  const { businessId } = req.params;
+  const businessId = (req.params.id || req.params.businessId) as string;
 
-  const result = await TrainerProfileService.getBusinessTrainerDashboard(userId, businessId as string);
+  const result = await TrainerProfileService.getBusinessTrainerDashboard(userId, businessId);
 
   sendResponse(res, {
     statusCode: 200,
@@ -158,16 +181,72 @@ const removeBusinessTrainer = catchAsync(async (req: Request, res: Response) => 
   });
 });
 
+const deleteCertification = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const { id } = req.params;
+
+  const result = await TrainerProfileService.deleteCertification(userId, id as string);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Certification deleted successfully.",
+    data: result,
+  });
+});
+
+const directAddTrainer = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const businessId = req.params.businessId as string;
+  const result = await TrainerProfileService.directAddTrainerToBusiness(
+    userId,
+    businessId,
+    req.body
+  );
+
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: "Trainer added to business successfully.",
+    data: result,
+  });
+});
+
+const updateTrainerSalary = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const businessId = req.params.businessId as string;
+  const trainerId = req.params.trainerId as string;
+  const { monthlySalary } = req.body;
+
+  const result = await TrainerProfileService.updateTrainerSalary(
+    userId,
+    businessId,
+    trainerId,
+    monthlySalary
+  );
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Trainer monthly salary updated successfully.",
+    data: result,
+  });
+});
+
 export const TrainerProfileController = {
   createTrainerProfile,
+  updateTrainerProfile,
   getOwnTrainerProfile,
   getPublicTrainerProfile,
   getAllTrainers,
   setOwnSpecializations,
   uploadCertification,
   getOwnCertifications,
+  deleteCertification,
   getBusinessTrainerDashboard,
   getBusinessTrainers,
   removeBusinessTrainer,
+  directAddTrainer,
+  updateTrainerSalary,
 };
 

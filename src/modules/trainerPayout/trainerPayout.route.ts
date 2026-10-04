@@ -10,7 +10,7 @@ const router = express.Router();
 router.post(
   "/:businessId/payouts",
   // @ts-ignore
-  checkAuth(USER_ROLE.BUSINESS_OWNER),
+  checkAuth(USER_ROLE.BUSINESS_OWNER, USER_ROLE.STAFF),
   validateRequest(TrainerPayoutValidations.createOrUpdatePayoutValidation),
   TrainerPayoutController.createOrUpdatePayout
 );
@@ -18,7 +18,7 @@ router.post(
 router.get(
   "/:businessId/payouts",
   // @ts-ignore
-  checkAuth(USER_ROLE.BUSINESS_OWNER),
+  checkAuth(USER_ROLE.BUSINESS_OWNER, USER_ROLE.STAFF),
   validateRequest(TrainerPayoutValidations.getPayoutsValidation),
   TrainerPayoutController.getPayouts
 );
@@ -26,7 +26,7 @@ router.get(
 router.patch(
   "/:businessId/payouts/:id/mark-paid",
   // @ts-ignore
-  checkAuth(USER_ROLE.BUSINESS_OWNER),
+  checkAuth(USER_ROLE.BUSINESS_OWNER, USER_ROLE.STAFF),
   validateRequest(TrainerPayoutValidations.markPaidValidation),
   TrainerPayoutController.markPaid
 );

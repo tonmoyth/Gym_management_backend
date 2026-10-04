@@ -49,7 +49,7 @@ const approveTrainerApplication = catchAsync(async (req: Request, res: Response)
   const ownerId = req.user.id as string;
   const appId = req.params.appId as string;
 
-  const result = await JobPostService.approveTrainerApplication(ownerId, appId);
+  const result = await JobPostService.approveTrainerApplication(ownerId, appId, req.body);
 
   sendResponse(res, {
     statusCode: 200, // OK
@@ -74,15 +74,43 @@ const rejectTrainerApplication = catchAsync(async (req: Request, res: Response) 
 });
 
 const getOpenJobPosts = catchAsync(async (req: Request, res: Response) => {
-  const trainerUserId = req.user.id as string;
+  const userId = req.user.id as string;
+  const userRole = req.user.role;
   const query = req.query;
 
-  const result = await JobPostService.getOpenJobPosts(trainerUserId, query);
+  // Fallback: If accessed by Business Owner or Staff, return their business job posts
+  if (userRole === "BUSINESS_OWNER" || userRole === "STAFF") {
+    const result = await JobPostService.getMyJobPosts(userId, query);
+    return sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Job posts retrieved successfully.",
+      meta: result.meta,
+      data: result.data,
+    });
+  }
+
+  const result = await JobPostService.getOpenJobPosts(userId, query);
 
   sendResponse(res, {
     statusCode: 200,
     success: true,
     message: "Open job posts retrieved successfully.",
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
+const getMyJobPosts = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+  const query = req.query;
+
+  const result = await JobPostService.getMyJobPosts(userId, query);
+
+  sendResponse(res, {
+    statusCode: 200, // OK
+    success: true,
+    message: "Business job posts retrieved successfully.",
     meta: result.meta,
     data: result.data,
   });
@@ -137,6 +165,7 @@ export const JobPostController = {
   approveTrainerApplication,
   rejectTrainerApplication,
   getOpenJobPosts,
+  getMyJobPosts,
   getJobPostDetail,
   applyToJobPost,
   getMyApplications,

@@ -1,24 +1,19 @@
 import { prisma } from '../../lib/prisma';
 import AppError from '../../errors/AppError';
 import { QueryBuilder } from '../../utils/queryBuilder';
+import { verifyBusinessAccess } from '../../utils/businessAccess';
+import { StaffPermissionRole } from '../../generated/prisma/enums';
 
 const getPendingBookings = async (
     businessId: string,
-    ownerId: string,
+    userId: string,
     query: Record<string, unknown>
 ) => {
-    // 1. Validate business & Ownership check
-    const business = await prisma.business.findUnique({
-        where: { id: businessId },
-    });
-
-    if (!business) {
-        throw new AppError(404, 'Business not found');
-    }
-
-    if (business.ownerId !== ownerId) {
-        throw new AppError(403, 'Forbidden. You do not have access to this business\'s bookings.');
-    }
+    // 1. Validate business & Staff/Owner access check
+    await verifyBusinessAccess(businessId, userId, [
+        StaffPermissionRole.MEMBER_MANAGER,
+        StaffPermissionRole.FULL,
+    ]);
 
     // 2. Adapt query parameters for QueryBuilder
     const prismaQuery = { ...query };
@@ -61,7 +56,7 @@ const getPendingBookings = async (
 
     // 3. Create Query Builder
     const bookingQueryBuilder = new QueryBuilder(prisma.membership as any, prismaQuery as any, {
-        searchableFields: ['plan.name'], 
+        searchableFields: ['plan.name'],
         filterableFields: ['planId', 'requestedAt', 'createdAt']
     });
 
@@ -81,14 +76,14 @@ const getPendingBookings = async (
             { member: { user: { fullName: { contains: searchTerm, mode: 'insensitive' as const } } } },
             { member: { user: { email: { contains: searchTerm, mode: 'insensitive' as const } } } },
         ];
-        
+
         // Append custom search to existing where
         const currentWhere = bookingQueryBuilder.getQuery().where || {};
         bookingQueryBuilder.where({
             ...currentWhere,
             OR: searchConditions
         });
-        
+
         // Remove searchTerm to prevent QueryBuilder from overriding our custom OR
         delete prismaQuery.searchTerm;
     }
@@ -119,6 +114,18 @@ const getPendingBookings = async (
                     price: true,
                     durationDays: true,
                 }
+            },
+            payments: {
+                select: {
+                    id: true,
+                    amount: true,
+                    gateway: true,
+                    gatewayTransactionId: true,
+                    status: true,
+                    createdAt: true,
+                },
+                orderBy: { createdAt: 'desc' },
+                take: 1,
             }
         });
 
@@ -142,7 +149,28 @@ const getPendingBookings = async (
             name: booking.plan.name,
             price: booking.plan.price ? booking.plan.price.toString() : "0.00",
             durationDays: booking.plan.durationDays,
-        } : null
+        } : null,
+        payment: booking.payments?.[0] ? (() => {
+            const rawTrx = booking.payments[0].gatewayTransactionId || "";
+            let trxId = rawTrx;
+            let sender = "";
+            if (rawTrx) {
+                const senderMatch = rawTrx.match(/^(.*?)\s*\(Sender:\s*([^\)]+)\)$/i);
+                if (senderMatch) {
+                    trxId = senderMatch[1].trim();
+                    sender = senderMatch[2].trim();
+                }
+            }
+            return {
+                id: booking.payments[0].id,
+                gateway: booking.payments[0].gateway,
+                transactionId: trxId,
+                senderPhone: sender,
+                rawTransactionString: rawTrx,
+                amount: booking.payments[0].amount ? booking.payments[0].amount.toString() : null,
+                status: booking.payments[0].status,
+            };
+        })() : null,
     }));
 
     return {

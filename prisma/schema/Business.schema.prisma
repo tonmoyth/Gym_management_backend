@@ -39,6 +39,9 @@ model Business {
   memberships      Membership[]
   membershipPlans  MembershipPlan[]
   subscription     PlatformSubscription?
+  businessSubscription BusinessSubscription?
+  subscriptionPayments SubscriptionPayment[]
+  paymentAccounts  PaymentAccount[]
   qrCode           AttendanceQrCode?
   reviews          Review[]
   trainers         TrainerBusiness[]

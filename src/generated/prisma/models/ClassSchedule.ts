@@ -39,6 +39,10 @@ export type ClassScheduleMinAggregateOutputType = {
   businessId: string | null
   trainerId: string | null
   title: string | null
+  description: string | null
+  timeSlot: string | null
+  startTimeStr: string | null
+  endTimeStr: string | null
   startTime: Date | null
   endTime: Date | null
   capacity: number | null
@@ -51,6 +55,10 @@ export type ClassScheduleMaxAggregateOutputType = {
   businessId: string | null
   trainerId: string | null
   title: string | null
+  description: string | null
+  timeSlot: string | null
+  startTimeStr: string | null
+  endTimeStr: string | null
   startTime: Date | null
   endTime: Date | null
   capacity: number | null
@@ -63,6 +71,11 @@ export type ClassScheduleCountAggregateOutputType = {
   businessId: number
   trainerId: number
   title: number
+  description: number
+  daysOfWeek: number
+  timeSlot: number
+  startTimeStr: number
+  endTimeStr: number
   startTime: number
   endTime: number
   capacity: number
@@ -85,6 +98,10 @@ export type ClassScheduleMinAggregateInputType = {
   businessId?: true
   trainerId?: true
   title?: true
+  description?: true
+  timeSlot?: true
+  startTimeStr?: true
+  endTimeStr?: true
   startTime?: true
   endTime?: true
   capacity?: true
@@ -97,6 +114,10 @@ export type ClassScheduleMaxAggregateInputType = {
   businessId?: true
   trainerId?: true
   title?: true
+  description?: true
+  timeSlot?: true
+  startTimeStr?: true
+  endTimeStr?: true
   startTime?: true
   endTime?: true
   capacity?: true
@@ -109,6 +130,11 @@ export type ClassScheduleCountAggregateInputType = {
   businessId?: true
   trainerId?: true
   title?: true
+  description?: true
+  daysOfWeek?: true
+  timeSlot?: true
+  startTimeStr?: true
+  endTimeStr?: true
   startTime?: true
   endTime?: true
   capacity?: true
@@ -208,6 +234,11 @@ export type ClassScheduleGroupByOutputType = {
   businessId: string
   trainerId: string | null
   title: string
+  description: string | null
+  daysOfWeek: string[]
+  timeSlot: string | null
+  startTimeStr: string | null
+  endTimeStr: string | null
   startTime: Date
   endTime: Date
   capacity: number
@@ -243,6 +274,11 @@ export type ClassScheduleWhereInput = {
   businessId?: Prisma.StringFilter<"ClassSchedule"> | string
   trainerId?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
   title?: Prisma.StringFilter<"ClassSchedule"> | string
+  description?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
+  daysOfWeek?: Prisma.StringNullableListFilter<"ClassSchedule">
+  timeSlot?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
+  startTimeStr?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
+  endTimeStr?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
   startTime?: Prisma.DateTimeFilter<"ClassSchedule"> | Date | string
   endTime?: Prisma.DateTimeFilter<"ClassSchedule"> | Date | string
   capacity?: Prisma.IntFilter<"ClassSchedule"> | number
@@ -250,6 +286,7 @@ export type ClassScheduleWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"ClassSchedule"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   trainer?: Prisma.XOR<Prisma.TrainerProfileNullableScalarRelationFilter, Prisma.TrainerProfileWhereInput> | null
+  trainers?: Prisma.ClassScheduleTrainerListRelationFilter
   bookings?: Prisma.ClassBookingListRelationFilter
 }
 
@@ -258,6 +295,11 @@ export type ClassScheduleOrderByWithRelationInput = {
   businessId?: Prisma.SortOrder
   trainerId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  daysOfWeek?: Prisma.SortOrder
+  timeSlot?: Prisma.SortOrderInput | Prisma.SortOrder
+  startTimeStr?: Prisma.SortOrderInput | Prisma.SortOrder
+  endTimeStr?: Prisma.SortOrderInput | Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
@@ -265,6 +307,7 @@ export type ClassScheduleOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
   trainer?: Prisma.TrainerProfileOrderByWithRelationInput
+  trainers?: Prisma.ClassScheduleTrainerOrderByRelationAggregateInput
   bookings?: Prisma.ClassBookingOrderByRelationAggregateInput
 }
 
@@ -276,6 +319,11 @@ export type ClassScheduleWhereUniqueInput = Prisma.AtLeast<{
   businessId?: Prisma.StringFilter<"ClassSchedule"> | string
   trainerId?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
   title?: Prisma.StringFilter<"ClassSchedule"> | string
+  description?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
+  daysOfWeek?: Prisma.StringNullableListFilter<"ClassSchedule">
+  timeSlot?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
+  startTimeStr?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
+  endTimeStr?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
   startTime?: Prisma.DateTimeFilter<"ClassSchedule"> | Date | string
   endTime?: Prisma.DateTimeFilter<"ClassSchedule"> | Date | string
   capacity?: Prisma.IntFilter<"ClassSchedule"> | number
@@ -283,6 +331,7 @@ export type ClassScheduleWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"ClassSchedule"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   trainer?: Prisma.XOR<Prisma.TrainerProfileNullableScalarRelationFilter, Prisma.TrainerProfileWhereInput> | null
+  trainers?: Prisma.ClassScheduleTrainerListRelationFilter
   bookings?: Prisma.ClassBookingListRelationFilter
 }, "id">
 
@@ -291,6 +340,11 @@ export type ClassScheduleOrderByWithAggregationInput = {
   businessId?: Prisma.SortOrder
   trainerId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  daysOfWeek?: Prisma.SortOrder
+  timeSlot?: Prisma.SortOrderInput | Prisma.SortOrder
+  startTimeStr?: Prisma.SortOrderInput | Prisma.SortOrder
+  endTimeStr?: Prisma.SortOrderInput | Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
@@ -311,6 +365,11 @@ export type ClassScheduleScalarWhereWithAggregatesInput = {
   businessId?: Prisma.StringWithAggregatesFilter<"ClassSchedule"> | string
   trainerId?: Prisma.StringNullableWithAggregatesFilter<"ClassSchedule"> | string | null
   title?: Prisma.StringWithAggregatesFilter<"ClassSchedule"> | string
+  description?: Prisma.StringNullableWithAggregatesFilter<"ClassSchedule"> | string | null
+  daysOfWeek?: Prisma.StringNullableListFilter<"ClassSchedule">
+  timeSlot?: Prisma.StringNullableWithAggregatesFilter<"ClassSchedule"> | string | null
+  startTimeStr?: Prisma.StringNullableWithAggregatesFilter<"ClassSchedule"> | string | null
+  endTimeStr?: Prisma.StringNullableWithAggregatesFilter<"ClassSchedule"> | string | null
   startTime?: Prisma.DateTimeWithAggregatesFilter<"ClassSchedule"> | Date | string
   endTime?: Prisma.DateTimeWithAggregatesFilter<"ClassSchedule"> | Date | string
   capacity?: Prisma.IntWithAggregatesFilter<"ClassSchedule"> | number
@@ -321,6 +380,11 @@ export type ClassScheduleScalarWhereWithAggregatesInput = {
 export type ClassScheduleCreateInput = {
   id?: string
   title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
   startTime: Date | string
   endTime: Date | string
   capacity: number
@@ -328,6 +392,7 @@ export type ClassScheduleCreateInput = {
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutClassSchedulesInput
   trainer?: Prisma.TrainerProfileCreateNestedOneWithoutClassSchedulesInput
+  trainers?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutClassScheduleInput
   bookings?: Prisma.ClassBookingCreateNestedManyWithoutClassScheduleInput
 }
 
@@ -336,17 +401,28 @@ export type ClassScheduleUncheckedCreateInput = {
   businessId: string
   trainerId?: string | null
   title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
   startTime: Date | string
   endTime: Date | string
   capacity: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  trainers?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutClassScheduleInput
   bookings?: Prisma.ClassBookingUncheckedCreateNestedManyWithoutClassScheduleInput
 }
 
 export type ClassScheduleUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -354,6 +430,7 @@ export type ClassScheduleUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutClassSchedulesNestedInput
   trainer?: Prisma.TrainerProfileUpdateOneWithoutClassSchedulesNestedInput
+  trainers?: Prisma.ClassScheduleTrainerUpdateManyWithoutClassScheduleNestedInput
   bookings?: Prisma.ClassBookingUpdateManyWithoutClassScheduleNestedInput
 }
 
@@ -362,11 +439,17 @@ export type ClassScheduleUncheckedUpdateInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   trainerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trainers?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutClassScheduleNestedInput
   bookings?: Prisma.ClassBookingUncheckedUpdateManyWithoutClassScheduleNestedInput
 }
 
@@ -375,6 +458,11 @@ export type ClassScheduleCreateManyInput = {
   businessId: string
   trainerId?: string | null
   title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
   startTime: Date | string
   endTime: Date | string
   capacity: number
@@ -385,6 +473,11 @@ export type ClassScheduleCreateManyInput = {
 export type ClassScheduleUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -397,6 +490,11 @@ export type ClassScheduleUncheckedUpdateManyInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   trainerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -424,6 +522,11 @@ export type ClassScheduleCountOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   trainerId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  daysOfWeek?: Prisma.SortOrder
+  timeSlot?: Prisma.SortOrder
+  startTimeStr?: Prisma.SortOrder
+  endTimeStr?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
@@ -440,6 +543,10 @@ export type ClassScheduleMaxOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   trainerId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  timeSlot?: Prisma.SortOrder
+  startTimeStr?: Prisma.SortOrder
+  endTimeStr?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
@@ -452,6 +559,10 @@ export type ClassScheduleMinOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   trainerId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  timeSlot?: Prisma.SortOrder
+  startTimeStr?: Prisma.SortOrder
+  endTimeStr?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
@@ -519,12 +630,35 @@ export type ClassScheduleUpdateOneRequiredWithoutBookingsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClassScheduleUpdateToOneWithWhereWithoutBookingsInput, Prisma.ClassScheduleUpdateWithoutBookingsInput>, Prisma.ClassScheduleUncheckedUpdateWithoutBookingsInput>
 }
 
+export type ClassScheduleCreatedaysOfWeekInput = {
+  set: string[]
+}
+
+export type ClassScheduleUpdatedaysOfWeekInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type ClassScheduleCreateNestedOneWithoutTrainersInput = {
+  create?: Prisma.XOR<Prisma.ClassScheduleCreateWithoutTrainersInput, Prisma.ClassScheduleUncheckedCreateWithoutTrainersInput>
+  connectOrCreate?: Prisma.ClassScheduleCreateOrConnectWithoutTrainersInput
+  connect?: Prisma.ClassScheduleWhereUniqueInput
+}
+
+export type ClassScheduleUpdateOneRequiredWithoutTrainersNestedInput = {
+  create?: Prisma.XOR<Prisma.ClassScheduleCreateWithoutTrainersInput, Prisma.ClassScheduleUncheckedCreateWithoutTrainersInput>
+  connectOrCreate?: Prisma.ClassScheduleCreateOrConnectWithoutTrainersInput
+  upsert?: Prisma.ClassScheduleUpsertWithoutTrainersInput
+  connect?: Prisma.ClassScheduleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClassScheduleUpdateToOneWithWhereWithoutTrainersInput, Prisma.ClassScheduleUpdateWithoutTrainersInput>, Prisma.ClassScheduleUncheckedUpdateWithoutTrainersInput>
 }
 
 export type ClassScheduleCreateNestedManyWithoutTrainerInput = {
@@ -572,12 +706,18 @@ export type ClassScheduleUncheckedUpdateManyWithoutTrainerNestedInput = {
 export type ClassScheduleCreateWithoutBusinessInput = {
   id?: string
   title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
   startTime: Date | string
   endTime: Date | string
   capacity: number
   createdAt?: Date | string
   updatedAt?: Date | string
   trainer?: Prisma.TrainerProfileCreateNestedOneWithoutClassSchedulesInput
+  trainers?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutClassScheduleInput
   bookings?: Prisma.ClassBookingCreateNestedManyWithoutClassScheduleInput
 }
 
@@ -585,11 +725,17 @@ export type ClassScheduleUncheckedCreateWithoutBusinessInput = {
   id?: string
   trainerId?: string | null
   title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
   startTime: Date | string
   endTime: Date | string
   capacity: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  trainers?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutClassScheduleInput
   bookings?: Prisma.ClassBookingUncheckedCreateNestedManyWithoutClassScheduleInput
 }
 
@@ -627,6 +773,11 @@ export type ClassScheduleScalarWhereInput = {
   businessId?: Prisma.StringFilter<"ClassSchedule"> | string
   trainerId?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
   title?: Prisma.StringFilter<"ClassSchedule"> | string
+  description?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
+  daysOfWeek?: Prisma.StringNullableListFilter<"ClassSchedule">
+  timeSlot?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
+  startTimeStr?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
+  endTimeStr?: Prisma.StringNullableFilter<"ClassSchedule"> | string | null
   startTime?: Prisma.DateTimeFilter<"ClassSchedule"> | Date | string
   endTime?: Prisma.DateTimeFilter<"ClassSchedule"> | Date | string
   capacity?: Prisma.IntFilter<"ClassSchedule"> | number
@@ -637,6 +788,11 @@ export type ClassScheduleScalarWhereInput = {
 export type ClassScheduleCreateWithoutBookingsInput = {
   id?: string
   title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
   startTime: Date | string
   endTime: Date | string
   capacity: number
@@ -644,6 +800,7 @@ export type ClassScheduleCreateWithoutBookingsInput = {
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutClassSchedulesInput
   trainer?: Prisma.TrainerProfileCreateNestedOneWithoutClassSchedulesInput
+  trainers?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutClassScheduleInput
 }
 
 export type ClassScheduleUncheckedCreateWithoutBookingsInput = {
@@ -651,11 +808,17 @@ export type ClassScheduleUncheckedCreateWithoutBookingsInput = {
   businessId: string
   trainerId?: string | null
   title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
   startTime: Date | string
   endTime: Date | string
   capacity: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  trainers?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutClassScheduleInput
 }
 
 export type ClassScheduleCreateOrConnectWithoutBookingsInput = {
@@ -677,6 +840,11 @@ export type ClassScheduleUpdateToOneWithWhereWithoutBookingsInput = {
 export type ClassScheduleUpdateWithoutBookingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -684,6 +852,7 @@ export type ClassScheduleUpdateWithoutBookingsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutClassSchedulesNestedInput
   trainer?: Prisma.TrainerProfileUpdateOneWithoutClassSchedulesNestedInput
+  trainers?: Prisma.ClassScheduleTrainerUpdateManyWithoutClassScheduleNestedInput
 }
 
 export type ClassScheduleUncheckedUpdateWithoutBookingsInput = {
@@ -691,22 +860,122 @@ export type ClassScheduleUncheckedUpdateWithoutBookingsInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   trainerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trainers?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutClassScheduleNestedInput
 }
 
-export type ClassScheduleCreateWithoutTrainerInput = {
+export type ClassScheduleCreateWithoutTrainersInput = {
   id?: string
   title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
   startTime: Date | string
   endTime: Date | string
   capacity: number
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutClassSchedulesInput
+  trainer?: Prisma.TrainerProfileCreateNestedOneWithoutClassSchedulesInput
+  bookings?: Prisma.ClassBookingCreateNestedManyWithoutClassScheduleInput
+}
+
+export type ClassScheduleUncheckedCreateWithoutTrainersInput = {
+  id?: string
+  businessId: string
+  trainerId?: string | null
+  title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
+  startTime: Date | string
+  endTime: Date | string
+  capacity: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bookings?: Prisma.ClassBookingUncheckedCreateNestedManyWithoutClassScheduleInput
+}
+
+export type ClassScheduleCreateOrConnectWithoutTrainersInput = {
+  where: Prisma.ClassScheduleWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClassScheduleCreateWithoutTrainersInput, Prisma.ClassScheduleUncheckedCreateWithoutTrainersInput>
+}
+
+export type ClassScheduleUpsertWithoutTrainersInput = {
+  update: Prisma.XOR<Prisma.ClassScheduleUpdateWithoutTrainersInput, Prisma.ClassScheduleUncheckedUpdateWithoutTrainersInput>
+  create: Prisma.XOR<Prisma.ClassScheduleCreateWithoutTrainersInput, Prisma.ClassScheduleUncheckedCreateWithoutTrainersInput>
+  where?: Prisma.ClassScheduleWhereInput
+}
+
+export type ClassScheduleUpdateToOneWithWhereWithoutTrainersInput = {
+  where?: Prisma.ClassScheduleWhereInput
+  data: Prisma.XOR<Prisma.ClassScheduleUpdateWithoutTrainersInput, Prisma.ClassScheduleUncheckedUpdateWithoutTrainersInput>
+}
+
+export type ClassScheduleUpdateWithoutTrainersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutClassSchedulesNestedInput
+  trainer?: Prisma.TrainerProfileUpdateOneWithoutClassSchedulesNestedInput
+  bookings?: Prisma.ClassBookingUpdateManyWithoutClassScheduleNestedInput
+}
+
+export type ClassScheduleUncheckedUpdateWithoutTrainersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  trainerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookings?: Prisma.ClassBookingUncheckedUpdateManyWithoutClassScheduleNestedInput
+}
+
+export type ClassScheduleCreateWithoutTrainerInput = {
+  id?: string
+  title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
+  startTime: Date | string
+  endTime: Date | string
+  capacity: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutClassSchedulesInput
+  trainers?: Prisma.ClassScheduleTrainerCreateNestedManyWithoutClassScheduleInput
   bookings?: Prisma.ClassBookingCreateNestedManyWithoutClassScheduleInput
 }
 
@@ -714,11 +983,17 @@ export type ClassScheduleUncheckedCreateWithoutTrainerInput = {
   id?: string
   businessId: string
   title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
   startTime: Date | string
   endTime: Date | string
   capacity: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  trainers?: Prisma.ClassScheduleTrainerUncheckedCreateNestedManyWithoutClassScheduleInput
   bookings?: Prisma.ClassBookingUncheckedCreateNestedManyWithoutClassScheduleInput
 }
 
@@ -752,6 +1027,11 @@ export type ClassScheduleCreateManyBusinessInput = {
   id?: string
   trainerId?: string | null
   title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
   startTime: Date | string
   endTime: Date | string
   capacity: number
@@ -762,12 +1042,18 @@ export type ClassScheduleCreateManyBusinessInput = {
 export type ClassScheduleUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trainer?: Prisma.TrainerProfileUpdateOneWithoutClassSchedulesNestedInput
+  trainers?: Prisma.ClassScheduleTrainerUpdateManyWithoutClassScheduleNestedInput
   bookings?: Prisma.ClassBookingUpdateManyWithoutClassScheduleNestedInput
 }
 
@@ -775,11 +1061,17 @@ export type ClassScheduleUncheckedUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trainerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trainers?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutClassScheduleNestedInput
   bookings?: Prisma.ClassBookingUncheckedUpdateManyWithoutClassScheduleNestedInput
 }
 
@@ -787,6 +1079,11 @@ export type ClassScheduleUncheckedUpdateManyWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trainerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -798,6 +1095,11 @@ export type ClassScheduleCreateManyTrainerInput = {
   id?: string
   businessId: string
   title: string
+  description?: string | null
+  daysOfWeek?: Prisma.ClassScheduleCreatedaysOfWeekInput | string[]
+  timeSlot?: string | null
+  startTimeStr?: string | null
+  endTimeStr?: string | null
   startTime: Date | string
   endTime: Date | string
   capacity: number
@@ -808,12 +1110,18 @@ export type ClassScheduleCreateManyTrainerInput = {
 export type ClassScheduleUpdateWithoutTrainerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutClassSchedulesNestedInput
+  trainers?: Prisma.ClassScheduleTrainerUpdateManyWithoutClassScheduleNestedInput
   bookings?: Prisma.ClassBookingUpdateManyWithoutClassScheduleNestedInput
 }
 
@@ -821,11 +1129,17 @@ export type ClassScheduleUncheckedUpdateWithoutTrainerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trainers?: Prisma.ClassScheduleTrainerUncheckedUpdateManyWithoutClassScheduleNestedInput
   bookings?: Prisma.ClassBookingUncheckedUpdateManyWithoutClassScheduleNestedInput
 }
 
@@ -833,6 +1147,11 @@ export type ClassScheduleUncheckedUpdateManyWithoutTrainerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  daysOfWeek?: Prisma.ClassScheduleUpdatedaysOfWeekInput | string[]
+  timeSlot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endTimeStr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -846,10 +1165,12 @@ export type ClassScheduleUncheckedUpdateManyWithoutTrainerInput = {
  */
 
 export type ClassScheduleCountOutputType = {
+  trainers: number
   bookings: number
 }
 
 export type ClassScheduleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  trainers?: boolean | ClassScheduleCountOutputTypeCountTrainersArgs
   bookings?: boolean | ClassScheduleCountOutputTypeCountBookingsArgs
 }
 
@@ -866,6 +1187,13 @@ export type ClassScheduleCountOutputTypeDefaultArgs<ExtArgs extends runtime.Type
 /**
  * ClassScheduleCountOutputType without action
  */
+export type ClassScheduleCountOutputTypeCountTrainersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClassScheduleTrainerWhereInput
+}
+
+/**
+ * ClassScheduleCountOutputType without action
+ */
 export type ClassScheduleCountOutputTypeCountBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ClassBookingWhereInput
 }
@@ -876,6 +1204,11 @@ export type ClassScheduleSelect<ExtArgs extends runtime.Types.Extensions.Interna
   businessId?: boolean
   trainerId?: boolean
   title?: boolean
+  description?: boolean
+  daysOfWeek?: boolean
+  timeSlot?: boolean
+  startTimeStr?: boolean
+  endTimeStr?: boolean
   startTime?: boolean
   endTime?: boolean
   capacity?: boolean
@@ -883,6 +1216,7 @@ export type ClassScheduleSelect<ExtArgs extends runtime.Types.Extensions.Interna
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   trainer?: boolean | Prisma.ClassSchedule$trainerArgs<ExtArgs>
+  trainers?: boolean | Prisma.ClassSchedule$trainersArgs<ExtArgs>
   bookings?: boolean | Prisma.ClassSchedule$bookingsArgs<ExtArgs>
   _count?: boolean | Prisma.ClassScheduleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["classSchedule"]>
@@ -892,6 +1226,11 @@ export type ClassScheduleSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   businessId?: boolean
   trainerId?: boolean
   title?: boolean
+  description?: boolean
+  daysOfWeek?: boolean
+  timeSlot?: boolean
+  startTimeStr?: boolean
+  endTimeStr?: boolean
   startTime?: boolean
   endTime?: boolean
   capacity?: boolean
@@ -906,6 +1245,11 @@ export type ClassScheduleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   businessId?: boolean
   trainerId?: boolean
   title?: boolean
+  description?: boolean
+  daysOfWeek?: boolean
+  timeSlot?: boolean
+  startTimeStr?: boolean
+  endTimeStr?: boolean
   startTime?: boolean
   endTime?: boolean
   capacity?: boolean
@@ -920,6 +1264,11 @@ export type ClassScheduleSelectScalar = {
   businessId?: boolean
   trainerId?: boolean
   title?: boolean
+  description?: boolean
+  daysOfWeek?: boolean
+  timeSlot?: boolean
+  startTimeStr?: boolean
+  endTimeStr?: boolean
   startTime?: boolean
   endTime?: boolean
   capacity?: boolean
@@ -927,10 +1276,11 @@ export type ClassScheduleSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ClassScheduleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "trainerId" | "title" | "startTime" | "endTime" | "capacity" | "createdAt" | "updatedAt", ExtArgs["result"]["classSchedule"]>
+export type ClassScheduleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "trainerId" | "title" | "description" | "daysOfWeek" | "timeSlot" | "startTimeStr" | "endTimeStr" | "startTime" | "endTime" | "capacity" | "createdAt" | "updatedAt", ExtArgs["result"]["classSchedule"]>
 export type ClassScheduleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   trainer?: boolean | Prisma.ClassSchedule$trainerArgs<ExtArgs>
+  trainers?: boolean | Prisma.ClassSchedule$trainersArgs<ExtArgs>
   bookings?: boolean | Prisma.ClassSchedule$bookingsArgs<ExtArgs>
   _count?: boolean | Prisma.ClassScheduleCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -948,6 +1298,7 @@ export type $ClassSchedulePayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     business: Prisma.$BusinessPayload<ExtArgs>
     trainer: Prisma.$TrainerProfilePayload<ExtArgs> | null
+    trainers: Prisma.$ClassScheduleTrainerPayload<ExtArgs>[]
     bookings: Prisma.$ClassBookingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -955,6 +1306,11 @@ export type $ClassSchedulePayload<ExtArgs extends runtime.Types.Extensions.Inter
     businessId: string
     trainerId: string | null
     title: string
+    description: string | null
+    daysOfWeek: string[]
+    timeSlot: string | null
+    startTimeStr: string | null
+    endTimeStr: string | null
     startTime: Date
     endTime: Date
     capacity: number
@@ -1356,6 +1712,7 @@ export interface Prisma__ClassScheduleClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   business<T extends Prisma.BusinessDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessDefaultArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   trainer<T extends Prisma.ClassSchedule$trainerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClassSchedule$trainerArgs<ExtArgs>>): Prisma.Prisma__TrainerProfileClient<runtime.Types.Result.GetResult<Prisma.$TrainerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  trainers<T extends Prisma.ClassSchedule$trainersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClassSchedule$trainersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassScheduleTrainerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookings<T extends Prisma.ClassSchedule$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClassSchedule$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassBookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1390,6 +1747,11 @@ export interface ClassScheduleFieldRefs {
   readonly businessId: Prisma.FieldRef<"ClassSchedule", 'String'>
   readonly trainerId: Prisma.FieldRef<"ClassSchedule", 'String'>
   readonly title: Prisma.FieldRef<"ClassSchedule", 'String'>
+  readonly description: Prisma.FieldRef<"ClassSchedule", 'String'>
+  readonly daysOfWeek: Prisma.FieldRef<"ClassSchedule", 'String[]'>
+  readonly timeSlot: Prisma.FieldRef<"ClassSchedule", 'String'>
+  readonly startTimeStr: Prisma.FieldRef<"ClassSchedule", 'String'>
+  readonly endTimeStr: Prisma.FieldRef<"ClassSchedule", 'String'>
   readonly startTime: Prisma.FieldRef<"ClassSchedule", 'DateTime'>
   readonly endTime: Prisma.FieldRef<"ClassSchedule", 'DateTime'>
   readonly capacity: Prisma.FieldRef<"ClassSchedule", 'Int'>
@@ -1807,6 +2169,30 @@ export type ClassSchedule$trainerArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   include?: Prisma.TrainerProfileInclude<ExtArgs> | null
   where?: Prisma.TrainerProfileWhereInput
+}
+
+/**
+ * ClassSchedule.trainers
+ */
+export type ClassSchedule$trainersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClassScheduleTrainer
+   */
+  select?: Prisma.ClassScheduleTrainerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClassScheduleTrainer
+   */
+  omit?: Prisma.ClassScheduleTrainerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClassScheduleTrainerInclude<ExtArgs> | null
+  where?: Prisma.ClassScheduleTrainerWhereInput
+  orderBy?: Prisma.ClassScheduleTrainerOrderByWithRelationInput | Prisma.ClassScheduleTrainerOrderByWithRelationInput[]
+  cursor?: Prisma.ClassScheduleTrainerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClassScheduleTrainerScalarFieldEnum | Prisma.ClassScheduleTrainerScalarFieldEnum[]
 }
 
 /**

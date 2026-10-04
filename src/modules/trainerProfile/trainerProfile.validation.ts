@@ -79,7 +79,10 @@ const uploadCertificationValidation = z.object({
 
 const getBusinessTrainerDashboardValidation = z.object({
   params: z.object({
-    businessId: z.string().uuid("Invalid business UUID"),
+    businessId: z.string().uuid("Invalid business UUID").optional(),
+    id: z.string().uuid("Invalid business UUID").optional(),
+  }).refine((data) => !!(data.businessId || data.id), {
+    message: "Business ID is required",
   }),
 });
 
@@ -96,6 +99,28 @@ const removeBusinessTrainerValidation = z.object({
   }),
 });
 
+const directAddTrainerValidation = z.object({
+  params: z.object({
+    businessId: z.string().uuid("Invalid businessId UUID"),
+  }),
+  body: z.object({
+    trainerId: z.string().uuid("Invalid trainerId UUID"),
+    monthlySalary: z.number().min(0, "Monthly salary must be at least 0"),
+    joinedAt: z.string().optional(),
+    notes: z.string().optional(),
+  }),
+});
+
+const updateTrainerSalaryValidation = z.object({
+  params: z.object({
+    businessId: z.string().uuid("Invalid businessId UUID"),
+    trainerId: z.string().uuid("Invalid trainerId UUID"),
+  }),
+  body: z.object({
+    monthlySalary: z.number().min(0, "Monthly salary must be at least 0"),
+  }),
+});
+
 export const TrainerProfileValidations = {
   createTrainerProfileValidation,
   updateTrainerProfileValidation,
@@ -105,4 +130,6 @@ export const TrainerProfileValidations = {
   getBusinessTrainerDashboardValidation,
   getBusinessTrainersValidation,
   removeBusinessTrainerValidation,
+  directAddTrainerValidation,
+  updateTrainerSalaryValidation,
 };

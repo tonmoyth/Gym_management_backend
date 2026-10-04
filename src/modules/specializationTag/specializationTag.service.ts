@@ -33,7 +33,12 @@ const createSpecializationTag = async (payload: { name: string }) => {
     });
 
     if (existingTag) {
-        throw new AppError(409, "Specialization tag with this name already exists");
+        return {
+            id: existingTag.id,
+            name: existingTag.name,
+            slug: existingTag.slug,
+            createdAt: existingTag.createdAt,
+        };
     }
 
     // Generate unique slug
@@ -72,6 +77,21 @@ const createSpecializationTag = async (payload: { name: string }) => {
     return newTag;
 };
 
+const getAllSpecializationTags = async () => {
+    const tags = await prisma.specializationTag.findMany({
+        orderBy: { name: "asc" },
+        select: {
+            id: true,
+            name: true,
+            slug: true,
+            createdAt: true,
+        },
+    });
+
+    return tags;
+};
+
 export const SpecializationTagService = {
     createSpecializationTag,
+    getAllSpecializationTags,
 };

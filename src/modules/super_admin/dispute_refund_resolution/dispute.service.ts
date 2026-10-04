@@ -361,7 +361,18 @@ const getDisputeById = async (id: string) => {
     resolution: resolutionType,
     resolutionReason,
     createdAt: dispute.createdAt,
-    updatedAt: dispute.updatedAt,
+    user: dispute.user
+      ? {
+          id: dispute.user.id,
+          fullName: dispute.user.fullName,
+          email: dispute.user.email,
+          role: dispute.user.role,
+          profileImage: dispute.user.profileImage,
+          isActive: dispute.user.isActive,
+          isVerified: dispute.user.isVerified,
+          createdAt: dispute.user.createdAt,
+        }
+      : null,
     member: dispute.user
       ? {
           id: dispute.user.id,

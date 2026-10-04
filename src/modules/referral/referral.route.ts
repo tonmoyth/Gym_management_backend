@@ -8,12 +8,32 @@ import { ReferralController } from "./referral.controller";
 
 const router = express.Router();
 
+// Referral system temporarily disabled - will be implemented later
+/*
 // Get the authenticated member's referral code
 router.get(
   "/my-code",
   // @ts-ignore
   checkAuth(USER_ROLE.MEMBER),
   ReferralController.getMyReferralCode
+);
+
+// List Type-B referrals for the authenticated business owner
+router.get(
+  "/member",
+  // @ts-ignore
+  checkAuth(USER_ROLE.BUSINESS_OWNER),
+  validateRequest(ReferralValidations.getOwnerMemberReferralsValidation),
+  ReferralController.getOwnerMemberReferrals
+);
+
+// Credit a Type-B referral by the authenticated business owner
+router.patch(
+  "/member/:id/credit",
+  // @ts-ignore
+  checkAuth(USER_ROLE.BUSINESS_OWNER),
+  validateRequest(ReferralValidations.creditMemberReferralValidation),
+  ReferralController.creditMemberReferral
 );
 
 // Register a Type-B referral
@@ -59,5 +79,6 @@ router.get(
   checkAuth(USER_ROLE.BUSINESS_OWNER),
   ReferralController.getMyBusinessReferrals
 );
+*/
 
 export const referralRoutes = router;

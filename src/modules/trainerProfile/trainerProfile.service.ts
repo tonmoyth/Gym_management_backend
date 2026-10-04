@@ -1,11 +1,12 @@
 import { prisma } from "../../lib/prisma";
 import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
-import { Gender } from "../../generated/prisma/client";
+import { Gender, StaffPermissionRole } from "../../generated/prisma/client";
 import { uploadToCloudinary } from "../../utils/cloudinary";
 import fs from "fs";
 import { QueryBuilder } from "../../utils/queryBuilder";
 import { IQueryParams } from "../../interface/queryBuilder.interface";
+import { verifyBusinessAccess } from "../../utils/businessAccess";
 
 interface ICertification {
   title: string;
@@ -117,159 +118,148 @@ const _saveTrainerProfile = async (
     new Set(payload.specializationIds || []),
   );
 
-  // 4. Prisma Transaction
-  const result = await prisma.$transaction(
-    async (tx) => {
-      // Upsert TrainerProfile
-      const trainerProfile = await tx.trainerProfile.upsert({
-        where: { userId },
-        create: {
-          userId,
-          bio: payload.bio,
-          gender: payload.gender,
-          experience: payload.experience !== undefined ? payload.experience : 0,
-        },
-        update: {
-          bio: payload.bio !== undefined ? payload.bio : undefined,
-          gender: payload.gender !== undefined ? payload.gender : undefined,
-          experience: payload.experience !== undefined ? payload.experience : undefined,
-        },
-        select: { id: true },
+  // 4. Upsert TrainerProfile
+  const trainerProfile = await prisma.trainerProfile.upsert({
+    where: { userId },
+    create: {
+      userId,
+      bio: payload.bio,
+      gender: payload.gender,
+      experience: payload.experience !== undefined ? payload.experience : 0,
+    },
+    update: {
+      bio: payload.bio !== undefined ? payload.bio : undefined,
+      gender: payload.gender !== undefined ? payload.gender : undefined,
+      experience: payload.experience !== undefined ? payload.experience : undefined,
+    },
+    select: { id: true },
+  });
+
+  // Update User Profile Photo
+  if (profilePhotoUrl !== user.profileImage) {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { profileImage: profilePhotoUrl },
+    });
+  }
+
+  // Sync Specializations
+  if (payload.specializationIds !== undefined) {
+    // Delete existing
+    await prisma.trainerSpecialization.deleteMany({
+      where: { trainerId: trainerProfile.id },
+    });
+    // Insert new
+    if (uniqueSpecializationIds.length > 0) {
+      await prisma.trainerSpecialization.createMany({
+        data: uniqueSpecializationIds.map((tagId) => ({
+          trainerId: trainerProfile.id,
+          tagId,
+        })),
+      });
+    }
+  }
+
+  // Sync Certifications
+  if (payload.certifications !== undefined) {
+    // Delete existing
+    await prisma.trainerCertification.deleteMany({
+      where: { trainerId: trainerProfile.id },
+    });
+    // Insert new
+    if (payload.certifications.length > 0) {
+      let fileIndex = 0;
+      const mappedCertifications = payload.certifications.map((cert) => {
+        let certUrl = cert.fileUrl;
+        if (!certUrl && fileIndex < certificationUrls.length) {
+          certUrl = certificationUrls[fileIndex];
+          fileIndex++;
+        }
+
+        return {
+          trainerId: trainerProfile.id,
+          title: cert.title,
+          fileUrl: certUrl || "", // Make sure we have a valid string or handle missing properly
+          issuer: cert.issuer,
+          issueDate: new Date(cert.issueDate),
+          expiryDate: cert.expiryDate ? new Date(cert.expiryDate) : null,
+          credentialId: cert.credentialId,
+          credentialUrl: cert.credentialUrl,
+        };
       });
 
-      // Update User Profile Photo
-      if (profilePhotoUrl !== user.profileImage) {
-        await tx.user.update({
-          where: { id: userId },
-          data: { profileImage: profilePhotoUrl },
-        });
+      // Validate that no certifications are missing a file URL
+      const invalidCerts = mappedCertifications.filter((c) => !c.fileUrl);
+      if (invalidCerts.length > 0) {
+        throw new AppError(
+          400,
+          "Missing file upload or fileUrl for one or more certifications.",
+        );
       }
 
-      // Sync Specializations
-      if (payload.specializationIds !== undefined) {
-        // Delete existing
-        await tx.trainerSpecialization.deleteMany({
-          where: { trainerId: trainerProfile.id },
-        });
-        // Insert new
-        if (uniqueSpecializationIds.length > 0) {
-          await tx.trainerSpecialization.createMany({
-            data: uniqueSpecializationIds.map((tagId) => ({
-              trainerId: trainerProfile.id,
-              tagId,
-            })),
-          });
-        }
-      }
+      await prisma.trainerCertification.createMany({
+        data: mappedCertifications,
+      });
+    }
+  }
 
-      // Sync Certifications
-      if (payload.certifications !== undefined) {
-        // Delete existing
-        await tx.trainerCertification.deleteMany({
-          where: { trainerId: trainerProfile.id },
-        });
-        // Insert new
-        if (payload.certifications.length > 0) {
-          let fileIndex = 0;
-          const mappedCertifications = payload.certifications.map((cert) => {
-            let certUrl = cert.fileUrl;
-            if (!certUrl && fileIndex < certificationUrls.length) {
-              certUrl = certificationUrls[fileIndex];
-              fileIndex++;
-            }
+  // Calculate Profile Completion Percentage
+  await _calculateAndUpdateProfileCompletion(prisma, trainerProfile.id);
 
-            return {
-              trainerId: trainerProfile.id,
-              title: cert.title,
-              fileUrl: certUrl || "", // Make sure we have a valid string or handle missing properly
-              issuer: cert.issuer,
-              issueDate: new Date(cert.issueDate),
-              expiryDate: cert.expiryDate ? new Date(cert.expiryDate) : null,
-              credentialId: cert.credentialId,
-              credentialUrl: cert.credentialUrl,
-            };
-          });
-
-          // Validate that no certifications are missing a file URL
-          const invalidCerts = mappedCertifications.filter((c) => !c.fileUrl);
-          if (invalidCerts.length > 0) {
-            throw new AppError(
-              400,
-              "Missing file upload or fileUrl for one or more certifications.",
-            );
-          }
-
-          await tx.trainerCertification.createMany({
-            data: mappedCertifications,
-          });
-        }
-      }
-
-      // Calculate Profile Completion Percentage
-      await _calculateAndUpdateProfileCompletion(tx, trainerProfile.id);
-
-      // Fetch Final Profile to Return
-      const finalProfile = await tx.trainerProfile.findUnique({
-        where: { id: trainerProfile.id },
+  // Fetch Final Profile to Return
+  const finalProfile = await prisma.trainerProfile.findUnique({
+    where: { id: trainerProfile.id },
+    select: {
+      id: true,
+      bio: true,
+      gender: true,
+      profileCompletionPercent: true,
+      verifiedBadge: true,
+      avgRating: true,
+      createdAt: true,
+      updatedAt: true,
+      user: {
         select: {
-          id: true,
-          bio: true,
-          gender: true,
-          profileCompletionPercent: true,
-          verifiedBadge: true,
-          avgRating: true,
-          createdAt: true,
-          updatedAt: true,
-          user: {
-            select: {
-              profileImage: true,
-            },
-          },
-          specializations: {
-            select: {
-              tag: {
-                select: {
-                  id: true,
-                  name: true,
-                  slug: true,
-                },
-              },
-            },
-          },
-          certifications: {
+          profileImage: true,
+        },
+      },
+      specializations: {
+        select: {
+          tag: {
             select: {
               id: true,
-              title: true,
-              fileUrl: true,
-              issuer: true,
-              issueDate: true,
-              expiryDate: true,
-              credentialId: true,
-              credentialUrl: true,
-              status: true,
+              name: true,
+              slug: true,
             },
           },
         },
-      });
-
-      if (finalProfile) {
-        return {
-          ...finalProfile,
-          profilePhoto: finalProfile.user?.profileImage || null,
-          user: undefined, // Expose cleanly via `profilePhoto`
-          specializations: finalProfile.specializations.map((s) => s.tag),
-        };
-      }
-
-      return finalProfile;
+      },
+      certifications: {
+        select: {
+          id: true,
+          title: true,
+          fileUrl: true,
+          issuer: true,
+          issueDate: true,
+          expiryDate: true,
+          credentialId: true,
+          credentialUrl: true,
+          status: true,
+        },
+      },
     },
-    {
-      maxWait: 5000,
-      timeout: 15000,
-    },
-  );
+  });
 
-  return result;
+  if (finalProfile) {
+    return {
+      ...finalProfile,
+      profilePhoto: finalProfile.user?.profileImage || null,
+      user: undefined, // Expose cleanly via `profilePhoto`
+      specializations: finalProfile.specializations.map((s) => s.tag),
+    };
+  }
+
+  return finalProfile;
 };
 
 const getOwnTrainerProfile = async (userId: string) => {
@@ -317,6 +307,9 @@ const getOwnTrainerProfile = async (userId: string) => {
           expiryDate: true,
           credentialId: true,
           credentialUrl: true,
+          fileUrl: true,
+          status: true,
+          createdAt: true,
         },
         orderBy: {
           issueDate: "desc",
@@ -342,7 +335,39 @@ const getOwnTrainerProfile = async (userId: string) => {
   });
 
   if (!trainerProfile) {
-    throw new AppError(404, "Trainer profile not found.");
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      throw new AppError(404, "User not found.");
+    }
+    const initialCompletion = user.profileImage ? 20 : 0;
+    const created = await prisma.trainerProfile.create({
+      data: {
+        userId,
+        experience: 0,
+        profileCompletionPercent: initialCompletion,
+      },
+    });
+
+    return {
+      id: created.id,
+      bio: null,
+      gender: null,
+      profilePhoto: user.profileImage || "",
+      verifiedBadge: false,
+      avgRating: 0,
+      profileCompletionPercent: initialCompletion,
+      isProfileComplete: false,
+      user: {
+        id: user.id,
+        name: user.fullName || "",
+        email: user.email,
+      },
+      specializations: [],
+      certifications: [],
+      businesses: [],
+      createdAt: created.createdAt,
+      updatedAt: created.updatedAt,
+    };
   }
 
   return {
@@ -353,7 +378,7 @@ const getOwnTrainerProfile = async (userId: string) => {
     verifiedBadge: trainerProfile.verifiedBadge,
     avgRating: trainerProfile.avgRating,
     profileCompletionPercent: trainerProfile.profileCompletionPercent,
-    isProfileComplete: trainerProfile.profileCompletionPercent >= 80,
+    isProfileComplete: (trainerProfile.profileCompletionPercent ?? 0) >= 100,
     user: {
       id: trainerProfile.user.id,
       name: trainerProfile.user.fullName || "",
@@ -373,12 +398,15 @@ const createTrainerProfile = async (
   profilePhoto?: Express.Multer.File,
   certificationFiles: Express.Multer.File[] = [],
 ) => {
-  const existing = await prisma.trainerProfile.findUnique({
-    where: { userId },
-  });
-  if (existing) {
-    throw new AppError(400, "Trainer profile already exists.");
-  }
+  return _saveTrainerProfile(userId, payload, profilePhoto, certificationFiles);
+};
+
+const updateTrainerProfile = async (
+  userId: string,
+  payload: IUpsertTrainerProfilePayload,
+  profilePhoto?: Express.Multer.File,
+  certificationFiles: Express.Multer.File[] = [],
+) => {
   return _saveTrainerProfile(userId, payload, profilePhoto, certificationFiles);
 };
 
@@ -639,13 +667,16 @@ const setOwnSpecializations = async (
   userId: string,
   specializationIds: string[],
 ) => {
-  const trainerProfile = await prisma.trainerProfile.findUnique({
+  let trainerProfile = await prisma.trainerProfile.findUnique({
     where: { userId },
     select: { id: true },
   });
 
   if (!trainerProfile) {
-    throw new AppError(404, "Trainer profile not found.");
+    trainerProfile = await prisma.trainerProfile.create({
+      data: { userId, experience: 0 },
+      select: { id: true },
+    });
   }
 
   // Deduplicate UUIDs
@@ -666,50 +697,48 @@ const setOwnSpecializations = async (
     );
   }
 
-  return await prisma.$transaction(async (tx) => {
-    // Delete existing TrainerSpecializations
-    await tx.trainerSpecialization.deleteMany({
-      where: { trainerId: trainerProfile.id },
+  // Delete existing TrainerSpecializations
+  await prisma.trainerSpecialization.deleteMany({
+    where: { trainerId: trainerProfile.id },
+  });
+
+  // Create new TrainerSpecializations
+  if (uniqueTagIds.length > 0) {
+    await prisma.trainerSpecialization.createMany({
+      data: uniqueTagIds.map((tagId) => ({
+        trainerId: trainerProfile.id,
+        tagId,
+      })),
     });
+  }
 
-    // Create new TrainerSpecializations
-    if (uniqueTagIds.length > 0) {
-      await tx.trainerSpecialization.createMany({
-        data: uniqueTagIds.map((tagId) => ({
-          trainerId: trainerProfile.id,
-          tagId,
-        })),
-      });
-    }
+  // Recalculate profile completion
+  const profileCompletionPercent = await _calculateAndUpdateProfileCompletion(
+    prisma,
+    trainerProfile.id,
+  );
 
-    // Recalculate profile completion
-    const profileCompletionPercent = await _calculateAndUpdateProfileCompletion(
-      tx,
-      trainerProfile.id,
-    );
-
-    // Fetch the updated specializations
-    const updatedSpecializations = await tx.trainerSpecialization.findMany({
-      where: { trainerId: trainerProfile.id },
-      select: {
-        tag: {
-          select: {
-            id: true,
-            name: true,
-            slug: true,
-          },
+  // Fetch the updated specializations
+  const updatedSpecializations = await prisma.trainerSpecialization.findMany({
+    where: { trainerId: trainerProfile.id },
+    select: {
+      tag: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
         },
       },
-      orderBy: { tag: { name: "asc" } },
-    });
-
-    return {
-      id: trainerProfile.id,
-      profileCompletionPercent,
-      isProfileComplete: profileCompletionPercent >= 80,
-      specializations: updatedSpecializations.map((s) => s.tag),
-    };
+    },
+    orderBy: { tag: { name: "asc" } },
   });
+
+  return {
+    id: trainerProfile.id,
+    profileCompletionPercent,
+    isProfileComplete: profileCompletionPercent >= 100,
+    specializations: updatedSpecializations.map((s) => s.tag),
+  };
 };
 
 const uploadCertification = async (
@@ -717,14 +746,16 @@ const uploadCertification = async (
   payload: any,
   file?: Express.Multer.File,
 ) => {
-  const trainerProfile = await prisma.trainerProfile.findUnique({
+  let trainerProfile = await prisma.trainerProfile.findUnique({
     where: { userId },
     select: { id: true },
   });
 
   if (!trainerProfile) {
-    if (file && fs.existsSync(file.path)) fs.unlinkSync(file.path);
-    throw new AppError(404, "Trainer profile not found.");
+    trainerProfile = await prisma.trainerProfile.create({
+      data: { userId, experience: 0 },
+      select: { id: true },
+    });
   }
 
   if (!file) {
@@ -756,38 +787,36 @@ const uploadCertification = async (
     throw new AppError(500, "Failed to upload certification file.");
   }
 
-  return await prisma.$transaction(async (tx) => {
-    // 1. Create Certification
-    const newCertification = await tx.trainerCertification.create({
-      data: {
-        trainerId: trainerProfile.id,
-        title: payload.title,
-        fileUrl: fileUrl,
-        issuer: payload.issuer,
-        issueDate: new Date(payload.issueDate),
-        expiryDate: payload.expiryDate ? new Date(payload.expiryDate) : null,
-        credentialId: payload.credentialId,
-        credentialUrl: payload.credentialUrl,
-        status: "PENDING", // Always PENDING for new uploads
-      },
-      select: {
-        id: true,
-        title: true,
-        issuer: true,
-        issueDate: true,
-        expiryDate: true,
-        credentialId: true,
-        credentialUrl: true,
-        status: true,
-        createdAt: true,
-      },
-    });
-
-    // 2. Recalculate Profile Completion
-    await _calculateAndUpdateProfileCompletion(tx, trainerProfile.id);
-
-    return newCertification;
+  // 1. Create Certification
+  const newCertification = await prisma.trainerCertification.create({
+    data: {
+      trainerId: trainerProfile.id,
+      title: payload.title,
+      fileUrl: fileUrl,
+      issuer: payload.issuer,
+      issueDate: new Date(payload.issueDate),
+      expiryDate: payload.expiryDate ? new Date(payload.expiryDate) : null,
+      credentialId: payload.credentialId,
+      credentialUrl: payload.credentialUrl,
+      status: "PENDING", // Always PENDING for new uploads
+    },
+    select: {
+      id: true,
+      title: true,
+      issuer: true,
+      issueDate: true,
+      expiryDate: true,
+      credentialId: true,
+      credentialUrl: true,
+      status: true,
+      createdAt: true,
+    },
   });
+
+  // 2. Recalculate Profile Completion
+  await _calculateAndUpdateProfileCompletion(prisma, trainerProfile.id);
+
+  return newCertification;
 };
 
 const getOwnCertifications = async (userId: string) => {
@@ -841,6 +870,39 @@ const getOwnCertifications = async (userId: string) => {
       createdAt: cert.createdAt,
     };
   });
+};
+
+const deleteCertification = async (userId: string, certId: string) => {
+  const trainerProfile = await prisma.trainerProfile.findUnique({
+    where: { userId },
+    select: { id: true },
+  });
+
+  if (!trainerProfile) {
+    throw new AppError(404, "Trainer profile not found.");
+  }
+
+  const cert = await prisma.trainerCertification.findFirst({
+    where: {
+      id: certId,
+      trainerId: trainerProfile.id,
+    },
+  });
+
+  if (!cert) {
+    throw new AppError(404, "Certification not found or does not belong to you.");
+  }
+
+  await prisma.trainerCertification.delete({
+    where: { id: certId },
+  });
+
+  const newCompletion = await _calculateAndUpdateProfileCompletion(prisma, trainerProfile.id);
+
+  return {
+    deletedId: certId,
+    profileCompletionPercent: newCompletion,
+  };
 };
 
 const getBusinessTrainerDashboard = async (
@@ -1147,18 +1209,10 @@ const getBusinessTrainerDashboard = async (
 };
 
 const getBusinessTrainers = async (userId: string, businessId: string, queryParams: any) => {
-  const business = await prisma.business.findUnique({
-    where: { id: businessId },
-    select: { ownerId: true },
-  });
-
-  if (!business) {
-    throw new AppError(httpStatus.NOT_FOUND, "Business not found");
-  }
-
-  if (business.ownerId !== userId) {
-    throw new AppError(httpStatus.FORBIDDEN, "You do not own this business");
-  }
+  await verifyBusinessAccess(businessId, userId, [
+    StaffPermissionRole.TRAINER_MANAGER,
+    StaffPermissionRole.FULL,
+  ]);
 
   const params = { ...queryParams };
   
@@ -1209,7 +1263,22 @@ const getBusinessTrainers = async (userId: string, businessId: string, queryPara
     },
     businesses: {
       where: { businessId },
-      select: { joinedAt: true },
+      select: { joinedAt: true, monthlySalary: true, notes: true },
+    },
+    paymentAccounts: {
+      where: { status: "ACTIVE" },
+      orderBy: { isDefault: "desc" },
+      select: {
+        id: true,
+        accountType: true,
+        accountName: true,
+        accountNumber: true,
+        bankName: true,
+        branchName: true,
+        routingNumber: true,
+        isDefault: true,
+        status: true,
+      },
     },
   };
 
@@ -1234,6 +1303,9 @@ const getBusinessTrainers = async (userId: string, businessId: string, queryPara
       slug: s.tag.slug,
     })),
     joinedAt: t.businesses[0]?.joinedAt,
+    monthlySalary: t.businesses[0]?.monthlySalary ? Number(t.businesses[0]?.monthlySalary) : null,
+    notes: t.businesses[0]?.notes || null,
+    paymentAccounts: t.paymentAccounts || [],
   }));
 
   return {
@@ -1248,18 +1320,10 @@ const getBusinessTrainers = async (userId: string, businessId: string, queryPara
 };
 
 const removeBusinessTrainer = async (userId: string, businessId: string, trainerId: string) => {
-  const business = await prisma.business.findUnique({
-    where: { id: businessId },
-    select: { ownerId: true, name: true },
-  });
-
-  if (!business) {
-    throw new AppError(httpStatus.NOT_FOUND, "Business not found");
-  }
-
-  if (business.ownerId !== userId) {
-    throw new AppError(httpStatus.FORBIDDEN, "You do not own this business");
-  }
+  const { business } = await verifyBusinessAccess(businessId, userId, [
+    StaffPermissionRole.TRAINER_MANAGER,
+    StaffPermissionRole.FULL,
+  ]);
 
   const trainer = await prisma.trainerProfile.findUnique({
     where: { id: trainerId },
@@ -1303,16 +1367,137 @@ const removeBusinessTrainer = async (userId: string, businessId: string, trainer
   return null;
 };
 
+interface IDirectAddTrainerPayload {
+  trainerId: string;
+  monthlySalary: number;
+  joinedAt?: string;
+  notes?: string;
+}
+
+const directAddTrainerToBusiness = async (
+  userId: string,
+  businessId: string,
+  payload: IDirectAddTrainerPayload
+) => {
+  const { business } = await verifyBusinessAccess(businessId, userId, [
+    StaffPermissionRole.TRAINER_MANAGER,
+    StaffPermissionRole.FULL,
+  ]);
+
+  const trainer = await prisma.trainerProfile.findUnique({
+    where: { id: payload.trainerId },
+    include: {
+      user: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+        },
+      },
+    },
+  });
+
+  if (!trainer) {
+    throw new AppError(httpStatus.NOT_FOUND, "Trainer not found.");
+  }
+
+  const existing = await prisma.trainerBusiness.findUnique({
+    where: {
+      trainerId_businessId: {
+        trainerId: payload.trainerId,
+        businessId,
+      },
+    },
+  });
+
+  if (existing) {
+    throw new AppError(httpStatus.CONFLICT, "Trainer is already attached to this business.");
+  }
+
+  const trainerBusiness = await prisma.trainerBusiness.create({
+    data: {
+      trainerId: payload.trainerId,
+      businessId,
+      monthlySalary: payload.monthlySalary,
+      notes: payload.notes || null,
+      joinedAt: payload.joinedAt ? new Date(payload.joinedAt) : new Date(),
+      isActive: true,
+    },
+  });
+
+  return {
+    trainerBusinessId: trainerBusiness.id,
+    trainer: {
+      id: trainer.id,
+      name: trainer.user?.fullName,
+      email: trainer.user?.email,
+    },
+    business: {
+      id: business.id,
+      name: business.name,
+    },
+    monthlySalary: Number(trainerBusiness.monthlySalary),
+    joinedAt: trainerBusiness.joinedAt,
+  };
+};
+
+const updateTrainerSalary = async (
+  userId: string,
+  businessId: string,
+  trainerId: string,
+  monthlySalary: number
+) => {
+  await verifyBusinessAccess(businessId, userId, [
+    StaffPermissionRole.FINANCE,
+    StaffPermissionRole.FULL,
+  ]);
+
+  const trainerBusiness = await prisma.trainerBusiness.findUnique({
+    where: {
+      trainerId_businessId: {
+        trainerId,
+        businessId,
+      },
+    },
+  });
+
+  if (!trainerBusiness) {
+    throw new AppError(httpStatus.NOT_FOUND, "Trainer is not assigned to this business.");
+  }
+
+  const updated = await prisma.trainerBusiness.update({
+    where: {
+      trainerId_businessId: {
+        trainerId,
+        businessId,
+      },
+    },
+    data: {
+      monthlySalary,
+    },
+  });
+
+  return {
+    trainerId: updated.trainerId,
+    businessId: updated.businessId,
+    monthlySalary: Number(updated.monthlySalary),
+  };
+};
+
 export const TrainerProfileService = {
   createTrainerProfile,
+  updateTrainerProfile,
   getOwnTrainerProfile,
   getPublicTrainerProfile,
   getAllTrainers,
   setOwnSpecializations,
   uploadCertification,
   getOwnCertifications,
+  deleteCertification,
   getBusinessTrainerDashboard,
   getBusinessTrainers,
   removeBusinessTrainer,
+  directAddTrainerToBusiness,
+  updateTrainerSalary,
 };
 

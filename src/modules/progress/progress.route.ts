@@ -11,9 +11,16 @@ const router = express.Router();
 router.post(
   "/",
   // @ts-ignore
-  checkAuth(USER_ROLE.TRAINER, Role.MEMBER),
+  checkAuth(Role.TRAINER),
   validateRequest(ProgressValidations.createProgressValidation),
   ProgressController.createProgress
+);
+
+router.get(
+  "/trainer/me",
+  // @ts-ignore
+  checkAuth(Role.TRAINER),
+  ProgressController.getTrainerLoggedProgress
 );
 
 router.get(

@@ -13,6 +13,8 @@ const createJobPostValidation = z.object({
             .max(3000, 'Description cannot exceed 3000 characters'),
         specializationTagId: z.string({ message: 'Specialization tag ID is required' })
             .uuid({ message: 'Specialization tag ID must be a valid UUID' }),
+        salary: z.number().min(0, 'Salary must be positive').optional(),
+        experience: z.number().int().min(0, 'Experience must be at least 0').optional(),
     }).strict(), // Reject unknown fields
 });
 
@@ -49,6 +51,9 @@ const approveTrainerApplicationValidation = z.object({
         appId: z.string({ message: 'Application ID is required' })
             .uuid({ message: 'Application ID must be a valid UUID' }),
     }),
+    body: z.object({
+        monthlySalary: z.number().min(0, 'Monthly salary must be positive').optional(),
+    }).optional(),
 });
 
 const rejectTrainerApplicationValidation = z.object({

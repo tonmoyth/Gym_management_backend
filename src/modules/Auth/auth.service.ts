@@ -44,13 +44,56 @@ const loginUser = async (payload: IUserLogin) => {
 
   const dbUser = await prisma.user.findUnique({
     where: { email: payload.email.toLowerCase() },
+    include: {
+      staffRoles: {
+        select: {
+          id: true,
+          businessId: true,
+          permissionRole: true,
+          business: {
+            select: {
+              id: true,
+              name: true,
+              status: true,
+            },
+          },
+        },
+        take: 1,
+      },
+      ownedBusinesses: {
+        select: { id: true },
+        take: 1,
+      },
+    },
   });
 
   if (dbUser && !dbUser.isActive) {
     throw new AppError(httpStatus.FORBIDDEN, "Your account has been suspended. Please contact support.");
   }
 
-  return userResponse;
+  const staffAssignment = dbUser?.staffRoles?.[0];
+  const staffRole = staffAssignment?.permissionRole || null;
+  const staffBusiness = staffAssignment?.business || null;
+  const hasBusiness = Boolean(
+    (dbUser?.ownedBusinesses && dbUser.ownedBusinesses.length > 0) || staffBusiness
+  );
+  const isPlatformStaff =
+    (dbUser?.role === "STAFF" || dbUser?.role === "ADMIN") &&
+    (!dbUser?.staffRoles || dbUser.staffRoles.length === 0);
+
+  return {
+    ...userResponse,
+    user: {
+      ...userResponse.user,
+      fullName: dbUser?.fullName || userResponse.user.name,
+      role: dbUser?.role || userResponse.user.role,
+      permissions: dbUser?.permissions || [],
+      staffRole,
+      staffBusiness,
+      hasBusiness,
+      isPlatformStaff,
+    },
+  };
 };
 
 const logoutUser = async (headers: Headers, userId?: string) => {
@@ -235,25 +278,25 @@ const deleteAccount = async (userId: string) => {
     // ---------------------------------------------------------
     // CRITICAL: Handle `onDelete: Restrict` constraints explicitly
     // ---------------------------------------------------------
-    
+
     // Delete ProgressLogs logged by this user
     await tx.progressLog.deleteMany({ where: { loggedByUserId: userId } });
-    
+
     // Delete Payments made by this user
     await tx.payment.deleteMany({ where: { payerUserId: userId } });
-    
+
     // Delete MemberReferrals where this user was referred
     await tx.memberReferral.deleteMany({ where: { referredUserId: userId } });
-    
+
     // Delete ChatMessages sent by this user
     await tx.chatMessage.deleteMany({ where: { senderId: userId } });
-    
+
     // Delete BusinessReferrals referred by this user
     await tx.businessReferral.deleteMany({ where: { referrerOwnerId: userId } });
 
     // Delete MemberReferrals made by this user's MemberProfile
     if (user.memberProfile) {
-       await tx.memberReferral.deleteMany({ where: { referrerMemberId: user.memberProfile.id } });
+      await tx.memberReferral.deleteMany({ where: { referrerMemberId: user.memberProfile.id } });
     }
 
     // Now it is safe to delete the User. 

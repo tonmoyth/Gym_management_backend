@@ -4,12 +4,14 @@ import httpStatus from "http-status";
 import { QueryBuilder } from "../../utils/queryBuilder";
 
 const addFavorite = async (userId: string, businessId: string) => {
-  const member = await prisma.memberProfile.findUnique({
+  let member = await prisma.memberProfile.findUnique({
     where: { userId },
   });
 
   if (!member) {
-    throw new AppError(httpStatus.NOT_FOUND, "Member not found");
+    member = await prisma.memberProfile.create({
+      data: { userId },
+    });
   }
 
   const business = await prisma.business.findUnique({
@@ -38,18 +40,36 @@ const addFavorite = async (userId: string, businessId: string) => {
       memberId: member.id,
       businessId,
     },
+    include: {
+      business: {
+        select: {
+          id: true,
+          name: true,
+          logo: true,
+          photos: true,
+          address: true,
+          description: true,
+          amenities: true,
+          status: true,
+          createdAt: true,
+        },
+      },
+    },
   });
 
   return newFavorite;
 };
 
 const getMyFavorites = async (userId: string, query: Record<string, unknown>) => {
-  const member = await prisma.memberProfile.findUnique({
+  let member = await prisma.memberProfile.findUnique({
     where: { userId },
   });
 
   if (!member) {
-    throw new AppError(httpStatus.NOT_FOUND, "Member not found");
+    return {
+      meta: { page: 1, limit: 10, total: 0, totalPages: 0 },
+      data: [],
+    };
   }
 
   const queryBuilder = new QueryBuilder(prisma.favorite as any, query as any, {
@@ -67,7 +87,12 @@ const getMyFavorites = async (userId: string, query: Record<string, unknown>) =>
           id: true,
           name: true,
           logo: true,
+          photos: true,
           address: true,
+          description: true,
+          amenities: true,
+          phone: true,
+          email: true,
           status: true,
           createdAt: true,
         },

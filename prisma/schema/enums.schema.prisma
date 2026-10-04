@@ -165,3 +165,37 @@ enum BiometricAttendanceType {
   CHECK_IN
   CHECK_OUT
 }
+
+enum PaymentAccountType {
+  BANK
+  BKASH
+  NAGAD
+}
+
+enum PaymentAccountStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum BillingCycle {
+  MONTHLY
+  YEARLY
+}
+
+enum SubscriptionPlanStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum BusinessSubscriptionStatus {
+  PENDING
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+enum SubscriptionPaymentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}

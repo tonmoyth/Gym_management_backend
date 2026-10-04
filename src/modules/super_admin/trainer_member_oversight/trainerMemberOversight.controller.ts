@@ -18,7 +18,11 @@ const getAllUsers = catchAsync(async (req: Request, res: Response) => {
 const updateAccountStatus = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const adminId = req.user?.id;
-  const { status } = req.body;
+  let { status, isActive } = req.body;
+
+  if (!status && typeof isActive === 'boolean') {
+    status = isActive ? 'ACTIVE' : 'SUSPENDED';
+  }
 
   const result = await TrainerMemberOversightService.updateAccountStatus(
     id as string,

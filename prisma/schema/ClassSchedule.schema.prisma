@@ -8,12 +8,20 @@ model ClassSchedule {
   trainer   TrainerProfile? @relation(fields: [trainerId], references: [id], onDelete: SetNull)
 
   title String
+  description String?
+
+  daysOfWeek String[] @default([])
+  timeSlot   String?
+
+  startTimeStr String?
+  endTimeStr   String?
 
   startTime DateTime
   endTime   DateTime
 
   capacity Int
 
+  trainers ClassScheduleTrainer[]
   bookings ClassBooking[]
 
   createdAt DateTime @default(now())

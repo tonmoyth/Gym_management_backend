@@ -14,6 +14,18 @@ const createSpecializationTag = catchAsync(async (req: Request, res: Response) =
     });
 });
 
+const getAllSpecializationTags = catchAsync(async (req: Request, res: Response) => {
+    const result = await SpecializationTagService.getAllSpecializationTags();
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Specialization tags retrieved successfully.",
+        data: result,
+    });
+});
+
 export const SpecializationTagController = {
     createSpecializationTag,
+    getAllSpecializationTags,
 };

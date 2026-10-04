@@ -7,13 +7,13 @@ const createClassScheduleValidation = z.object({
   body: z.object({
     title: z.string({ message: "Title is required." }),
     description: z.string().optional(),
-    trainerId: z.string({ message: "Trainer ID is required." }).uuid({ message: "Trainer ID must be a valid UUID." }),
-    startTime: z.string({ message: "Start time is required." }).datetime({ message: "Start time must be a valid ISO datetime." }),
-    endTime: z.string({ message: "End time is required." }).datetime({ message: "End time must be a valid ISO datetime." }),
+    daysOfWeek: z.array(z.string()).optional(),
+    timeSlot: z.string().optional(),
+    trainerId: z.string().uuid({ message: "Trainer ID must be a valid UUID." }).optional(),
+    trainerIds: z.array(z.string().uuid({ message: "Trainer ID must be a valid UUID." })).optional(),
+    startTime: z.string({ message: "Start time is required." }),
+    endTime: z.string({ message: "End time is required." }),
     capacity: z.number({ message: "Capacity is required." }).int().positive({ message: "Capacity must be greater than 0." }),
-  }).refine(data => new Date(data.startTime) < new Date(data.endTime), {
-    message: "End time must be after start time.",
-    path: ["endTime"],
   }),
 });
 
@@ -24,8 +24,8 @@ const getClassSchedulesValidation = z.object({
   query: z.object({
     trainerId: z.string().uuid().optional(),
     date: z.string().optional(),
-    from: z.string().datetime().optional(),
-    to: z.string().datetime().optional(),
+    from: z.string().optional(),
+    to: z.string().optional(),
     status: z.string().optional(),
     searchTerm: z.string().optional(),
     page: z.string().optional(),
@@ -43,18 +43,15 @@ const updateClassScheduleValidation = z.object({
   body: z.object({
     title: z.string().optional(),
     description: z.string().optional(),
-    trainerId: z.string().uuid({ message: "Trainer ID must be a valid UUID." }).optional(),
-    startTime: z.string().datetime({ message: "Start time must be a valid ISO datetime." }).optional(),
-    endTime: z.string().datetime({ message: "End time must be a valid ISO datetime." }).optional(),
+    daysOfWeek: z.array(z.string()).optional(),
+    timeSlot: z.string().optional(),
+    trainerId: z.string().uuid({ message: "Trainer ID must be a valid UUID." }).nullable().optional(),
+    trainerIds: z.array(z.string().uuid({ message: "Trainer ID must be a valid UUID." })).optional(),
+    startTime: z.string().optional(),
+    endTime: z.string().optional(),
+    startTimeStr: z.string().optional(),
+    endTimeStr: z.string().optional(),
     capacity: z.number().int().positive({ message: "Capacity must be greater than 0." }).optional(),
-  }).refine(data => {
-    if (data.startTime && data.endTime) {
-      return new Date(data.startTime) < new Date(data.endTime);
-    }
-    return true;
-  }, {
-    message: "End time must be after start time.",
-    path: ["endTime"],
   }),
 });
 

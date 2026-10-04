@@ -169,3 +169,62 @@ export const PLATFORM_PERMISSION_GROUPS: IPermissionGroup[] = [
 
 export const platformStaffSearchableFields = ['fullName', 'email'];
 export const platformStaffFilterableFields = ['role', 'isActive'];
+
+export const PERMISSION_SCOPE_MAP: Record<string, { role: 'ADMIN' | 'STAFF'; permissions: string[] }> = {
+    SUPPORT: {
+        role: 'STAFF',
+        permissions: [
+            'DISPUTE_READ',
+            'DISPUTE_MANAGE',
+            'DISPUTE_RESOLVE',
+            'USER_READ',
+            'CONTENT_READ'
+        ]
+    },
+    COMPLIANCE: {
+        role: 'STAFF',
+        permissions: [
+            'BUSINESS_READ',
+            'BUSINESS_APPROVE',
+            'CERTIFICATION_READ',
+            'CERTIFICATION_VERIFY',
+            'CERTIFICATION_REJECT',
+            'CONTENT_READ',
+            'CONTENT_MODERATE'
+        ]
+    },
+    BILLING: {
+        role: 'STAFF',
+        permissions: [
+            'PAYMENT_READ',
+            'SUBSCRIPTION_READ',
+            'DASHBOARD_READ'
+        ]
+    },
+    FULL_ACCESS: {
+        role: 'ADMIN',
+        permissions: [
+            'BUSINESS_READ',
+            'BUSINESS_APPROVE',
+            'BUSINESS_SUSPEND',
+            'USER_READ',
+            'USER_MANAGE',
+            'USER_SUSPEND',
+            'PAYMENT_READ',
+            'PAYMENT_MANAGE',
+            'PAYMENT_REFUND',
+            'DISPUTE_READ',
+            'DISPUTE_MANAGE',
+            'DISPUTE_RESOLVE',
+            'CERTIFICATION_READ',
+            'CERTIFICATION_VERIFY',
+            'CERTIFICATION_REJECT',
+            'CONTENT_READ',
+            'CONTENT_MODERATE',
+            'SUBSCRIPTION_READ',
+            'SUBSCRIPTION_MANAGE',
+            'DASHBOARD_READ',
+            'STAFF_READ'
+        ]
+    }
+};

@@ -43,7 +43,7 @@ router.post(
 router.post(
   "/businesses/:businessId/devices",
   // @ts-ignore
-  checkAuth(Role.BUSINESS_OWNER),
+  checkAuth(Role.BUSINESS_OWNER, Role.STAFF),
   validateRequest(AttendanceValidations.registerDeviceValidation),
   AttendanceController.registerDevice
 );
@@ -51,7 +51,7 @@ router.post(
 router.get(
   "/businesses/:businessId/devices",
   // @ts-ignore
-  checkAuth(Role.BUSINESS_OWNER),
+  checkAuth(Role.BUSINESS_OWNER, Role.STAFF),
   validateRequest(AttendanceValidations.getDevicesValidation),
   AttendanceController.getDevices
 );
@@ -59,7 +59,7 @@ router.get(
 router.delete(
   "/businesses/:businessId/devices/:deviceId",
   // @ts-ignore
-  checkAuth(Role.BUSINESS_OWNER),
+  checkAuth(Role.BUSINESS_OWNER, Role.STAFF),
   validateRequest(AttendanceValidations.deleteDeviceValidation),
   AttendanceController.deleteDevice
 );
@@ -68,7 +68,7 @@ router.delete(
 router.get(
   "/businesses/:businessId/attendance",
   // @ts-ignore
-  checkAuth(Role.BUSINESS_OWNER),
+  checkAuth(Role.BUSINESS_OWNER, Role.STAFF),
   validateRequest(AttendanceValidations.getReportValidation),
   AttendanceController.getAttendanceReport
 );
@@ -76,7 +76,7 @@ router.get(
 router.get(
   "/businesses/:businessId/attendance/today",
   // @ts-ignore
-  checkAuth(Role.BUSINESS_OWNER),
+  checkAuth(Role.BUSINESS_OWNER, Role.STAFF),
   validateRequest(AttendanceValidations.getSummaryValidation),
   AttendanceController.getTodayAttendanceSummary
 );
@@ -84,7 +84,7 @@ router.get(
 router.get(
   "/businesses/:businessId/attendance/member/:memberId",
   // @ts-ignore
-  checkAuth(Role.BUSINESS_OWNER),
+  checkAuth(Role.BUSINESS_OWNER, Role.STAFF),
   validateRequest(AttendanceValidations.getMemberHistoryValidation),
   AttendanceController.getMemberAttendanceHistory
 );

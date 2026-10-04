@@ -17,16 +17,29 @@ const initiatePayment = catchAsync(async (req: Request, res: Response) => {
 
 const handleWebhook = catchAsync(async (req: Request, res: Response) => {
   const gateway = req.params.gateway || (req.query.gateway as string) || "stripe";
-  const rawBody = req.body;
-  const sigHeader = req.headers["stripe-signature"];
+  const rawBody = (req as any).rawBody || req.body;
+  const sigHeader =
+    req.headers["stripe-signature"] ||
+    req.headers["x-signature"] ||
+    req.headers["x-webhook-signature"];
   const signature = Array.isArray(sigHeader) ? sigHeader[0] : (sigHeader || "");
 
-
-  await paymentService.handleWebhook(gateway as string, signature, rawBody);
+  const result = await paymentService.handleWebhook(
+    gateway as string,
+    signature,
+    rawBody,
+    req.body,
+    {
+      ipAddress: req.ip,
+      userAgent: req.get("user-agent"),
+      headers: req.headers,
+    }
+  );
 
   res.status(200).json({
     success: true,
-    message: "Webhook event processed successfully",
+    message: result?.message || "Webhook event processed successfully",
+    data: result?.data,
   });
 });
 
@@ -56,9 +69,22 @@ const getInvoice = catchAsync(async (req: Request, res: Response) => {
   res.status(200).send(invoiceBuffer);
 });
 
+const verifySession = catchAsync(async (req: Request, res: Response) => {
+  const sessionId = (req.query.session_id || req.query.sessionId || req.params.sessionId) as string;
+  const result = await paymentService.verifySession(sessionId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Payment session verified successfully",
+    data: result,
+  });
+});
+
 export const paymentController = {
   initiatePayment,
   handleWebhook,
   getMyPayments,
   getInvoice,
+  verifySession,
 };

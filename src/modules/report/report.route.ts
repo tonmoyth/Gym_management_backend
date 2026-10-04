@@ -12,7 +12,7 @@ const router = Router();
 router.get(
   "/businesses/:businessId/reports/revenue",
   // @ts-ignore
-  checkAuth(Role.BUSINESS_OWNER),
+  checkAuth(Role.BUSINESS_OWNER, Role.STAFF),
   validateRequest(ReportValidations.getRevenueReportValidation),
   ReportController.getRevenueReport
 );
@@ -20,7 +20,7 @@ router.get(
 router.get(
   "/businesses/:businessId/reports/payouts",
   // @ts-ignore
-  checkAuth(Role.BUSINESS_OWNER),
+  checkAuth(Role.BUSINESS_OWNER, Role.STAFF),
   validateRequest(ReportValidations.getPayoutReportValidation),
   ReportController.getPayoutReport
 );

@@ -58,6 +58,11 @@ export type BusinessReferral = Prisma.BusinessReferralModel
  */
 export type BusinessStaff = Prisma.BusinessStaffModel
 /**
+ * Model BusinessSubscription
+ * 
+ */
+export type BusinessSubscription = Prisma.BusinessSubscriptionModel
+/**
  * Model ChatMessage
  * 
  */
@@ -77,6 +82,11 @@ export type ClassBooking = Prisma.ClassBookingModel
  * 
  */
 export type ClassSchedule = Prisma.ClassScheduleModel
+/**
+ * Model ClassScheduleTrainer
+ * 
+ */
+export type ClassScheduleTrainer = Prisma.ClassScheduleTrainerModel
 /**
  * Model DietPlan
  * 
@@ -148,6 +158,11 @@ export type Notification = Prisma.NotificationModel
  */
 export type Payment = Prisma.PaymentModel
 /**
+ * Model PaymentAccount
+ * 
+ */
+export type PaymentAccount = Prisma.PaymentAccountModel
+/**
  * Model PlatformSubscription
  * 
  */
@@ -172,6 +187,16 @@ export type Review = Prisma.ReviewModel
  * 
  */
 export type SpecializationTag = Prisma.SpecializationTagModel
+/**
+ * Model SubscriptionPayment
+ * 
+ */
+export type SubscriptionPayment = Prisma.SubscriptionPaymentModel
+/**
+ * Model SubscriptionPlan
+ * 
+ */
+export type SubscriptionPlan = Prisma.SubscriptionPlanModel
 /**
  * Model TrainerApplication
  * 

@@ -58,8 +58,11 @@ const handleJobWithRetry = async (jobData: any, attempt: number = 1) => {
             await processSubscriptionStatusUpdated(jobData);
         } else if (jobData.eventType === 'DISPUTE_RESOLVED') {
             await processDisputeResolved(jobData);
-        } else if (jobData.eventType === 'BUSINESS_REFERRAL_CREDITED') {
-            await processBusinessReferralCredited(jobData);
+        // Referral system temporarily disabled - will be implemented later
+        // } else if (jobData.eventType === 'BUSINESS_REFERRAL_CREDITED') {
+        //     await processBusinessReferralCredited(jobData);
+        // } else if (jobData.eventType === 'MEMBER_REFERRAL_CREDITED') {
+        //     await processMemberReferralCredited(jobData);
         } else {
             // Unhandled event type, just log it for now
             console.log(`ℹ️ Notification Worker received unhandled event type: ${jobData.eventType}`);
@@ -537,6 +540,8 @@ const processDisputeResolved = async (data: any) => {
     }
 };
 
+/*
+// Referral system temporarily disabled - will be implemented later
 const processBusinessReferralCredited = async (data: any) => {
     const {
         referralId,
@@ -563,4 +568,31 @@ const processBusinessReferralCredited = async (data: any) => {
         }
     }
 };
+
+const processMemberReferralCredited = async (data: any) => {
+    const {
+        referralId,
+        referrerEmail,
+        referrerName,
+        businessName,
+        commissionAmount,
+    } = data;
+
+    console.log(`Processing member referral commission credited notification for referral ${referralId} to ${referrerEmail}`);
+
+    if (referrerEmail) {
+        try {
+            await MailService.sendBusinessReferralCreditedEmail(
+                referrerName || 'Valued Member',
+                referrerEmail,
+                businessName || 'Gym Business',
+                Number(commissionAmount) || 0,
+                `REF-${String(referralId).slice(0, 8).toUpperCase()}`
+            );
+        } catch (error: any) {
+            console.error('❌ Failed to send member referral credited email:', error.message);
+        }
+    }
+};
+*/
 

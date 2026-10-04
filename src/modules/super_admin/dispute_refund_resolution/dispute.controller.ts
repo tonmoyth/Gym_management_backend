@@ -32,11 +32,33 @@ const getDisputeById = catchAsync(async (req: Request, res: Response) => {
 const resolveDispute = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const adminId = req.user?.id as string;
+  const rawBody = req.body || {};
+
+  let resolution = rawBody.resolution;
+  const reason = (rawBody.reason || rawBody.resolutionNote || '').trim();
+
+  if (!resolution) {
+    if (rawBody.status === 'DISMISSED') {
+      resolution = 'DISMISSAL';
+    } else if (rawBody.refundAmount || rawBody.paymentId) {
+      resolution = 'REFUND';
+    } else {
+      resolution = 'WARNING';
+    }
+  }
+
+  const payload = {
+    resolution,
+    reason,
+    paymentId: rawBody.paymentId,
+    accountAction: rawBody.accountAction,
+    targetUserId: rawBody.targetUserId,
+  };
 
   const result = await DisputeRefundResolutionService.resolveDispute(
     id as string,
     adminId,
-    req.body
+    payload
   );
 
   sendResponse(res, {

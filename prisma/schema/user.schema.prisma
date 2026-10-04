@@ -29,6 +29,8 @@ model User {
   creditedBusinessReferrals   BusinessReferral[]     @relation("ReferralCreditedBy")
   disputes                    Dispute[]
   auditLogs                   AuditLog[]             @relation("UserAuditLogs")
+  paymentAccounts             PaymentAccount[]
+  reviewedSubscriptionPayments SubscriptionPayment[] @relation("AdminSubscriptionPaymentReviewer")
 
   @@map("user")
 }

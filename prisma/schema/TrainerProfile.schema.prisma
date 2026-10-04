@@ -21,6 +21,7 @@ model TrainerProfile {
 
   chatThreads     ChatThread[]
   classSchedules  ClassSchedule[]
+  classScheduleAssignments ClassScheduleTrainer[]
   dietPlans       DietPlan[]
   reviews         Review[]
   applications    TrainerApplication[]
@@ -29,6 +30,7 @@ model TrainerProfile {
   payouts         TrainerPayout[]
   specializations TrainerSpecialization[]
   disputes        Dispute[]
+  paymentAccounts PaymentAccount[]
 
   @@index([verifiedBadge])
   @@index([gender])

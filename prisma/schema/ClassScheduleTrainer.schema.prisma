@@ -1,0 +1,15 @@
+model ClassScheduleTrainer {
+  id              String         @id @default(uuid())
+
+  classScheduleId String
+  classSchedule   ClassSchedule  @relation(fields: [classScheduleId], references: [id], onDelete: Cascade)
+
+  trainerId       String
+  trainer         TrainerProfile @relation(fields: [trainerId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime       @default(now())
+
+  @@unique([classScheduleId, trainerId])
+  @@index([classScheduleId])
+  @@index([trainerId])
+}

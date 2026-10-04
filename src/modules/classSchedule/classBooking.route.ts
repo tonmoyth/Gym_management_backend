@@ -7,18 +7,33 @@ import { ClassBookingController } from "./classBooking.controller";
 
 const router = express.Router();
 
-const bookClassValidation = z.object({
+const classIdParamValidation = z.object({
   params: z.object({
-    id: z.string({ message: "Class ID is required." }).uuid({ message: "Class ID must be a valid UUID." }),
+    id: z.string({ message: "ID is required." }).uuid({ message: "ID must be a valid UUID." }),
   }),
 });
+
+router.get(
+  "/my-bookings",
+  // @ts-ignore
+  checkAuth(USER_ROLE.MEMBER),
+  ClassBookingController.getMyBookings
+);
 
 router.post(
   "/:id/book",
   // @ts-ignore
   checkAuth(USER_ROLE.MEMBER),
-  validateRequest(bookClassValidation),
+  validateRequest(classIdParamValidation),
   ClassBookingController.bookClass
+);
+
+router.patch(
+  "/:id/cancel",
+  // @ts-ignore
+  checkAuth(USER_ROLE.MEMBER),
+  validateRequest(classIdParamValidation),
+  ClassBookingController.cancelBooking
 );
 
 export const classBookingRoutes = router;

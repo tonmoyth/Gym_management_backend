@@ -20,8 +20,18 @@ export type TrainerBusinessModel = runtime.Types.Result.DefaultSelection<Prisma.
 
 export type AggregateTrainerBusiness = {
   _count: TrainerBusinessCountAggregateOutputType | null
+  _avg: TrainerBusinessAvgAggregateOutputType | null
+  _sum: TrainerBusinessSumAggregateOutputType | null
   _min: TrainerBusinessMinAggregateOutputType | null
   _max: TrainerBusinessMaxAggregateOutputType | null
+}
+
+export type TrainerBusinessAvgAggregateOutputType = {
+  monthlySalary: runtime.Decimal | null
+}
+
+export type TrainerBusinessSumAggregateOutputType = {
+  monthlySalary: runtime.Decimal | null
 }
 
 export type TrainerBusinessMinAggregateOutputType = {
@@ -29,6 +39,8 @@ export type TrainerBusinessMinAggregateOutputType = {
   trainerId: string | null
   businessId: string | null
   isActive: boolean | null
+  monthlySalary: runtime.Decimal | null
+  notes: string | null
   joinedAt: Date | null
 }
 
@@ -37,6 +49,8 @@ export type TrainerBusinessMaxAggregateOutputType = {
   trainerId: string | null
   businessId: string | null
   isActive: boolean | null
+  monthlySalary: runtime.Decimal | null
+  notes: string | null
   joinedAt: Date | null
 }
 
@@ -45,16 +59,28 @@ export type TrainerBusinessCountAggregateOutputType = {
   trainerId: number
   businessId: number
   isActive: number
+  monthlySalary: number
+  notes: number
   joinedAt: number
   _all: number
 }
 
+
+export type TrainerBusinessAvgAggregateInputType = {
+  monthlySalary?: true
+}
+
+export type TrainerBusinessSumAggregateInputType = {
+  monthlySalary?: true
+}
 
 export type TrainerBusinessMinAggregateInputType = {
   id?: true
   trainerId?: true
   businessId?: true
   isActive?: true
+  monthlySalary?: true
+  notes?: true
   joinedAt?: true
 }
 
@@ -63,6 +89,8 @@ export type TrainerBusinessMaxAggregateInputType = {
   trainerId?: true
   businessId?: true
   isActive?: true
+  monthlySalary?: true
+  notes?: true
   joinedAt?: true
 }
 
@@ -71,6 +99,8 @@ export type TrainerBusinessCountAggregateInputType = {
   trainerId?: true
   businessId?: true
   isActive?: true
+  monthlySalary?: true
+  notes?: true
   joinedAt?: true
   _all?: true
 }
@@ -113,6 +143,18 @@ export type TrainerBusinessAggregateArgs<ExtArgs extends runtime.Types.Extension
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: TrainerBusinessAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: TrainerBusinessSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: TrainerBusinessMinAggregateInputType
@@ -143,6 +185,8 @@ export type TrainerBusinessGroupByArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   _count?: TrainerBusinessCountAggregateInputType | true
+  _avg?: TrainerBusinessAvgAggregateInputType
+  _sum?: TrainerBusinessSumAggregateInputType
   _min?: TrainerBusinessMinAggregateInputType
   _max?: TrainerBusinessMaxAggregateInputType
 }
@@ -152,8 +196,12 @@ export type TrainerBusinessGroupByOutputType = {
   trainerId: string
   businessId: string
   isActive: boolean
+  monthlySalary: runtime.Decimal | null
+  notes: string | null
   joinedAt: Date
   _count: TrainerBusinessCountAggregateOutputType | null
+  _avg: TrainerBusinessAvgAggregateOutputType | null
+  _sum: TrainerBusinessSumAggregateOutputType | null
   _min: TrainerBusinessMinAggregateOutputType | null
   _max: TrainerBusinessMaxAggregateOutputType | null
 }
@@ -181,6 +229,8 @@ export type TrainerBusinessWhereInput = {
   trainerId?: Prisma.StringFilter<"TrainerBusiness"> | string
   businessId?: Prisma.StringFilter<"TrainerBusiness"> | string
   isActive?: Prisma.BoolFilter<"TrainerBusiness"> | boolean
+  monthlySalary?: Prisma.DecimalNullableFilter<"TrainerBusiness"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.StringNullableFilter<"TrainerBusiness"> | string | null
   joinedAt?: Prisma.DateTimeFilter<"TrainerBusiness"> | Date | string
   trainer?: Prisma.XOR<Prisma.TrainerProfileScalarRelationFilter, Prisma.TrainerProfileWhereInput>
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
@@ -191,6 +241,8 @@ export type TrainerBusinessOrderByWithRelationInput = {
   trainerId?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  monthlySalary?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   trainer?: Prisma.TrainerProfileOrderByWithRelationInput
   business?: Prisma.BusinessOrderByWithRelationInput
@@ -205,6 +257,8 @@ export type TrainerBusinessWhereUniqueInput = Prisma.AtLeast<{
   trainerId?: Prisma.StringFilter<"TrainerBusiness"> | string
   businessId?: Prisma.StringFilter<"TrainerBusiness"> | string
   isActive?: Prisma.BoolFilter<"TrainerBusiness"> | boolean
+  monthlySalary?: Prisma.DecimalNullableFilter<"TrainerBusiness"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.StringNullableFilter<"TrainerBusiness"> | string | null
   joinedAt?: Prisma.DateTimeFilter<"TrainerBusiness"> | Date | string
   trainer?: Prisma.XOR<Prisma.TrainerProfileScalarRelationFilter, Prisma.TrainerProfileWhereInput>
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
@@ -215,10 +269,14 @@ export type TrainerBusinessOrderByWithAggregationInput = {
   trainerId?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  monthlySalary?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   _count?: Prisma.TrainerBusinessCountOrderByAggregateInput
+  _avg?: Prisma.TrainerBusinessAvgOrderByAggregateInput
   _max?: Prisma.TrainerBusinessMaxOrderByAggregateInput
   _min?: Prisma.TrainerBusinessMinOrderByAggregateInput
+  _sum?: Prisma.TrainerBusinessSumOrderByAggregateInput
 }
 
 export type TrainerBusinessScalarWhereWithAggregatesInput = {
@@ -229,12 +287,16 @@ export type TrainerBusinessScalarWhereWithAggregatesInput = {
   trainerId?: Prisma.StringWithAggregatesFilter<"TrainerBusiness"> | string
   businessId?: Prisma.StringWithAggregatesFilter<"TrainerBusiness"> | string
   isActive?: Prisma.BoolWithAggregatesFilter<"TrainerBusiness"> | boolean
+  monthlySalary?: Prisma.DecimalNullableWithAggregatesFilter<"TrainerBusiness"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.StringNullableWithAggregatesFilter<"TrainerBusiness"> | string | null
   joinedAt?: Prisma.DateTimeWithAggregatesFilter<"TrainerBusiness"> | Date | string
 }
 
 export type TrainerBusinessCreateInput = {
   id?: string
   isActive?: boolean
+  monthlySalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
   joinedAt?: Date | string
   trainer: Prisma.TrainerProfileCreateNestedOneWithoutBusinessesInput
   business: Prisma.BusinessCreateNestedOneWithoutTrainersInput
@@ -245,12 +307,16 @@ export type TrainerBusinessUncheckedCreateInput = {
   trainerId: string
   businessId: string
   isActive?: boolean
+  monthlySalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
   joinedAt?: Date | string
 }
 
 export type TrainerBusinessUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  monthlySalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trainer?: Prisma.TrainerProfileUpdateOneRequiredWithoutBusinessesNestedInput
   business?: Prisma.BusinessUpdateOneRequiredWithoutTrainersNestedInput
@@ -261,6 +327,8 @@ export type TrainerBusinessUncheckedUpdateInput = {
   trainerId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  monthlySalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -269,12 +337,16 @@ export type TrainerBusinessCreateManyInput = {
   trainerId: string
   businessId: string
   isActive?: boolean
+  monthlySalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
   joinedAt?: Date | string
 }
 
 export type TrainerBusinessUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  monthlySalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -283,6 +355,8 @@ export type TrainerBusinessUncheckedUpdateManyInput = {
   trainerId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  monthlySalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -306,7 +380,13 @@ export type TrainerBusinessCountOrderByAggregateInput = {
   trainerId?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  monthlySalary?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+}
+
+export type TrainerBusinessAvgOrderByAggregateInput = {
+  monthlySalary?: Prisma.SortOrder
 }
 
 export type TrainerBusinessMaxOrderByAggregateInput = {
@@ -314,6 +394,8 @@ export type TrainerBusinessMaxOrderByAggregateInput = {
   trainerId?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  monthlySalary?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
 }
 
@@ -322,7 +404,13 @@ export type TrainerBusinessMinOrderByAggregateInput = {
   trainerId?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  monthlySalary?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+}
+
+export type TrainerBusinessSumOrderByAggregateInput = {
+  monthlySalary?: Prisma.SortOrder
 }
 
 export type TrainerBusinessCreateNestedManyWithoutBusinessInput = {
@@ -412,6 +500,8 @@ export type TrainerBusinessUncheckedUpdateManyWithoutTrainerNestedInput = {
 export type TrainerBusinessCreateWithoutBusinessInput = {
   id?: string
   isActive?: boolean
+  monthlySalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
   joinedAt?: Date | string
   trainer: Prisma.TrainerProfileCreateNestedOneWithoutBusinessesInput
 }
@@ -420,6 +510,8 @@ export type TrainerBusinessUncheckedCreateWithoutBusinessInput = {
   id?: string
   trainerId: string
   isActive?: boolean
+  monthlySalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
   joinedAt?: Date | string
 }
 
@@ -457,12 +549,16 @@ export type TrainerBusinessScalarWhereInput = {
   trainerId?: Prisma.StringFilter<"TrainerBusiness"> | string
   businessId?: Prisma.StringFilter<"TrainerBusiness"> | string
   isActive?: Prisma.BoolFilter<"TrainerBusiness"> | boolean
+  monthlySalary?: Prisma.DecimalNullableFilter<"TrainerBusiness"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.StringNullableFilter<"TrainerBusiness"> | string | null
   joinedAt?: Prisma.DateTimeFilter<"TrainerBusiness"> | Date | string
 }
 
 export type TrainerBusinessCreateWithoutTrainerInput = {
   id?: string
   isActive?: boolean
+  monthlySalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
   joinedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutTrainersInput
 }
@@ -471,6 +567,8 @@ export type TrainerBusinessUncheckedCreateWithoutTrainerInput = {
   id?: string
   businessId: string
   isActive?: boolean
+  monthlySalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
   joinedAt?: Date | string
 }
 
@@ -504,12 +602,16 @@ export type TrainerBusinessCreateManyBusinessInput = {
   id?: string
   trainerId: string
   isActive?: boolean
+  monthlySalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
   joinedAt?: Date | string
 }
 
 export type TrainerBusinessUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  monthlySalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trainer?: Prisma.TrainerProfileUpdateOneRequiredWithoutBusinessesNestedInput
 }
@@ -518,6 +620,8 @@ export type TrainerBusinessUncheckedUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trainerId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  monthlySalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -525,6 +629,8 @@ export type TrainerBusinessUncheckedUpdateManyWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trainerId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  monthlySalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -532,12 +638,16 @@ export type TrainerBusinessCreateManyTrainerInput = {
   id?: string
   businessId: string
   isActive?: boolean
+  monthlySalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
   joinedAt?: Date | string
 }
 
 export type TrainerBusinessUpdateWithoutTrainerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  monthlySalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutTrainersNestedInput
 }
@@ -546,6 +656,8 @@ export type TrainerBusinessUncheckedUpdateWithoutTrainerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  monthlySalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -553,6 +665,8 @@ export type TrainerBusinessUncheckedUpdateManyWithoutTrainerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  monthlySalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -563,6 +677,8 @@ export type TrainerBusinessSelect<ExtArgs extends runtime.Types.Extensions.Inter
   trainerId?: boolean
   businessId?: boolean
   isActive?: boolean
+  monthlySalary?: boolean
+  notes?: boolean
   joinedAt?: boolean
   trainer?: boolean | Prisma.TrainerProfileDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -573,6 +689,8 @@ export type TrainerBusinessSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   trainerId?: boolean
   businessId?: boolean
   isActive?: boolean
+  monthlySalary?: boolean
+  notes?: boolean
   joinedAt?: boolean
   trainer?: boolean | Prisma.TrainerProfileDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -583,6 +701,8 @@ export type TrainerBusinessSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   trainerId?: boolean
   businessId?: boolean
   isActive?: boolean
+  monthlySalary?: boolean
+  notes?: boolean
   joinedAt?: boolean
   trainer?: boolean | Prisma.TrainerProfileDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -593,10 +713,12 @@ export type TrainerBusinessSelectScalar = {
   trainerId?: boolean
   businessId?: boolean
   isActive?: boolean
+  monthlySalary?: boolean
+  notes?: boolean
   joinedAt?: boolean
 }
 
-export type TrainerBusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "trainerId" | "businessId" | "isActive" | "joinedAt", ExtArgs["result"]["trainerBusiness"]>
+export type TrainerBusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "trainerId" | "businessId" | "isActive" | "monthlySalary" | "notes" | "joinedAt", ExtArgs["result"]["trainerBusiness"]>
 export type TrainerBusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   trainer?: boolean | Prisma.TrainerProfileDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -621,6 +743,8 @@ export type $TrainerBusinessPayload<ExtArgs extends runtime.Types.Extensions.Int
     trainerId: string
     businessId: string
     isActive: boolean
+    monthlySalary: runtime.Decimal | null
+    notes: string | null
     joinedAt: Date
   }, ExtArgs["result"]["trainerBusiness"]>
   composites: {}
@@ -1051,6 +1175,8 @@ export interface TrainerBusinessFieldRefs {
   readonly trainerId: Prisma.FieldRef<"TrainerBusiness", 'String'>
   readonly businessId: Prisma.FieldRef<"TrainerBusiness", 'String'>
   readonly isActive: Prisma.FieldRef<"TrainerBusiness", 'Boolean'>
+  readonly monthlySalary: Prisma.FieldRef<"TrainerBusiness", 'Decimal'>
+  readonly notes: Prisma.FieldRef<"TrainerBusiness", 'String'>
   readonly joinedAt: Prisma.FieldRef<"TrainerBusiness", 'DateTime'>
 }
     

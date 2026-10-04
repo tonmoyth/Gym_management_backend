@@ -89,6 +89,36 @@ const getMyBusinessReferrals = catchAsync(async (req: Request, res: Response) =>
   });
 });
 
+const getOwnerMemberReferrals = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id;
+  const result = await ReferralService.getOwnerMemberReferrals(userId, req.query);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Member referrals retrieved successfully",
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
+const creditMemberReferral = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id;
+  const { id } = req.params;
+
+  const result = await ReferralService.creditMemberReferral(userId, id as string, {
+    ipAddress: req.ip,
+    userAgent: req.get('user-agent'),
+  });
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Referral commission credited successfully",
+    data: result,
+  });
+});
+
 export const ReferralController = {
   getMyReferralCode,
   registerReferral,
@@ -97,5 +127,7 @@ export const ReferralController = {
   validateBusinessReferralCode,
   registerBusinessReferral,
   getMyBusinessReferrals,
+  getOwnerMemberReferrals,
+  creditMemberReferral,
 };
 

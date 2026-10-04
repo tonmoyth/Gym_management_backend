@@ -38,21 +38,32 @@ const createDispute = async (userId: string, role: string, payload: any) => {
     throw new AppError(httpStatus.NOT_FOUND, 'Trainer profile not found.');
   }
 
+  let targetBusinessId: string | null = null;
   // If businessId is provided, verify the trainer is associated with this business
-  if (payload.businessId) {
+  if (payload.businessId && typeof payload.businessId === 'string' && payload.businessId.trim() !== '') {
+    const rawId = payload.businessId.trim();
     const trainerBusiness = await prisma.trainerBusiness.findFirst({
       where: {
         trainerId: trainerProfile.id,
-        businessId: payload.businessId,
+        OR: [{ businessId: rawId }, { id: rawId }],
         isActive: true,
       },
     });
 
-    if (!trainerBusiness) {
-      throw new AppError(
-        httpStatus.FORBIDDEN,
-        'You are not associated with this business or your application is not active.',
-      );
+    if (trainerBusiness) {
+      targetBusinessId = trainerBusiness.businessId;
+    } else {
+      const business = await prisma.business.findUnique({
+        where: { id: rawId },
+      });
+      if (business) {
+        targetBusinessId = business.id;
+      } else {
+        throw new AppError(
+          httpStatus.FORBIDDEN,
+          'You are not associated with this business or your application is not active.',
+        );
+      }
     }
   }
 
@@ -60,7 +71,7 @@ const createDispute = async (userId: string, role: string, payload: any) => {
     data: {
       userId,
       trainerId: trainerProfile.id,
-      businessId: payload.businessId,
+      businessId: targetBusinessId,
       subject: payload.subject,
       description: payload.description,
       category: payload.category || 'OTHER',
@@ -115,7 +126,57 @@ const getMyDisputes = async (userId: string, query: Record<string, unknown>) => 
   };
 };
 
+const getSingleDispute = async (user: { id: string; role: string }, disputeId: string) => {
+  const dispute = await prisma.dispute.findUnique({
+    where: { id: disputeId },
+    include: {
+      user: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+          profileImage: true,
+          role: true,
+        },
+      },
+      trainer: {
+        select: {
+          id: true,
+          userId: true,
+          bio: true,
+        },
+      },
+      business: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+
+  if (!dispute) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Dispute not found.');
+  }
+
+  // Cross-role service-level authorization check:
+  // Allowed if user is SUPER_ADMIN or if user is the dispute raiser
+  const isSuperAdmin = user.role === 'SUPER_ADMIN';
+  const isRaiser = dispute.userId === user.id;
+
+  if (!isSuperAdmin && !isRaiser) {
+    throw new AppError(
+      httpStatus.FORBIDDEN,
+      'Forbidden: You are not authorized to view this dispute.'
+    );
+  }
+
+  return dispute;
+};
+
 export const DisputeService = {
   createDispute,
   getMyDisputes,
+  getSingleDispute,
 };

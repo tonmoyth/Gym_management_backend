@@ -20,8 +20,20 @@ export type JobPostModel = runtime.Types.Result.DefaultSelection<Prisma.$JobPost
 
 export type AggregateJobPost = {
   _count: JobPostCountAggregateOutputType | null
+  _avg: JobPostAvgAggregateOutputType | null
+  _sum: JobPostSumAggregateOutputType | null
   _min: JobPostMinAggregateOutputType | null
   _max: JobPostMaxAggregateOutputType | null
+}
+
+export type JobPostAvgAggregateOutputType = {
+  salary: runtime.Decimal | null
+  experience: number | null
+}
+
+export type JobPostSumAggregateOutputType = {
+  salary: runtime.Decimal | null
+  experience: number | null
 }
 
 export type JobPostMinAggregateOutputType = {
@@ -31,6 +43,8 @@ export type JobPostMinAggregateOutputType = {
   description: string | null
   specializationTagId: string | null
   isOpen: boolean | null
+  salary: runtime.Decimal | null
+  experience: number | null
   createdAt: Date | null
 }
 
@@ -41,6 +55,8 @@ export type JobPostMaxAggregateOutputType = {
   description: string | null
   specializationTagId: string | null
   isOpen: boolean | null
+  salary: runtime.Decimal | null
+  experience: number | null
   createdAt: Date | null
 }
 
@@ -51,10 +67,22 @@ export type JobPostCountAggregateOutputType = {
   description: number
   specializationTagId: number
   isOpen: number
+  salary: number
+  experience: number
   createdAt: number
   _all: number
 }
 
+
+export type JobPostAvgAggregateInputType = {
+  salary?: true
+  experience?: true
+}
+
+export type JobPostSumAggregateInputType = {
+  salary?: true
+  experience?: true
+}
 
 export type JobPostMinAggregateInputType = {
   id?: true
@@ -63,6 +91,8 @@ export type JobPostMinAggregateInputType = {
   description?: true
   specializationTagId?: true
   isOpen?: true
+  salary?: true
+  experience?: true
   createdAt?: true
 }
 
@@ -73,6 +103,8 @@ export type JobPostMaxAggregateInputType = {
   description?: true
   specializationTagId?: true
   isOpen?: true
+  salary?: true
+  experience?: true
   createdAt?: true
 }
 
@@ -83,6 +115,8 @@ export type JobPostCountAggregateInputType = {
   description?: true
   specializationTagId?: true
   isOpen?: true
+  salary?: true
+  experience?: true
   createdAt?: true
   _all?: true
 }
@@ -125,6 +159,18 @@ export type JobPostAggregateArgs<ExtArgs extends runtime.Types.Extensions.Intern
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: JobPostAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: JobPostSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: JobPostMinAggregateInputType
@@ -155,6 +201,8 @@ export type JobPostGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   _count?: JobPostCountAggregateInputType | true
+  _avg?: JobPostAvgAggregateInputType
+  _sum?: JobPostSumAggregateInputType
   _min?: JobPostMinAggregateInputType
   _max?: JobPostMaxAggregateInputType
 }
@@ -166,8 +214,12 @@ export type JobPostGroupByOutputType = {
   description: string
   specializationTagId: string
   isOpen: boolean
+  salary: runtime.Decimal | null
+  experience: number | null
   createdAt: Date
   _count: JobPostCountAggregateOutputType | null
+  _avg: JobPostAvgAggregateOutputType | null
+  _sum: JobPostSumAggregateOutputType | null
   _min: JobPostMinAggregateOutputType | null
   _max: JobPostMaxAggregateOutputType | null
 }
@@ -197,6 +249,8 @@ export type JobPostWhereInput = {
   description?: Prisma.StringFilter<"JobPost"> | string
   specializationTagId?: Prisma.StringFilter<"JobPost"> | string
   isOpen?: Prisma.BoolFilter<"JobPost"> | boolean
+  salary?: Prisma.DecimalNullableFilter<"JobPost"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.IntNullableFilter<"JobPost"> | number | null
   createdAt?: Prisma.DateTimeFilter<"JobPost"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   specializationTag?: Prisma.XOR<Prisma.SpecializationTagScalarRelationFilter, Prisma.SpecializationTagWhereInput>
@@ -210,6 +264,8 @@ export type JobPostOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   specializationTagId?: Prisma.SortOrder
   isOpen?: Prisma.SortOrder
+  salary?: Prisma.SortOrderInput | Prisma.SortOrder
+  experience?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
   specializationTag?: Prisma.SpecializationTagOrderByWithRelationInput
@@ -226,6 +282,8 @@ export type JobPostWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"JobPost"> | string
   specializationTagId?: Prisma.StringFilter<"JobPost"> | string
   isOpen?: Prisma.BoolFilter<"JobPost"> | boolean
+  salary?: Prisma.DecimalNullableFilter<"JobPost"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.IntNullableFilter<"JobPost"> | number | null
   createdAt?: Prisma.DateTimeFilter<"JobPost"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   specializationTag?: Prisma.XOR<Prisma.SpecializationTagScalarRelationFilter, Prisma.SpecializationTagWhereInput>
@@ -239,10 +297,14 @@ export type JobPostOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   specializationTagId?: Prisma.SortOrder
   isOpen?: Prisma.SortOrder
+  salary?: Prisma.SortOrderInput | Prisma.SortOrder
+  experience?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.JobPostCountOrderByAggregateInput
+  _avg?: Prisma.JobPostAvgOrderByAggregateInput
   _max?: Prisma.JobPostMaxOrderByAggregateInput
   _min?: Prisma.JobPostMinOrderByAggregateInput
+  _sum?: Prisma.JobPostSumOrderByAggregateInput
 }
 
 export type JobPostScalarWhereWithAggregatesInput = {
@@ -255,6 +317,8 @@ export type JobPostScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"JobPost"> | string
   specializationTagId?: Prisma.StringWithAggregatesFilter<"JobPost"> | string
   isOpen?: Prisma.BoolWithAggregatesFilter<"JobPost"> | boolean
+  salary?: Prisma.DecimalNullableWithAggregatesFilter<"JobPost"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.IntNullableWithAggregatesFilter<"JobPost"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"JobPost"> | Date | string
 }
 
@@ -263,6 +327,8 @@ export type JobPostCreateInput = {
   title: string
   description: string
   isOpen?: boolean
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: number | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutJobPostsInput
   specializationTag: Prisma.SpecializationTagCreateNestedOneWithoutJobPostsInput
@@ -276,6 +342,8 @@ export type JobPostUncheckedCreateInput = {
   description: string
   specializationTagId: string
   isOpen?: boolean
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: number | null
   createdAt?: Date | string
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutJobPostInput
 }
@@ -285,6 +353,8 @@ export type JobPostUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutJobPostsNestedInput
   specializationTag?: Prisma.SpecializationTagUpdateOneRequiredWithoutJobPostsNestedInput
@@ -298,6 +368,8 @@ export type JobPostUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   specializationTagId?: Prisma.StringFieldUpdateOperationsInput | string
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutJobPostNestedInput
 }
@@ -309,6 +381,8 @@ export type JobPostCreateManyInput = {
   description: string
   specializationTagId: string
   isOpen?: boolean
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: number | null
   createdAt?: Date | string
 }
 
@@ -317,6 +391,8 @@ export type JobPostUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -327,6 +403,8 @@ export type JobPostUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   specializationTagId?: Prisma.StringFieldUpdateOperationsInput | string
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -347,7 +425,14 @@ export type JobPostCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   specializationTagId?: Prisma.SortOrder
   isOpen?: Prisma.SortOrder
+  salary?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type JobPostAvgOrderByAggregateInput = {
+  salary?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
 }
 
 export type JobPostMaxOrderByAggregateInput = {
@@ -357,6 +442,8 @@ export type JobPostMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   specializationTagId?: Prisma.SortOrder
   isOpen?: Prisma.SortOrder
+  salary?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -367,7 +454,14 @@ export type JobPostMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   specializationTagId?: Prisma.SortOrder
   isOpen?: Prisma.SortOrder
+  salary?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type JobPostSumOrderByAggregateInput = {
+  salary?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
 }
 
 export type JobPostScalarRelationFilter = {
@@ -419,6 +513,22 @@ export type JobPostUncheckedUpdateManyWithoutBusinessNestedInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type JobPostCreateNestedManyWithoutSpecializationTagInput = {
@@ -482,6 +592,8 @@ export type JobPostCreateWithoutBusinessInput = {
   title: string
   description: string
   isOpen?: boolean
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: number | null
   createdAt?: Date | string
   specializationTag: Prisma.SpecializationTagCreateNestedOneWithoutJobPostsInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutJobPostInput
@@ -493,6 +605,8 @@ export type JobPostUncheckedCreateWithoutBusinessInput = {
   description: string
   specializationTagId: string
   isOpen?: boolean
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: number | null
   createdAt?: Date | string
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutJobPostInput
 }
@@ -533,6 +647,8 @@ export type JobPostScalarWhereInput = {
   description?: Prisma.StringFilter<"JobPost"> | string
   specializationTagId?: Prisma.StringFilter<"JobPost"> | string
   isOpen?: Prisma.BoolFilter<"JobPost"> | boolean
+  salary?: Prisma.DecimalNullableFilter<"JobPost"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.IntNullableFilter<"JobPost"> | number | null
   createdAt?: Prisma.DateTimeFilter<"JobPost"> | Date | string
 }
 
@@ -541,6 +657,8 @@ export type JobPostCreateWithoutSpecializationTagInput = {
   title: string
   description: string
   isOpen?: boolean
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: number | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutJobPostsInput
   applications?: Prisma.TrainerApplicationCreateNestedManyWithoutJobPostInput
@@ -552,6 +670,8 @@ export type JobPostUncheckedCreateWithoutSpecializationTagInput = {
   title: string
   description: string
   isOpen?: boolean
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: number | null
   createdAt?: Date | string
   applications?: Prisma.TrainerApplicationUncheckedCreateNestedManyWithoutJobPostInput
 }
@@ -587,6 +707,8 @@ export type JobPostCreateWithoutApplicationsInput = {
   title: string
   description: string
   isOpen?: boolean
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: number | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutJobPostsInput
   specializationTag: Prisma.SpecializationTagCreateNestedOneWithoutJobPostsInput
@@ -599,6 +721,8 @@ export type JobPostUncheckedCreateWithoutApplicationsInput = {
   description: string
   specializationTagId: string
   isOpen?: boolean
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: number | null
   createdAt?: Date | string
 }
 
@@ -623,6 +747,8 @@ export type JobPostUpdateWithoutApplicationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutJobPostsNestedInput
   specializationTag?: Prisma.SpecializationTagUpdateOneRequiredWithoutJobPostsNestedInput
@@ -635,6 +761,8 @@ export type JobPostUncheckedUpdateWithoutApplicationsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   specializationTagId?: Prisma.StringFieldUpdateOperationsInput | string
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -644,6 +772,8 @@ export type JobPostCreateManyBusinessInput = {
   description: string
   specializationTagId: string
   isOpen?: boolean
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: number | null
   createdAt?: Date | string
 }
 
@@ -652,6 +782,8 @@ export type JobPostUpdateWithoutBusinessInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   specializationTag?: Prisma.SpecializationTagUpdateOneRequiredWithoutJobPostsNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutJobPostNestedInput
@@ -663,6 +795,8 @@ export type JobPostUncheckedUpdateWithoutBusinessInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   specializationTagId?: Prisma.StringFieldUpdateOperationsInput | string
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutJobPostNestedInput
 }
@@ -673,6 +807,8 @@ export type JobPostUncheckedUpdateManyWithoutBusinessInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   specializationTagId?: Prisma.StringFieldUpdateOperationsInput | string
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -682,6 +818,8 @@ export type JobPostCreateManySpecializationTagInput = {
   title: string
   description: string
   isOpen?: boolean
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: number | null
   createdAt?: Date | string
 }
 
@@ -690,6 +828,8 @@ export type JobPostUpdateWithoutSpecializationTagInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutJobPostsNestedInput
   applications?: Prisma.TrainerApplicationUpdateManyWithoutJobPostNestedInput
@@ -701,6 +841,8 @@ export type JobPostUncheckedUpdateWithoutSpecializationTagInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applications?: Prisma.TrainerApplicationUncheckedUpdateManyWithoutJobPostNestedInput
 }
@@ -711,6 +853,8 @@ export type JobPostUncheckedUpdateManyWithoutSpecializationTagInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -752,6 +896,8 @@ export type JobPostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   description?: boolean
   specializationTagId?: boolean
   isOpen?: boolean
+  salary?: boolean
+  experience?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   specializationTag?: boolean | Prisma.SpecializationTagDefaultArgs<ExtArgs>
@@ -766,6 +912,8 @@ export type JobPostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   description?: boolean
   specializationTagId?: boolean
   isOpen?: boolean
+  salary?: boolean
+  experience?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   specializationTag?: boolean | Prisma.SpecializationTagDefaultArgs<ExtArgs>
@@ -778,6 +926,8 @@ export type JobPostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   description?: boolean
   specializationTagId?: boolean
   isOpen?: boolean
+  salary?: boolean
+  experience?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   specializationTag?: boolean | Prisma.SpecializationTagDefaultArgs<ExtArgs>
@@ -790,10 +940,12 @@ export type JobPostSelectScalar = {
   description?: boolean
   specializationTagId?: boolean
   isOpen?: boolean
+  salary?: boolean
+  experience?: boolean
   createdAt?: boolean
 }
 
-export type JobPostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "title" | "description" | "specializationTagId" | "isOpen" | "createdAt", ExtArgs["result"]["jobPost"]>
+export type JobPostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "title" | "description" | "specializationTagId" | "isOpen" | "salary" | "experience" | "createdAt", ExtArgs["result"]["jobPost"]>
 export type JobPostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   specializationTag?: boolean | Prisma.SpecializationTagDefaultArgs<ExtArgs>
@@ -823,6 +975,8 @@ export type $JobPostPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     description: string
     specializationTagId: string
     isOpen: boolean
+    salary: runtime.Decimal | null
+    experience: number | null
     createdAt: Date
   }, ExtArgs["result"]["jobPost"]>
   composites: {}
@@ -1256,6 +1410,8 @@ export interface JobPostFieldRefs {
   readonly description: Prisma.FieldRef<"JobPost", 'String'>
   readonly specializationTagId: Prisma.FieldRef<"JobPost", 'String'>
   readonly isOpen: Prisma.FieldRef<"JobPost", 'Boolean'>
+  readonly salary: Prisma.FieldRef<"JobPost", 'Decimal'>
+  readonly experience: Prisma.FieldRef<"JobPost", 'Int'>
   readonly createdAt: Prisma.FieldRef<"JobPost", 'DateTime'>
 }
     

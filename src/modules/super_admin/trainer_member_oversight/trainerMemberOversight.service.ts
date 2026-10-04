@@ -30,7 +30,7 @@ const getAllUsers = async (query: Record<string, unknown>) => {
     delete queryParams.status;
   }
 
-  // Strict Role Restriction: Only MEMBER and TRAINER are ever allowed
+  // Role Restriction: filter by allowed oversight roles or requested role
   let targetRoles: Role[] = [...allowedOversightRoles];
   if (
     queryParams.role &&
@@ -93,6 +93,14 @@ const getAllUsers = async (query: Record<string, unknown>) => {
           },
         },
       },
+      ownedBusinesses: {
+        select: {
+          id: true,
+          name: true,
+          status: true,
+        },
+        take: 5,
+      },
     });
 
   const result = await userQueryBuilder.execute();
@@ -120,6 +128,16 @@ const getAllUsers = async (query: Record<string, unknown>) => {
         id: m.business?.id,
         name: m.business?.name,
         status: m.status,
+      }));
+    } else if (
+      user.role === Role.BUSINESS_OWNER &&
+      user.ownedBusinesses &&
+      user.ownedBusinesses.length > 0
+    ) {
+      businessInfo = user.ownedBusinesses.map((b: any) => ({
+        id: b.id,
+        name: b.name,
+        status: b.status,
       }));
     }
 
@@ -151,11 +169,11 @@ const updateAccountStatus = async (
   adminId: string,
   status: UserAccountStatus
 ) => {
-  // Prevent SUPER_ADMIN self-suspension / self-modification
+  // Prevent admin self-suspension / self-modification
   if (targetUserId === adminId) {
     throw new AppError(
       400,
-      'SUPER_ADMIN cannot modify their own account status'
+      'You cannot modify your own account status'
     );
   }
 
@@ -168,11 +186,19 @@ const updateAccountStatus = async (
     throw new AppError(404, 'User not found');
   }
 
-  // Enforce role restriction: only MEMBER and TRAINER accounts can be modified
+  // Prevent modifying SUPER_ADMIN accounts
+  if (targetUser.role === Role.SUPER_ADMIN) {
+    throw new AppError(
+      400,
+      'Super Admin accounts cannot be suspended'
+    );
+  }
+
+  // Enforce role restriction
   if (!allowedOversightRoles.includes(targetUser.role)) {
     throw new AppError(
       403,
-      `Cannot modify account with role ${targetUser.role}. Only MEMBER and TRAINER accounts can be modified.`
+      `Cannot modify account with role ${targetUser.role}.`
     );
   }
 

@@ -2,7 +2,8 @@ import { prisma } from "../../lib/prisma";
 import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
 import { QueryBuilder } from "../../utils/queryBuilder";
-import { BookingStatus, PaymentStatus, PaymentPurpose, PayoutStatus } from "../../generated/prisma/client";
+import { BookingStatus, PaymentStatus, PaymentPurpose, PayoutStatus, StaffPermissionRole } from "../../generated/prisma/client";
+import { verifyBusinessAccess } from "../../utils/businessAccess";
 
 // Helpers for period calculation
 const getDateRange = (period: string, year: number, month?: number, quarter?: number) => {
@@ -13,10 +14,9 @@ const getDateRange = (period: string, year: number, month?: number, quarter?: nu
         startDate = new Date(year, 0, 1);
         endDate = new Date(year + 1, 0, 1);
     } else if (period === 'quarter') {
-        const q = quarter || Math.floor(new Date().getMonth() / 3) + 1;
-        const startMonth = (q - 1) * 3;
-        startDate = new Date(year, startMonth, 1);
-        endDate = new Date(year, startMonth + 3, 1);
+        const qStart = quarter ? (quarter - 1) * 3 : 0;
+        startDate = new Date(year, qStart, 1);
+        endDate = new Date(year, qStart + 3, 1);
     } else {
         // month
         const m = month ? month - 1 : new Date().getMonth();
@@ -27,16 +27,10 @@ const getDateRange = (period: string, year: number, month?: number, quarter?: nu
 }
 
 const verifyBusinessOwnership = async (businessId: string, userId: string) => {
-    const business = await prisma.business.findUnique({
-        where: { id: businessId },
-        select: { ownerId: true }
-    });
-    if (!business) {
-        throw new AppError(httpStatus.NOT_FOUND, "Business not found");
-    }
-    if (business.ownerId !== userId) {
-        throw new AppError(httpStatus.FORBIDDEN, "You do not own this business");
-    }
+    await verifyBusinessAccess(businessId, userId, [
+        StaffPermissionRole.FINANCE,
+        StaffPermissionRole.FULL,
+    ]);
 };
 
 const getRevenueReport = async (userId: string, businessId: string, query: any) => {
@@ -47,31 +41,58 @@ const getRevenueReport = async (userId: string, businessId: string, query: any) 
     const month = query.month ? parseInt(query.month as string) : new Date().getMonth() + 1;
     const quarter = query.quarter ? parseInt(query.quarter as string) : Math.floor(new Date().getMonth() / 3) + 1;
 
-    const { startDate, endDate } = getDateRange(period, year, month, quarter);
+    let startDate: Date;
+    let endDate: Date;
+    let prevStartDate: Date;
+    let prevEndDate: Date;
 
-    // Get previous period dates for growth calculation
-    let prevYear = year;
-    let prevMonth = month;
-    let prevQuarter = quarter;
+    const fromDateStr = query.from || query.dateFrom;
+    const toDateStr = query.to || query.dateTo;
 
-    if (period === 'year') prevYear -= 1;
-    else if (period === 'quarter') {
-        if (quarter === 1) { prevQuarter = 4; prevYear -= 1; }
-        else { prevQuarter -= 1; }
+    if (fromDateStr || toDateStr) {
+        startDate = fromDateStr ? new Date(fromDateStr) : new Date(0);
+        if (toDateStr) {
+            const d = new Date(toDateStr);
+            d.setHours(23, 59, 59, 999);
+            endDate = d;
+        } else {
+            endDate = new Date();
+        }
+        const diff = endDate.getTime() - startDate.getTime();
+        prevStartDate = new Date(startDate.getTime() - diff);
+        prevEndDate = new Date(startDate.getTime());
+    } else if (period === 'all') {
+        startDate = new Date(0);
+        endDate = new Date();
+        prevStartDate = new Date(0);
+        prevEndDate = new Date(0);
     } else {
-        if (month === 1) { prevMonth = 12; prevYear -= 1; }
-        else { prevMonth -= 1; }
-    }
-    
-    const { startDate: prevStartDate, endDate: prevEndDate } = getDateRange(period, prevYear, prevMonth, prevQuarter);
+        const range = getDateRange(period, year, month, quarter);
+        startDate = range.startDate;
+        endDate = range.endDate;
 
-    // Queries
-    const whereConditions = {
+        // Get previous period dates for growth calculation
+        let prevYear = year;
+        let prevMonth = month;
+        let prevQuarter = quarter;
+
+        if (period === 'year') prevYear -= 1;
+        else if (period === 'quarter') {
+            if (quarter === 1) { prevQuarter = 4; prevYear -= 1; }
+            else { prevQuarter -= 1; }
+        } else {
+            if (month === 1) { prevMonth = 12; prevYear -= 1; }
+            else { prevMonth -= 1; }
+        }
+        const prevRange = getDateRange(period, prevYear, prevMonth, prevQuarter);
+        prevStartDate = prevRange.startDate;
+        prevEndDate = prevRange.endDate;
+    }
+
+    // Successful membership payments for this business
+    const whereConditions: any = {
         membership: {
             businessId,
-            status: {
-                in: [BookingStatus.ACTIVE, BookingStatus.EXPIRED] 
-            }
         },
         status: PaymentStatus.SUCCESS,
         purpose: PaymentPurpose.MEMBERSHIP,
@@ -96,7 +117,28 @@ const getRevenueReport = async (userId: string, businessId: string, query: any) 
 
     const paymentsForChart = prisma.payment.findMany({
         where: { ...whereConditions, createdAt: { gte: startDate, lt: endDate } },
-        select: { amount: true, createdAt: true, membership: { select: { planId: true, plan: { select: { name: true } } } } }
+        orderBy: { createdAt: 'desc' },
+        select: {
+            id: true,
+            amount: true,
+            currency: true,
+            gateway: true,
+            gatewayTransactionId: true,
+            createdAt: true,
+            payer: {
+                select: {
+                    fullName: true,
+                    email: true,
+                    profileImage: true,
+                }
+            },
+            membership: {
+                select: {
+                    planId: true,
+                    plan: { select: { name: true, price: true } }
+                }
+            }
+        }
     });
 
     const [currentStats, prevStats, payments] = await Promise.all([currentPeriodQuery, prevPeriodQuery, paymentsForChart]);
@@ -112,22 +154,24 @@ const getRevenueReport = async (userId: string, businessId: string, query: any) 
         growthPercentage = 100;
     }
 
-    // Chart processing
+    // Chart processing & groupings
     const chartMap = new Map<string, number>();
     const topPlansMap = new Map<string, { planId: string; planName: string; totalSales: number; revenue: number }>();
+    const gatewayMap = new Map<string, { gateway: string; count: number; amount: number }>();
 
     for (const p of payments) {
         const amt = Number(p.amount);
         let label = "";
-        
-        if (period === 'month') {
-            // Group by week
-            const date = p.createdAt.getDate();
+
+        if (period === 'month' || fromDateStr) {
+            const d = new Date(p.createdAt);
+            const date = d.getDate();
             const week = Math.ceil(date / 7);
             label = `Week ${week > 4 ? 4 : week}`;
         } else if (period === 'year' || period === 'quarter') {
-            // Group by month
-            label = p.createdAt.toLocaleString('default', { month: 'short' });
+            label = new Date(p.createdAt).toLocaleString('default', { month: 'short' });
+        } else {
+            label = new Date(p.createdAt).toLocaleDateString('default', { month: 'short', day: 'numeric' });
         }
 
         chartMap.set(label, (chartMap.get(label) || 0) + amt);
@@ -143,20 +187,62 @@ const getRevenueReport = async (userId: string, businessId: string, query: any) 
             planStats.totalSales += 1;
             planStats.revenue += amt;
         }
+
+        // Gateway breakdown
+        const gw = p.gateway || 'OTHER';
+        if (!gatewayMap.has(gw)) {
+            gatewayMap.set(gw, { gateway: gw, count: 0, amount: 0 });
+        }
+        const gwStats = gatewayMap.get(gw)!;
+        gwStats.count += 1;
+        gwStats.amount += amt;
     }
 
     const chart = Array.from(chartMap.entries()).map(([label, revenue]) => ({ label, revenue }));
-    const topPlans = Array.from(topPlansMap.values()).sort((a, b) => b.revenue - a.revenue).slice(0, 5);
+    const topPlans = Array.from(topPlansMap.values()).sort((a, b) => b.revenue - a.revenue);
+    const gatewayBreakdown = Array.from(gatewayMap.values()).sort((a, b) => b.amount - a.amount);
+
+    const breakdown = topPlans.map((item) => ({
+        planName: item.planName,
+        count: item.totalSales,
+        amount: item.revenue,
+    }));
+
+    const recentTransactions = payments.map((p) => ({
+        id: p.id,
+        amount: Number(p.amount),
+        currency: p.currency,
+        gateway: p.gateway,
+        transactionId: p.gatewayTransactionId || p.id.substring(0, 10),
+        createdAt: p.createdAt,
+        payer: {
+            name: p.payer?.fullName || 'Gym Member',
+            email: p.payer?.email || '',
+            image: p.payer?.profileImage || '',
+        },
+        planName: p.membership?.plan?.name || 'Membership Plan',
+    }));
+
+    const summary = {
+        totalRevenue,
+        totalMemberships,
+        averageMembershipValue: totalMemberships > 0 ? Number((totalRevenue / totalMemberships).toFixed(2)) : 0,
+        growthPercentage: Number(growthPercentage.toFixed(2))
+    };
 
     return {
-        summary: {
-            totalRevenue,
-            totalMemberships,
-            averageMembershipValue: totalMemberships > 0 ? Number((totalRevenue / totalMemberships).toFixed(2)) : 0,
-            growthPercentage: Number(growthPercentage.toFixed(2))
-        },
+        summary,
         chart,
-        topPlans
+        topPlans,
+        gatewayBreakdown,
+        recentTransactions,
+        // Top-level aliases for robust compatibility
+        totalRevenue: summary.totalRevenue,
+        totalTransactions: summary.totalMemberships,
+        averageTicket: summary.averageMembershipValue,
+        total: summary.totalRevenue,
+        count: summary.totalMemberships,
+        breakdown,
     };
 };
 
@@ -171,10 +257,17 @@ const getPayoutReport = async (userId: string, businessId: string, query: any) =
     if (query.trainerId) {
         whereConditions.trainerId = query.trainerId;
     }
-    if (query.from || query.to) {
+    
+    const fromVal = query.from || query.dateFrom;
+    const toVal = query.to || query.dateTo;
+    if (fromVal || toVal) {
         whereConditions.month = {};
-        if (query.from) whereConditions.month.gte = new Date(query.from);
-        if (query.to) whereConditions.month.lte = new Date(query.to);
+        if (fromVal) whereConditions.month.gte = new Date(fromVal);
+        if (toVal) {
+            const d = new Date(toVal);
+            d.setHours(23, 59, 59, 999);
+            whereConditions.month.lte = d;
+        }
     }
 
     const config = {
@@ -196,6 +289,9 @@ const getPayoutReport = async (userId: string, businessId: string, query: any) =
         amount: true,
         status: true,
         paidAt: true,
+        month: true,
+        createdAt: true,
+        transactionReference: true,
         trainer: {
             select: {
                 id: true,
@@ -249,8 +345,29 @@ const getPayoutReport = async (userId: string, businessId: string, query: any) =
         },
         amount: Number(item.amount),
         status: item.status,
+        month: item.month,
+        createdAt: item.createdAt,
         paymentDate: item.paidAt,
-        reference: `TXN${item.id.substring(0, 8).toUpperCase()}` 
+        reference: item.transactionReference || `TXN${item.id.substring(0, 8).toUpperCase()}` 
+    }));
+
+    const summary = {
+        totalPaid,
+        pendingAmount,
+        failedAmount,
+        totalPayouts
+    };
+
+    const trainers = formattedData.map((item: any) => ({
+        id: item.id,
+        trainerName: item.trainer.name,
+        email: item.trainer.email,
+        profilePhoto: item.trainer.profilePhoto,
+        status: item.status,
+        totalPayout: item.amount,
+        paymentDate: item.paymentDate,
+        reference: item.reference,
+        monthsCount: 1,
     }));
 
     return {
@@ -261,13 +378,12 @@ const getPayoutReport = async (userId: string, businessId: string, query: any) =
             totalPages: Math.ceil(total / (Number(query.limit) || 10)),
         },
         data: {
-            summary: {
-                totalPaid,
-                pendingAmount,
-                failedAmount,
-                totalPayouts
-            },
-            payouts: formattedData
+            summary,
+            totalPaid,
+            pendingAmount,
+            totalAmount: totalPaid,
+            payouts: formattedData,
+            trainers,
         }
     };
 };

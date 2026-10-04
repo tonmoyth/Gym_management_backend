@@ -12,6 +12,9 @@ model JobPost {
 
   isOpen Boolean @default(true)
 
+  salary     Decimal? @db.Decimal(10, 2)
+  experience Int?     @default(0)
+
   createdAt DateTime @default(now())
 
   applications TrainerApplication[]

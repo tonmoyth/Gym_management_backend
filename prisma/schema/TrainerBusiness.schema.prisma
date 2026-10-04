@@ -9,6 +9,9 @@ model TrainerBusiness {
 
   isActive Boolean @default(true)
 
+  monthlySalary Decimal? @db.Decimal(10, 2)
+  notes         String?
+
   joinedAt DateTime @default(now())
 
   @@unique([trainerId, businessId])

@@ -1,0 +1,20 @@
+model SubscriptionPlan {
+  id           String                 @id @default(uuid())
+  name         String                 @unique
+  description  String?
+  price        Decimal                @db.Decimal(10, 2)
+  billingCycle BillingCycle
+  durationDays Int                    @default(30)
+  features     String[]               @default([])
+  status       SubscriptionPlanStatus @default(ACTIVE)
+
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+
+  businessSubscriptions BusinessSubscription[]
+  subscriptionPayments  SubscriptionPayment[]
+
+  @@index([status])
+  @@index([billingCycle])
+  @@index([createdAt])
+}

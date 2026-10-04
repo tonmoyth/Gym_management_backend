@@ -30,7 +30,22 @@ const getMyDisputes = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getSingleDispute = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user as { id: string; role: string };
+  const { id } = req.params;
+
+  const result = await DisputeService.getSingleDispute(user, id as string);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Dispute retrieved successfully.',
+    data: result,
+  });
+});
+
 export const DisputeController = {
   createDispute,
   getMyDisputes,
+  getSingleDispute,
 };

@@ -17,7 +17,8 @@ import { trainerPayoutRoutes } from "../modules/trainerPayout/trainerPayout.rout
 import { announcementRoutes } from "../modules/announcement/announcement.route";
 import { classScheduleRoutes } from "../modules/classSchedule/classSchedule.route";
 import { equipmentRoutes } from "../modules/equipment/equipment.route";
-import { memberReferralSettingRoutes } from "../modules/memberReferralSetting/memberReferralSetting.route";
+// Referral system temporarily disabled - will be implemented later
+// import { memberReferralSettingRoutes } from "../modules/memberReferralSetting/memberReferralSetting.route";
 import { subscriptionRoutes } from "../modules/subscription/subscription.route";
 import { progressRoutes } from "../modules/progress/progress.route";
 import { reviewRoutes } from "../modules/review/review.route";
@@ -27,7 +28,8 @@ import { payoutRoutes } from "../modules/payout/payout.route";
 import { membershipRoutes } from "../modules/membership/membership.route";
 import { classBookingRoutes } from "../modules/classSchedule/classBooking.route";
 import { favoriteRoutes } from "../modules/favorite/favorite.route";
-import { referralRoutes } from "../modules/referral/referral.route";
+// Referral system temporarily disabled - will be implemented later
+// import { referralRoutes } from "../modules/referral/referral.route";
 import { dashboardRoutes } from "../modules/super_admin/dashboard/dashboard.route";
 import { businessManagementRoutes } from "../modules/super_admin/bussiness_management/businessManagement.route";
 import { trainerMemberOversightRoutes } from "../modules/super_admin/trainer_member_oversight/trainerMemberOversight.route";
@@ -39,7 +41,12 @@ import { contentModerationRoutes } from "../modules/super_admin/content_moderati
 import { rolePermissionManagementRoutes } from "../modules/super_admin/role_permission_management/rolePermissionManagement.route";
 import { auditLogsRoutes } from "../modules/super_admin/audit_logs/auditLogs.route";
 import { platformReportsRoutes } from "../modules/super_admin/reports_export/reports.route";
-import { referralCommissionRoutes } from "../modules/super_admin/referral_commission_management/referralCommission.route";
+// Referral system temporarily disabled - will be implemented later
+// import { referralCommissionRoutes } from "../modules/super_admin/referral_commission_management/referralCommission.route";
+import { paymentAccountRoutes } from "../modules/paymentAccount/paymentAccount.route";
+import { adminSubscriptionPlanRoutes } from "../modules/super_admin/subscription_plan/subscriptionPlan.route";
+import { adminSubscriptionPaymentRoutes } from "../modules/super_admin/subscription_payment/subscriptionPayment.route";
+import { systemAnnouncementRoutes } from "../modules/super_admin/system_announcement/systemAnnouncement.route";
 
 const router = express.Router();
 
@@ -62,6 +69,10 @@ const moduleRoutes = [
     },
     {
         path: "/payment",
+        route: paymentRoutes,
+    },
+    {
+        path: "/payments",
         route: paymentRoutes,
     },
     {
@@ -88,10 +99,11 @@ const moduleRoutes = [
         path: "/businesses",
         route: equipmentRoutes,
     },
-    {
-        path: "/businesses",
-        route: memberReferralSettingRoutes,
-    },
+    // Referral system temporarily disabled - will be implemented later
+    // {
+    //     path: "/businesses",
+    //     route: memberReferralSettingRoutes,
+    // },
     {
         path: "/businesses",
         route: membershipPlanRoutes,
@@ -156,10 +168,11 @@ const moduleRoutes = [
         path: "/favorites",
         route: favoriteRoutes,
     },
-    {
-        path: "/referrals",
-        route: referralRoutes,
-    },
+    // Referral system temporarily disabled - will be implemented later
+    // {
+    //     path: "/referrals",
+    //     route: referralRoutes,
+    // },
     {
         path: "/admin/dashboard",
         route: dashboardRoutes,
@@ -204,9 +217,26 @@ const moduleRoutes = [
         path: "/admin/reports",
         route: platformReportsRoutes,
     },
+    // Referral system temporarily disabled - will be implemented later
+    // {
+    //     path: "/admin/referrals",
+    //     route: referralCommissionRoutes,
+    // },
     {
-        path: "/admin/referrals",
-        route: referralCommissionRoutes,
+        path: "/payment-accounts",
+        route: paymentAccountRoutes,
+    },
+    {
+        path: "/admin/subscription-plans",
+        route: adminSubscriptionPlanRoutes,
+    },
+    {
+        path: "/admin/subscription-payments",
+        route: adminSubscriptionPaymentRoutes,
+    },
+    {
+        path: "/admin/announcements",
+        route: systemAnnouncementRoutes,
     },
 ];
 

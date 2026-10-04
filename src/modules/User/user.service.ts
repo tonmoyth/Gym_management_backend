@@ -15,7 +15,41 @@ const getProfile = async (userId: string) => {
       profileImage: true,
       role: true,
       isVerified: true,
+      permissions: true,
       createdAt: true,
+      ownedBusinesses: {
+        select: {
+          id: true,
+          name: true,
+          status: true,
+        },
+        take: 1,
+      },
+      memberProfile: {
+        select: {
+          id: true,
+        },
+      },
+      trainerProfile: {
+        select: {
+          id: true,
+        },
+      },
+      staffRoles: {
+        select: {
+          id: true,
+          businessId: true,
+          permissionRole: true,
+          business: {
+            select: {
+              id: true,
+              name: true,
+              status: true,
+            },
+          },
+        },
+        take: 1,
+      },
     },
   });
 
@@ -23,8 +57,37 @@ const getProfile = async (userId: string) => {
     throw new AppError(httpStatus.NOT_FOUND, "User not found or inactive");
   }
 
+  const staffAssignment = user.staffRoles?.[0];
+  const staffRole = staffAssignment?.permissionRole || null;
+  const staffBusiness = staffAssignment?.business || null;
+
+  const hasBusiness = Boolean(
+    (user.ownedBusinesses && user.ownedBusinesses.length > 0) || staffBusiness
+  );
+  const isMemberOnboarded = Boolean(user.memberProfile);
+  const isOnboarded =
+    user.role === "BUSINESS_OWNER" || user.role === "STAFF"
+      ? hasBusiness
+      : user.role === "MEMBER"
+      ? isMemberOnboarded
+      : true;
+
+  const isPlatformStaff =
+    (user.role === "STAFF" || user.role === "ADMIN") &&
+    (!user.staffRoles || user.staffRoles.length === 0);
+
+  const { ownedBusinesses, memberProfile, trainerProfile, staffRoles, ...userRest } = user;
+
   return {
-    user,
+    user: {
+      ...userRest,
+      permissions: user.permissions || [],
+      hasBusiness,
+      isOnboarded,
+      staffRole,
+      staffBusiness,
+      isPlatformStaff,
+    },
   };
 };
 

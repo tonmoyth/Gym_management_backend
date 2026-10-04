@@ -3,9 +3,12 @@ import { BusinessController } from './business.controller';
 import validateRequest from '../../middlewares/validateRequest';
 import { BusinessValidations } from './business.validation';
 import { checkAuth } from '../../middlewares/checkAuth';
+import { checkSubscription } from '../../middlewares/checkSubscription';
 import { upload } from '../../middlewares/upload';
 import { parseData } from '../../middlewares/parseData';
 import { USER_ROLE } from './business.constant';
+import { TrainerProfileController } from '../trainerProfile/trainerProfile.controller';
+import { TrainerProfileValidations } from '../trainerProfile/trainerProfile.validation';
 
 const router = express.Router();
 
@@ -26,15 +29,24 @@ router.get(
 router.get(
     '/me',
     // @ts-ignore
-    checkAuth(USER_ROLE.BUSINESS_OWNER),
+    checkAuth(USER_ROLE.BUSINESS_OWNER, USER_ROLE.STAFF),
     BusinessController.getMyBusiness
 );
 
 router.get(
     '/:id/dashboard',
     // @ts-ignore
-    checkAuth(USER_ROLE.BUSINESS_OWNER),
+    checkAuth(USER_ROLE.BUSINESS_OWNER, USER_ROLE.STAFF),
+    checkSubscription(),
     BusinessController.getBusinessDashboard
+);
+
+router.get(
+    '/:id/trainers/me/dashboard',
+    // @ts-ignore
+    checkAuth(USER_ROLE.TRAINER),
+    validateRequest(TrainerProfileValidations.getBusinessTrainerDashboardValidation),
+    TrainerProfileController.getBusinessTrainerDashboard
 );
 
 router.get(
@@ -47,6 +59,7 @@ router.patch(
     '/:id',
     // @ts-ignore
     checkAuth(USER_ROLE.BUSINESS_OWNER),
+    checkSubscription(),
     upload.fields([
         { name: "logo", maxCount: 1 },
         { name: "photos", maxCount: 20 }

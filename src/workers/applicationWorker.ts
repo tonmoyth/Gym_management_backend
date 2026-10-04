@@ -40,13 +40,16 @@ const processQueue = async () => {
 
 const handleJobWithRetry = async (jobData: any, attempt: number = 1) => {
     try {
-        if (jobData.eventType === 'REJECTED') {
+        if (jobData.eventType === 'APPROVED') {
+            await processApplicationApproved(jobData);
+        } else if (jobData.eventType === 'REJECTED') {
             await processApplicationRejected(jobData);
         } else if (jobData.eventType === 'TRAINER_REMOVED_FROM_BUSINESS') {
             await processTrainerRemoved(jobData);
+        } else if (jobData.eventType === 'TRAINER_JOB_APPLIED') {
+            await processTrainerJobApplied(jobData);
         } else {
-            // Default to approved for backward compatibility
-            await processApplicationApproved(jobData);
+            console.warn(`⚠️ Unknown or unhandled event type in application worker: ${jobData.eventType}`);
         }
     } catch (error: any) {
         if (attempt <= MAX_RETRIES) {
@@ -74,7 +77,7 @@ const processApplicationApproved = async (data: any) => {
     } = data;
 
     // 1. Idempotency Check
-    const idempotencyKey = `processed:job_application:${applicationId}`;
+    const idempotencyKey = `processed:job_application:${applicationId}:approved`;
     const alreadyProcessed = await redis.setnx(idempotencyKey, '1');
     if (alreadyProcessed === 0) {
         console.log(`⏭️ Application ${applicationId} already processed. Skipping.`);
@@ -217,3 +220,73 @@ const processTrainerRemoved = async (data: any) => {
 
     console.log(`✅ Successfully processed background tasks for trainer removal from business ${businessId}`);
 };
+
+const processTrainerJobApplied = async (data: any) => {
+    const {
+        applicationId,
+        trainerUserId,
+        trainerName,
+        trainerId,
+        businessId,
+        businessName,
+        jobPostId,
+        jobPostTitle,
+        ownerId,
+    } = data;
+
+    // 1. Idempotency Check
+    const idempotencyKey = `processed:job_application:${applicationId}:applied`;
+    const alreadyProcessed = await redis.setnx(idempotencyKey, '1');
+    if (alreadyProcessed === 0) {
+        console.log(`⏭️ Application submission ${applicationId} already processed. Skipping.`);
+        return;
+    }
+    await redis.expire(idempotencyKey, 30 * 24 * 60 * 60);
+
+    // 2. Notify Gym Owner about the new application
+    if (ownerId) {
+        try {
+            await NotificationService.createNotification(
+                ownerId,
+                'New Trainer Application 📋',
+                `${trainerName || 'A trainer'} has submitted an application for "${jobPostTitle || 'Job Opening'}".`,
+                NotificationType.JOB_APPLICATION,
+                {
+                    businessId,
+                    businessName,
+                    jobPostId,
+                    jobPostTitle,
+                    applicationId,
+                    trainerId,
+                }
+            );
+        } catch (error: any) {
+            console.error('❌ Notification failed for gym owner on application:', applicationId, error.message);
+        }
+    }
+
+    // 3. Notify Trainer that application has been submitted and is under review
+    if (trainerUserId) {
+        try {
+            await NotificationService.createNotification(
+                trainerUserId,
+                'Application Submitted 📋',
+                `Your application for "${jobPostTitle || 'Trainer'}" at ${businessName || 'the gym'} has been submitted successfully and is pending review.`,
+                NotificationType.JOB_APPLICATION,
+                {
+                    businessId,
+                    businessName,
+                    jobPostId,
+                    jobPostTitle,
+                    applicationId,
+                    status: 'PENDING',
+                }
+            );
+        } catch (error: any) {
+            console.error('❌ Notification failed for trainer on application submission:', applicationId, error.message);
+        }
+    }
+
+    console.log(`✅ Successfully processed submission tasks for application ${applicationId}`);
+};
+

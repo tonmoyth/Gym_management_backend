@@ -23,6 +23,14 @@ const createProgress = catchAsync(async (req: Request, res: Response) => {
     };
   }
 
+  // Auto-calculate BMI if not provided but weight and height exist
+  if (!payload.bmi && payload.weight && payload.measurements?.height) {
+    const heightInM = Number(payload.measurements.height) / 100;
+    if (heightInM > 0) {
+      payload.bmi = Number((Number(payload.weight) / (heightInM * heightInM)).toFixed(1));
+    }
+  }
+
   let result;
   if (role === "MEMBER") {
     result = await ProgressService.createSelfProgress(userId, payload);
@@ -37,7 +45,10 @@ const createProgress = catchAsync(async (req: Request, res: Response) => {
     statusCode: 201,
     success: true,
     message: "Progress recorded successfully.",
-    data: { progress: result },
+    data: {
+      ...result,
+      progress: result,
+    },
   });
 });
 
@@ -66,7 +77,20 @@ const getMyProgress = catchAsync(async (req: Request, res: Response) => {
     success: true,
     message: "Progress history retrieved successfully.",
     meta: result.meta,
-    data: { progress: result.data },
+    data: result.data,
+  });
+});
+
+const getTrainerLoggedProgress = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id as string;
+
+  const result = await ProgressService.getTrainerLoggedProgress(userId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Trainer logged progress history retrieved successfully.",
+    data: result,
   });
 });
 
@@ -74,4 +98,5 @@ export const ProgressController = {
   createProgress,
   getMemberProgressHistory,
   getMyProgress,
+  getTrainerLoggedProgress,
 };

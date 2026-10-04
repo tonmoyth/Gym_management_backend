@@ -5,7 +5,7 @@ export type UserAccountStatus = 'ACTIVE' | 'SUSPENDED';
 export interface IGetUsersQuery {
   search?: string;
   searchTerm?: string;
-  role?: 'MEMBER' | 'TRAINER';
+  role?: Role | 'MEMBER' | 'TRAINER' | 'BUSINESS_OWNER' | 'STAFF' | 'ADMIN' | 'SUPER_ADMIN';
   status?: UserAccountStatus;
   page?: string | number;
   limit?: string | number;
@@ -15,5 +15,6 @@ export interface IGetUsersQuery {
 }
 
 export interface IUpdateAccountStatusPayload {
-  status: UserAccountStatus;
+  status?: UserAccountStatus;
+  isActive?: boolean;
 }

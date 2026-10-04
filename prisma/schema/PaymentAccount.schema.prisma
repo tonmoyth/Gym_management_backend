@@ -1,0 +1,35 @@
+model PaymentAccount {
+  id            String               @id @default(uuid())
+
+  // Scoped ownership
+  userId        String?
+  user          User?                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  businessId    String?
+  business      Business?            @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  trainerId     String?
+  trainer       TrainerProfile?      @relation(fields: [trainerId], references: [id], onDelete: Cascade)
+
+  accountType   PaymentAccountType
+  accountName   String
+  accountNumber String
+  bankName      String?
+  branchName    String?
+  routingNumber String?
+  isDefault     Boolean              @default(false)
+  status        PaymentAccountStatus @default(ACTIVE)
+
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  subscriptionPayments SubscriptionPayment[]
+
+  @@index([userId])
+  @@index([businessId])
+  @@index([trainerId])
+  @@index([accountType])
+  @@index([status])
+  @@index([isDefault])
+  @@index([createdAt])
+}

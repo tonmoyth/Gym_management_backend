@@ -4,25 +4,19 @@ import httpStatus from "http-status";
 import { QueryBuilder } from "../../utils/queryBuilder";
 import { pushJob } from "../../utils/redisQueue";
 import { AttendanceEvent } from "./attendance.parser";
-import { DeviceStatus, BiometricAttendanceType, VerifyMethod } from "../../generated/prisma/client";
+import { DeviceStatus, BiometricAttendanceType, VerifyMethod, StaffPermissionRole } from "../../generated/prisma/client";
+import { verifyBusinessAccess } from "../../utils/businessAccess";
 
 // ==========================================
 // Device Management
 // ==========================================
 
 const verifyBusinessOwner = async (businessId: string, userId: string) => {
-  const business = await prisma.business.findUnique({
-    where: { id: businessId },
-    select: { ownerId: true },
-  });
-
-  if (!business) {
-    throw new AppError(httpStatus.NOT_FOUND, "Business not found");
-  }
-
-  if (business.ownerId !== userId) {
-    throw new AppError(httpStatus.FORBIDDEN, "You do not own this business");
-  }
+  await verifyBusinessAccess(businessId, userId, [
+    StaffPermissionRole.FRONT_DESK,
+    StaffPermissionRole.MEMBER_MANAGER,
+    StaffPermissionRole.FULL,
+  ]);
 };
 
 const registerDevice = async (userId: string, businessId: string, payload: { name: string; serialNumber: string; brand: string }) => {

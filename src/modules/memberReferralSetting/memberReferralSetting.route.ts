@@ -7,6 +7,8 @@ import { MemberReferralSettingValidations } from "./memberReferralSetting.valida
 
 const router = express.Router();
 
+// Referral system temporarily disabled - will be implemented later
+/*
 router.put(
   "/:businessId/referral-settings",
   // @ts-ignore
@@ -22,5 +24,6 @@ router.get(
   validateRequest(MemberReferralSettingValidations.getReferralSettingsValidation),
   MemberReferralSettingController.getReferralSettings
 );
+*/
 
 export const memberReferralSettingRoutes = router;

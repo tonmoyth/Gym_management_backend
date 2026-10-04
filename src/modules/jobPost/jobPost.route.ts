@@ -10,8 +10,15 @@ const router = express.Router();
 router.get(
   "/",
   // @ts-ignore
-  checkAuth(USER_ROLE.TRAINER),
+  checkAuth(USER_ROLE.TRAINER, USER_ROLE.BUSINESS_OWNER, USER_ROLE.STAFF),
   JobPostController.getOpenJobPosts,
+);
+
+router.get(
+  "/my-posts",
+  // @ts-ignore
+  checkAuth(USER_ROLE.BUSINESS_OWNER, USER_ROLE.STAFF),
+  JobPostController.getMyJobPosts,
 );
 
 router.get(

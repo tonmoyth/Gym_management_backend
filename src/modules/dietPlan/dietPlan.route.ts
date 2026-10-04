@@ -25,6 +25,20 @@ router.patch(
 );
 
 router.get(
+    '/assignable-members',
+    // @ts-ignore
+    checkAuth(USER_ROLE.TRAINER),
+    DietPlanController.getAssignableMembers
+);
+
+router.get(
+    '/trainer/me',
+    // @ts-ignore
+    checkAuth(USER_ROLE.TRAINER),
+    DietPlanController.getTrainerDietPlans
+);
+
+router.get(
     '/member/:memberId',
     // @ts-ignore
     checkAuth(USER_ROLE.TRAINER),

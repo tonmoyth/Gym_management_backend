@@ -323,6 +323,9 @@ export type BusinessWhereInput = {
   memberships?: Prisma.MembershipListRelationFilter
   membershipPlans?: Prisma.MembershipPlanListRelationFilter
   subscription?: Prisma.XOR<Prisma.PlatformSubscriptionNullableScalarRelationFilter, Prisma.PlatformSubscriptionWhereInput> | null
+  businessSubscription?: Prisma.XOR<Prisma.BusinessSubscriptionNullableScalarRelationFilter, Prisma.BusinessSubscriptionWhereInput> | null
+  subscriptionPayments?: Prisma.SubscriptionPaymentListRelationFilter
+  paymentAccounts?: Prisma.PaymentAccountListRelationFilter
   qrCode?: Prisma.XOR<Prisma.AttendanceQrCodeNullableScalarRelationFilter, Prisma.AttendanceQrCodeWhereInput> | null
   reviews?: Prisma.ReviewListRelationFilter
   trainers?: Prisma.TrainerBusinessListRelationFilter
@@ -368,6 +371,9 @@ export type BusinessOrderByWithRelationInput = {
   memberships?: Prisma.MembershipOrderByRelationAggregateInput
   membershipPlans?: Prisma.MembershipPlanOrderByRelationAggregateInput
   subscription?: Prisma.PlatformSubscriptionOrderByWithRelationInput
+  businessSubscription?: Prisma.BusinessSubscriptionOrderByWithRelationInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentOrderByRelationAggregateInput
+  paymentAccounts?: Prisma.PaymentAccountOrderByRelationAggregateInput
   qrCode?: Prisma.AttendanceQrCodeOrderByWithRelationInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
   trainers?: Prisma.TrainerBusinessOrderByRelationAggregateInput
@@ -416,6 +422,9 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   memberships?: Prisma.MembershipListRelationFilter
   membershipPlans?: Prisma.MembershipPlanListRelationFilter
   subscription?: Prisma.XOR<Prisma.PlatformSubscriptionNullableScalarRelationFilter, Prisma.PlatformSubscriptionWhereInput> | null
+  businessSubscription?: Prisma.XOR<Prisma.BusinessSubscriptionNullableScalarRelationFilter, Prisma.BusinessSubscriptionWhereInput> | null
+  subscriptionPayments?: Prisma.SubscriptionPaymentListRelationFilter
+  paymentAccounts?: Prisma.PaymentAccountListRelationFilter
   qrCode?: Prisma.XOR<Prisma.AttendanceQrCodeNullableScalarRelationFilter, Prisma.AttendanceQrCodeWhereInput> | null
   reviews?: Prisma.ReviewListRelationFilter
   trainers?: Prisma.TrainerBusinessListRelationFilter
@@ -508,6 +517,9 @@ export type BusinessCreateInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -552,6 +564,9 @@ export type BusinessUncheckedCreateInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -596,6 +611,9 @@ export type BusinessUpdateInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -640,6 +658,9 @@ export type BusinessUncheckedUpdateInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -935,6 +956,20 @@ export type BusinessUpdateOneRequiredWithoutStaffNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutStaffInput, Prisma.BusinessUpdateWithoutStaffInput>, Prisma.BusinessUncheckedUpdateWithoutStaffInput>
 }
 
+export type BusinessCreateNestedOneWithoutBusinessSubscriptionInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutBusinessSubscriptionInput, Prisma.BusinessUncheckedCreateWithoutBusinessSubscriptionInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutBusinessSubscriptionInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutBusinessSubscriptionNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutBusinessSubscriptionInput, Prisma.BusinessUncheckedCreateWithoutBusinessSubscriptionInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutBusinessSubscriptionInput
+  upsert?: Prisma.BusinessUpsertWithoutBusinessSubscriptionInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutBusinessSubscriptionInput, Prisma.BusinessUpdateWithoutBusinessSubscriptionInput>, Prisma.BusinessUncheckedUpdateWithoutBusinessSubscriptionInput>
+}
+
 export type BusinessCreateNestedOneWithoutChatThreadsInput = {
   create?: Prisma.XOR<Prisma.BusinessCreateWithoutChatThreadsInput, Prisma.BusinessUncheckedCreateWithoutChatThreadsInput>
   connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutChatThreadsInput
@@ -1105,6 +1140,22 @@ export type BusinessUpdateOneRequiredWithoutMembershipPlansNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutMembershipPlansInput, Prisma.BusinessUpdateWithoutMembershipPlansInput>, Prisma.BusinessUncheckedUpdateWithoutMembershipPlansInput>
 }
 
+export type BusinessCreateNestedOneWithoutPaymentAccountsInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutPaymentAccountsInput, Prisma.BusinessUncheckedCreateWithoutPaymentAccountsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutPaymentAccountsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneWithoutPaymentAccountsNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutPaymentAccountsInput, Prisma.BusinessUncheckedCreateWithoutPaymentAccountsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutPaymentAccountsInput
+  upsert?: Prisma.BusinessUpsertWithoutPaymentAccountsInput
+  disconnect?: Prisma.BusinessWhereInput | boolean
+  delete?: Prisma.BusinessWhereInput | boolean
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutPaymentAccountsInput, Prisma.BusinessUpdateWithoutPaymentAccountsInput>, Prisma.BusinessUncheckedUpdateWithoutPaymentAccountsInput>
+}
+
 export type BusinessCreateNestedOneWithoutSubscriptionInput = {
   create?: Prisma.XOR<Prisma.BusinessCreateWithoutSubscriptionInput, Prisma.BusinessUncheckedCreateWithoutSubscriptionInput>
   connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutSubscriptionInput
@@ -1145,6 +1196,20 @@ export type BusinessUpdateOneRequiredWithoutReviewsNestedInput = {
   upsert?: Prisma.BusinessUpsertWithoutReviewsInput
   connect?: Prisma.BusinessWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutReviewsInput, Prisma.BusinessUpdateWithoutReviewsInput>, Prisma.BusinessUncheckedUpdateWithoutReviewsInput>
+}
+
+export type BusinessCreateNestedOneWithoutSubscriptionPaymentsInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutSubscriptionPaymentsInput, Prisma.BusinessUncheckedCreateWithoutSubscriptionPaymentsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutSubscriptionPaymentsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutSubscriptionPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutSubscriptionPaymentsInput, Prisma.BusinessUncheckedCreateWithoutSubscriptionPaymentsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutSubscriptionPaymentsInput
+  upsert?: Prisma.BusinessUpsertWithoutSubscriptionPaymentsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutSubscriptionPaymentsInput, Prisma.BusinessUpdateWithoutSubscriptionPaymentsInput>, Prisma.BusinessUncheckedUpdateWithoutSubscriptionPaymentsInput>
 }
 
 export type BusinessCreateNestedOneWithoutTrainersInput = {
@@ -1248,6 +1313,9 @@ export type BusinessCreateWithoutAnnouncementsInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -1291,6 +1359,9 @@ export type BusinessUncheckedCreateWithoutAnnouncementsInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -1350,6 +1421,9 @@ export type BusinessUpdateWithoutAnnouncementsInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -1393,6 +1467,9 @@ export type BusinessUncheckedUpdateWithoutAnnouncementsInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1436,6 +1513,9 @@ export type BusinessCreateWithoutAttendancesInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -1479,6 +1559,9 @@ export type BusinessUncheckedCreateWithoutAttendancesInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -1538,6 +1621,9 @@ export type BusinessUpdateWithoutAttendancesInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -1581,6 +1667,9 @@ export type BusinessUncheckedUpdateWithoutAttendancesInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1625,6 +1714,9 @@ export type BusinessCreateWithoutAttendanceLogsInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -1668,6 +1760,9 @@ export type BusinessUncheckedCreateWithoutAttendanceLogsInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -1727,6 +1822,9 @@ export type BusinessUpdateWithoutAttendanceLogsInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -1770,6 +1868,9 @@ export type BusinessUncheckedUpdateWithoutAttendanceLogsInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1813,6 +1914,9 @@ export type BusinessCreateWithoutAuditLogsInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -1856,6 +1960,9 @@ export type BusinessUncheckedCreateWithoutAuditLogsInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -1915,6 +2022,9 @@ export type BusinessUpdateWithoutAuditLogsInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -1958,6 +2068,9 @@ export type BusinessUncheckedUpdateWithoutAuditLogsInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2001,6 +2114,9 @@ export type BusinessCreateWithoutBiometricDevicesInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -2044,6 +2160,9 @@ export type BusinessUncheckedCreateWithoutBiometricDevicesInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -2103,6 +2222,9 @@ export type BusinessUpdateWithoutBiometricDevicesInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -2146,6 +2268,9 @@ export type BusinessUncheckedUpdateWithoutBiometricDevicesInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2189,6 +2314,9 @@ export type BusinessCreateWithoutBusinessReferralInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -2232,6 +2360,9 @@ export type BusinessUncheckedCreateWithoutBusinessReferralInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -2291,6 +2422,9 @@ export type BusinessUpdateWithoutBusinessReferralInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -2334,6 +2468,9 @@ export type BusinessUncheckedUpdateWithoutBusinessReferralInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2376,6 +2513,9 @@ export type BusinessCreateWithoutStaffInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -2419,6 +2559,9 @@ export type BusinessUncheckedCreateWithoutStaffInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -2478,6 +2621,9 @@ export type BusinessUpdateWithoutStaffInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -2521,6 +2667,209 @@ export type BusinessUncheckedUpdateWithoutStaffInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
+  trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
+  trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
+  businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutBusinessNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutBusinessSubscriptionInput = {
+  id?: string
+  name: string
+  description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  amenities?: Prisma.BusinessCreateamenitiesInput | string[]
+  photos?: Prisma.BusinessCreatephotosInput | string[]
+  status?: $Enums.BusinessStatus
+  referralCode?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutBusinessInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutBusinessInput
+  staff?: Prisma.BusinessStaffCreateNestedManyWithoutBusinessInput
+  chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutBusinessInput
+  classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutBusinessInput
+  dietPlans?: Prisma.DietPlanCreateNestedManyWithoutBusinessInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutBusinessInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutBusinessInput
+  jobPosts?: Prisma.JobPostCreateNestedManyWithoutBusinessInput
+  memberReferrals?: Prisma.MemberReferralCreateNestedManyWithoutBusinessInput
+  referralSetting?: Prisma.MemberReferralSettingCreateNestedOneWithoutBusinessInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
+  membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
+  subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
+  qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
+  trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
+  trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
+  businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutBusinessInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutBusinessSubscriptionInput = {
+  id?: string
+  ownerId: string
+  name: string
+  description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  amenities?: Prisma.BusinessCreateamenitiesInput | string[]
+  photos?: Prisma.BusinessCreatephotosInput | string[]
+  status?: $Enums.BusinessStatus
+  referralCode?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutBusinessInput
+  staff?: Prisma.BusinessStaffUncheckedCreateNestedManyWithoutBusinessInput
+  chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutBusinessInput
+  classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutBusinessInput
+  dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutBusinessInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutBusinessInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutBusinessInput
+  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutBusinessInput
+  memberReferrals?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutBusinessInput
+  referralSetting?: Prisma.MemberReferralSettingUncheckedCreateNestedOneWithoutBusinessInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
+  membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
+  subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
+  trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
+  trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
+  businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutBusinessInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutBusinessSubscriptionInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutBusinessSubscriptionInput, Prisma.BusinessUncheckedCreateWithoutBusinessSubscriptionInput>
+}
+
+export type BusinessUpsertWithoutBusinessSubscriptionInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutBusinessSubscriptionInput, Prisma.BusinessUncheckedUpdateWithoutBusinessSubscriptionInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutBusinessSubscriptionInput, Prisma.BusinessUncheckedCreateWithoutBusinessSubscriptionInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutBusinessSubscriptionInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutBusinessSubscriptionInput, Prisma.BusinessUncheckedUpdateWithoutBusinessSubscriptionInput>
+}
+
+export type BusinessUpdateWithoutBusinessSubscriptionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
+  photos?: Prisma.BusinessUpdatephotosInput | string[]
+  status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  announcements?: Prisma.AnnouncementUpdateManyWithoutBusinessNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutBusinessNestedInput
+  staff?: Prisma.BusinessStaffUpdateManyWithoutBusinessNestedInput
+  chatThreads?: Prisma.ChatThreadUpdateManyWithoutBusinessNestedInput
+  classSchedules?: Prisma.ClassScheduleUpdateManyWithoutBusinessNestedInput
+  dietPlans?: Prisma.DietPlanUpdateManyWithoutBusinessNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutBusinessNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutBusinessNestedInput
+  jobPosts?: Prisma.JobPostUpdateManyWithoutBusinessNestedInput
+  memberReferrals?: Prisma.MemberReferralUpdateManyWithoutBusinessNestedInput
+  referralSetting?: Prisma.MemberReferralSettingUpdateOneWithoutBusinessNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
+  membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
+  subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
+  qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
+  trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
+  trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
+  businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutBusinessNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutBusinessSubscriptionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
+  photos?: Prisma.BusinessUpdatephotosInput | string[]
+  status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutBusinessNestedInput
+  staff?: Prisma.BusinessStaffUncheckedUpdateManyWithoutBusinessNestedInput
+  chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutBusinessNestedInput
+  classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutBusinessNestedInput
+  dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutBusinessNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutBusinessNestedInput
+  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutBusinessNestedInput
+  memberReferrals?: Prisma.MemberReferralUncheckedUpdateManyWithoutBusinessNestedInput
+  referralSetting?: Prisma.MemberReferralSettingUncheckedUpdateOneWithoutBusinessNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
+  membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2564,6 +2913,9 @@ export type BusinessCreateWithoutChatThreadsInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -2607,6 +2959,9 @@ export type BusinessUncheckedCreateWithoutChatThreadsInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -2666,6 +3021,9 @@ export type BusinessUpdateWithoutChatThreadsInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -2709,6 +3067,9 @@ export type BusinessUncheckedUpdateWithoutChatThreadsInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2752,6 +3113,9 @@ export type BusinessCreateWithoutClassSchedulesInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -2795,6 +3159,9 @@ export type BusinessUncheckedCreateWithoutClassSchedulesInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -2854,6 +3221,9 @@ export type BusinessUpdateWithoutClassSchedulesInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -2897,6 +3267,9 @@ export type BusinessUncheckedUpdateWithoutClassSchedulesInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2940,6 +3313,9 @@ export type BusinessCreateWithoutDietPlansInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -2983,6 +3359,9 @@ export type BusinessUncheckedCreateWithoutDietPlansInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -3042,6 +3421,9 @@ export type BusinessUpdateWithoutDietPlansInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -3085,6 +3467,9 @@ export type BusinessUncheckedUpdateWithoutDietPlansInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3129,6 +3514,9 @@ export type BusinessCreateWithoutDisputesInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -3172,6 +3560,9 @@ export type BusinessUncheckedCreateWithoutDisputesInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -3231,6 +3622,9 @@ export type BusinessUpdateWithoutDisputesInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -3274,6 +3668,9 @@ export type BusinessUncheckedUpdateWithoutDisputesInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3316,6 +3713,9 @@ export type BusinessCreateWithoutEquipmentInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -3359,6 +3759,9 @@ export type BusinessUncheckedCreateWithoutEquipmentInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -3418,6 +3821,9 @@ export type BusinessUpdateWithoutEquipmentInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -3461,6 +3867,9 @@ export type BusinessUncheckedUpdateWithoutEquipmentInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3504,6 +3913,9 @@ export type BusinessCreateWithoutFavoritesInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -3547,6 +3959,9 @@ export type BusinessUncheckedCreateWithoutFavoritesInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -3606,6 +4021,9 @@ export type BusinessUpdateWithoutFavoritesInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -3649,6 +4067,9 @@ export type BusinessUncheckedUpdateWithoutFavoritesInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3692,6 +4113,9 @@ export type BusinessCreateWithoutJobPostsInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -3735,6 +4159,9 @@ export type BusinessUncheckedCreateWithoutJobPostsInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -3794,6 +4221,9 @@ export type BusinessUpdateWithoutJobPostsInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -3837,6 +4267,9 @@ export type BusinessUncheckedUpdateWithoutJobPostsInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3881,6 +4314,9 @@ export type BusinessCreateWithoutMemberBiometricsInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -3924,6 +4360,9 @@ export type BusinessUncheckedCreateWithoutMemberBiometricsInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -3983,6 +4422,9 @@ export type BusinessUpdateWithoutMemberBiometricsInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -4026,6 +4468,9 @@ export type BusinessUncheckedUpdateWithoutMemberBiometricsInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4068,6 +4513,9 @@ export type BusinessCreateWithoutMemberReferralsInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -4111,6 +4559,9 @@ export type BusinessUncheckedCreateWithoutMemberReferralsInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -4170,6 +4621,9 @@ export type BusinessUpdateWithoutMemberReferralsInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -4213,6 +4667,9 @@ export type BusinessUncheckedUpdateWithoutMemberReferralsInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4256,6 +4713,9 @@ export type BusinessCreateWithoutReferralSettingInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -4299,6 +4759,9 @@ export type BusinessUncheckedCreateWithoutReferralSettingInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -4358,6 +4821,9 @@ export type BusinessUpdateWithoutReferralSettingInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -4401,6 +4867,9 @@ export type BusinessUncheckedUpdateWithoutReferralSettingInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4444,6 +4913,9 @@ export type BusinessCreateWithoutMembershipsInput = {
   referralSetting?: Prisma.MemberReferralSettingCreateNestedOneWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -4487,6 +4959,9 @@ export type BusinessUncheckedCreateWithoutMembershipsInput = {
   referralSetting?: Prisma.MemberReferralSettingUncheckedCreateNestedOneWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -4546,6 +5021,9 @@ export type BusinessUpdateWithoutMembershipsInput = {
   referralSetting?: Prisma.MemberReferralSettingUpdateOneWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -4589,6 +5067,9 @@ export type BusinessUncheckedUpdateWithoutMembershipsInput = {
   referralSetting?: Prisma.MemberReferralSettingUncheckedUpdateOneWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4632,6 +5113,9 @@ export type BusinessCreateWithoutMembershipPlansInput = {
   referralSetting?: Prisma.MemberReferralSettingCreateNestedOneWithoutBusinessInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -4675,6 +5159,9 @@ export type BusinessUncheckedCreateWithoutMembershipPlansInput = {
   referralSetting?: Prisma.MemberReferralSettingUncheckedCreateNestedOneWithoutBusinessInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -4734,6 +5221,9 @@ export type BusinessUpdateWithoutMembershipPlansInput = {
   referralSetting?: Prisma.MemberReferralSettingUpdateOneWithoutBusinessNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -4777,6 +5267,209 @@ export type BusinessUncheckedUpdateWithoutMembershipPlansInput = {
   referralSetting?: Prisma.MemberReferralSettingUncheckedUpdateOneWithoutBusinessNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
+  trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
+  trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
+  businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutBusinessNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutPaymentAccountsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  amenities?: Prisma.BusinessCreateamenitiesInput | string[]
+  photos?: Prisma.BusinessCreatephotosInput | string[]
+  status?: $Enums.BusinessStatus
+  referralCode?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutBusinessInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutBusinessInput
+  staff?: Prisma.BusinessStaffCreateNestedManyWithoutBusinessInput
+  chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutBusinessInput
+  classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutBusinessInput
+  dietPlans?: Prisma.DietPlanCreateNestedManyWithoutBusinessInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutBusinessInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutBusinessInput
+  jobPosts?: Prisma.JobPostCreateNestedManyWithoutBusinessInput
+  memberReferrals?: Prisma.MemberReferralCreateNestedManyWithoutBusinessInput
+  referralSetting?: Prisma.MemberReferralSettingCreateNestedOneWithoutBusinessInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
+  membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
+  subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
+  trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
+  trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
+  businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutBusinessInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutPaymentAccountsInput = {
+  id?: string
+  ownerId: string
+  name: string
+  description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  amenities?: Prisma.BusinessCreateamenitiesInput | string[]
+  photos?: Prisma.BusinessCreatephotosInput | string[]
+  status?: $Enums.BusinessStatus
+  referralCode?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutBusinessInput
+  staff?: Prisma.BusinessStaffUncheckedCreateNestedManyWithoutBusinessInput
+  chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutBusinessInput
+  classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutBusinessInput
+  dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutBusinessInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutBusinessInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutBusinessInput
+  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutBusinessInput
+  memberReferrals?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutBusinessInput
+  referralSetting?: Prisma.MemberReferralSettingUncheckedCreateNestedOneWithoutBusinessInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
+  membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
+  subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
+  trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
+  trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
+  businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutBusinessInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutPaymentAccountsInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutPaymentAccountsInput, Prisma.BusinessUncheckedCreateWithoutPaymentAccountsInput>
+}
+
+export type BusinessUpsertWithoutPaymentAccountsInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutPaymentAccountsInput, Prisma.BusinessUncheckedUpdateWithoutPaymentAccountsInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutPaymentAccountsInput, Prisma.BusinessUncheckedCreateWithoutPaymentAccountsInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutPaymentAccountsInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutPaymentAccountsInput, Prisma.BusinessUncheckedUpdateWithoutPaymentAccountsInput>
+}
+
+export type BusinessUpdateWithoutPaymentAccountsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
+  photos?: Prisma.BusinessUpdatephotosInput | string[]
+  status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  announcements?: Prisma.AnnouncementUpdateManyWithoutBusinessNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutBusinessNestedInput
+  staff?: Prisma.BusinessStaffUpdateManyWithoutBusinessNestedInput
+  chatThreads?: Prisma.ChatThreadUpdateManyWithoutBusinessNestedInput
+  classSchedules?: Prisma.ClassScheduleUpdateManyWithoutBusinessNestedInput
+  dietPlans?: Prisma.DietPlanUpdateManyWithoutBusinessNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutBusinessNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutBusinessNestedInput
+  jobPosts?: Prisma.JobPostUpdateManyWithoutBusinessNestedInput
+  memberReferrals?: Prisma.MemberReferralUpdateManyWithoutBusinessNestedInput
+  referralSetting?: Prisma.MemberReferralSettingUpdateOneWithoutBusinessNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
+  membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
+  subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
+  trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
+  trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
+  businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutBusinessNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutPaymentAccountsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
+  photos?: Prisma.BusinessUpdatephotosInput | string[]
+  status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutBusinessNestedInput
+  staff?: Prisma.BusinessStaffUncheckedUpdateManyWithoutBusinessNestedInput
+  chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutBusinessNestedInput
+  classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutBusinessNestedInput
+  dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutBusinessNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutBusinessNestedInput
+  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutBusinessNestedInput
+  memberReferrals?: Prisma.MemberReferralUncheckedUpdateManyWithoutBusinessNestedInput
+  referralSetting?: Prisma.MemberReferralSettingUncheckedUpdateOneWithoutBusinessNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
+  membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4820,6 +5513,9 @@ export type BusinessCreateWithoutSubscriptionInput = {
   referralSetting?: Prisma.MemberReferralSettingCreateNestedOneWithoutBusinessInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -4863,6 +5559,9 @@ export type BusinessUncheckedCreateWithoutSubscriptionInput = {
   referralSetting?: Prisma.MemberReferralSettingUncheckedCreateNestedOneWithoutBusinessInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -4922,6 +5621,9 @@ export type BusinessUpdateWithoutSubscriptionInput = {
   referralSetting?: Prisma.MemberReferralSettingUpdateOneWithoutBusinessNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -4965,6 +5667,9 @@ export type BusinessUncheckedUpdateWithoutSubscriptionInput = {
   referralSetting?: Prisma.MemberReferralSettingUncheckedUpdateOneWithoutBusinessNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5009,6 +5714,9 @@ export type BusinessCreateWithoutQrCodeInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
@@ -5052,6 +5760,9 @@ export type BusinessUncheckedCreateWithoutQrCodeInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
@@ -5111,6 +5822,9 @@ export type BusinessUpdateWithoutQrCodeInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
@@ -5154,6 +5868,9 @@ export type BusinessUncheckedUpdateWithoutQrCodeInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5197,6 +5914,9 @@ export type BusinessCreateWithoutReviewsInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
@@ -5240,6 +5960,9 @@ export type BusinessUncheckedCreateWithoutReviewsInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
@@ -5299,6 +6022,9 @@ export type BusinessUpdateWithoutReviewsInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
@@ -5342,7 +6068,210 @@ export type BusinessUncheckedUpdateWithoutReviewsInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
+  trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
+  trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
+  businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedUpdateManyWithoutBusinessNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutBusinessNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutSubscriptionPaymentsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  amenities?: Prisma.BusinessCreateamenitiesInput | string[]
+  photos?: Prisma.BusinessCreatephotosInput | string[]
+  status?: $Enums.BusinessStatus
+  referralCode?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutBusinessInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutBusinessInput
+  staff?: Prisma.BusinessStaffCreateNestedManyWithoutBusinessInput
+  chatThreads?: Prisma.ChatThreadCreateNestedManyWithoutBusinessInput
+  classSchedules?: Prisma.ClassScheduleCreateNestedManyWithoutBusinessInput
+  dietPlans?: Prisma.DietPlanCreateNestedManyWithoutBusinessInput
+  equipment?: Prisma.EquipmentCreateNestedManyWithoutBusinessInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutBusinessInput
+  jobPosts?: Prisma.JobPostCreateNestedManyWithoutBusinessInput
+  memberReferrals?: Prisma.MemberReferralCreateNestedManyWithoutBusinessInput
+  referralSetting?: Prisma.MemberReferralSettingCreateNestedOneWithoutBusinessInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
+  membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
+  subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
+  qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
+  trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
+  trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
+  businessReferral?: Prisma.BusinessReferralCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricCreateNestedManyWithoutBusinessInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutBusinessInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutSubscriptionPaymentsInput = {
+  id?: string
+  ownerId: string
+  name: string
+  description?: string | null
+  logo?: string | null
+  email?: string | null
+  phone?: string | null
+  whatsapp?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  amenities?: Prisma.BusinessCreateamenitiesInput | string[]
+  photos?: Prisma.BusinessCreatephotosInput | string[]
+  status?: $Enums.BusinessStatus
+  referralCode?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutBusinessInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutBusinessInput
+  staff?: Prisma.BusinessStaffUncheckedCreateNestedManyWithoutBusinessInput
+  chatThreads?: Prisma.ChatThreadUncheckedCreateNestedManyWithoutBusinessInput
+  classSchedules?: Prisma.ClassScheduleUncheckedCreateNestedManyWithoutBusinessInput
+  dietPlans?: Prisma.DietPlanUncheckedCreateNestedManyWithoutBusinessInput
+  equipment?: Prisma.EquipmentUncheckedCreateNestedManyWithoutBusinessInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutBusinessInput
+  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutBusinessInput
+  memberReferrals?: Prisma.MemberReferralUncheckedCreateNestedManyWithoutBusinessInput
+  referralSetting?: Prisma.MemberReferralSettingUncheckedCreateNestedOneWithoutBusinessInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
+  membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
+  subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
+  trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
+  trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
+  businessReferral?: Prisma.BusinessReferralUncheckedCreateNestedOneWithoutReferredBusinessInput
+  biometricDevices?: Prisma.BiometricDeviceUncheckedCreateNestedManyWithoutBusinessInput
+  attendanceLogs?: Prisma.AttendanceLogUncheckedCreateNestedManyWithoutBusinessInput
+  memberBiometrics?: Prisma.MemberBiometricUncheckedCreateNestedManyWithoutBusinessInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutBusinessInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutSubscriptionPaymentsInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutSubscriptionPaymentsInput, Prisma.BusinessUncheckedCreateWithoutSubscriptionPaymentsInput>
+}
+
+export type BusinessUpsertWithoutSubscriptionPaymentsInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutSubscriptionPaymentsInput, Prisma.BusinessUncheckedUpdateWithoutSubscriptionPaymentsInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutSubscriptionPaymentsInput, Prisma.BusinessUncheckedCreateWithoutSubscriptionPaymentsInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutSubscriptionPaymentsInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutSubscriptionPaymentsInput, Prisma.BusinessUncheckedUpdateWithoutSubscriptionPaymentsInput>
+}
+
+export type BusinessUpdateWithoutSubscriptionPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
+  photos?: Prisma.BusinessUpdatephotosInput | string[]
+  status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  announcements?: Prisma.AnnouncementUpdateManyWithoutBusinessNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutBusinessNestedInput
+  staff?: Prisma.BusinessStaffUpdateManyWithoutBusinessNestedInput
+  chatThreads?: Prisma.ChatThreadUpdateManyWithoutBusinessNestedInput
+  classSchedules?: Prisma.ClassScheduleUpdateManyWithoutBusinessNestedInput
+  dietPlans?: Prisma.DietPlanUpdateManyWithoutBusinessNestedInput
+  equipment?: Prisma.EquipmentUpdateManyWithoutBusinessNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutBusinessNestedInput
+  jobPosts?: Prisma.JobPostUpdateManyWithoutBusinessNestedInput
+  memberReferrals?: Prisma.MemberReferralUpdateManyWithoutBusinessNestedInput
+  referralSetting?: Prisma.MemberReferralSettingUpdateOneWithoutBusinessNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
+  membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
+  subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
+  qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
+  trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
+  trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
+  businessReferral?: Prisma.BusinessReferralUpdateOneWithoutReferredBusinessNestedInput
+  biometricDevices?: Prisma.BiometricDeviceUpdateManyWithoutBusinessNestedInput
+  attendanceLogs?: Prisma.AttendanceLogUpdateManyWithoutBusinessNestedInput
+  memberBiometrics?: Prisma.MemberBiometricUpdateManyWithoutBusinessNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutBusinessNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutSubscriptionPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  amenities?: Prisma.BusinessUpdateamenitiesInput | string[]
+  photos?: Prisma.BusinessUpdatephotosInput | string[]
+  status?: Prisma.EnumBusinessStatusFieldUpdateOperationsInput | $Enums.BusinessStatus
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutBusinessNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutBusinessNestedInput
+  staff?: Prisma.BusinessStaffUncheckedUpdateManyWithoutBusinessNestedInput
+  chatThreads?: Prisma.ChatThreadUncheckedUpdateManyWithoutBusinessNestedInput
+  classSchedules?: Prisma.ClassScheduleUncheckedUpdateManyWithoutBusinessNestedInput
+  dietPlans?: Prisma.DietPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  equipment?: Prisma.EquipmentUncheckedUpdateManyWithoutBusinessNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutBusinessNestedInput
+  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutBusinessNestedInput
+  memberReferrals?: Prisma.MemberReferralUncheckedUpdateManyWithoutBusinessNestedInput
+  referralSetting?: Prisma.MemberReferralSettingUncheckedUpdateOneWithoutBusinessNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
+  membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
+  subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
   businessReferral?: Prisma.BusinessReferralUncheckedUpdateOneWithoutReferredBusinessNestedInput
@@ -5385,6 +6314,9 @@ export type BusinessCreateWithoutTrainersInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutCreateNestedManyWithoutBusinessInput
@@ -5428,6 +6360,9 @@ export type BusinessUncheckedCreateWithoutTrainersInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedCreateNestedManyWithoutBusinessInput
@@ -5487,6 +6422,9 @@ export type BusinessUpdateWithoutTrainersInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUpdateManyWithoutBusinessNestedInput
@@ -5530,6 +6468,9 @@ export type BusinessUncheckedUpdateWithoutTrainersInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainerPayouts?: Prisma.TrainerPayoutUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5573,6 +6514,9 @@ export type BusinessCreateWithoutTrainerPayoutsInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -5616,6 +6560,9 @@ export type BusinessUncheckedCreateWithoutTrainerPayoutsInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -5675,6 +6622,9 @@ export type BusinessUpdateWithoutTrainerPayoutsInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -5718,6 +6668,9 @@ export type BusinessUncheckedUpdateWithoutTrainerPayoutsInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5760,6 +6713,9 @@ export type BusinessCreateWithoutOwnerInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessCreateNestedManyWithoutBusinessInput
@@ -5803,6 +6759,9 @@ export type BusinessUncheckedCreateWithoutOwnerInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutBusinessInput
   membershipPlans?: Prisma.MembershipPlanUncheckedCreateNestedManyWithoutBusinessInput
   subscription?: Prisma.PlatformSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedCreateNestedOneWithoutBusinessInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedCreateNestedOneWithoutBusinessInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBusinessInput
   trainers?: Prisma.TrainerBusinessUncheckedCreateNestedManyWithoutBusinessInput
@@ -5914,6 +6873,9 @@ export type BusinessUpdateWithoutOwnerInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUpdateManyWithoutBusinessNestedInput
@@ -5957,6 +6919,9 @@ export type BusinessUncheckedUpdateWithoutOwnerInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutBusinessNestedInput
   membershipPlans?: Prisma.MembershipPlanUncheckedUpdateManyWithoutBusinessNestedInput
   subscription?: Prisma.PlatformSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  businessSubscription?: Prisma.BusinessSubscriptionUncheckedUpdateOneWithoutBusinessNestedInput
+  subscriptionPayments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.PaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   qrCode?: Prisma.AttendanceQrCodeUncheckedUpdateOneWithoutBusinessNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBusinessNestedInput
   trainers?: Prisma.TrainerBusinessUncheckedUpdateManyWithoutBusinessNestedInput
@@ -6006,6 +6971,8 @@ export type BusinessCountOutputType = {
   memberReferrals: number
   memberships: number
   membershipPlans: number
+  subscriptionPayments: number
+  paymentAccounts: number
   reviews: number
   trainers: number
   trainerPayouts: number
@@ -6029,6 +6996,8 @@ export type BusinessCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   memberReferrals?: boolean | BusinessCountOutputTypeCountMemberReferralsArgs
   memberships?: boolean | BusinessCountOutputTypeCountMembershipsArgs
   membershipPlans?: boolean | BusinessCountOutputTypeCountMembershipPlansArgs
+  subscriptionPayments?: boolean | BusinessCountOutputTypeCountSubscriptionPaymentsArgs
+  paymentAccounts?: boolean | BusinessCountOutputTypeCountPaymentAccountsArgs
   reviews?: boolean | BusinessCountOutputTypeCountReviewsArgs
   trainers?: boolean | BusinessCountOutputTypeCountTrainersArgs
   trainerPayouts?: boolean | BusinessCountOutputTypeCountTrainerPayoutsArgs
@@ -6136,6 +7105,20 @@ export type BusinessCountOutputTypeCountMembershipPlansArgs<ExtArgs extends runt
 /**
  * BusinessCountOutputType without action
  */
+export type BusinessCountOutputTypeCountSubscriptionPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubscriptionPaymentWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountPaymentAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentAccountWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
 export type BusinessCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ReviewWhereInput
 }
@@ -6223,6 +7206,9 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   memberships?: boolean | Prisma.Business$membershipsArgs<ExtArgs>
   membershipPlans?: boolean | Prisma.Business$membershipPlansArgs<ExtArgs>
   subscription?: boolean | Prisma.Business$subscriptionArgs<ExtArgs>
+  businessSubscription?: boolean | Prisma.Business$businessSubscriptionArgs<ExtArgs>
+  subscriptionPayments?: boolean | Prisma.Business$subscriptionPaymentsArgs<ExtArgs>
+  paymentAccounts?: boolean | Prisma.Business$paymentAccountsArgs<ExtArgs>
   qrCode?: boolean | Prisma.Business$qrCodeArgs<ExtArgs>
   reviews?: boolean | Prisma.Business$reviewsArgs<ExtArgs>
   trainers?: boolean | Prisma.Business$trainersArgs<ExtArgs>
@@ -6315,6 +7301,9 @@ export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   memberships?: boolean | Prisma.Business$membershipsArgs<ExtArgs>
   membershipPlans?: boolean | Prisma.Business$membershipPlansArgs<ExtArgs>
   subscription?: boolean | Prisma.Business$subscriptionArgs<ExtArgs>
+  businessSubscription?: boolean | Prisma.Business$businessSubscriptionArgs<ExtArgs>
+  subscriptionPayments?: boolean | Prisma.Business$subscriptionPaymentsArgs<ExtArgs>
+  paymentAccounts?: boolean | Prisma.Business$paymentAccountsArgs<ExtArgs>
   qrCode?: boolean | Prisma.Business$qrCodeArgs<ExtArgs>
   reviews?: boolean | Prisma.Business$reviewsArgs<ExtArgs>
   trainers?: boolean | Prisma.Business$trainersArgs<ExtArgs>
@@ -6352,6 +7341,9 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     memberships: Prisma.$MembershipPayload<ExtArgs>[]
     membershipPlans: Prisma.$MembershipPlanPayload<ExtArgs>[]
     subscription: Prisma.$PlatformSubscriptionPayload<ExtArgs> | null
+    businessSubscription: Prisma.$BusinessSubscriptionPayload<ExtArgs> | null
+    subscriptionPayments: Prisma.$SubscriptionPaymentPayload<ExtArgs>[]
+    paymentAccounts: Prisma.$PaymentAccountPayload<ExtArgs>[]
     qrCode: Prisma.$AttendanceQrCodePayload<ExtArgs> | null
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
     trainers: Prisma.$TrainerBusinessPayload<ExtArgs>[]
@@ -6790,6 +7782,9 @@ export interface Prisma__BusinessClient<T, Null = never, ExtArgs extends runtime
   memberships<T extends Prisma.Business$membershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   membershipPlans<T extends Prisma.Business$membershipPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$membershipPlansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MembershipPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   subscription<T extends Prisma.Business$subscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$subscriptionArgs<ExtArgs>>): Prisma.Prisma__PlatformSubscriptionClient<runtime.Types.Result.GetResult<Prisma.$PlatformSubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  businessSubscription<T extends Prisma.Business$businessSubscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$businessSubscriptionArgs<ExtArgs>>): Prisma.Prisma__BusinessSubscriptionClient<runtime.Types.Result.GetResult<Prisma.$BusinessSubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  subscriptionPayments<T extends Prisma.Business$subscriptionPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$subscriptionPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentAccounts<T extends Prisma.Business$paymentAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$paymentAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   qrCode<T extends Prisma.Business$qrCodeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$qrCodeArgs<ExtArgs>>): Prisma.Prisma__AttendanceQrCodeClient<runtime.Types.Result.GetResult<Prisma.$AttendanceQrCodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   reviews<T extends Prisma.Business$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   trainers<T extends Prisma.Business$trainersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$trainersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainerBusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7565,6 +8560,73 @@ export type Business$subscriptionArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   include?: Prisma.PlatformSubscriptionInclude<ExtArgs> | null
   where?: Prisma.PlatformSubscriptionWhereInput
+}
+
+/**
+ * Business.businessSubscription
+ */
+export type Business$businessSubscriptionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BusinessSubscription
+   */
+  select?: Prisma.BusinessSubscriptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BusinessSubscription
+   */
+  omit?: Prisma.BusinessSubscriptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BusinessSubscriptionInclude<ExtArgs> | null
+  where?: Prisma.BusinessSubscriptionWhereInput
+}
+
+/**
+ * Business.subscriptionPayments
+ */
+export type Business$subscriptionPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SubscriptionPayment
+   */
+  select?: Prisma.SubscriptionPaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SubscriptionPayment
+   */
+  omit?: Prisma.SubscriptionPaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubscriptionPaymentInclude<ExtArgs> | null
+  where?: Prisma.SubscriptionPaymentWhereInput
+  orderBy?: Prisma.SubscriptionPaymentOrderByWithRelationInput | Prisma.SubscriptionPaymentOrderByWithRelationInput[]
+  cursor?: Prisma.SubscriptionPaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubscriptionPaymentScalarFieldEnum | Prisma.SubscriptionPaymentScalarFieldEnum[]
+}
+
+/**
+ * Business.paymentAccounts
+ */
+export type Business$paymentAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PaymentAccount
+   */
+  select?: Prisma.PaymentAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PaymentAccount
+   */
+  omit?: Prisma.PaymentAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentAccountInclude<ExtArgs> | null
+  where?: Prisma.PaymentAccountWhereInput
+  orderBy?: Prisma.PaymentAccountOrderByWithRelationInput | Prisma.PaymentAccountOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentAccountWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentAccountScalarFieldEnum | Prisma.PaymentAccountScalarFieldEnum[]
 }
 
 /**

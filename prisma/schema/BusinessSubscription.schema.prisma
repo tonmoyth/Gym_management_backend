@@ -1,0 +1,31 @@
+model BusinessSubscription {
+  id                 String                     @id @default(uuid())
+
+  businessId         String                     @unique
+  business           Business                   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  subscriptionPlanId String
+  subscriptionPlan   SubscriptionPlan           @relation(fields: [subscriptionPlanId], references: [id], onDelete: Restrict)
+
+  status             BusinessSubscriptionStatus @default(PENDING)
+
+  startDate          DateTime?
+  endDate            DateTime?
+
+  // Snapshot fields to preserve commercial terms even if plan changes
+  planName           String
+  planPrice          Decimal                    @db.Decimal(10, 2)
+  billingCycle       BillingCycle
+  features           String[]                   @default([])
+
+  createdAt          DateTime                   @default(now())
+  updatedAt          DateTime                   @updatedAt
+
+  payments           SubscriptionPayment[]
+
+  @@index([businessId])
+  @@index([subscriptionPlanId])
+  @@index([status])
+  @@index([endDate])
+  @@index([createdAt])
+}

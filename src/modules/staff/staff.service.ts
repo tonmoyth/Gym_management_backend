@@ -1,14 +1,14 @@
 import AppError from '../../errors/AppError';
 import { prisma } from '../../lib/prisma';
-import { StaffPermissionRole } from '../../generated/prisma/enums';
+import { Role, StaffPermissionRole } from '../../generated/prisma/enums';
 import { QueryBuilder } from '../../utils/queryBuilder';
 
 const addStaff = async (
     businessId: string,
     ownerId: string,
-    payload: { userId: string; permissionRole: StaffPermissionRole }
+    payload: { userId?: string; email?: string; permissionRole: StaffPermissionRole }
 ) => {
-    const { userId, permissionRole } = payload;
+    const { userId, email, permissionRole } = payload;
 
     const business = await prisma.business.findUnique({
         where: { id: businessId }
@@ -22,35 +22,47 @@ const addStaff = async (
         throw new AppError(403, 'Forbidden: You do not own this business');
     }
 
-    if (userId === ownerId) {
-        throw new AppError(400, 'Business owner cannot be added as staff');
+    let user;
+    if (email) {
+        user = await prisma.user.findUnique({
+            where: { email: email.trim().toLowerCase() }
+        });
+    } else if (userId) {
+        user = await prisma.user.findUnique({
+            where: { id: userId }
+        });
     }
 
-    const user = await prisma.user.findUnique({
-        where: { id: userId }
-    });
-
     if (!user) {
-        throw new AppError(404, 'User not found');
+        throw new AppError(
+            404,
+            email
+                ? `No registered user found with email "${email}". The user must register an account on the platform first.`
+                : 'User not found'
+        );
+    }
+
+    if (user.id === ownerId) {
+        throw new AppError(400, 'Business owner cannot be added as staff to their own business');
     }
 
     const existingStaff = await prisma.businessStaff.findUnique({
         where: {
             businessId_userId: {
                 businessId,
-                userId
+                userId: user.id
             }
         }
     });
 
     if (existingStaff) {
-        throw new AppError(409, 'User is already a staff member in this business');
+        throw new AppError(409, 'This user is already a staff member in this business');
     }
 
     const newStaff = await prisma.businessStaff.create({
         data: {
             businessId,
-            userId,
+            userId: user.id,
             permissionRole
         },
         select: {
@@ -69,6 +81,14 @@ const addStaff = async (
         }
     });
 
+    // If user's role is MEMBER, elevate to STAFF for gym portal access
+    if (user.role === Role.MEMBER) {
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { role: Role.STAFF }
+        });
+    }
+
     return newStaff;
 };
 
@@ -86,7 +106,7 @@ const getStaffList = async (businessId: string, ownerId: string, queryParams: an
     }
 
     const queryBuilder = new QueryBuilder(prisma.businessStaff, queryParams, {
-        searchableFields: ['user.fullName', 'user.email', 'user.phone'],
+        searchableFields: ['user.fullName', 'user.email'],
         filterableFields: ['permissionRole', 'createdAt']
     })
         .where({ businessId })
@@ -209,6 +229,23 @@ const removeStaff = async (businessId: string, staffId: string, ownerId: string)
     await prisma.businessStaff.delete({
         where: { id: staffId }
     });
+
+    // If user has no other staff positions, restore role back to MEMBER
+    const remainingStaffCount = await prisma.businessStaff.count({
+        where: { userId: staff.userId }
+    });
+    if (remainingStaffCount === 0) {
+        const user = await prisma.user.findUnique({
+            where: { id: staff.userId },
+            select: { role: true }
+        });
+        if (user && user.role === Role.STAFF) {
+            await prisma.user.update({
+                where: { id: staff.userId },
+                data: { role: Role.MEMBER }
+            });
+        }
+    }
 
     return null;
 };

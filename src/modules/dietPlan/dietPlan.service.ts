@@ -90,16 +90,24 @@ const createDietPlan = async (trainerUserId: string, payload: ICreateDietPlanPay
     throw new AppError(403, "Trainer is not assigned to this business.");
   }
 
-  // 5. Verify Trainer is assigned to this Member
-  const isAssigned = await prisma.classBooking.findFirst({
-    where: {
-      memberId: memberProfile.id,
-      classSchedule: {
-        trainerId: trainerProfile.id,
-        businessId: businessId,
+  // 5. Verify Trainer is assigned to this Member (via class booking or active gym membership)
+  const isAssigned =
+    (await prisma.classBooking.findFirst({
+      where: {
+        memberId: memberProfile.id,
+        classSchedule: {
+          trainerId: trainerProfile.id,
+          businessId: businessId,
+        },
       },
-    },
-  });
+    })) ||
+    (await prisma.membership.findFirst({
+      where: {
+        memberId: memberProfile.id,
+        businessId: businessId,
+        status: "ACTIVE",
+      },
+    }));
 
   if (!isAssigned) {
     throw new AppError(403, "Trainer is not assigned to this member.");
@@ -116,19 +124,25 @@ const createDietPlan = async (trainerUserId: string, payload: ICreateDietPlanPay
       },
     });
 
-    if (existingPlan) {
-      throw new AppError(400, "An active diet plan already exists for this member.");
-    }
-
     const content = {
       title,
       goal,
       dailyCalories,
+      macros: (payload as any).macros || (payload as any).content?.macros || null,
       startDate,
       endDate,
       notes,
       meals,
     };
+
+    if (existingPlan) {
+      return tx.dietPlan.update({
+        where: { id: existingPlan.id },
+        data: {
+          content: content as any,
+        },
+      });
+    }
 
     return tx.dietPlan.create({
       data: {
@@ -351,9 +365,193 @@ const getMyDietPlan = async (userId: string) => {
   };
 };
 
+const getAssignableMembers = async (trainerUserId: string, businessId?: string) => {
+  const trainerProfile = await prisma.trainerProfile.findUnique({
+    where: { userId: trainerUserId },
+    include: {
+      businesses: {
+        where: { isActive: true },
+        select: {
+          businessId: true,
+          business: { select: { id: true, name: true } },
+        },
+      },
+    },
+  });
+
+  if (!trainerProfile) {
+    throw new AppError(404, "Trainer profile not found.");
+  }
+
+  const activeBusinessIds = trainerProfile.businesses.map((b) => b.businessId);
+  const targetBusinessIds = businessId
+    ? activeBusinessIds.filter((id) => id === businessId)
+    : activeBusinessIds;
+
+  if (businessId && targetBusinessIds.length === 0) {
+    throw new AppError(403, "Trainer is not assigned to this business.");
+  }
+
+  // 1. Members from class bookings for this trainer
+  const classBookings = await prisma.classBooking.findMany({
+    where: {
+      classSchedule: {
+        trainerId: trainerProfile.id,
+        ...(targetBusinessIds.length > 0 ? { businessId: { in: targetBusinessIds } } : {}),
+      },
+    },
+    select: {
+      memberId: true,
+      classSchedule: {
+        select: {
+          businessId: true,
+          business: { select: { id: true, name: true } },
+        },
+      },
+    },
+  });
+
+  // 2. Members with active memberships in these gyms
+  const memberships = targetBusinessIds.length > 0
+    ? await prisma.membership.findMany({
+        where: {
+          businessId: { in: targetBusinessIds },
+          status: "ACTIVE",
+        },
+        select: {
+          memberId: true,
+          businessId: true,
+          business: { select: { id: true, name: true } },
+        },
+      })
+    : [];
+
+  const memberBusinessMap = new Map<string, { memberId: string; businessId: string; businessName: string }>();
+
+  for (const b of classBookings) {
+    if (b.memberId && b.classSchedule?.businessId) {
+      const key = `${b.memberId}_${b.classSchedule.businessId}`;
+      if (!memberBusinessMap.has(key)) {
+        memberBusinessMap.set(key, {
+          memberId: b.memberId,
+          businessId: b.classSchedule.businessId,
+          businessName: b.classSchedule.business?.name || "Affiliated Gym",
+        });
+      }
+    }
+  }
+
+  for (const m of memberships) {
+    if (m.memberId && m.businessId) {
+      const key = `${m.memberId}_${m.businessId}`;
+      if (!memberBusinessMap.has(key)) {
+        memberBusinessMap.set(key, {
+          memberId: m.memberId,
+          businessId: m.businessId,
+          businessName: m.business?.name || "Affiliated Gym",
+        });
+      }
+    }
+  }
+
+  const memberIds = Array.from(new Set(Array.from(memberBusinessMap.values()).map((v) => v.memberId)));
+
+  if (memberIds.length === 0) {
+    return [];
+  }
+
+  const memberProfiles = await prisma.memberProfile.findMany({
+    where: { id: { in: memberIds } },
+    select: {
+      id: true,
+      userId: true,
+      user: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+          profileImage: true,
+        },
+      },
+    },
+  });
+
+  const memberMap = new Map(memberProfiles.map((mp) => [mp.id, mp]));
+
+  const result = [];
+  for (const item of memberBusinessMap.values()) {
+    const mp = memberMap.get(item.memberId);
+    if (mp && mp.user) {
+      result.push({
+        id: mp.id,
+        userId: mp.userId,
+        fullName: mp.user.fullName || "Member",
+        email: mp.user.email,
+        profileImage: mp.user.profileImage || null,
+        businessId: item.businessId,
+        businessName: item.businessName,
+      });
+    }
+  }
+
+  return result;
+};
+
+const getTrainerDietPlans = async (trainerUserId: string) => {
+  const trainerProfile = await prisma.trainerProfile.findUnique({
+    where: { userId: trainerUserId },
+  });
+
+  if (!trainerProfile) {
+    throw new AppError(404, "Trainer profile not found.");
+  }
+
+  const dietPlans = await prisma.dietPlan.findMany({
+    where: { trainerId: trainerProfile.id },
+    orderBy: { updatedAt: "desc" },
+    include: {
+      member: {
+        include: {
+          user: {
+            select: { fullName: true, email: true, profileImage: true },
+          },
+        },
+      },
+      business: {
+        select: { id: true, name: true },
+      },
+    },
+  });
+
+  return dietPlans.map((dp) => {
+    const content = (dp.content as any) || {};
+    return {
+      id: dp.id,
+      memberId: dp.memberId,
+      businessId: dp.businessId,
+      businessName: dp.business?.name || "",
+      memberName: dp.member?.user?.fullName || "Member",
+      memberEmail: dp.member?.user?.email || "",
+      memberImage: dp.member?.user?.profileImage || null,
+      title: content.title || "Nutrition Plan",
+      goal: content.goal || "",
+      dailyCalories: content.dailyCalories || content.targetCalories || 0,
+      macros: content.macros || null,
+      startDate: content.startDate || "",
+      endDate: content.endDate || "",
+      notes: content.notes || content.guidelines || "",
+      meals: content.meals || [],
+      createdAt: dp.createdAt,
+      updatedAt: dp.updatedAt,
+    };
+  });
+};
+
 export const DietPlanService = {
   createDietPlan,
   updateDietPlan,
   getMemberDietPlan,
   getMyDietPlan,
+  getAssignableMembers,
+  getTrainerDietPlans,
 };

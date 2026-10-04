@@ -321,8 +321,17 @@ const removeJobPost = async (id: string, adminId: string) => {
     throw new AppError(404, 'Job post not found');
   }
 
+  // If already closed / taken down, return gracefully without throwing error
   if (!jobPost.isOpen) {
-    throw new AppError(400, 'Job post has already been removed or closed');
+    return {
+      id: jobPost.id,
+      title: jobPost.title,
+      description: jobPost.description,
+      isOpen: false,
+      status: 'CLOSED',
+      business: jobPost.business,
+      createdAt: jobPost.createdAt,
+    };
   }
 
   // Soft removal preserving applications and historical records
@@ -393,9 +402,38 @@ const removeJobPost = async (id: string, adminId: string) => {
   };
 };
 
+const deleteJobPost = async (id: string, adminId: string) => {
+  const jobPost = await prisma.jobPost.findUnique({
+    where: { id },
+    include: {
+      business: true,
+    },
+  });
+
+  if (!jobPost) {
+    throw new AppError(404, 'Job post not found');
+  }
+
+  await prisma.jobPost.delete({
+    where: { id },
+  });
+
+  await auditLogger.record({
+    actorId: adminId,
+    action: 'JOB_POST_DELETED',
+    resource: 'JOB_POST',
+    resourceId: id,
+    businessId: jobPost.businessId,
+    details: `Permanently deleted job post "${jobPost.title}" for business ${jobPost.business?.name || 'N/A'}`,
+  });
+
+  return { id };
+};
+
 export const ContentModerationService = {
   getModerationReviews,
   removeReview,
   getModerationJobPosts,
   removeJobPost,
+  deleteJobPost,
 };

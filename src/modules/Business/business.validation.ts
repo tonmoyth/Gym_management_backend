@@ -4,12 +4,22 @@ const createBusinessBodySchema = z.object({
     name: z.string({ message: 'Name is required' }).trim().min(2, 'Name must be at least 2 characters').max(100, 'Name must be at most 100 characters'),
     description: z.string().trim().optional(),
     address: z.string({ message: 'Address is required' }).trim().min(5, 'Address must be at least 5 characters'),
-    latitude: z.number().min(-90).max(90).optional(),
-    longitude: z.number().min(-180).max(180).optional(),
-    amenities: z.array(z.string().trim()),
+    latitude: z.preprocess((val) => (val !== undefined && val !== '' && val !== null ? Number(val) : undefined), z.number().min(-90).max(90)).optional(),
+    longitude: z.preprocess((val) => (val !== undefined && val !== '' && val !== null ? Number(val) : undefined), z.number().min(-180).max(180)).optional(),
+    amenities: z.preprocess((val) => {
+        if (typeof val === 'string') {
+            try {
+                const parsed = JSON.parse(val);
+                if (Array.isArray(parsed)) return parsed;
+            } catch {
+                return val.split(',').map((s) => s.trim()).filter(Boolean);
+            }
+        }
+        return val;
+    }, z.array(z.string().trim())),
     photos: z.array(z.string().url('Invalid URL format').trim()).optional(),
     referralCode: z.string().trim().optional(),
-}).refine(data => {
+}).passthrough().refine(data => {
     const hasLat = data.latitude !== undefined && data.latitude !== null;
     const hasLng = data.longitude !== undefined && data.longitude !== null;
     return hasLat === hasLng;
@@ -86,20 +96,33 @@ const updateBusinessValidation = z.object({
     body: z.object({
         name: z.string().trim().min(2, 'Name must be at least 2 characters').max(100, 'Name must be at most 100 characters').optional(),
         description: z.string().trim().optional(),
-        email: z.string().email('Invalid email address').trim().optional(),
+        email: z.preprocess((val) => (val === '' || val === null ? undefined : val), z.string().email('Invalid email address').trim().optional()),
         phone: z.string().trim().optional(),
         whatsapp: z.string().trim().optional(),
         address: z.string().trim().min(5, 'Address must be at least 5 characters').optional(),
-        latitude: z.number().min(-90).max(90).optional(),
-        longitude: z.number().min(-180).max(180).optional(),
-        amenities: z.array(z.string().trim()).optional(),
+        latitude: z.preprocess((val) => (val !== undefined && val !== '' && val !== null ? Number(val) : undefined), z.number().min(-90).max(90)).optional(),
+        longitude: z.preprocess((val) => (val !== undefined && val !== '' && val !== null ? Number(val) : undefined), z.number().min(-180).max(180)).optional(),
+        amenities: z.preprocess((val) => {
+            if (typeof val === 'string') {
+                try {
+                    const parsed = JSON.parse(val);
+                    if (Array.isArray(parsed)) return parsed;
+                } catch {
+                    return val.split(',').map((s) => s.trim()).filter(Boolean);
+                }
+            }
+            return val;
+        }, z.array(z.string().trim())).optional(),
+        logo: z.any().optional(),
+        photos: z.any().optional(),
+        referralCode: z.string().trim().optional(),
         // Immutable fields, we allow them in schema but ignore them in service to satisfy 'Ignore these fields if client sends them'
         id: z.any().optional(),
         ownerId: z.any().optional(),
         status: z.any().optional(),
         createdAt: z.any().optional(),
         updatedAt: z.any().optional()
-    }).strict().superRefine((data, ctx) => {
+    }).passthrough().superRefine((data, ctx) => {
         const hasLat = data.latitude !== undefined;
         const hasLng = data.longitude !== undefined;
 

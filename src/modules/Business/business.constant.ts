@@ -2,7 +2,8 @@ export const USER_ROLE = {
     SUPER_ADMIN: 'SUPER_ADMIN',
     BUSINESS_OWNER: 'BUSINESS_OWNER',
     TRAINER: 'TRAINER',
-    MEMBER: 'MEMBER'
+    MEMBER: 'MEMBER',
+    STAFF: 'STAFF'
 } as const;
 
 export const businessSearchableFields = ['name', 'description', 'address'];

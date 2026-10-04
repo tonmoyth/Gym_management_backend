@@ -15,7 +15,27 @@ export const registerBusinessReferralValidation = z.object({
   }),
 });
 
+export const creditMemberReferralValidation = z.object({
+  params: z.object({
+    id: z.string({ message: "Referral ID is required" }).uuid({ message: "Invalid Referral ID format" }),
+  }),
+});
+
+export const getOwnerMemberReferralsValidation = z.object({
+  query: z.object({
+    page: z.string().optional(),
+    limit: z.string().optional(),
+    status: z.string().optional(),
+    referralCode: z.string().optional(),
+    searchTerm: z.string().optional(),
+    sortBy: z.string().optional(),
+    sortOrder: z.string().optional(),
+  }),
+});
+
 export const ReferralValidations = {
   registerReferralValidation,
   registerBusinessReferralValidation,
+  creditMemberReferralValidation,
+  getOwnerMemberReferralsValidation,
 };
