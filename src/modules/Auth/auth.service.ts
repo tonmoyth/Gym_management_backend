@@ -200,6 +200,22 @@ const verifyEmailOTP = async (email: string, otp: string) => {
     },
   });
 
+  if (updatedUser.role === "TRAINER") {
+    const existingProfile = await prisma.trainerProfile.findUnique({
+      where: { userId: updatedUser.id },
+    });
+    if (!existingProfile) {
+      await prisma.trainerProfile.create({
+        data: {
+          userId: updatedUser.id,
+          bio: "",
+          gender: "MALE",
+          profileCompletionPercent: 0,
+        },
+      });
+    }
+  }
+
   return updatedUser;
 };
 

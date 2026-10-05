@@ -300,17 +300,25 @@ const getMemberDietPlan = async (trainerUserId: string, memberId: string) => {
     title: content.title || "",
     goal: content.goal || "",
     dailyCalories: content.dailyCalories || 0,
+    macros: content.macros || null,
     startDate: content.startDate || "",
     endDate: content.endDate || "",
     notes: content.notes || "",
     meals: content.meals || [],
+    content: content,
     trainer: {
       id: dietPlan.trainerId,
       name: dietPlan.trainer.user?.fullName || "",
+      user: {
+        fullName: dietPlan.trainer.user?.fullName || "",
+      },
     },
     member: {
       id: dietPlan.memberId,
       name: dietPlan.member.user?.fullName || "",
+      user: {
+        fullName: dietPlan.member.user?.fullName || "",
+      },
     },
     updatedAt: dietPlan.updatedAt,
   };
@@ -349,17 +357,25 @@ const getMyDietPlan = async (userId: string) => {
     title: content.title || "",
     goal: content.goal || "",
     dailyCalories: content.dailyCalories || 0,
+    macros: content.macros || null,
     startDate: content.startDate || "",
     endDate: content.endDate || "",
     notes: content.notes || "",
     meals: content.meals || [],
+    content: content,
     trainer: {
       id: dietPlan.trainerId,
       name: dietPlan.trainer.user?.fullName || "",
+      user: {
+        fullName: dietPlan.trainer.user?.fullName || "",
+      },
     },
     member: {
       id: dietPlan.memberId,
       name: dietPlan.member.user?.fullName || "",
+      user: {
+        fullName: dietPlan.member.user?.fullName || "",
+      },
     },
     updatedAt: dietPlan.updatedAt,
   };
