@@ -44,9 +44,6 @@ export const checkSubscription = () => {
       return next();
     }
 
-    // 3. Resolve business context
-    let businessId: string | undefined;
-
     if (user.role === Role.BUSINESS_OWNER) {
       const ownedBusiness = await prisma.business.findUnique({
         where: { ownerId: user.id },

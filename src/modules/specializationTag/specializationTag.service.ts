@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma";
-import AppError from "../../errors/AppError";
+
 
 const generateSlug = (text: string): string => {
     return text

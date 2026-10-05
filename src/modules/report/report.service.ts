@@ -1,8 +1,6 @@
 import { prisma } from "../../lib/prisma";
-import AppError from "../../errors/AppError";
-import httpStatus from "http-status";
 import { QueryBuilder } from "../../utils/queryBuilder";
-import { BookingStatus, PaymentStatus, PaymentPurpose, PayoutStatus, StaffPermissionRole } from "../../generated/prisma/client";
+import { PaymentStatus, PaymentPurpose, PayoutStatus, StaffPermissionRole } from "../../generated/prisma/client";
 import { verifyBusinessAccess } from "../../utils/businessAccess";
 
 // Helpers for period calculation

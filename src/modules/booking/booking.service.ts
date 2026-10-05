@@ -1,5 +1,4 @@
 import { prisma } from '../../lib/prisma';
-import AppError from '../../errors/AppError';
 import { QueryBuilder } from '../../utils/queryBuilder';
 import { verifyBusinessAccess } from '../../utils/businessAccess';
 import { StaffPermissionRole } from '../../generated/prisma/enums';

@@ -225,7 +225,7 @@ const getPayouts = async (
       },
     });
 
-  const [payoutsResult, metaData, summaryData, groupedTrainers] = await Promise.all([
+  const [payoutsResult, , summaryData, groupedTrainers] = await Promise.all([
     queryBuilder.execute(),
     queryBuilder.count(),
     prisma.trainerPayout.aggregate({

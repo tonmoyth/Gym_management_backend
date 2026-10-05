@@ -19,7 +19,6 @@ import httpStatus from "http-status";
 import { auditLogger } from "../../utils/auditLogger";
 import { NotificationService } from "../../utils/notification.service";
 import { pushJob } from "../../utils/redisQueue";
-import Stripe from "stripe";
 
 const getMySubscription = async (ownerId: string, query: any) => {
   const business = await prisma.business.findUnique({

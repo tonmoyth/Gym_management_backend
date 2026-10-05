@@ -1,5 +1,4 @@
 import { prisma } from '../../../lib/prisma';
-import { BusinessStatus, PaymentStatus } from '../../../generated/prisma/enums';
 
 export const dashboardService = {
   getGlobalMetrics: async () => {

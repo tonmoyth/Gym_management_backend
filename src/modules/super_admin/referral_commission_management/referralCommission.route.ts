@@ -1,9 +1,4 @@
 import express from 'express';
-import { Role } from '../../../generated/prisma/enums';
-import { checkAuth } from '../../../middlewares/checkAuth';
-import validateRequest from '../../../middlewares/validateRequest';
-import { ReferralCommissionValidation } from './referralCommission.validation';
-import { ReferralCommissionController } from './referralCommission.controller';
 
 const router = express.Router();
 

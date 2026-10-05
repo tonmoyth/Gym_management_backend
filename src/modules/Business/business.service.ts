@@ -1,5 +1,5 @@
 import AppError from "../../errors/AppError";
-import { BookingStatus, BusinessStatus, PlanStatus, ReferralStatus } from "../../generated/prisma/enums";
+import { BookingStatus, BusinessStatus, PlanStatus } from "../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { QueryBuilder } from "../../utils/queryBuilder";
 import {
@@ -9,10 +9,6 @@ import {
 import { calculateHaversineDistance } from "../../utils/geo";
 import { uploadToCloudinary } from "../../utils/cloudinary";
 import { verifyBusinessAccess } from "../../utils/businessAccess";
-
-const generateGymReferralCode = () => {
-  return "GYM-" + Math.random().toString(36).substring(2, 7).toUpperCase();
-};
 
 const createBusiness = async (ownerId: string, payload: any) => {
   // Check duplicate business

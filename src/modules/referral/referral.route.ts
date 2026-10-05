@@ -1,10 +1,4 @@
 import express from "express";
-import { checkAuth } from "../../middlewares/checkAuth";
-import { USER_ROLE } from "../Business/business.constant";
-import validateRequest from "../../middlewares/validateRequest";
-import { ReferralValidations } from "./referral.validation";
-import { ReferralController } from "./referral.controller";
-
 
 const router = express.Router();
 

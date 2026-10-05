@@ -4,7 +4,6 @@ import { envVeriables } from '../../../config/envConfig';
 import { QueryBuilder } from '../../../utils/queryBuilder';
 import {
   PaymentGateway,
-  PaymentStatus,
 } from '../../../generated/prisma/enums';
 import {
   GATEWAY_CHECK_TIMEOUT_MS,

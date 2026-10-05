@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import "multer";
 import { catchAsync } from "../../shared/catchAsync";
 import { userService } from "./auth.service";
-import fs from "fs";
-import { uploadToS3 } from "../../utils/s3Upload";
 import { tokenUtils } from "../../utils/token";
 import { cookieUtil } from "../../utils/cookie";
 import sendResponse from "../../utils/sendResponse";
@@ -11,47 +9,20 @@ import httpStatus from "http-status";
 
 const registerUser = catchAsync(async (req: Request, res: Response) => {
   const userData = req.body;
-  const file = req.file;
-
-  // if (file) {
-  //     const imageUrl = await uploadToS3(file.path, 'users/profile', file.mimetype);
-  //     userData.profileImage = imageUrl;
-  //     fs.unlink(file.path, (err: any) => {
-  //         if (err) console.error("Temp file cleanup error:", err.message);
-  //     });
-  // }
 
   const result = await userService.signUpEmail(userData);
-
-  const { user } = result;
-
-  const jwtPayload = {
-    id: user.id,
-    email: user.email,
-    role: user.role,
-  };
-
-  // const accessToken = tokenUtils.getToken(jwtPayload);
-
-  // const refreshToken = tokenUtils.getRefreshToken(jwtPayload);
-
-  // Set tokens in cookies
-  // tokenUtils.setTokenCookie(res, accessToken);
-  // tokenUtils.setRefreshTokenCookie(res, refreshToken);
-  // tokenUtils.setBetterAuthSession(res, token);
 
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
     message: "User registered successfully and OTP sent to email",
     data: result,
-    // token: accessToken,
   });
 });
 
 const loginUser = catchAsync(async (req: Request, res: Response) => {
   const result = await userService.loginUser(req.body);
-  const { user, token } = result;
+  const { user } = result;
 
   const jwtPayload = {
     id: user.id,

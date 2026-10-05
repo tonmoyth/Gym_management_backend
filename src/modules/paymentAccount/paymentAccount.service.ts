@@ -17,12 +17,6 @@ interface IUserContext {
   role: Role;
 }
 
-interface IOwnershipScope {
-  userId?: string | null;
-  businessId?: string | null;
-  trainerId?: string | null;
-}
-
 /**
  * Resolve server-side ownership scope from authenticated user.
  * Never trusts client-supplied owner identifiers.

@@ -513,7 +513,6 @@ const processSubscriptionStatusUpdated = async (data: any) => {
 
 const processDisputeResolved = async (data: any) => {
     const {
-        userId,
         userEmail,
         userName,
         subject,

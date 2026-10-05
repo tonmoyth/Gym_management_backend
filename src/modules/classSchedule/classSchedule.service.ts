@@ -6,7 +6,7 @@ import { verifyBusinessAccess } from "../../utils/businessAccess";
 import { StaffPermissionRole } from "../../generated/prisma/enums";
 
 const createClassSchedule = async (ownerId: string, businessId: string, payload: any) => {
-  const { business } = await verifyBusinessAccess(businessId, ownerId, [
+  await verifyBusinessAccess(businessId, ownerId, [
     StaffPermissionRole.TRAINER_MANAGER,
     StaffPermissionRole.FULL,
   ]);
@@ -299,7 +299,7 @@ const getClassScheduleDetails = async (userId: string, role: string, businessId:
 };
 
 const updateClassSchedule = async (ownerId: string, businessId: string, id: string, payload: any) => {
-  const { business } = await verifyBusinessAccess(businessId, ownerId, [
+  await verifyBusinessAccess(businessId, ownerId, [
     StaffPermissionRole.TRAINER_MANAGER,
     StaffPermissionRole.FULL,
   ]);

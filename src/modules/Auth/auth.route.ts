@@ -1,6 +1,5 @@
 import express from "express";
 import { userController } from "./auth.controller";
-import { upload } from "../../middlewares/upload";
 import validateRequest from "../../middlewares/validateRequest";
 import {
   userRegisterSchema,
@@ -9,7 +8,6 @@ import {
   resetPasswordSchema,
   verifyEmailSchema,
   resendVerificationOtpSchema,
-  updateUserProfileSchema,
 } from "./auth.validation";
 import { checkAuth } from "../../middlewares/checkAuth";
 

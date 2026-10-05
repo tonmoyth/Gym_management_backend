@@ -1,9 +1,4 @@
 import express from "express";
-import { checkAuth } from "../../middlewares/checkAuth";
-import validateRequest from "../../middlewares/validateRequest";
-import { USER_ROLE } from "../Business/business.constant";
-import { MemberReferralSettingController } from "./memberReferralSetting.controller";
-import { MemberReferralSettingValidations } from "./memberReferralSetting.validation";
 
 const router = express.Router();
 

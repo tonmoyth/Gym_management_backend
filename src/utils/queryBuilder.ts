@@ -12,8 +12,6 @@ export class QueryBuilder<
     private page: number = 1;
     private limit: number = 10;
     private skip: number = 0;
-    private sortBy: string = "createdAt";
-    private sortOrder: "asc" | "desc" = "desc";
     private selectFields: Record<string, boolean> | undefined;
 
     constructor(
@@ -285,9 +283,6 @@ export class QueryBuilder<
     sort(): this {
         const sortBy = this.queryParams.sortBy || "createdAt";
         const sortOrder = this.queryParams.sortOrder === "asc" ? "asc" : "desc";
-
-        this.sortBy = sortBy;
-        this.sortOrder = sortOrder;
 
         // /doctors?sortBy=user.name&sortOrder=asc => orderBy: { user: { name: 'asc' } }
 

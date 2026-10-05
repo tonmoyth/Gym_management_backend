@@ -8,7 +8,6 @@ import { generateInvoicePDF } from "../../utils/invoiceGenerator";
 import httpStatus from "http-status";
 import { auditLogger } from "../../utils/auditLogger";
 import { NotificationService } from "../../utils/notification.service";
-import Stripe from "stripe";
 
 
 const initiatePayment = async (

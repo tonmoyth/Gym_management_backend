@@ -1,4 +1,4 @@
-import e, { NextFunction, Request, RequestHandler, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import AppError from "../errors/AppError";
 
 
